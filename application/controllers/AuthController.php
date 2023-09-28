@@ -1,15 +1,18 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class AuthController extends CI_Controller {
+class AuthController extends CI_Controller
+{
 
-	public function __construct(){
+	public function __construct()
+	{
 		parent::__construct();
 
 		$this->load->database();
-		$this->load->model('CrudModel');
+		$this->load->model('CrudModel', "crud");
+		// $this->class->yourfnc();
 
-		
+
 
 	}
 
@@ -29,11 +32,28 @@ class AuthController extends CI_Controller {
 	 * @see https://codeigniter.com/userguide3/general/urls.html
 	 */
 
-	 
+
 	public function index()
 	{
-		
-		$this->load->view('admin/admin_dashboard');
+		// $result['data'] = $this->db->select('*')
+		// 	->from('payment_transaction')
+		// 	->get()->result_array();
+		$result["data"] = $this->crud->display_record();
+
+		$result["route"] = $this->uri->segment(1);
+		$this->load->view('index', $result);
+	}
+
+
+	public function validate_route($route)
+	{
+		if (isset($route)) {
+			$this->load->view('./modules/admin_dashboard');
+			return;
+		}
+		if ($route == "crud") {
+			$this->load->view('./modules/admin_dashboard');
+		}
 	}
 
 	public function test()
@@ -42,23 +62,26 @@ class AuthController extends CI_Controller {
 	}
 
 
-	public function display_data(){
- 
+	public function redirect()
+	{
+
 		// ## With Model ####
 		// $result['data']=$this->CrudModel->display_record();
 
 		// ## Without Model ####
-		$result['data']=$this->db->select('*')
-                    ->from('payment_transaction')
-                    ->get()->result_array();
-
-		$this->load->view('admin/admin_dash',$result);
+		$route = $this->uri->segment(1);
+		$result['data'] = $this->db->select('*')
+			->from('payment_transaction')
+			->get()->result_array();
+		$result['route'] = $route;
+		$this->load->view('index', $result);
 	}
 
-	public function test_api(){
+	public function test_api()
+	{
 
-		$query=$this->db->query("SELECT * FROM payment_transaction");
-		echo json_encode ($query->result_array());
-		
+		$query = $this->db->query("SELECT * FROM payment_transaction");
+		echo json_encode($query->result_array());
+
 	}
 }
