@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body" id="form">
                 <h4 class="card-title">Acknowledgement Receipt Form</h4>
                 <br />
                 <form class="forms-sample">
@@ -45,10 +45,14 @@
                         <label for="exampleTextarea1">Textarea</label>
                         <textarea class="form-control" id="exampleTextarea1" rows="4"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
                     <button class="btn btn-light">Cancel</button>
                 </form>
+                <button type="submit" class="btn btn-primary mr-2" onclick="printElem('form')">Submit</button>
             </div>
         </div>
     </div>
 </div>
+<script>
+
+    <?php $this->load->helper('print_element') ?>
+</script>

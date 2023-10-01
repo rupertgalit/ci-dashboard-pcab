@@ -3,6 +3,7 @@
   "version": "3.0.0",
   "description": "",
   "main": "index.html",
+  "type": "module",
   "dependencies": {
     "bootstrap": "^4.3.1",
     "chart.js": "^2.8.0",
