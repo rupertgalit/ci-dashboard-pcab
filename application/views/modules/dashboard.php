@@ -54,17 +54,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="container-scroller">
         <!-- partial:partials/_navbar.html -->
 
-        <?php $this->load->view('./admin/partials/_navbar.php'); ?>
-
-        <!-- partial -->
-        <div class="container-fluid page-body-wrapper">
-            <!-- partial:partials/_sidebar.html -->
-
-            <?php $this->load->view('./admin/partials/_sidebar.php'); ?>
-
-            <!-- partial -->
-            <div class="main-panel">                      
-                <div class="content-wrapper">
+      
                     <!-- <div class="row purchace-popup">
               <div class="col-12 stretch-card grid-margin">
                 <div class="card card-secondary">
@@ -226,7 +216,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     <td>$2263</td>
                                                     <td><img src=<?php echo base_url('./assets/images/dashboard/alipay.png');?>
                                                             alt="alipay" class="gateway-icon mr-2"> alipay</td>
-                                                    <td>30 Sep 2019</td>
+                                                     <td>30 Sep 2019</td>
                                                     <td>20 Oct 2019</td>
                                                     <td>
                                                         <div class="badge badge-primary p-2">Pending</div>

@@ -58,6 +58,8 @@ $route['test']  = 'welcome/test';
 $route['transaction-table']  = 'authcontroller/index';
 $route['acknowledgement-receipt']  = 'authcontroller/index';
 $route['daily-collection']  = 'authcontroller/index';
+$route['e-collection']  = 'authcontroller/index';
+$route['dashboard']  = 'authcontroller/index';
 
 // $route['api']   = 'api/DashApi';
 $route['testapi']  = 'authcontroller/test_api';
