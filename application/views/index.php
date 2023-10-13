@@ -11,23 +11,23 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Admin Dashboard</title>
     <!-- plugins:css -->
-    <link rel="stylesheet" href=<?php echo base_url('./assets/vendors/simple-line-icons/css/simple-line-icons.css'); ?> />
-    <link rel="stylesheet" href=<?php echo base_url('./assets/vendors/flag-icon-css/css/flag-icon.min.css'); ?> />
-    <link rel="stylesheet" href=<?php echo base_url('./assets/vendors/css/vendor.bundle.base.css'); ?> />
+    <link rel="stylesheet" href=<?php echo base_url('/assets/vendors/simple-line-icons/css/simple-line-icons.css'); ?> />
+    <link rel="stylesheet" href=<?php echo base_url('/assets/vendors/flag-icon-css/css/flag-icon.min.css'); ?> />
+    <link rel="stylesheet" href=<?php echo base_url('/assets/vendors/css/vendor.bundle.base.css'); ?> />
 
     <!-- endinject -->
     <!-- Plugin css for this page -->
-    <link rel="stylesheet" href=<?php echo base_url('./assets/endors/css/vendor.bundle.base.css'); ?> />
-    <link rel="stylesheet" href=<?php echo base_url('./assets/endors/css/vendor.bundle.base.css'); ?> />
-    <link rel="stylesheet" href="./vendors/daterangepicker/daterangepicker.css" />
-    <link rel="stylesheet" href="./vendors/chartist/chartist.min.css" />
+    <link rel="stylesheet" href=<?php echo base_url('/assets/vendors/css/vendor.bundle.base.css'); ?> />
+    <link rel="stylesheet" href=<?php echo base_url('/assets/vendors/css/vendor.bundle.base.css'); ?> />
+    <link rel="stylesheet" href=<?php echo base_url('/assets/vendors/daterangepicker/daterangepicker.css'); ?> />
+    <link rel="stylesheet" href=<?php echo base_url('/assets/vendors/chartist/chartist.min.css'); ?> />
 
     <!-- inject:css -->
     <!-- endinject -->
     <!-- Layout styles -->
-    <link rel="stylesheet" href=<?php echo base_url('./assets/css/style.css'); ?> />
+    <link rel="stylesheet" href=<?php echo base_url('/assets/css/style.css'); ?> />
     <!-- End layout styles -->
-    <link rel="shortcut icon" href=<?php echo base_url('./assets/images/favicon.png'); ?> />
+    <link rel="shortcut icon" href=<?php echo base_url('/assets/images/favicon.png'); ?> />
 
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
         integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"> -->
@@ -44,7 +44,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="<?= base_url() ?>application/helpers/print-element.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 
 
@@ -70,7 +69,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 <div class="content-wrapper p-0">
                     <!-- main view container -->
                     <?php
-                    $view = isset($route) ? $route : "admin_dashboard";
+                    $view = isset($route) ? $route : "dashboard";
                     $this->load->view('./modules/' . $view);
 
                     ?>
@@ -91,12 +90,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
     <!-- container-scroller -->
     <!-- plugins:js -->
-    <script src=<?php echo base_url('./assets/off-canvas.js'); ?>></script>
-    <script src=<?php echo base_url('./assets/js/misc.js.js'); ?>></script>
+    <script src=<?php echo base_url('/assets/js/off-canvas.js'); ?>></script>
+    <script src=<?php echo base_url('/assets/js/misc.js'); ?>></script>
 
     <!-- endinject -->
     <!-- Custom js for this page -->
-    <script src=<?php echo base_url('./assets/js/dashboard.js'); ?>></script>
+
+    <script src=<?php echo base_url('/assets/js/dashboard.js'); ?>></script>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.js"></script>
     <!-- End custom js for this page -->

@@ -1,21 +1,17 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
   <ul class="nav">
-    <li class="nav-item nav-profile">
-    </li>
-    <li class="nav-item nav-category">
-    </li>
     <li class="nav-item">
       <a class="nav-link" href="<?php echo base_url('/dashboard'); ?>">
         <span class="menu-title text-capitalize">Dashboard</span>
-        <i class=" icon-screen-desktop menu-icon"></i>
-      </a>
-      <li class="nav-item">
-      <a class="nav-link" href="<?php echo base_url('/transaction-table'); ?>">
-        <span class="menu-title text-capitalize">transactions</span>
-        <i class="icon-grid  menu-icon"></i>
+        <i class="icon-screen-desktop menu-icon"></i>
       </a>
     </li>
-    </li>
+    <li class="nav-item">
+    <a class="nav-link" href="<?php echo base_url('/transaction-table'); ?>">
+      <span class="menu-title text-capitalize">transactions</span>
+      <i class="icon-grid  menu-icon"></i>
+    </a>
+  </li>
     <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
         <span class="menu-title text-capitalize">Data Table</span>
