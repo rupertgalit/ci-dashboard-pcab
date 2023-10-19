@@ -25,7 +25,7 @@
                     </div>
                     <div class="col-md-2 ">
                         <label>&nbsp;</label>
-                        <button class="btn-outline-info  border-0 btn-sm h-100 w-50 search-btn">Select</button>
+                        <button class="btn-outline-dark border-0 btn-sm h-100 w-50 search-btn">Select</button>
                     </div>
                 </div>
 
@@ -82,6 +82,7 @@
 </div>
 
 <script>
+
     $(document).ready(function () {
         var table = $('#myTable').DataTable({
             dom: '<"pull-left"b><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>'
