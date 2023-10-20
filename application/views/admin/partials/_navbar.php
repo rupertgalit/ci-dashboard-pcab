@@ -1,9 +1,13 @@
 <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-  <div class="navbar-brand-wrapper d-flex align-items-centerq">
-    <a class="text-center align-center align-justify" href="index.html">
-      <img width="60" height="60"  src='https://pcabgovph.com/assets/pcab_logo.gif' alt="logo"
-        class="logo-dark pt-2" /> PCAB
+  <div class="navbar-brand-wrapper">
+    <a class="company-logo text-center d-flex align-items-center" href="https://pcab.construction.gov.ph/" title="https://pcab.construction.gov.ph/">
+      <img width="100" height="100" src='<?php echo base_url("assets/images/pcab-logo.svg") ?>' alt="logo"
+        class="logo-dark" />
+      <span class="text-left border-left pl-2">
+        Philippine Contractors Accreditation Board
+      </span>
     </a>
+
   </div>
   <div class="navbar-menu-wrapper d-flex align-items-center flex-grow-1">
     <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Welcome to Admin Dashboard!</h5>

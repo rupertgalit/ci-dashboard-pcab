@@ -26,6 +26,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <!-- endinject -->
     <!-- Layout styles -->
     <link rel="stylesheet" href=<?php echo base_url('/assets/css/style.css'); ?> />
+    <link rel="stylesheet" href='./style.css' />
     <!-- End layout styles -->
     <link rel="shortcut icon" href=<?php echo base_url('/assets/images/favicon.png'); ?> />
 
@@ -115,6 +116,24 @@ defined('BASEPATH') or exit('No direct script access allowed');
     /*.dataTables-length*/
         {
         margin-top: 10px;
+    }
+
+    nav.navbar a {
+        font-size: 0.7rem;
+        color: #FFF;
+    }
+
+    nav.navbar a:hover {
+        text-decoration: none;
+        background-color: white;
+        transition-duration: 1s;
+        color: #000 !important;
+        border-left-color: black !important;
+    }
+
+    div.footer-powered-by {
+        position: inherit;
+        bottom: 0;
     }
 </style>
 
