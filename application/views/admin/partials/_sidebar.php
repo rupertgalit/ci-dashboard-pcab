@@ -19,12 +19,10 @@
       </a>
       <div class="collapse" id="ui-basic">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="<?php echo base_url('/acknowledgement-receipt'); ?>">Ack.
-              Receipt</a></li>
-          <li class="nav-item"> <a class="nav-link" href="<?php echo base_url('/daily-collection'); ?>">Daily
-              Collection</a></li>
-          <li class="nav-item"> <a class="nav-link" href="<?php echo base_url('/e-collection'); ?>">E-Collection</a>
-          </li>
+          <li class="nav-item"> <a class="nav-link" href="<?php echo base_url('/acknowledgement-receipt'); ?>">Ack. Receipt</a></li>
+          <li class="nav-item"> <a class="nav-link" href="<?php echo base_url('/daily-collection'); ?>">Daily Collection</a></li>
+          <li class="nav-item"> <a class="nav-link" href="<?php echo base_url('/e-collection'); ?>">E-Collection & Deposite</a></li>
+
         </ul>
       </div>
     </li>

@@ -102,16 +102,21 @@
 
 
 <script>
-    let i = 0
-    while (toSlice.length - (i * 10) > 0) {
-        console.log(toSlice.slice(i * 10, i * 10 + 10))
-        i++
-    }
+    // Clone the original table
 
-    let jsonData = JSON.parse('<?php echo json_encode($data) ?>')
-    const _jsonData = jsonData.concat(...jsonData, ...jsonData, ...jsonData, ...jsonData, ...jsonData, ...jsonData,)
+    // let jsonData = JSON.parse('<?php echo json_encode($data) ?>')
+    // const _jsonData = jsonData.concat(...jsonData, ...jsonData, ...jsonData, ...jsonData, ...jsonData, ...jsonData,)
 
     async function printDailyReport(id) {
+
+        var originalTable = document.getElementById('myTable');
+
+        // Find rows that match the selected date
+        var matchingRows = Array.from(originalTable.querySelectorAll('tbody tr')).filter(function (row) {
+            var rowDate = row.cells[0].textContent; // Assuming the date is in the first column
+            return rowDate === modalStartDate;
+        });
+
         let doc = new jspdf.jsPDF({
             orientation: 'p', unit: 'px'
         })
@@ -150,8 +155,8 @@
                 `;
         let i = 0;
         let content = "";
-        while (_jsonData.length - (i * 10) > 0) {
-            let rows = _jsonData.slice(i * 10, i * 10 + 10)
+        while (matchingRows.length - (i * 10) > 0) {
+            let rows = matchingRows.slice(i * 10, i * 10 + 10)
 
             if (rows.length < 10) {
                 addIndex = 10 - rows.length
