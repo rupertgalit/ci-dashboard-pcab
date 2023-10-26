@@ -28,18 +28,18 @@
                         <tbody>
                             <tr>
                                 <td class="font-weight-bold">No.</td>
-                                <td class="">Transaction Ref.</td>
-                                <td class="">Client Ref</td>
-                                <td class="">Trace No.</td>
-                                <td class="">Amount</td>
-                                <td class="">App Name</td>
-                                <td class="">Paygate</td>
-                                <td class="">Status</td>
-                                <td class="">Type</td>
-                                <td class="">QR Metdod</td>
-                                <td class="">Date Created</td>
-                                <td class="">Time Created</td>
-                                <td class="">Date Modified</td>
+                                <td class="font-weight-bold">Transaction Ref.</td>
+                                <td class="font-weight-bold">Client Ref</td>
+                                <td class="font-weight-bold">Trace No.</td>
+                                <td class="font-weight-bold">Amount</td>
+                                <td class="font-weight-bold">App Name</td>
+                                <td class="font-weight-bold">Paygate</td>
+                                <td class="font-weight-bold">Status</td>
+                                <td class="font-weight-bold">Type</td>
+                                <td class="font-weight-bold">QR Metdod</td>
+                                <td class="font-weight-bold">Date Created</td>
+                                <td class="font-weight-bold">Time Created</td>
+                                <td class="font-weight-bold">Date Modified</td>
                             </tr>
 
                         </tbody>

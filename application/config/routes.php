@@ -57,8 +57,7 @@ $route['translate_uri_dashes'] = FALSE ;
 $route['test']  = 'welcome/test'; 
 $route['transaction-table']  = 'authcontroller/index';
 $route['acknowledgement-receipt']  = 'authcontroller/index';
-$route['daily-collection']  = 'authcontroller/index';
-$route['e-collection']  = 'authcontroller/index';
+$route['deposite']  = 'authcontroller/index';
 $route['dashboard']  = 'authcontroller/index';
 
 // $route['api']   = 'api/DashApi';
