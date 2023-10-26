@@ -1,11 +1,14 @@
 <style>
     table,
     th {
-        border: 1px solid black;
-        border-collapse: collapse;
+        border: 1px black solid;
+        border-width: 1px 0 1px 1px;
+        border-collapse: collapse;  
     }
 
-    th:last-child {}
+    th:last-child {
+        border-right: 1px black solid;
+    }
 </style>
 
 <div class="row">
@@ -18,24 +21,6 @@
             </div>
 
             <div class="table-responsive border">
-                <div class="row mb-1 ml-auto ">
-                    <div class="col-md-2">
-                        <label for="start_date">Start Date:</label>
-                    </div>
-                    <div class="col-md-2">
-                        <label for="end_date">End Date:</label>
-                    </div>
-                </div>
-                <div class="row mb-3 ml-auto">
-                    <div class="col-md-2">
-                        <input type="date" id="start_date" class="form-control">
-                    </div>
-                    <div class="col-md-2">
-                        <input type="date" id="end_date" class="form-control">
-                    </div>
-                    
-                </div>
-                
                 <table id="myTable" class="table table-striped text-center" width="100%">
                     <thead>
                         <tr>
@@ -90,33 +75,5 @@
         var table = $('#myTable').DataTable({
             dom: 'rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>'
         });
-
-        $('.search-btn').on('click', function () {
-            table.draw();
-        });
-    });
-
-    const _jsonData = JSON.parse('<?php echo json_encode($data) ?>')
-
-    function applyDateFilter() {
-        var start_date = $('#start_date').val();
-        var end_date = $('#end_date').val();
-
-        console.log(start_date, end_date)
-    }
-
-    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-        var startDate = $('#start_date').val();
-        var endDate = $('#end_date').val();
-        var currentDate = data[2]; // Assuming date is at index 2
-
-        if ((startDate === '' && endDate === '') ||
-            (startDate === '' && currentDate <= endDate) ||
-            (startDate <= currentDate && endDate === '') ||
-            (startDate <= currentDate && currentDate <= endDate)) {
-            return true;
-        }
-
-        return false;
     });
 </script>

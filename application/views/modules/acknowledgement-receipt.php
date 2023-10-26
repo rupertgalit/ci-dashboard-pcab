@@ -2,6 +2,7 @@
     table {
         border-top: 1px black solid;
     }
+
     th {
         border: 1px black solid;
         border-width: 1px 0 1px 1px;
@@ -35,7 +36,6 @@
     #EcollectTable tr th:last-child {
         border-right-width: 1px !important;
     }
-
 </style>
 <div class="row">
     <div class="col-md-12 grid-margin stretch-card" id="toPrint">
@@ -98,9 +98,9 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div class="modal-body  bg-white pb-3">
-                                    <button id="DownloadECollect" class="btn-sm mb-3">Download</button>
-                                    <table id="EcollectTable" class="table table-striped text-center" width="100%">
+                                <div class="modal-body overflow-auto bg-white pb-3">
+
+                                    <table id="EcollectTable" class="table table-striped text-center " width="100%">
                                         <thead>
                                             <tr>
                                                 <th colspan="2">Electronic Acknowledgement Receipt</th>
@@ -144,10 +144,8 @@
                                     </table>
                                 </div>
                                 <div class="modal-footer bg-white border-top-0">
-                                    <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded border-0"
-                                        data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded border-0"
-                                        onclick="fnExcelReport()">Export Data</button>
+                                    <button type="button"
+                                        class="btn-sm btn-outline-dark mr-3 mb-2 rounded border-0">Download </button>
                                 </div>
                             </div>
                         </div>
