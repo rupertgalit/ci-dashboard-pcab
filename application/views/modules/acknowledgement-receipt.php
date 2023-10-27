@@ -2,6 +2,7 @@
     table {
         border-top: 1px black solid;
     }
+
     th {
         border: 1px black solid;
         border-width: 1px 0 1px 1px;
@@ -14,6 +15,10 @@
 
     #EcollectTable table {
         border: 0;
+    }
+
+    .btn-generate-container button {
+        min-width: 13rem;
     }
 
     /* #EcollectTable tr:first-child th:first-child {
@@ -36,148 +41,151 @@
         border-right-width: 1px !important;
     }
 
+    .search-btn {
+        height: 2.9rem !important;
+        width: 7rem;
+        border: 0 !important;
+    }
+
+    .top-btn-container {}
 </style>
 <div class="row">
-    <div class="col-md-12 grid-margin stretch-card" id="toPrint">
-        <div class="card">
+    <div class="col-md-12 grid-margin stretch-card m-0" id="toPrint">
+        <div class="card py-2 px-1">
             <div class="card-body">
                 <div class="d-sm-flex align-items-center mb-4">
                     <h4 class="card-title mb-sm-0">Acknowledge Reciept</h4>
                 </div>
             </div>
 
-            <div class="d-flex justify-content-end mb-3 ml-5">
-
-                <div class="col-md-2 ">
-                    <button class="btn-lg btn-outline-dark rounded border-0" data-toggle="modal"
-                        data-target="#Daily_CollectionModal">Daily Collection</button>
-                    <div class="modal fade" id="Daily_CollectionModal" tabindex="-1" role="dialog"
-                        aria-labelledby="Daily_CollectionModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-sm" role="document">
-                            <div id="DailyCollectModal" class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="Daily_CollectionModalLabel">Daily Collection</h5>
-                                    <button type="button" class="close" data-dismiss="modal"
-                                        aria-hidden="true">&times;</button>
-                                </div>
-                                <div class="modal-body bg-white pb-3">
-                                    <div class="row mb-2">
-                                        <div class="col-12 d-flex flex-row flex-wrap">
-                                            <label for="modal_selected_date"
-                                                class="mr-2 d-flex align-items-center">Select Date:</label>
-                                            <input type="date" id="modal_selected_date" class="form-control"
-                                                style="width: 16rem;">
-                                            <div id="validationMessage"></div>
-
-                                        </div>
+            <div class="btn-generate-container row">
+                <div class="col row d-flex justify-content-end py-2">
+                    <div class=" col-mb-3 mr-3 mb-1">
+                        <button class="btn-lg btn-outline-dark rounded border-0" data-toggle="modal"
+                            data-target="#Daily_CollectionModal">Daily Collection</button>
+                        <div class="modal fade" id="Daily_CollectionModal" tabindex="-1" role="dialog"
+                            aria-labelledby="Daily_CollectionModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-sm" role="document">
+                                <div id="DailyCollectModal" class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="Daily_CollectionModalLabel">Daily Collection</h5>
+                                        <button type="button" class="close text-right pr-4" data-dismiss="modal"
+                                            aria-hidden="true">&times;</button>
                                     </div>
+                                    <div class="modal-body bg-white pb-3">
+                                        <div class="row mb-2">
+                                            <div class="col-12 d-flex flex-row flex-wrap">
+                                                <label for="modal_selected_date"
+                                                    class="mr-2 d-flex align-items-center">Select Date:</label>
+                                                <input type="date" id="modal_selected_date" class="form-control"
+                                                    style="width: 16rem;">
+                                                <div id="validationMessage"></div>
 
-                                    <div id="modalDataTableContainer" class="overflow-auto"></div>
+                                            </div>
+                                        </div>
+
+                                        <div id="modalDataTableContainer" class="overflow-auto"></div>
+                                    </div>
+                                    <div class="modal-footer bg-white border-top-0">
+                                        <button type="button"
+                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded search-btn-modal">Preview</button>
+                                        <button type="button"
+                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded download-btn-modal">Download</button>
+                                    </div>
                                 </div>
-                                <div class="modal-footer bg-white border-top-0">
-                                    <button type="button"
-                                        class="btn-sm btn-outline-dark mr-3 mb-2 rounded search-btn-modal">Preview</button>
-                                    <button type="button"
-                                        class="btn-sm btn-outline-dark mr-3 mb-2 rounded download-btn-modal">Download</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" col-mb-3 mr-3 mb-1">
+                        <button class="btn-lg btn-outline-dark rounded border-0 w-50" data-toggle="modal"
+                            data-target="#exportModal">E-Collection</button>
+                        <div class="modal fade" id="exportModal" tabindex="-1" role="dialog"
+                            aria-labelledby="exportModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exportModalLabel">E-Collection </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body  bg-white pb-3">
+                                        <button id="DownloadECollect" class="btn-sm mb-3">Download</button>
+                                        <table id="EcollectTable" class="table table-striped text-center" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="2">Electronic Acknowledgement Receipt</th>
+                                                    <th rowspan="3">Responsibility Center Code</th>
+                                                    <th rowspan="3">Payor</th>
+                                                    <th rowspan="3">Particulars</th>
+                                                    <th rowspan="3">PREXC/PAP</th>
+                                                    <th colspan="3">Amount</th>
+                                                </tr>
+                                                <tr>
+                                                    <th rowspan="2">Date</th>
+                                                    <th rowspan="2">Number</th>
+                                                    <th rowspan="2">Total per AR</th>
+                                                    <th colspan="3">Breakdown Collection</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Taxes</th>
+                                                    <th colspan="1">Fees</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                <?php
+
+                                                foreach ($data as $row) {
+                                                    echo "<tr>";
+                                                    echo "<td>" . $row["date_time"] . "</td>";
+                                                    echo "<td>" . $row["ar_number"] . "</td>";
+                                                    echo "<td>" . $row["agency_name"] . "</td>";
+                                                    echo "<td>" . $row["name_of_payor"] . "</td>";
+                                                    echo "<td>" . $row["particulars"] . "</td>";
+                                                    echo "<td>&#8369; " . number_format((float) $row["amount"], 2, '.', '') . "</td>";
+                                                    echo "<td>&#8369; " . number_format((float) $row["service_charge"], 2, '.', '') . "</td>";
+                                                    echo "<td>&#8369; " . number_format((float) $row["tax"], 2, '.', '') . "</td>";
+                                                    echo "<td>&#8369; " . number_format((float) $row["total_amount"], 2, '.', '') . "</td>";
+                                                    echo "</tr>";
+                                                }
+                                                ?>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer bg-white border-top-0">
+                                        <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded border-0"
+                                            data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded border-0"
+                                            onclick="fnExcelReport()">Export Data</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- Button 2 Trigger -->
-                <div class="col-md-2">
-                    <button class="btn-lg btn-outline-dark rounded border-0" data-toggle="modal"
-                        data-target="#exportModal">E-Collection</button>
-                    <div class="modal fade" id="exportModal" tabindex="-1" role="dialog"
-                        aria-labelledby="exportModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exportModalLabel">E-Collection </h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body  bg-white pb-3">
-                                    <button id="DownloadECollect" class="btn-sm mb-3">Download</button>
-                                    <table id="EcollectTable" class="table table-striped text-center" width="100%">
-                                        <thead>
-                                            <tr>
-                                                <th colspan="2">Electronic Acknowledgement Receipt</th>
-                                                <th rowspan="3">Responsibility Center Code</th>
-                                                <th rowspan="3">Payor</th>
-                                                <th rowspan="3">Particulars</th>
-                                                <th rowspan="3">PREXC/PAP</th>
-                                                <th colspan="3">Amount</th>
-                                            </tr>
-                                            <tr>
-                                                <th rowspan="2">Date</th>
-                                                <th rowspan="2">Number</th>
-                                                <th rowspan="2">Total per AR</th>
-                                                <th colspan="3">Breakdown Collection</th>
-                                            </tr>
-                                            <tr>
-                                                <th>Taxes</th>
-                                                <th colspan="1">Fees</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+            </div>
 
-                                            <?php
-
-                                            foreach ($data as $row) {
-                                                echo "<tr>";
-                                                echo "<td>" . $row["date_time"] . "</td>";
-                                                echo "<td>" . $row["ar_number"] . "</td>";
-                                                echo "<td>" . $row["agency_name"] . "</td>";
-                                                echo "<td>" . $row["name_of_payor"] . "</td>";
-                                                echo "<td>" . $row["particulars"] . "</td>";
-                                                echo "<td>&#8369; " . $row["amount"] . "</td>";
-                                                echo "<td>&#8369; " . $row["service_charge"] . "</td>";
-                                                echo "<td>&#8369; " . $row["tax"] . "</td>";
-                                                echo "<td>&#8369; " . $row["total_amount"] . "</td>";
-                                                echo "</tr>";
-                                            }
-                                            ?>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="modal-footer bg-white border-top-0">
-                                    <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded border-0"
-                                        data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded border-0"
-                                        onclick="fnExcelReport()">Export Data</button>
-                                </div>
-                            </div>
-                        </div>
+            <div class="overflow-hidden border-top border-bottom border-black">
+                <div class="top-btn-container row mb-1 py-2 px-1">
+                    <div class="col-md-3 mb-2">
+                        <label for="start_date">Start Date:</label>
+                        <input type="date" id="start_date" class="form-control">
                     </div>
+                    <div class="col-md-3 mb-2">
+                        <label for="end_date">End Date:</label>
+                        <input type="date" id="end_date" class="form-control">
 
+                    </div>
+                    <div class="col-md-auto mb-2 d-flex align-items-end">
+                        <button class="btn-outline-dark border-0 btn-sm w-100 h-50 px-4 search-btn">Select</button>
+                    </div>
                 </div>
             </div>
 
-            <div class="table-responsive border">
-                <div class="row mb-1 ml-auto ">
-                    <div class="col-md-2">
-                        <label for="start_date">Start Date:</label>
-                    </div>
-                    <div class="col-md-2">
-                        <label for="end_date">End Date:</label>
-                    </div>
-                </div>
-                <div class="row mb-3 ml-auto">
-                    <div class="col-md-2">
-                        <input type="date" id="start_date" class="form-control">
-                    </div>
-                    <div class="col-md-2">
-                        <input type="date" id="end_date" class="form-control">
-                    </div>
-                    <div class="col-md-2 ">
-                        <label>&nbsp;</label>
-                        <button class="btn-outline-dark border-0 btn-sm h-100 w-50 search-btn">Select</button>
-                    </div>
-                </div>
-
+            <div class="scrollable-container">
                 <table id="myTable" class="table table-striped text-center" width="100%">
                     <!-- Your table headers go here -->
                     <thead>
@@ -221,13 +229,14 @@
                     </tbody>
 
                 </table>
-                <div class='row divider'>
-                    <div class='col-12 my-5 py-2 border'></div>
-                </div>
             </div>
-
+            <div class='row divider'>
+                <div class='col-12 my-5 py-2 border'></div>
+            </div>
         </div>
+
     </div>
+</div>
 </div>
 
 <script>

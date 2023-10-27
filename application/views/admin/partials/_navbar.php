@@ -1,7 +1,8 @@
 <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
   <div class="navbar-brand-wrapper">
-    <a class="company-logo text-center d-flex align-items-center" href="https://pcab.construction.gov.ph/" title="https://pcab.construction.gov.ph/">
-      <img width="100" height="100" src='<?php echo base_url("assets/images/pcab-logo.svg") ?>' alt="logo"
+    <a class="company-logo text-center d-flex align-items-center justify-center mt-1 pr-2" href="https://pcab.construction.gov.ph/"
+      title="https://pcab.construction.gov.ph/">
+      <img width="80" height="80" src='<?php echo base_url("assets/images/pcab-logo.svg") ?>' alt="logo"
         class="logo-dark" />
       <span class="text-left border-left pl-2">
         Philippine Contractors Accreditation Board

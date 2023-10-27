@@ -132,9 +132,68 @@ defined('BASEPATH') or exit('No direct script access allowed');
     }
 
     div.footer-powered-by {
-        position: inherit;
+        position: fixed;
+        max-width: 15rem;
         bottom: 0;
+        color: #DDD;
+        font-size: 0.6rem;
+        padding: 1rem;
     }
+
+    div.footer-powered-by img {
+        object-position: -20% 0;
+        object-fit: cover;
+    }
+
+    div.footer-powered-by a {
+        background: linear-gradient(to right, #f2bf3d, #4f80f4, #e8696f);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: .7rem;
+        font-weight: 600;
+    }
+
+    .navbar-brand-wrapper {
+        height: 5rem !important;
+    }
+    
+    div.sidebar {
+        height: 100vh !important;
+
+    }
+
+    div.card-body {
+        /* height: 100vh !important; */
+    }
+
+    @media (max-width: 991px) {
+        .navbar-brand-wrapper {
+            height: 4.4rem !important;
+            width: fit-content !important;
+            display: inline-flex;
+            border-bottom: 0.001rem black solid;
+        }
+
+        .navbar-brand-wrapper a{
+            margin-top: 0 !important;
+        }
+
+        .navbar-menu-wrapper {
+            background-color: #181824;
+        }
+
+        .navbar span.icon-menu {
+            color: white;
+        }
+    }
+
+    /* .card {
+        min-height: 0;
+        max-height: 95vh;
+    }
+    .table-responsive {
+        overflow-y: auto;
+    } */
 </style>
 
 </html>
