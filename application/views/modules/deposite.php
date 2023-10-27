@@ -1,12 +1,17 @@
 <style>
     table,
     th {
-        border: 1px solid black;
+        border: 1px black solid;
+        border-width: 1px 0 1px 1px;
         border-collapse: collapse;
     }
 
     .ecollection-table-container tr th:last-child {
         margin-right: 1px black solid;
+    }
+
+    th:last-child {
+        border-right: 1px black solid;
     }
 </style>
 
@@ -37,7 +42,8 @@
 
                     </div>
 
-                    <table id="myTable" class="table table-striped text-center ecollection-table-container" width="100%">
+                    <table id="myTable" class="table table-striped text-center ecollection-table-container"
+                        width="100%">
                         <thead class="w-100">
                             <tr>
                                 <th colspan="2">Electronic Acknowledgement Receipt</th>
