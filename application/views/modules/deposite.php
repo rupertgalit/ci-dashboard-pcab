@@ -33,9 +33,9 @@
                     <div class="col-md-2">
                         <input type="date" id="end_date" class="form-control">
                     </div>
-                    
+
                 </div>
-                
+
                 <table id="myTable" class="table table-striped text-center" width="100%">
                     <thead>
                         <tr>
@@ -60,6 +60,9 @@
                     <tbody>
 
                         <?php
+                        usort($data, function ($a, $b) {
+                            return strtotime($a['date_time']) < strtotime($b['date_time']);
+                        });
 
                         foreach ($data as $row) {
                             echo "<tr>";
@@ -88,7 +91,8 @@
     $(document).ready(function () {
 
         var table = $('#myTable').DataTable({
-            dom: 'rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>'
+            dom: 'rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
+            ordering: false,
         });
 
         $('.search-btn').on('click', function () {
