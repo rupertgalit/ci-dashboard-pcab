@@ -67,9 +67,9 @@
                         <tbody class="w-100">
 
                             <?php
-                            usort($data, function ($a, $b) {
-                                return strtotime($a['date_time']) < strtotime($b['date_time']);
-                            });
+                            // usort($data, function ($a, $b) {
+                            //     return strtotime($a['date_time']) < strtotime($b['date_time']);
+                            // });
 
                             foreach ($data as $row) {
                                 echo "<tr>";

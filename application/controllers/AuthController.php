@@ -370,6 +370,9 @@ class AuthController extends CI_Controller
 			]
 		];
 
+		usort($result["data"], function ($a, $b) {
+			return strtotime($a['date_time']) < strtotime($b['date_time']);
+		});
 		// }
 
 		$this->load->view('index', $result);

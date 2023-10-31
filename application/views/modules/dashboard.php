@@ -1,217 +1,116 @@
-<div class="container-scroller">
-    <div class="row">
-        <div class="col-md-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-sm-flex align-items-center mb-4">
-                        <h4 class="card-title mb-sm-0">Products Inventory</h4>
+<?php $dash_report = array_slice($data, 0, 5) ?>
+<div class="container-scroller dashboard-container d-flex flex-direction-row">
+    <div class="card w-100 p-3">
+
+        <div class="row d-flex flex-wrap">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-title">
+                        ack. report table
                     </div>
-                    <div class="table-responsive border  rounded p-1">
-                        <table id="myTable" class="table  table-fluid table-striped" width="100%">
+                    <div class="card-body">
+                        <table class="ack-table">
                             <thead>
                                 <tr>
-                                    <th class="font-weight-bold">Store ID</th>
-                                    <th class="font-weight-bold">Name</th>
-                                    <th class="font-weight-bold">Amount</th>
-                                    <th class="font-weight-bold">Gateway</th>
-                                    <th class="font-weight-bold">Created at</th>
-                                    <th class="font-weight-bold">Paid at</th>
-                                    <th class="font-weight-bold">Status</th>
+                                    <th>Date</th>
+                                    <th>AR Number</th>
+                                    <th>Reference No.</th>
+                                    <th>Name of Payor</th>
+                                    <th class="text-right pr-3">Total Amount</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>
-                                        <img class="img-sm rounded-circle"
-                                            src=<?php echo base_url('./assets/images/faces/face1.jpg'); ?>
-                                            alt="profile image"> Katie Holmes
-                                    </td>
-                                    <td>$3621</td>
-                                    <td><img src=<?php echo base_url('./assets/images/dashboard/alipay.png'); ?>
-                                            alt="alipay" class="gateway-icon mr-2"> alipay</td>
-                                    <td>04 Jun 2019</td>
-                                    <td>18 Jul 2019</td>
-                                    <td>
-                                        <div class="badge badge-success p-2">Payment Success</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>
-                                        <img class="img-sm rounded-circle"
-                                            src=<?php echo base_url('./assets/images/faces/face2.jpg'); ?>
-                                            alt="profile image"> Minnie Copeland
-                                    </td>
-
-
-                                    <td>$6245</td>
-                                    <td><img src=<?php echo base_url('./assets/images/dashboard/paypal.png'); ?>
-                                            alt="alipay" class="gateway-icon mr-2"> Paypal</td>
-                                    <td>25 Sep 2019</td>
-                                    <td>07 Oct 2019</td>
-                                    <td>
-                                        <div class="badge badge-danger p-2">Payment Failed</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>
-                                        <img class="img-sm rounded-circle"
-                                            src=<?php echo base_url('./assets/images/faces/face3.jpg'); ?>
-                                            alt="profile image"> Rodney Sims
-                                    </td>
-                                    <td>$9265</td>
-                                    <td><img src=<?php echo base_url('./assets/images/dashboard/alipay.png'); ?>
-                                            alt="alipay" class="gateway-icon mr-2"> alipay</td>
-                                    <td>12 dec 2019</td>
-                                    <td>26 Aug 2019</td>
-                                    <td>
-                                        <div class="badge badge-warning p-2">Payment Cancelled</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>
-                                        <img class="img-sm rounded-circle"
-                                            src=<?php echo base_url('./assets/images/faces/face4.jpg'); ?>
-                                            alt="profile image"> Carolyn Barker
-                                    </td>
-                                    <td>$2263</td>
-                                    <td><img src=<?php echo base_url('./assets/images/dashboard/alipay.png'); ?>
-                                            alt="alipay" class="gateway-icon mr-2"> alipay</td>
-                                        <td>30 Sep 2019</td>
-                                    <td>20 Oct 2019</td>
-                                    <td>
-                                        <div class="badge badge-primary p-2">Pending</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>
-                                        <img class="img-sm rounded-circle"
-                                            src=<?php echo base_url('./assets/images/faces/face4.jpg'); ?>
-                                            alt="profile image"> Carolyn Barker
-                                    </td>
-                                    <td>$2263</td>
-                                    <td><img src=<?php echo base_url('./assets/images/dashboard/alipay.png'); ?>
-                                            alt="alipay" class="gateway-icon mr-2"> alipay</td>
-                                    <td>30 Sep 2019</td>
-                                    <td>20 Oct 2019</td>
-                                    <td>
-                                        <div class="badge badge-success p-2">Payment Success</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td>
-                                        <img class="img-sm rounded-circle"
-                                            src=<?php echo base_url('./assets/images/faces/face4.jpg'); ?>
-                                            alt="profile image"> Carolyn Barker
-                                    </td>
-                                    <td>$2263</td>
-                                    <td><img src=<?php echo base_url('./assets/images/dashboard/alipay.png'); ?>
-                                            alt="alipay" class="gateway-icon mr-2"> alipay</td>
-                                    <td>30 Sep 2019</td>
-                                    <td>20 Oct 2019</td>
-                                    <td>
-                                        <div class="badge badge-success p-2">Payment Success</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td>
-                                        <img class="img-sm rounded-circle"
-                                            src=<?php echo base_url('./assets/images/faces/face4.jpg'); ?>
-                                            alt="profile image"> Carolyn Barker
-                                    </td>
-                                    <td>$2263</td>
-                                    <td><img src=<?php echo base_url('./assets/images/dashboard/alipay.png'); ?>
-                                            alt="alipay" class="gateway-icon mr-2"> alipay</td>
-                                    <td>30 Sep 2019</td>
-                                    <td>20 Oct 2019</td>
-                                    <td>
-                                        <div class="badge badge-primary p-2">Pending</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>8</td>
-                                    <td>
-                                        <img class="img-sm rounded-circle"
-                                            src=<?php echo base_url('./assets/images/faces/face4.jpg'); ?>
-                                            alt="profile image"> Carolyn Barker
-                                    </td>
-                                    <td>$2263</td>
-                                    <td><img src=<?php echo base_url('./assets/images/dashboard/alipay.png'); ?>
-                                            alt="alipay" class="gateway-icon mr-2"> alipay</td>
-                                    <td>30 Sep 2019</td>
-                                    <td>20 Oct 2019</td>
-                                    <td>
-                                        <div class="badge badge-primary p-2">Pending</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>9</td>
-                                    <td>
-                                        <img class="img-sm rounded-circle"
-                                            src=<?php echo base_url('./assets/images/faces/face4.jpg'); ?>
-                                            alt="profile image"> Carolyn Barker
-                                    </td>
-                                    <td>$2263</td>
-                                    <td><img src=<?php echo base_url('./assets/images/dashboard/alipay.png'); ?>
-                                            alt="alipay" class="gateway-icon mr-2"> alipay</td>
-                                    <td>30 Sep 2019</td>
-                                    <td>20 Oct 2019</td>
-                                    <td>
-                                        <div class="badge badge-success p-2">Payment Success</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>10</td>
-                                    <td>
-                                        <img class="img-sm rounded-circle"
-                                            src=<?php echo base_url('./assets/images/faces/face4.jpg'); ?>
-                                            alt="profile image"> Carolyn Barker
-                                    </td>
-                                    <td>$2263</td>
-                                    <td><img src=<?php echo base_url('./assets/images/dashboard/alipay.png'); ?>
-                                            alt="alipay" class="gateway-icon mr-2"> alipay</td>
-                                    <td>30 Sep 2019</td>
-                                    <td>20 Oct 2019</td>
-                                    <td>
-                                        <div class="badge badge-warning p-2">Payment Cancelled</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>11</td>
-                                    <td>
-                                        <img class="img-sm rounded-circle"
-                                            src=<?php echo base_url('./assets/images/faces/face4.jpg'); ?>
-                                            alt="profile image"> Carolyn Barker
-                                    </td>
-                                    <td>$2263</td>
-                                    <td><img src=<?php echo base_url('./assets/images/dashboard/alipay.png'); ?>
-                                            alt="alipay" class="gateway-icon mr-2"> alipay</td>
-                                    <td>30 Sep 2019</td>
-                                    <td>20 Oct 2019</td>
-                                    <td>
-                                        <div class="badge badge-danger p-2">Payment Failed</div>
-                                    </td>
-                                </tr>
+                                <?php
+                                foreach ($dash_report as $row) {
+                                    echo "<tr>";
+                                    echo "<td>" . date_format(date_create($row['date_time']), "m/d/Y") . "</td>";
+                                    echo "<td>" . str_pad($row['ar_number'], 10, "0", STR_PAD_LEFT)  . "</td>";
+                                    echo "<td>" . $row['reference_number'] . "</td>";
+                                    echo "<td>" . $row['name_of_payor'] . "</td>";
+                                    echo "<td class='text-right'>" . number_format((float) $row["total_amount"], 2, '.', '') . "</td>";
+                                    echo "</tr>";
+                                }
+                                ;
+                                ?>
                             </tbody>
                         </table>
                     </div>
-
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card-title">
+                    deposit table
+                </div>
+                <div class="card-body">
+                    <table class="deposit-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>AR Number</th>
+                                <th>Reference No.</th>
+                                <th>Name of Payor</th>
+                                <th class="text-right pr-3">Total Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            foreach ($dash_report as $key => $row) {
+                                echo "<tr>";
+                                echo "<td>" . date_format(date_create($row['date_time']), "m/d/Y") . "</td>";
+                                echo "<td>" . str_pad($row['ar_number'], 10, "0", STR_PAD_LEFT) . "</td>";
+                                echo "<td>" . $row['reference_number'] . "</td>";
+                                echo "<td>" . $row['name_of_payor'] . "</td>";
+                                echo "<td class='text-right'>" . number_format((float) $row["total_amount"], 2, '.', '') . "</td>";
+                                echo "</tr>";
+                            }
+                            ;
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-title">
+                        Reports Statistics
+                    </div>
+                    <div class="card-body"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<style>
+    .dashboard-container table {
+        width: 100%
+    }
 
+    .dashboard-container table thead th {
+        padding: .2rem;
+        background-color: #DDE;
+        text-align: center;
+    }
 
-<!-- <script>
-    $(document).ready(function() {
-        $('#myTable').DataTable();
-    });
-    </script>
+    .dashboard-container table tr td:first-child {
+        text-align: center;
+    }
+
+    .dashboard-container table tr td:last-child {
+        padding-right: 1rem;
+    }
+
+    .dashboard-container table td {
+        padding-left: 1rem;
+        width: 1rem;
+        white-space: nowrap;
+        padding-bottom: .5rem;
+        align-items: center;
+    }
+
+    .dashboard-container table tr:nth-child(odd) {
+        background-color: #EEE;
+    }
+</style>
