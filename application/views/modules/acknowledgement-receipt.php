@@ -244,14 +244,16 @@
     $(document).ready(function () {
 
         var table = $('#myTable').DataTable({
-            dom: '<"pull-left"b><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>'
+            dom: '<"pull-left"b><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
+            ordering: false
         });
 
         $('.search-btn').on('click', function () {
             table.draw();
         });
         $('#EcollectTable').DataTable({
-            dom: 'rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>'
+            dom: 'rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
+            ordering: false
         });
     });
 
@@ -345,6 +347,7 @@
         // Initialize DataTable for the modal table without the search feature
         $('#modalDataTable').DataTable({
             dom: '<"pull-left"b>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
+            ordering: false,    
         });
 
         // Change the modal dialog size with a transition
