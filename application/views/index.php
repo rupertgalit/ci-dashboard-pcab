@@ -15,6 +15,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <link rel="stylesheet" href=<?php echo base_url('/assets/vendors/flag-icon-css/css/flag-icon.min.css'); ?> />
     <link rel="stylesheet" href=<?php echo base_url('/assets/vendors/css/vendor.bundle.base.css'); ?> />
 
+
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <link rel="stylesheet" href=<?php echo base_url('/assets/vendors/css/vendor.bundle.base.css'); ?> />
@@ -26,7 +27,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <!-- endinject -->
     <!-- Layout styles -->
     <link rel="stylesheet" href=<?php echo base_url('/assets/css/style.css'); ?> />
-    <link rel="stylesheet" href='./style.css' />
     <!-- End layout styles -->
     <link rel="shortcut icon" href=<?php echo base_url('/assets/images/favicon.png'); ?> />
 
@@ -55,7 +55,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
         integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script type="module" src="<?php echo base_url() ?>js/print-element.js"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> -->
 </head>
 
@@ -75,12 +74,20 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
             <!-- partial -->
             <div class="main-panel">
+                <div class="box">
+                    <div class="container">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                </div>
                 <div class="content-wrapper p-0">
                     <!-- main view container -->
                     <?php
-                    $view = isset($route) ? $route : "dashboard";
-                    $this->load->view('./modules/' . $view);
-
+                    // $view = isset($route) ? $route : "dashboard";
+                    // $this->load->view('./modules/' . $view);
+                    
                     ?>
 
                 </div>
@@ -101,6 +108,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <!-- plugins:js -->
     <script src=<?php echo base_url('/assets/js/off-canvas.js'); ?>></script>
     <script src=<?php echo base_url('/assets/js/misc.js'); ?>></script>
+    <script src=<?php echo base_url('/assets/vendors/daterangepicker/daterangepicker.js'); ?>></script>
+    <script src=<?php echo base_url('/assets/vendors/chartist/chartist.min.js'); ?>></script>
 
     <!-- endinject -->
     <!-- Custom js for this page -->
@@ -156,7 +165,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     .navbar-brand-wrapper {
         height: 5rem !important;
     }
-    
+
     div.sidebar {
         height: 100vh !important;
 
@@ -174,7 +183,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
             border-bottom: 0.001rem black solid;
         }
 
-        .navbar-brand-wrapper a{
+        .navbar-brand-wrapper a {
             margin-top: 0 !important;
         }
 
@@ -184,6 +193,70 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
         .navbar span.icon-menu {
             color: white;
+        }
+    }
+
+
+    .main-panel .box {
+        height: 100%;
+        padding-top: 100;
+        margin-right: 30px;
+        display: flex;
+        align-content: center;
+        flex-wrap: wrap;
+    }
+
+    .main-panel .box .container {
+        height: 10rem;
+        width: 7rem;
+        display: flex;
+        position: relative;
+    }
+
+    .main-panel .box .container .dot {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background-color: blue;
+        animation: move 500ms linear 0ms infinite;
+        margin-right: 30px;
+    }
+
+    .main-panel .box .container .dot:first-child {
+        position: absolute;
+        top: 0;
+        left: 0;
+        animation: grow 500ms linear 1ms infinite;
+    }
+
+    .main-panel .box .container .dot:last-child {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin-right: 0;
+        animation: grow 500ms linear 0s infinite reverse;
+    }
+
+
+    @keyframes grow {
+        from {
+            transform: scale(0, 0);
+            opacity: 0;
+        }
+
+        to {
+            transform: scale(1, 1);
+            opacity: 1;
+        }
+    }
+
+    @keyframes move {
+        from {
+            transform: translateX(0px)
+        }
+
+        to {
+            transform: translateX(45px)
         }
     }
 

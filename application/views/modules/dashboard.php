@@ -20,198 +20,148 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>
-                                        <img class="img-sm rounded-circle"
-                                            src=<?php echo base_url('./assets/images/faces/face1.jpg'); ?>
-                                            alt="profile image"> Katie Holmes
-                                    </td>
-                                    <td>$3621</td>
-                                    <td><img src=<?php echo base_url('./assets/images/dashboard/alipay.png'); ?>
-                                            alt="alipay" class="gateway-icon mr-2"> alipay</td>
-                                    <td>04 Jun 2019</td>
-                                    <td>18 Jul 2019</td>
-                                    <td>
-                                        <div class="badge badge-success p-2">Payment Success</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>
-                                        <img class="img-sm rounded-circle"
-                                            src=<?php echo base_url('./assets/images/faces/face2.jpg'); ?>
-                                            alt="profile image"> Minnie Copeland
-                                    </td>
-
-
-                                    <td>$6245</td>
-                                    <td><img src=<?php echo base_url('./assets/images/dashboard/paypal.png'); ?>
-                                            alt="alipay" class="gateway-icon mr-2"> Paypal</td>
-                                    <td>25 Sep 2019</td>
-                                    <td>07 Oct 2019</td>
-                                    <td>
-                                        <div class="badge badge-danger p-2">Payment Failed</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>
-                                        <img class="img-sm rounded-circle"
-                                            src=<?php echo base_url('./assets/images/faces/face3.jpg'); ?>
-                                            alt="profile image"> Rodney Sims
-                                    </td>
-                                    <td>$9265</td>
-                                    <td><img src=<?php echo base_url('./assets/images/dashboard/alipay.png'); ?>
-                                            alt="alipay" class="gateway-icon mr-2"> alipay</td>
-                                    <td>12 dec 2019</td>
-                                    <td>26 Aug 2019</td>
-                                    <td>
-                                        <div class="badge badge-warning p-2">Payment Cancelled</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>
-                                        <img class="img-sm rounded-circle"
-                                            src=<?php echo base_url('./assets/images/faces/face4.jpg'); ?>
-                                            alt="profile image"> Carolyn Barker
-                                    </td>
-                                    <td>$2263</td>
-                                    <td><img src=<?php echo base_url('./assets/images/dashboard/alipay.png'); ?>
-                                            alt="alipay" class="gateway-icon mr-2"> alipay</td>
-                                        <td>30 Sep 2019</td>
-                                    <td>20 Oct 2019</td>
-                                    <td>
-                                        <div class="badge badge-primary p-2">Pending</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>
-                                        <img class="img-sm rounded-circle"
-                                            src=<?php echo base_url('./assets/images/faces/face4.jpg'); ?>
-                                            alt="profile image"> Carolyn Barker
-                                    </td>
-                                    <td>$2263</td>
-                                    <td><img src=<?php echo base_url('./assets/images/dashboard/alipay.png'); ?>
-                                            alt="alipay" class="gateway-icon mr-2"> alipay</td>
-                                    <td>30 Sep 2019</td>
-                                    <td>20 Oct 2019</td>
-                                    <td>
-                                        <div class="badge badge-success p-2">Payment Success</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td>
-                                        <img class="img-sm rounded-circle"
-                                            src=<?php echo base_url('./assets/images/faces/face4.jpg'); ?>
-                                            alt="profile image"> Carolyn Barker
-                                    </td>
-                                    <td>$2263</td>
-                                    <td><img src=<?php echo base_url('./assets/images/dashboard/alipay.png'); ?>
-                                            alt="alipay" class="gateway-icon mr-2"> alipay</td>
-                                    <td>30 Sep 2019</td>
-                                    <td>20 Oct 2019</td>
-                                    <td>
-                                        <div class="badge badge-success p-2">Payment Success</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td>
-                                        <img class="img-sm rounded-circle"
-                                            src=<?php echo base_url('./assets/images/faces/face4.jpg'); ?>
-                                            alt="profile image"> Carolyn Barker
-                                    </td>
-                                    <td>$2263</td>
-                                    <td><img src=<?php echo base_url('./assets/images/dashboard/alipay.png'); ?>
-                                            alt="alipay" class="gateway-icon mr-2"> alipay</td>
-                                    <td>30 Sep 2019</td>
-                                    <td>20 Oct 2019</td>
-                                    <td>
-                                        <div class="badge badge-primary p-2">Pending</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>8</td>
-                                    <td>
-                                        <img class="img-sm rounded-circle"
-                                            src=<?php echo base_url('./assets/images/faces/face4.jpg'); ?>
-                                            alt="profile image"> Carolyn Barker
-                                    </td>
-                                    <td>$2263</td>
-                                    <td><img src=<?php echo base_url('./assets/images/dashboard/alipay.png'); ?>
-                                            alt="alipay" class="gateway-icon mr-2"> alipay</td>
-                                    <td>30 Sep 2019</td>
-                                    <td>20 Oct 2019</td>
-                                    <td>
-                                        <div class="badge badge-primary p-2">Pending</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>9</td>
-                                    <td>
-                                        <img class="img-sm rounded-circle"
-                                            src=<?php echo base_url('./assets/images/faces/face4.jpg'); ?>
-                                            alt="profile image"> Carolyn Barker
-                                    </td>
-                                    <td>$2263</td>
-                                    <td><img src=<?php echo base_url('./assets/images/dashboard/alipay.png'); ?>
-                                            alt="alipay" class="gateway-icon mr-2"> alipay</td>
-                                    <td>30 Sep 2019</td>
-                                    <td>20 Oct 2019</td>
-                                    <td>
-                                        <div class="badge badge-success p-2">Payment Success</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>10</td>
-                                    <td>
-                                        <img class="img-sm rounded-circle"
-                                            src=<?php echo base_url('./assets/images/faces/face4.jpg'); ?>
-                                            alt="profile image"> Carolyn Barker
-                                    </td>
-                                    <td>$2263</td>
-                                    <td><img src=<?php echo base_url('./assets/images/dashboard/alipay.png'); ?>
-                                            alt="alipay" class="gateway-icon mr-2"> alipay</td>
-                                    <td>30 Sep 2019</td>
-                                    <td>20 Oct 2019</td>
-                                    <td>
-                                        <div class="badge badge-warning p-2">Payment Cancelled</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>11</td>
-                                    <td>
-                                        <img class="img-sm rounded-circle"
-                                            src=<?php echo base_url('./assets/images/faces/face4.jpg'); ?>
-                                            alt="profile image"> Carolyn Barker
-                                    </td>
-                                    <td>$2263</td>
-                                    <td><img src=<?php echo base_url('./assets/images/dashboard/alipay.png'); ?>
-                                            alt="alipay" class="gateway-icon mr-2"> alipay</td>
-                                    <td>30 Sep 2019</td>
-                                    <td>20 Oct 2019</td>
-                                    <td>
-                                        <div class="badge badge-danger p-2">Payment Failed</div>
-                                    </td>
-                                </tr>
+                                <?php
+                                foreach ($dash_report as $row) {
+                                    echo "<tr>";
+                                    echo "<td>" . date_format(date_create($row['date_time']), "m/d/Y") . "</td>";
+                                    echo "<td>" . str_pad($row['ar_number'], 10, "0", STR_PAD_LEFT) . "</td>";
+                                    echo "<td>" . $row['reference_number'] . "</td>";
+                                    echo "<td>" . $row['name_of_payor'] . "</td>";
+                                    echo "<td class='text-right'>" . number_format((float) $row["total_amount"], 2, '.', '') . "</td>";
+                                    echo "</tr>";
+                                }
+                                ;
+                                ?>
                             </tbody>
                         </table>
                     </div>
-
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card-title">
+                    deposit table
+                </div>
+                <div class="card-body">
+                    <table class="deposit-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>AR Number</th>
+                                <th>Reference No.</th>
+                                <th>Name of Payor</th>
+                                <th class="text-right pr-3">Total Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            foreach ($dash_report as $key => $row) {
+                                echo "<tr>";
+                                echo "<td>" . date_format(date_create($row['date_time']), "m/d/Y") . "</td>";
+                                echo "<td>" . str_pad($row['ar_number'], 10, "0", STR_PAD_LEFT) . "</td>";
+                                echo "<td>" . $row['reference_number'] . "</td>";
+                                echo "<td>" . $row['name_of_payor'] . "</td>";
+                                echo "<td class='text-right'>" . number_format((float) $row["total_amount"], 2, '.', '') . "</td>";
+                                echo "</tr>";
+                            }
+                            ;
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-title">
+                        Reports Statistics
+                    </div>
+                    <div class="card-body">
+                        <div class="row income-expense-summary-chart mt-3">
+                            <div class="col-md-12">
+                                <div class="ct-chart" id="income-expense-summary-chart"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<script>
+    $(document).ready(() => {
+        const jsonData = JSON.parse('<?php echo json_encode($data) ?>')
+        var data = {
+            // A labels array that can contain any sort of values
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            // Our series array that contains series objects or in this case series data arrays
+            series: [
+                [505, 781, 480, 985, 410, 822, 388, 874, 350, 642, 320, 796],
+                [700, 430, 725, 390, 686, 392, 757, 500, 820, 400, 962, 420]
+            ]
+        };
 
+        var options = {
+            height: 300,
+            fullWidth: true,
+            axisY: {
+                high: 1000,
+                low: 250,
+                referenceValue: 1000,
+                type: Chartist.FixedScaleAxis,
+                ticks: [250, 500, 750, 1000]
+            },
+            showArea: true,
+            showPoint: false
+        }
 
-<!-- <script>
-    $(document).ready(function() {
-        $('#myTable').DataTable();
-    });
-    </script>
+        var responsiveOptions = [
+            ['screen and (max-width: 480px)', {
+                height: 150,
+                axisX: {
+                    labelInterpolationFnc: function (value) {
+                        return value;
+                    }
+                }
+            }]
+        ];
+        // Create a new line chart object where as first parameter we pass in a selector
+        // that is resolving to our chart container element. The Second parameter
+        // is the actual data object.
+        new Chartist.Line('#income-expense-summary-chart', data, options, responsiveOptions);
+    })
+    console.log(jsonData)
+</script>
+
+<style>
+    .dashboard-container table {
+        width: 100%
+    }
+
+    .dashboard-container table thead th {
+        padding: .2rem;
+        background-color: #bfe7c1;
+        text-align: center;
+    }
+
+    .dashboard-container table tr td:first-child {
+        text-align: center;
+    }
+
+    .dashboard-container table tr td:last-child {
+        padding-right: 1rem;
+    }
+
+    .dashboard-container table td {
+        padding-left: 1rem;
+        width: 1rem;
+        white-space: nowrap;
+        padding-bottom: .5rem;
+        align-items: center;
+    }
+
+    .dashboard-container table tr:nth-child(odd) {
+        background-color: #e5f4e6;
+    }
+</style>

@@ -13349,4 +13349,17 @@ dl {
     .pagination .page-item .page-link {
       padding: 0.25rem 0.5rem; } }
 
+div.navbar-brand-wrapper a.company-logo:hover {
+  text-decoration: none;
+}
+
+@media (max-width: 480px) {
+  .navbar .navbar-brand-wrapper {
+      width: 100px !important;
+  }
+
+  .navbar .navbar-brand-wrapper a span {
+      display: none !important;
+  }
+}
 /*# sourceMappingURL=style.css.map */
