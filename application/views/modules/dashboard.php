@@ -1,22 +1,22 @@
-<div class="container-scroller">
-    <div class="row">
-        <div class="col-md-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-sm-flex align-items-center mb-4">
-                        <h4 class="card-title mb-sm-0">Products Inventory</h4>
+<?php $dash_report = array_slice($data, 0, 5) ?>
+<div class="container-scroller dashboard-container d-flex flex-direction-row">
+    <div class="card w-100 p-3">
+
+        <div class="row d-flex flex-wrap">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-title">
+                        ack. report table
                     </div>
-                    <div class="table-responsive border  rounded p-1">
-                        <table id="myTable" class="table  table-fluid table-striped" width="100%">
+                    <div class="card-body">
+                        <table class="ack-table">
                             <thead>
                                 <tr>
-                                    <th class="font-weight-bold">Store ID</th>
-                                    <th class="font-weight-bold">Name</th>
-                                    <th class="font-weight-bold">Amount</th>
-                                    <th class="font-weight-bold">Gateway</th>
-                                    <th class="font-weight-bold">Created at</th>
-                                    <th class="font-weight-bold">Paid at</th>
-                                    <th class="font-weight-bold">Status</th>
+                                    <th>Date</th>
+                                    <th>AR Number</th>
+                                    <th>Reference No.</th>
+                                    <th>Name of Payor</th>
+                                    <th class="text-right pr-3">Total Amount</th>
                                 </tr>
                             </thead>
                             <tbody>

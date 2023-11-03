@@ -370,8 +370,6 @@ class AuthController extends CI_Controller
 			]
 		];
 
-		// }
-
 		$this->load->view('index', $result);
 	}
 
