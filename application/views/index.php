@@ -85,9 +85,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 <div class="content-wrapper p-0">
                     <!-- main view container -->
                     <?php
-                    // $view = isset($route) ? $route : "dashboard";
-                    // $this->load->view('./modules/' . $view);
-                    
+                    $view = isset($route) ? $route : "dashboard";
+                    $this->load->view('./modules/' . $view);
                     ?>
 
                 </div>
@@ -194,20 +193,27 @@ defined('BASEPATH') or exit('No direct script access allowed');
         .navbar span.icon-menu {
             color: white;
         }
+
+        .main-panel .box .container {
+            left: 0 !important;
+        }
     }
 
 
     .main-panel .box {
-        height: 100%;
-        padding-top: 100;
-        margin-right: 30px;
         display: flex;
         align-content: center;
         flex-wrap: wrap;
+        position: fixed;
+        background: #DDD;
+        height: 100%;
+        width: 100%;
+        z-index: 1;
+        opacity: 0.7;
     }
 
     .main-panel .box .container {
-        height: 10rem;
+        left: -6rem;
         width: 7rem;
         display: flex;
         position: relative;
@@ -217,7 +223,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
         width: 15px;
         height: 15px;
         border-radius: 50%;
-        background-color: blue;
+        background-color: gray;
         animation: move 500ms linear 0ms infinite;
         margin-right: 30px;
     }

@@ -104,7 +104,8 @@
 
         var options = {
             height: 300,
-            fullWidth: true,
+            width: 300,
+            fullWidth: 300,
             axisY: {
                 high: 1000,
                 low: 250,
@@ -112,11 +113,11 @@
                 type: Chartist.FixedScaleAxis,
                 ticks: [250, 500, 750, 1000]
             },
-            showArea: true,
-            showPoint: false
+            showArea: false,
+            showPoint: true
         }
-    
-    var responsiveOptions = [
+
+        var responsiveOptions = [
             ['screen and (max-width: 480px)', {
                 height: 150,
                 axisX: {
@@ -130,8 +131,8 @@
         // that is resolving to our chart container element. The Second parameter
         // is the actual data object.
         new Chartist.Line('#income-expense-summary-chart', data, options, responsiveOptions);
+        setTimeout(() => { $(".main-panel .box").css("display", "none") }, 1000)
     })
-    console.log(jsonData)
 </script>
 
 <style>
@@ -143,6 +144,15 @@
         padding: .2rem;
         background-color: #bfe7c1;
         text-align: center;
+    }
+
+    .dashboard-container table tr td {
+        padding-top: .3rem;
+        padding-bottom: .3rem;
+    }
+
+    .dashboard-container table tbody tr:last-child {
+        border-bottom: 1px #DDD solid;
     }
 
     .dashboard-container table tr td:first-child {
