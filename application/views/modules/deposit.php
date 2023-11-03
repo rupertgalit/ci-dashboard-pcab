@@ -20,27 +20,9 @@
         <div class="card">
             <div class="card-body p-1 pt-3">
                 <div class="d-sm-flex align-items-center my-4 pl-2">
-                    <h4 class="card-title mb-sm-0">Deposite</h4>
+                    <h4 class="card-title mb-sm-0">Deposit</h4>
                 </div>
 
-                <div class="table-responsive w-100 overflow-hidden">
-                    <div class="row mb-1 ml-auto ">
-                        <div class="col-md-2">
-                            <label for="start_date">Start Date:</label>
-                        </div>
-                        <div class="col-md-2">
-                            <label for="end_date">End Date:</label>
-                        </div>
-                    </div>
-                    <div class="row mb-3 ml-auto">
-                        <div class="col-md-2">
-                            <input type="date" id="start_date" class="form-control">
-                        </div>
-                        <div class="col-md-2">
-                            <input type="date" id="end_date" class="form-control">
-                        </div>
-
-                    </div>
 
                     <table id="myTable" class="table table-striped text-center ecollection-table-container"
                         width="100%">
@@ -108,27 +90,5 @@
         $('.search-btn').on('click', function () {
             table.draw();
         });
-    });
-
-    const _jsonData = JSON.parse('<?php echo json_encode($data) ?>')
-
-    function applyDateFilter() {
-        var start_date = $('#start_date').val();
-        var end_date = $('#end_date').val();
-    }
-
-    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-        var startDate = $('#start_date').val();
-        var endDate = $('#end_date').val();
-        var currentDate = data[2]; // Assuming date is at index 2
-
-        if ((startDate === '' && endDate === '') ||
-            (startDate === '' && currentDate <= endDate) ||
-            (startDate <= currentDate && endDate === '') ||
-            (startDate <= currentDate && currentDate <= endDate)) {
-            return true;
-        }
-
-        return false;
     });
 </script>
