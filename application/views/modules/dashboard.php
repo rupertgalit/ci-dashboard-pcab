@@ -115,8 +115,8 @@
             showArea: true,
             showPoint: false
         }
-
-        var responsiveOptions = [
+    
+    var responsiveOptions = [
             ['screen and (max-width: 480px)', {
                 height: 150,
                 axisX: {
