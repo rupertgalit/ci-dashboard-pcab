@@ -131,7 +131,6 @@
         // that is resolving to our chart container element. The Second parameter
         // is the actual data object.
         new Chartist.Line('#income-expense-summary-chart', data, options, responsiveOptions);
-        setTimeout(() => { $(".main-panel .box").css("display", "none") }, 1000)
     })
 </script>
 

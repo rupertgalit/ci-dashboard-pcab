@@ -118,6 +118,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.js"></script>
     <!-- End custom js for this page -->
 </body>
+<script>
+    setTimeout(() => { $(".main-panel .box").css("display", "none") }, 1000)
+</script>
 <style>
     div.main-panel #myTable_wrapper div.row div#myTable_length
 
