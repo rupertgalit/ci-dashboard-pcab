@@ -110,7 +110,6 @@
                                         </button>
                                     </div>
                                     <div class="modal-body  bg-white pb-3">
-                                        <button id="DownloadECollect" class="btn-sm mb-3">Download</button>
                                         <table id="EcollectTable" class="table table-striped text-center" width="100%">
                                             <thead>
                                                 <tr>
@@ -156,9 +155,7 @@
                                     </div>
                                     <div class="modal-footer bg-white border-top-0">
                                         <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded border-0"
-                                            data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded border-0"
-                                            onclick="fnExcelReport()">Export Data</button>
+                                            data-dismiss="modal">Download</button>
                                     </div>
                                 </div>
                             </div>
