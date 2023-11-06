@@ -203,7 +203,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
     #sidebar .nav.nav-container {
         overflow-y: auto;
         height: 94vh;
-        padding-bottom: 6rem;
+        padding-bottom: 5rem;
+        margin-top: 1rem;
     }
 
     div.card-body {
@@ -232,6 +233,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
         .main-panel .box .container {
             left: 0 !important;
+        }
+
+        .sidebar.sidebar-offcanvas {
+            overflow: hidden;
+            margin-top: 0;
+        }
+
+        #sidebar .nav.nav-container {
+            margin-top: 0.1rem;
         }
     }
 

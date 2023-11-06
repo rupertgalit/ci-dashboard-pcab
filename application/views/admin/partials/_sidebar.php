@@ -1,5 +1,5 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
-  <ul class="nav nav-container d-flex mt-4 mb-0">
+  <ul class="nav nav-container d-flex">
     <li class="nav-item">
       <a class="nav-link" href="<?php echo base_url('/dashboard'); ?>">
         <span class="menu-title text-capitalize">Dashboard</span>
