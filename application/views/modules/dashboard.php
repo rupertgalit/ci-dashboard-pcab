@@ -1,7 +1,6 @@
 <?php $dash_report = array_slice($data, 0, 5) ?>
 <div class="container-scroller dashboard-container d-flex flex-direction-row">
-    <div class="card w-100 p-3">
-
+    <div class="card w-100 p-3 pb-5">
         <div class="row d-flex flex-wrap">
             <div class="col-6">
                 <div class="card">
@@ -25,7 +24,7 @@
                                     echo "<tr>";
                                     echo "<td>" . date_format(date_create($row['date_time']), "m/d/Y") . "</td>";
                                     echo "<td>" . str_pad($row['ar_number'], 10, "0", STR_PAD_LEFT) . "</td>";
-                                    echo "<td>" . $row['reference_number'] . "</td>";
+                                    echo "<td>" . str_pad($row['reference_number'], 10, "0", STR_PAD_LEFT) . "</td>";
                                     echo "<td>" . $row['name_of_payor'] . "</td>";
                                     echo "<td class='text-right'>" . number_format((float) $row["total_amount"], 2, '.', '') . "</td>";
                                     echo "</tr>";
@@ -58,7 +57,7 @@
                                 echo "<tr>";
                                 echo "<td>" . date_format(date_create($row['date_time']), "m/d/Y") . "</td>";
                                 echo "<td>" . str_pad($row['ar_number'], 10, "0", STR_PAD_LEFT) . "</td>";
-                                echo "<td>" . $row['reference_number'] . "</td>";
+                                echo "<td>" . str_pad($row['reference_number'], 10, "0", STR_PAD_LEFT) . "</td>";
                                 echo "<td>" . $row['name_of_payor'] . "</td>";
                                 echo "<td class='text-right'>" . number_format((float) $row["total_amount"], 2, '.', '') . "</td>";
                                 echo "</tr>";
@@ -77,7 +76,7 @@
                         Reports Statistics
                     </div>
                     <div class="card-body">
-                        <div class="row income-expense-summary-chart mt-3">
+                        <div class="row summary-chart-container mt-3">
                             <div class="col-md-12">
                                 <div class="ct-chart" id="income-expense-summary-chart"></div>
                             </div>
@@ -101,20 +100,21 @@
                 [700, 430, 725, 390, 686, 392, 757, 500, 820, 400, 962, 420]
             ]
         };
-
+        console.log(Chartist)
         var options = {
             height: 300,
-            width: 300,
-            fullWidth: 300,
+            // width: 300,
+            fullWidth: true,
             axisY: {
                 high: 1000,
-                low: 250,
+                low: 0,
                 referenceValue: 1000,
-                type: Chartist.FixedScaleAxis,
-                ticks: [250, 500, 750, 1000]
+                type: Chartist.AutoScaleAxis,
+                ticks: [0, 250, 500, 750, 1000]
             },
-            showArea: false,
-            showPoint: true
+            showArea: true,
+            showPoint: false,
+            chartPadding: 30,
         }
 
         var responsiveOptions = [
@@ -122,6 +122,7 @@
                 height: 150,
                 axisX: {
                     labelInterpolationFnc: function (value) {
+                        console.log(value)
                         return value;
                     }
                 }
@@ -131,6 +132,7 @@
         // that is resolving to our chart container element. The Second parameter
         // is the actual data object.
         new Chartist.Line('#income-expense-summary-chart', data, options, responsiveOptions);
+        // $(".row.summary-chart-container").addClass("p-0")
     })
 </script>
 
@@ -142,12 +144,13 @@
     .dashboard-container table thead th {
         padding: .2rem;
         background-color: #bfe7c1;
-        text-align: center;
+        text-align: left;
     }
 
     .dashboard-container table tr td {
         padding-top: .3rem;
         padding-bottom: .3rem;
+        font-size: .8rem;
     }
 
     .dashboard-container table tbody tr:last-child {
@@ -155,7 +158,7 @@
     }
 
     .dashboard-container table tr td:first-child {
-        text-align: center;
+        text-align: left;
     }
 
     .dashboard-container table tr td:last-child {
@@ -172,5 +175,11 @@
 
     .dashboard-container table tr:nth-child(odd) {
         background-color: #e5f4e6;
+    }
+
+    @media screen and (max-width: 1201px) {
+        .dashboard-container .col-6 {
+            min-width: 100%;
+        }
     }
 </style>

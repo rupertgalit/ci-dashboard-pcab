@@ -113,7 +113,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <!-- endinject -->
     <!-- Custom js for this page -->
 
-    <script src=<?php echo base_url('/assets/js/dashboard.js'); ?>></script>
+    <!-- <script src=<?php echo base_url('/assets/js/dashboard.js'); ?>></script> -->
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.js"></script>
     <!-- End custom js for this page -->
@@ -122,6 +122,20 @@ defined('BASEPATH') or exit('No direct script access allowed');
     setTimeout(() => { $(".main-panel .box").css("display", "none") }, 1000)
 </script>
 <style>
+    html,
+    body {
+        overflow: hidden !important;
+    }
+
+    div.container-scroller {
+        height: 100% !important;
+    }
+
+    div.container-scroller .card.w-100 {
+        height: 100vh !important;
+        overflow-y: auto;
+    }
+
     div.main-panel #myTable_wrapper div.row div#myTable_length
 
     /*.dataTables-length*/
@@ -142,21 +156,25 @@ defined('BASEPATH') or exit('No direct script access allowed');
         border-left-color: black !important;
     }
 
-    div.footer-powered-by {
+    .footer-powered-by {
         position: fixed;
-        max-width: 15rem;
+        width: 15rem;
         bottom: 0;
-        color: #DDD;
+        color: #999;
+        /* background-color: #282828; */
+        background-color: #181824;
         font-size: 0.6rem;
         padding: 1rem;
+        transition: 1s;
+        border-top: 0.1rem solid #333;
     }
 
-    div.footer-powered-by img {
+    .footer-powered-by img {
         object-position: -20% 0;
         object-fit: cover;
     }
 
-    div.footer-powered-by a {
+    .footer-powered-by a {
         background: linear-gradient(to right, #f2bf3d, #4f80f4, #e8696f);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -164,13 +182,28 @@ defined('BASEPATH') or exit('No direct script access allowed');
         font-weight: 600;
     }
 
+    .footer-powered-by a img {
+        transition-duration: .3s;
+        transform: scale();
+    }
+
+    .footer-powered-by a img:hover {
+        height: 3.2rem;
+        width: 3.2rem;
+    }
+
     .navbar-brand-wrapper {
         height: 5rem !important;
     }
 
-    div.sidebar {
-        height: 100vh !important;
+    .sidebar.sidebar-offcanvas {
+        height: 100%;
+    }
 
+    #sidebar .nav.nav-container {
+        overflow-y: auto;
+        height: 94vh;
+        padding-bottom: 6rem;
     }
 
     div.card-body {
@@ -267,6 +300,25 @@ defined('BASEPATH') or exit('No direct script access allowed');
         to {
             transform: translateX(45px)
         }
+    }
+
+    ::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #888;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
     }
 
     /* .card {
