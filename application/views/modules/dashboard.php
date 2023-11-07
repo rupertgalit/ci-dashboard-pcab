@@ -1,5 +1,5 @@
 <?php $dash_report = array_slice($data, 0, 5) ?>
-<div class="container-scroller dashboard-container d-flex flex-direction-row">
+<div class="dashboard-container d-flex flex-direction-row">
     <div class="card w-100 p-3 pb-5">
         <div class="row d-flex flex-wrap">
             <div class="col-6">
@@ -15,7 +15,7 @@
                                     <th>AR Number</th>
                                     <th>Reference No.</th>
                                     <th>Name of Payor</th>
-                                    <th class="text-right pr-3">Total Amount</th>
+                                    <th class="text-right pr-3">(₱) Total Amount</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -48,7 +48,7 @@
                                 <th>AR Number</th>
                                 <th>Reference No.</th>
                                 <th>Name of Payor</th>
-                                <th class="text-right pr-3">Total Amount</th>
+                                <th class="text-right pr-3">(₱) Total Amount</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -75,7 +75,7 @@
                     <div class="card-title">
                         Reports Statistics
                     </div>
-                    <div class="card-body">
+                    <div class="card-body pt-2">
                         <div class="row summary-chart-container mt-3">
                             <div class="col-md-12">
                                 <div class="ct-chart" id="income-expense-summary-chart"></div>
@@ -100,7 +100,6 @@
                 [700, 430, 725, 390, 686, 392, 757, 500, 820, 400, 962, 420]
             ]
         };
-        console.log(Chartist)
         var options = {
             height: 300,
             // width: 300,
@@ -122,7 +121,6 @@
                 height: 150,
                 axisX: {
                     labelInterpolationFnc: function (value) {
-                        console.log(value)
                         return value;
                     }
                 }
@@ -137,44 +135,8 @@
 </script>
 
 <style>
-    .dashboard-container table {
-        width: 100%
-    }
-
-    .dashboard-container table thead th {
-        padding: .2rem;
-        background-color: #bfe7c1;
-        text-align: left;
-    }
-
-    .dashboard-container table tr td {
-        padding-top: .3rem;
-        padding-bottom: .3rem;
-        font-size: .8rem;
-    }
-
-    .dashboard-container table tbody tr:last-child {
-        border-bottom: 1px #DDD solid;
-    }
-
-    .dashboard-container table tr td:first-child {
-        text-align: left;
-    }
-
-    .dashboard-container table tr td:last-child {
-        padding-right: 1rem;
-    }
-
-    .dashboard-container table td {
-        padding-left: 1rem;
-        width: 1rem;
-        white-space: nowrap;
-        padding-bottom: .5rem;
-        align-items: center;
-    }
-
-    .dashboard-container table tr:nth-child(odd) {
-        background-color: #e5f4e6;
+    .dashboard-container .card-body {
+        padding: auto .1rem !important;
     }
 
     @media screen and (max-width: 1201px) {

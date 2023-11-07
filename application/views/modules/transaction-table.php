@@ -26,21 +26,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="font-weight-bold">No.</td>
-                                <td class="font-weight-bold">Transaction Ref.</td>
-                                <td class="font-weight-bold">Client Ref</td>
-                                <td class="font-weight-bold">Trace No.</td>
-                                <td class="font-weight-bold">Amount</td>
-                                <td class="font-weight-bold">App Name</td>
-                                <td class="font-weight-bold">Paygate</td>
-                                <td class="font-weight-bold">Status</td>
-                                <td class="font-weight-bold">Type</td>
-                                <td class="font-weight-bold">QR Metdod</td>
-                                <td class="font-weight-bold">Date Created</td>
-                                <td class="font-weight-bold">Time Created</td>
-                                <td class="font-weight-bold">Date Modified</td>
-                            </tr>
 
                         </tbody>
                     </table>

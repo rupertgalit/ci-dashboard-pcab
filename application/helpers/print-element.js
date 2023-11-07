@@ -56,4 +56,3 @@ function printElem(elem) {
     return true;
 }
 
-console.log("imported")

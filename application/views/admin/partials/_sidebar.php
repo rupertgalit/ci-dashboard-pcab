@@ -1,13 +1,13 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
-  <ul class="nav nav-container d-flex">
+  <ul class="nav nav-container">
     <li class="nav-item">
-      <a class="nav-link" href="<?php echo base_url('/dashboard'); ?>">
+      <a class="nav-link" href="dashboard">
         <span class="menu-title text-capitalize">Dashboard</span>
         <i class="icon-screen-desktop menu-icon"></i>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="<?php echo base_url('/transaction-table'); ?>">
+      <a class="nav-link" href="transaction-table">
         <span class="menu-title text-capitalize">transactions</span>
         <i class="icon-grid  menu-icon"></i>
       </a>
@@ -19,48 +19,9 @@
       </a>
       <div class="collapse" id="ui-basic">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="<?php echo base_url('/acknowledgement-receipt'); ?>">Ack.
+          <li class="nav-item"> <a class="nav-link" href="acknowledgement-receipt">Ack.
               Receipt</a></li>
-          <li class="nav-item"> <a class="nav-link" href="<?php echo base_url('/deposit'); ?>"> deposit</a></li>
-        </ul>
-      </div>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-        <span class="menu-title text-capitalize">Data Table</span>
-        <i class="icon-layers menu-icon"></i>
-      </a>
-      <div class="collapse" id="ui-basic">
-        <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="<?php echo base_url('/acknowledgement-receipt'); ?>">Ack.
-              Receipt</a></li>
-          <li class="nav-item"> <a class="nav-link" href="<?php echo base_url('/deposit'); ?>"> deposit</a></li>
-        </ul>
-      </div>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-        <span class="menu-title text-capitalize">Data Table</span>
-        <i class="icon-layers menu-icon"></i>
-      </a>
-      <div class="collapse" id="ui-basic">
-        <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="<?php echo base_url('/acknowledgement-receipt'); ?>">Ack.
-              Receipt</a></li>
-          <li class="nav-item"> <a class="nav-link" href="<?php echo base_url('/deposit'); ?>"> deposit</a></li>
-        </ul>
-      </div>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-        <span class="menu-title text-capitalize">Data Table</span>
-        <i class="icon-layers menu-icon"></i>
-      </a>
-      <div class="collapse" id="ui-basic">
-        <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="<?php echo base_url('/acknowledgement-receipt'); ?>">Ack.
-              Receipt</a></li>
-          <li class="nav-item"> <a class="nav-link" href="<?php echo base_url('/deposit'); ?>"> deposit</a></li>
+          <li class="nav-item"> <a class="nav-link" href="deposit"> deposit</a></li>
         </ul>
       </div>
     </li>

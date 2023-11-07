@@ -127,13 +127,25 @@ defined('BASEPATH') or exit('No direct script access allowed');
         overflow: hidden !important;
     }
 
-    div.container-scroller {
-        height: 100% !important;
+    .active::before {
+        color: #0fb413 !important;
+        -webkit-user-select: none !important;
+        -moz-user-select: none !important;
+        -ms-user-select: none !important;
+        user-select: none !important
     }
 
-    div.container-scroller .card.w-100 {
-        height: 100vh !important;
+    .main-panel {
+        height: 100%;
+    }
+
+    .main-panel .content-wrapper {
+        height: 100vh;
         overflow-y: auto;
+    }
+
+    div.container-scroller {
+        height: 100% !important;
     }
 
     div.main-panel #myTable_wrapper div.row div#myTable_length
@@ -329,6 +341,48 @@ defined('BASEPATH') or exit('No direct script access allowed');
     /* Handle on hover */
     ::-webkit-scrollbar-thumb:hover {
         background: #555;
+    }
+
+    table {
+        width: 100%
+    }
+
+    table thead th {
+        padding: .5rem;
+        background-color: #bfe7c1 !important;
+        text-align: left;
+        font-size: .8rem;
+        font-weight: 700;
+    }
+
+    table tr td {
+        padding-top: .3rem;
+        padding-bottom: .3rem;
+        font-size: .8rem;
+    }
+
+    table tbody tr:last-child {
+        border-bottom: 1px #DDD solid;
+    }
+
+    table tr td:first-child {
+        text-align: left;
+    }
+
+    table tr td:last-child {
+        padding-right: 1rem;
+    }
+
+    table td {
+        padding-left: .5rem;
+        width: 1rem;
+        white-space: nowrap;
+        padding-bottom: .5rem;
+        align-items: center;
+    }
+
+    table tr:nth-child(odd) {
+        background-color: #e5f4e6 !important;
     }
 
     /* .card {

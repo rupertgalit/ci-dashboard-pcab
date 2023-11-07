@@ -10572,7 +10572,7 @@ address p {
 /* Miscellanoeous */
 body,
 html {
-  overflow-x: hidden;
+  overflow: hidden !important;
   padding-right: 0 !important; }
 
 *:-moz-full-screen,

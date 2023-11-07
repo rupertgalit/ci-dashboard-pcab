@@ -258,7 +258,6 @@
         var start_date = $('#start_date').val();
         var end_date = $('#end_date').val();
 
-        console.log(start_date, end_date)
     }
 
     $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
@@ -398,7 +397,6 @@
         if (!modalStartDate) {
 
             $('#validationMessage').html('<span style="font-size:.8rem; color: red; margin-left:1.5rem;" role="alert">Please select a date.</span>');
-            console.log("yes")
             return;
         }
         // Clear existing content in the modal
@@ -589,7 +587,6 @@
     }
 
     async function printRow(id) {
-        console.log(id)
         const rowData = _jsonData.find(obj => obj.id == id)
         let doc = new jspdf.jsPDF({
             orientation: 'p', unit: 'px'
