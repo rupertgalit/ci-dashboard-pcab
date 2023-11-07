@@ -77,8 +77,8 @@
                                             <div class="col-12 d-flex flex-row flex-wrap">
                                                 <label for="modal_selected_date"
                                                     class="mr-2 d-flex align-items-center">Select Date:</label>
-                                                <input type="date" id="modal_selected_date" class="form-control"
-                                                    style="width: 16rem;">
+                                                <input type="date" id="modal_selected_date" value="2022-02-18"
+                                                    class="form-control" style="width: 16rem;">
                                                 <div id="validationMessage"></div>
 
                                             </div>
@@ -88,7 +88,7 @@
                                     </div>
                                     <div class="modal-footer bg-white border-top-0">
                                         <button type="button"
-                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded search-btn-modal">Preview</button>
+                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded preview-btn-modal">Preview</button>
                                         <button type="button"
                                             class="btn-sm btn-outline-dark mr-3 mb-2 rounded download-btn-modal">Download</button>
                                     </div>
@@ -276,14 +276,21 @@
         return false;
     });
     // Modal date filter
-    $('.search-btn-modal').on('click', function () {
+    $('.preview-btn-modal').on('click', function () {
         var modalStartDate = $('#modal_selected_date').val();
+        const filteredData = _jsonData.filter(item => item.date_time == modalStartDate)
 
         if (!modalStartDate) {
 
             $('#validationMessage').html('<span style="font-size:.8rem; color: red; margin-left:1.5rem;" role="alert">Please select a date.</span>');
             return;
         }
+
+        if (!filteredData.length) {
+            $('#validationMessage').html('<span style="font-size:.8rem; color: red; margin-left:1.5rem;" role="alert">No data found.</span>');
+            return;
+        }
+
         // Clear existing content in the modal
         $('#validationMessage').empty();
         $('#modalDataTableContainer').empty();
@@ -302,17 +309,18 @@
 
         var modalTableHead = document.createElement('thead');
         modalTableHead.classList.add('thead-light'); // Added light background for the table head
-        modalTableHead.innerHTML = '<tr><th>Date and Time</th><th>AR Number</th><th>Name of Payor</th><th>Particulars</th><th>Reference Number</th><th>Amount</th></tr>';
+        modalTableHead.innerHTML = '<tr><th>Date and Time</th><th>AR Number</th><th>Name of Payor</th><th>Particulars</th><th>Reference Number</th><th class="text-right">Amount</th></tr>';
 
         var modalTableBody = document.createElement('tbody');
 
         // Clone the original table
         var originalTable = document.getElementById('myTable');
         modalTableBody.innerHTML = "";
-
-        _jsonData.filter(item => item.date_time == modalStartDate)
-            .forEach((row) =>
-                modalTableBody.innerHTML += `<tr><td>${row.date_time}</td><td>${row.ar_number}</td><td>${row.name_of_payor}</td><td>${row.particulars}</td><td>${row.reference_number}</td><td>${row.total_amount}</td></tr>`
+        console.log(_jsonData.filter(item => item.date_time == modalStartDate))
+        filteredData
+            .forEach((row) => {
+                modalTableBody.innerHTML += `<tr><td>${row.date_time}</td><td>${row.ar_number}</td><td>${row.name_of_payor}</td><td>${row.particulars}</td><td>${row.reference_number}</td><td class="text-right">${row.total_amount}</td></tr>`
+            }
             )
 
         // Find rows that match the selected date
@@ -357,6 +365,8 @@
         // Trigger the search functionality again
         table.draw();
     });
+
+    $('#modal_selected_date').on("change", (el) => { $('#validationMessage').empty(); })
 
     // Add a function for the close button in the modal
     $('.close, [data-dismiss="modal"]').on('click', function () {

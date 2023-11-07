@@ -91,12 +91,12 @@
 <script>
     $(document).ready(() => {
         const jsonData = JSON.parse('<?php echo json_encode($data) ?>')
-        var data = {
+        const data = {
             // A labels array that can contain any sort of values
             labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             // Our series array that contains series objects or in this case series data arrays
             series: [
-                [505, 781, 480, 985, 410, 822, 388, 874, 350, 642, 320, 796],
+                [200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 796],
                 [700, 430, 725, 390, 686, 392, 757, 500, 820, 400, 962, 420]
             ]
         };
@@ -117,7 +117,7 @@
             chartPadding: 30,
         }
 
-        var responsiveOptions = [
+        const responsiveOptions = [
             ['screen and (max-width: 480px)', {
                 height: 150,
                 axisX: {
