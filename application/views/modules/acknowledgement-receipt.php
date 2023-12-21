@@ -213,10 +213,10 @@
                             echo "<td>" . $row["agency_name"] . "</td>";
                             echo "<td>" . $row["name_of_payor"] . "</td>";
                             echo "<td>" . $row["particulars"] . "</td>";
-                            echo "<td>&#8369; " . $row["amount"] . "</td>";
-                            echo "<td>&#8369; " . $row["service_charge"] . "</td>";
-                            echo "<td>&#8369; " . $row["tax"] . "</td>";
-                            echo "<td>&#8369; " . $row["total_amount"] . "</td>";
+                            echo "<td>&#8369; " .number_format((float)$row["amount"], 2, '.', '') . "</td>";
+                            echo "<td>&#8369; " .number_format((float)$row["service_charge"], 2, '.', '') . "</td>";
+                            echo "<td>&#8369; " .number_format((float)$row["tax"], 2, '.', '') . "</td>";
+                            echo "<td>&#8369; " .number_format((float)$row["total_amount"], 2, '.', '') . "</td>";
                             echo "<td>" . $row["reference_number"] . "</td>";
                             echo "<td><button type='button' class='btn-sm btn-outline-info btn-print-receipt' data-receipt-id='" . $row['id'] . "'  onclick='printRow(" . $row['id'] . ")'>Download</button></td>";
                             echo "</tr>";
