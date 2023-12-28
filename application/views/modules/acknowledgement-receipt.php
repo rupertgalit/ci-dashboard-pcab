@@ -183,6 +183,7 @@
             </div>
 
             <div class="scrollable-container">
+
                 <table id="myTable" class="table table-striped text-center" width="100%">
                     <!-- Your table headers go here -->
                     <thead>
@@ -213,10 +214,10 @@
                             echo "<td>" . $row["agency_name"] . "</td>";
                             echo "<td>" . $row["name_of_payor"] . "</td>";
                             echo "<td>" . $row["particulars"] . "</td>";
-                            echo "<td>&#8369; " .number_format((float)$row["amount"], 2, '.', '') . "</td>";
-                            echo "<td>&#8369; " .number_format((float)$row["service_charge"], 2, '.', '') . "</td>";
-                            echo "<td>&#8369; " .number_format((float)$row["tax"], 2, '.', '') . "</td>";
-                            echo "<td>&#8369; " .number_format((float)$row["total_amount"], 2, '.', '') . "</td>";
+                            echo "<td>&#8369; " . number_format((float) $row["amount"], 2, '.', '') . "</td>";
+                            echo "<td>&#8369; " . number_format((float) $row["service_charge"], 2, '.', '') . "</td>";
+                            echo "<td>&#8369; " . number_format((float) $row["tax"], 2, '.', '') . "</td>";
+                            echo "<td>&#8369; " . number_format((float) $row["total_amount"], 2, '.', '') . "</td>";
                             echo "<td>" . $row["reference_number"] . "</td>";
                             echo "<td><button type='button' class='btn-sm btn-outline-info btn-print-receipt' data-receipt-id='" . $row['id'] . "'  onclick='printRow(" . $row['id'] . ")'>Download</button></td>";
                             echo "</tr>";
@@ -241,7 +242,9 @@
     $(document).ready(function () {
 
         var table = $('#myTable').DataTable({
-            dom: '<"pull-left"b><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>'
+            dom: '<"pull-left"b><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
+            scrollX: '300px',
+            scrollCollapse: true,
         });
 
         $('.search-btn').on('click', function () {
