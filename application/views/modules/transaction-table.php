@@ -6,7 +6,7 @@
                     <h4 class="card-title mb-sm-0">Transaction table</h4>
                     <!-- <a href="#" class="text-dark ml-auto mb-3 mb-sm-0"> View all Products</a> -->
                 </div>
-                <div class="table-responsive border  rounded p-1">
+                <div class="border  rounded p-1">
                     <table id="myTable" class="table  table-fluid table-striped" width="100%">
                         <thead class="text-left">
                             <tr>
@@ -39,6 +39,11 @@
 
 <script>
     $(document).ready(function () {
-        $('#myTable')?.DataTable();
+         var table = $('#myTable').DataTable({
+            dom: '<"pull-left"b><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
+            scrollX: '300px',
+            scrollCollapse: true,
+        });
+
     });
 </script>
