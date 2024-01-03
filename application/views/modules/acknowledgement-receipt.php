@@ -52,15 +52,16 @@
 <div class="row">
     <div class="col-md-12 grid-margin stretch-card m-0" id="toPrint">
         <div class="card py-2 px-1">
-            <div class="card-body">
-                <div class="d-sm-flex align-items-center mb-4">
-                    <h4 class="card-title mb-sm-0">Acknowledge Reciept</h4>
-                </div>
-            </div>
+
 
             <div class="btn-generate-container row">
+                <div class="card-body">
+                    <div class="d-sm-flex align-items-center mb-4">
+                        <h4 class="card-title mb-sm-0">Acknowledge Reciept</h4>
+                    </div>
+                </div>
                 <div class="col row d-flex justify-content-end py-2">
-                    <div class=" col-mb-3 mr-3 mb-1">
+                    <div class=" col-mb-3 mr-3 mt-3">
                         <button class="btn-lg btn-outline-dark rounded border-0" data-toggle="modal"
                             data-target="#Daily_CollectionModal">Daily Collection</button>
                         <div class="modal fade" id="Daily_CollectionModal" tabindex="-1" role="dialog"
@@ -96,7 +97,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class=" col-mb-3 mr-3 mb-1">
+                    <div class=" col-mb-3 mr-3 mt-3">
                         <button class="btn-lg btn-outline-dark rounded border-0 w-50" data-toggle="modal"
                             data-target="#exportModal">E-Collection</button>
                         <div class="modal fade" id="exportModal" tabindex="-1" role="dialog"
@@ -194,10 +195,10 @@
                             <th class="font-weight-bold">Agency Name</th>
                             <th class="font-weight-bold">Name of Payor</th>
                             <th class="font-weight-bold">Particulars</th>
-                            <th class="font-weight-bold">Amount</th>
-                            <th class="font-weight-bold">Service Charge</th>
-                            <th class="font-weight-bold">Tax</th>
-                            <th class="font-weight-bold">Total Amount</th>
+                            <th class="font-weight-bold">Transaction Amount</th>
+                            <th class="font-weight-bold">document stamp tax</th>
+                            <th class="font-weight-bold">fees pcab</th>
+                            <th class="font-weight-bold">legal research fund</th>
                             <th class="font-weight-bold">Reference Number</th>
                             <th class="font-weight-bold">Action</th>
                         </tr>
