@@ -9,7 +9,7 @@
                 <div class="border  rounded p-1">
                     <table id="myTable" class="table  table-fluid table-striped" width="100%">
                         <thead class="text-left">
-                        <tr>
+                            <tr>
                                 <th class="font-weight-bold">Transaction ID</th>
                                 <th class="font-weight-bold">Status</th>
                                 <th class="font-weight-bold">reference No.</th>
@@ -43,12 +43,55 @@
 
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(async function() {
         var table = $('#myTable').DataTable({
             dom: '<"pull-left"b><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
             scrollX: '300px',
             scrollCollapse: true,
+            columns: [{
+                    "data": "name"
+                },
+                {
+                    "data": "position"
+                },
+                {
+                    "data": "office"
+                },
+                {
+                    "data": "extn"
+                },
+                {
+                    "data": "start_date"
+                },
+                {
+                    "data": "salary"
+                }
+            ],
+            data: [
+                {
+                    name: 123,
+                    position: 123,
+                    office: 123,
+                    extn: 123,
+                    start_date: 123,
+                    salary: 123,
+                },
+                {
+                    name: 123,
+                    position: 123,
+                    office: 123,
+                    extn: 123,
+                    start_date: 123,
+                    salary: 123,
+                }
+            ]
         });
 
-    });
+        const response = await fetch(window.location.origin + "/get-transactions");
+        const strData = await response.json()
+        const callback = JSON.parse(strData.replace(/[\\]/g, "").replace(/\"\{/g, "{").replace(/\}\"/g, "}")).data
+        console.log(callback)
+    })
+    // console.log(await fetch("http://localhost/pcab_dev/get-transactions"))
+    // console.log(await fetch("http://pcab_dev.test/get-transactions"))
 </script>

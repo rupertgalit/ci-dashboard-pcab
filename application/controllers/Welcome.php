@@ -22,30 +22,27 @@ class Welcome extends CI_Controller
 
 	public function getTransactions()
 	{
+
 		$curl = curl_init();
 
-		curl_setopt_array(
-			$curl,
-			array(
-				CURLOPT_URL => 'http://localhost/pcab_dev/all-transaction-data',
-				CURLOPT_RETURNTRANSFER => true,
-				CURLOPT_ENCODING => '',
-				CURLOPT_MAXREDIRS => 10,
-				CURLOPT_TIMEOUT => 0,
-				CURLOPT_FOLLOWLOCATION => true,
-				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-				CURLOPT_CUSTOMREQUEST => 'GET',
-				CURLOPT_HTTPHEADER => array(
-					'Cookie: ci_session=mi6ri7c8uiaq39q0tr4fji010bo1hgti'
-				),
-			)
-		);
+		curl_setopt_array($curl, array(
+			CURLOPT_URL => 'http://localhost/pcab_dev/all-transaction-data',
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => '',
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_TIMEOUT => 0,
+			CURLOPT_FOLLOWLOCATION => true,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => 'GET',
+			CURLOPT_HTTPHEADER => array(
+				'Cookie: ci_session=205jcq0tuc5p5ifcnbmjpda1b2bs1ccp'
+			),
+		));
 
 		$response = curl_exec($curl);
 
 		curl_close($curl);
-		echo $response;
-
+		echo json_encode($response);
 	}
 
 	public function index()
@@ -426,6 +423,5 @@ class Welcome extends CI_Controller
 
 		$query = $this->db->query("SELECT * FROM payment_transaction");
 		echo json_encode($query->result_array());
-
 	}
 }
