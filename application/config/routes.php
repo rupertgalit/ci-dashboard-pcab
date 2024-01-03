@@ -59,8 +59,10 @@ $route['transaction-table']  = 'welcome/index';
 $route['acknowledgement-receipt']  = 'welcome/index';
 $route['deposit']  = 'welcome/index';
 $route['dashboard']  = 'welcome/index';
+$route['get-transactions']  = 'welcome/getTransactions';
 
 // $route['api']   = 'api/DashApi';
 $route['testapi']  = 'authcontroller/test_api';
 $route['index']  = 'authcontroller/test_api';
+
 
