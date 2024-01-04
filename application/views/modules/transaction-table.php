@@ -9,10 +9,11 @@
                 <div class="border  rounded p-1">
                     <table id="myTable" class="table  table-fluid table-striped" width="100%">
                         <thead class="text-left">
-                        <tr>
+                            <tr>
                                 <th class="font-weight-bold">Transaction ID</th>
+                                <th class="font-weight-bold">Reference No.</th>
+                                <th class="font-weight-bold">Mobile No.</th>
                                 <th class="font-weight-bold">Status</th>
-                                <th class="font-weight-bold">reference No.</th>
                                 <th class="font-weight-bold">PCAB Fee</th>
                                 <th class="font-weight-bold">Legal Research Fund</th>
                                 <th class="font-weight-bold">Documentary Stamp</th>
@@ -68,22 +69,27 @@
                     txn_amount,
                 }
             })
-            console.log(callback);
+        console.log(callback);
 
         var table = $('#myTable').DataTable({
             dom: '<"pull-left"b><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
             scrollX: '300px',
             scrollCollapse: true,
-
+            createdRow: function (row, data, dataIndex) {
+                $(row).attr('amount');
+            },
             columns: [
                 {
-                    "data": "trans_id"
+                    "data": "referenceNumber"
+                },
+                {
+                    "data": "reference_number"
+                },
+                {
+                    "data": "mobile_number"
                 },
                 {
                     "data": "status"
-                },
-                {
-                    "data": "referenceNumber"
                 },
                 {
                     "data": "fees_pcab"
