@@ -6,7 +6,9 @@
                 <div class="card">
                     <div class="card-title">
                         ack. report table
+                        <a class=" btn-success btn-view-all-ack " href="acknowledgement-receipt">View All</a>
                     </div>
+
                     <div class="card-body">
                         <table class="ack-table">
                             <thead>
@@ -39,6 +41,7 @@
             <div class="col-6">
                 <div class="card-title">
                     deposit table
+                    <a class=" btn-success btn-view-all" href="deposit">View All</a>
                 </div>
                 <div class="card-body">
                     <table class="deposit-table">
@@ -131,17 +134,57 @@
         // is the actual data object.
         new Chartist.Line('#income-expense-summary-chart', data, options, responsiveOptions);
         // $(".row.summary-chart-container").addClass("p-0")
-    })
+    })  
 </script>
 
 <style>
+    .btn-view-all {
+        position: absolute;
+        border: 0;
+        left: 8.5rem;
+        font-size: 10px;
+        color: #FFFFFF;
+        padding: 4px 8px;
+        width: 6rem;
+        text-align: center;
+        transition-duration: 1.4s;
+        text-decoration: none;
+        overflow: hidden;
+        cursor: pointer;
+        margin-top: 0rem;
+    }
+    .btn-view-all-ack {
+        position: absolute;
+        border: 0;
+        left: 10rem;
+        font-size: 10px;
+        color: #FFFFFF;
+        padding: 4px 8px;
+        width: 6rem;
+        text-align: center;
+        transition-duration: 1.4s;
+        text-decoration: none;
+        overflow: hidden;
+        cursor: pointer;
+        margin-top: 0rem;
+    }
+
     .dashboard-container .card-body {
-        padding: auto .1rem !important;
+        padding: auto -1.1rem !important;
     }
 
     @media screen and (max-width: 1201px) {
         .dashboard-container .col-6 {
             min-width: 100%;
         }
+    }
+
+    .card .card-title {
+        color: #343a40;
+        margin-bottom: -1.25rem;
+        text-transform: capitalize;
+        font-family: "Open Sans", sans-serif;
+        font-weight: 600;
+        font-size: 1.125rem;
     }
 </style>
