@@ -260,7 +260,9 @@ table tr:nth-child(even) {
 table tr:nth-child(odd) {
 	background-color: #fff !important;
 }
-
+#myTable_filter{
+	margin-right: 0.5rem;
+}
 /* .card {
         min-height: 0;
         max-height: 95vh;
