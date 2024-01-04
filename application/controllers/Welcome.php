@@ -428,4 +428,40 @@ class Welcome extends CI_Controller
 		echo json_encode($query->result_array());
 
 	}
+
+	public function get_data()
+	{
+
+		
+
+		$curl = curl_init();
+
+		curl_setopt_array($curl, array(
+		CURLOPT_URL => 'https://pcab-dev.netglobalsolutions.net/all-transaction-data',
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_ENCODING => '',
+		CURLOPT_MAXREDIRS => 10,
+		CURLOPT_TIMEOUT => 0,
+		CURLOPT_FOLLOWLOCATION => true,
+		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		CURLOPT_CUSTOMREQUEST => 'GET',
+		CURLOPT_HTTPHEADER => array(
+			'Cookie: ci_session=ra3d7b0eq8qaikr98i31ueqptbpi1vku'
+		),
+		));
+
+		$response = curl_exec($curl);
+
+		// $decodedArray = json_decode($response, true);
+
+
+		$response = json_encode($response, true);
+		curl_close($curl);
+		// print_r( $decodedArray);
+		// echo $decodedArray['status'];
+		echo $response;
+		
+
+
+	}
 }

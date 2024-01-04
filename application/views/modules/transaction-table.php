@@ -13,11 +13,11 @@
                                 <th class="font-weight-bold">Transaction ID</th>
                                 <th class="font-weight-bold">Status</th>
                                 <th class="font-weight-bold">reference No.</th>
-                                <th class="font-weight-bold">Trace No.</th>
-                                <th class="font-weight-bold">Amount</th>
-                                <th class="font-weight-bold">App Name</th>
-                                <th class="font-weight-bold">Paygate</th>
-                                <th class="font-weight-bold">Type</th>
+                                <th class="font-weight-bold">PCAB Fee</th>
+                                <th class="font-weight-bold">Legal Research Fund</th>
+                                <th class="font-weight-bold">Documentary Stamp</th>
+                                <th class="font-weight-bold">Total Amount</th>
+                                <!-- <th class="font-weight-bold">Type</th>
                                 <th class="font-weight-bold">QR Method</th>
                                 <th class="font-weight-bold">Date Created</th>
                                 <th class="font-weight-bold">Time Created</th>
@@ -28,7 +28,7 @@
                                 <th class="font-weight-bold">document stamp tax</th>
                                 <th class="font-weight-bold">fees pcab</th>
                                 <th class="font-weight-bold">legal research fund</th>
-                            </tr>
+                            </tr> -->
                         </thead>
                         <tbody>
 
@@ -43,11 +43,64 @@
 
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(async function () {
+
+        const response = await fetch(window.location.origin + "/get-data");
+        console.log(response);
+        const strData = await response.json()
+        const callback = JSON.parse(strData.replace(/[\\]/g, "").replace(/\"\{/g, "{").replace(/\}\"/g, "}")).data
+        const data = callback
+            .map(data => {
+                const { status,
+                    referenceNumber,
+                    trans_id,
+                    legal_research_fund,
+                    document_stamp_tax,
+                    fees_pcab,
+                    txn_amount, } = data;
+                return {
+                    status,
+                    referenceNumber,
+                    trans_id,
+                    legal_research_fund,
+                    document_stamp_tax,
+                    fees_pcab,
+                    txn_amount,
+                }
+            })
+            console.log(callback);
+
         var table = $('#myTable').DataTable({
             dom: '<"pull-left"b><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
             scrollX: '300px',
             scrollCollapse: true,
+
+            columns: [
+                {
+                    "data": "trans_id"
+                },
+                {
+                    "data": "status"
+                },
+                {
+                    "data": "referenceNumber"
+                },
+                {
+                    "data": "fees_pcab"
+                },
+                {
+                    "data": "legal_research_fund"
+                },
+                {
+                    "data": "document_stamp_tax"
+                },
+                {
+                    "data": "txn_amount"
+                }
+            ],
+            data
+
+
         });
 
     });

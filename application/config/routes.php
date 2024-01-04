@@ -64,5 +64,6 @@ $route['get-transactions']  = 'welcome/getTransactions';
 // $route['api']   = 'api/DashApi';
 $route['testapi']  = 'authcontroller/test_api';
 $route['index']  = 'authcontroller/test_api';
+$route['get-data']  = 'welcome/get_data';
 
 
