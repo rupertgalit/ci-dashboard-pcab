@@ -183,7 +183,7 @@
                 </div>
             </div>
 
-            <div class="scrollable-container">
+            <div class="scrollable-container" style="padding: 0.5rem;">
 
                 <table id="myTable" class="table table-striped text-center" width="100%">
                     <!-- Your table headers go here -->
@@ -244,7 +244,7 @@
 
         var table = $('#myTable').DataTable({
             dom: '<"pull-left"b><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
-            scrollX: '300px',
+            scrollX: '90%',
             scrollCollapse: true,
         });
 
