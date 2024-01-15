@@ -21,7 +21,7 @@
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="acknowledgement-receipt">Ack.
               Receipt</a></li>
-          <li class="nav-item"> <a class="nav-link" href="deposit"> deposit</a></li>
+          <li class="nav-item"> <a class="nav-link" href="deposit"> Deposit</a></li>
         </ul>
       </div>
     </li>

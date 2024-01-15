@@ -52,7 +52,7 @@
 <div class="row">
     <div class="col-md-12 grid-margin stretch-card m-0" id="toPrint">
         <div class="card py-2 px-1">
-        
+
 
             <div class="btn-generate-container row">
                 <div class="col row d-flex justify-content-end py-2">
@@ -155,8 +155,9 @@
                                         </table>
                                     </div>
                                     <div class="modal-footer bg-white border-top-0">
-                                        <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded border-0"
-                                            data-dismiss="modal">Download</button>
+                                        <button type="button"
+                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded border-0 btn-download-collection">Download
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -220,7 +221,7 @@
                             echo "<td>&#8369; " . number_format((float) $row["tax"], 2, '.', '') . "</td>";
                             echo "<td>&#8369; " . number_format((float) $row["total_amount"], 2, '.', '') . "</td>";
                             echo "<td>" . $row["reference_number"] . "</td>";
-                            echo "<td><button type='button'style='width: 100px; height: 34px;' class='btn-sm btn-outline-info btn-print-receipt' data-receipt-id='" . $row['id'] . "'  onclick='printRow(" . $row['id'] . ")'>Download</button></td>";
+                            echo "<td><button type='button'style='width: 100px; height: 34px;' class=' btn-outline-info btn-print-receipt' data-receipt-id='" . $row['id'] . "'  onclick='printRow(" . $row['id'] . ")'>Download</button></td>";
                             echo "</tr>";
                         }
                         ?>
@@ -239,6 +240,7 @@
 </div>
 
 <script>
+
 
     $(document).ready(function () {
 
@@ -504,7 +506,7 @@
         <div
             class="border border-dark col-2 d-flex align-items-center justify-content-around border-right-0 text-center">
             Reference Number
-        </div>
+        </div> 
         <div class="border border-dark col-1 d-flex align-items-center justify-content-around">
             Amount
         </div>
@@ -699,6 +701,305 @@
             })
         } catch (e) { console.log(e) }
     }
+
+    $('.btn-download-collection').on('click', function () {
+        printECollectionReport();
+    });
+
+    async function printECollectionReport() {
+        const filteredData = _jsonData; // Assuming _jsonData is the array with your data
+
+        let doc = new jspdf.jsPDF({
+            orientation: 'p',
+            unit: 'px'
+        });
+
+        let printContent = `
+        <html><title>Receipt</title>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous">
+        <\/script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"><\/link>
+        <style>
+            div#ECollectionForm div.data-table {
+                font-size: 13px;
+            }
+
+            div#ECollectionForm div.custom-font-size {
+                font-size: 12px;
+            }
+
+            div#ECollectionForm div.data-table div.row-data {
+                font-size: 12px;
+                overflow: nowrap;
+            }
+            div#ECollectionForm div.data-table div.t-body div.row-data:nth-child(2) {
+                width: 405.3px;
+                white-space: nowrap;
+                overflow: visible;
+            }
+        </style></head><body>
+        [content]
+</div>
+</div>
+</div>
+        </html>
+    `;
+
+        let i = 0;
+        let content = "";
+        let totalAmount = 0; // Initialize totalAmount here
+
+        while (filteredData.length - (i * 10) > 0) {
+            let rows = filteredData.slice(i * 10, i * 10 + 10);
+
+            if (rows.length < 10) {
+                addIndex = 10 - rows.length;
+                rows = rows.concat(Array(addIndex).fill(null));
+            }
+
+            try {
+                content += `
+                ${i % 3 !== 0 ? '<div class="row" style="width: 89.5vw; border-bottom:1px black solid; border-bottom-style: dashed; margin: 6rem 0 6rem 0"></div>' : ''}
+                <div id="ECollectionForm-${i}" class="bg-whites mx-auto mt-5" style="width: 90rem;${(i + 1) % 3 !== 0 || i == 0 ? "" : "margin-bottom: 10rem !important;margin-top: 50rem !important;"} }">
+                <div class="container "style="margin-top: 20rem !important;">
+        <div class="row">
+            <div class="col text-center">
+                <span class="fs-3 font-weight-bold">REPORT OF e-COLLECTION AND DEPOSIT</span>
+                <p class="fs-6">By: (Name of intermediary)</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-8">
+                <span>Entity Name:<div
+                        class="list-inline-item font-weight-light border-dark border-bottom custom-font-size px-5"></div>
+                </span><br>
+                <span>Fund Cluster:<div
+                        class="list-inline-item font-weight-light border-dark border-bottom custom-font-size px-5"></div>
+                </span>
+            </div>
+            <div class="col-4">
+                <span>Report No.:<div
+                        class="list-inline-item font-weight-light border-dark border-bottom custom-font-size px-5"></div>
+                </span><br>
+                <span>Sheet No.:<div
+                        class="list-inline-item font-weight-light border-dark border-bottom custom-font-size px-5"></div>
+                </span><br>
+                <span>Date:<div class="list-inline-item font-weight-light border-dark border-bottom custom-font-size px-5">
+                    </div></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-3 border border-dark table-bordered">
+    <div class="row t-head">
+        <div
+            class="border border-dark col-3 d-flex align-items-center text-center justify-content-around border-right-0">
+            Electronic Acknowledgement Receipt
+        </div>
+        <div class="border border-dark col-5 d-flex align-items-center justify-content-around border-right-0">
+
+        </div>
+        <div class="border border-dark col-4 d-flex align-items-center justify-content-around border-right-0">
+            Amount
+        </div>
+    </div>
+    <div class="row t-head">
+        <div class="border border-dark col-9 d-flex align-items-center justify-content-around border-right-0">
+        </div>
+        <div class="border border-dark col-3 d-flex align-items-center justify-content-around border-right-0">
+            Breakdown Collection
+        </div>
+    </div>
+    <div class="row t-head">
+        <div class="border border-dark col-1 d-flex align-items-center justify-content-around border-right-0">
+            Date and Time
+        </div>
+        <div class="border border-dark col-1 d-flex align-items-center justify-content-around border-right-0">
+            Number
+        </div>
+        <div class="border border-dark col-2 d-flex text-center align-items-center justify-content-around border-right-0">
+            Responsibility Center Code
+        </div>
+        <div
+            class="border border-dark col-1 d-flex align-items-center justify-content-around border-right-0 text-center">
+            Payor
+        </div>
+        <div class="border border-dark col-1 d-flex align-items-center justify-content-around border-right-0">
+            Particulars
+        </div>
+        <div class="border border-dark col-2 d-flex align-items-center justify-content-around">
+            PREXC/PAP
+        </div>
+        <div class="border border-dark col-2 d-flex align-items-center justify-content-around">
+            Totla per AR
+        </div>
+        <div class="border border-dark col-1 d-flex align-items-center justify-content-around">
+            Tax
+        </div>
+        <div class="border border-dark col-1 d-flex align-items-center justify-content-around">
+            Fee
+        </div>
+    </div>
+    <div class="t-body p-0 m-0">
+    `
+
+                //             ${i % 2 == 1 ? '<div class="row" style="width: 52vw; border-bottom:1px black solid; border-bottom-style: dashed; margin: 6rem 0 6.18rem 0"></div>' : ''}
+                // ${i % 2 == 1 && i != 39 ? "margin-bottom:12rem !important;" : ""}
+                rows.forEach(row => {
+                    totalAmount += parseFloat(row?.total_amount ?? 0);
+                    content += `
+        <div class="row row-data">
+            <div class="border border-dark border-right-0 border-top-0 col-1">${row?.date_time ?? "&nbsp;"}</div>
+            <div class="border border-dark border-right-0 border-top-0 col-1">${row?.ar_number ?? ""}</div>
+            <div class="border border-dark border-right-0 border-top-0 col-2">${row?.agency_name ?? ""}</div>
+            <div class="border border-dark border-right-0 border-top-0 col-1">${row?.name_of_payor ?? ""}</div>
+            <div class="border border-dark border-right-0 border-top-0 col-1">${row?.particulars ?? ""}</div>
+            <div class="border border-dark border-right-0 border-top-0 col-2">${parseFloat(row?.amount ?? 0).toFixed(2)}</div>
+            <div class="border border-dark border-right-0 border-top-0 col-2">${parseFloat(row?.service_charge ?? 0).toFixed(2)}</div>
+            <div class="border border-dark border-right-0 border-top-0 col-1">${parseFloat(row?.tax ?? 0).toFixed(2)}</div>
+            <div class="border border-dark border-top-0 col-1 text-right-1">${parseFloat(row?.total_amount ?? 0).toFixed(2)}</div>
+        </div>
+    `;
+                });
+                content += `</div>
+        <div class="row t-total-row">
+        <div class="border border-dark border-right-0 border-top-0 col-1"></div>
+        <div class="border border-dark border-right-0 border-top-0 col-1"></div>
+        <div class="border border-dark border-right-0 border-top-0 col text-center">Total Amount</div>
+        <div class="border border-dark border-right-0 border-top-0 col"></div>
+        <div class="border border-dark border-right-0 border-top-0 col-2"></div>
+        <div class="border border-dark border-top-0 col-1 text-right">P &nbsp; [total-amount]</div>
+    </div>
+</div>
+
+    <div class="container border border-dark ">
+        <div class="row justify-content-center  ml-5 mt-3">
+            <div class="col-6">
+                <h5>Summary</h5>
+                <span class="text-left">Undeposited Collections per last report</span><br>
+                <span class="text-left">Collections per AR Nos.<div
+                        class="list-inline-item font-weight-light border-dark border-bottom custom-font-size px-5"></div>
+                    to <div class="list-inline-item font-weight-light border-dark border-bottom custom-font-size px-5">
+                    </div></span>
+            </div>
+            <div class="col-2">
+                <br>
+                <span class="text-left">
+                    <span>&#8369;XXX.XX</span>
+                </span><br>
+                <span class="text-left">&nbsp;&nbsp;XXX.XX</span>
+            </div>
+        </div>
+
+        <div class="row justify-content-md-center"> <!-- Centering the second row -->
+            <div class="col-4">
+                <h5>Deposit</h5>
+                <span>Date:<div class="list-inline-item font-weight-light border-dark border-bottom custom-font-size px-5">
+                    </div></span>
+                <span>Ref #<div class="list-inline-item font-weight-light border-dark border-bottom custom-font-size px-5">
+                    </div></span>
+            </div>
+            <div class="col-md-1">
+                <br>
+                <p>XXX.XX</p>
+            </div>
+            <div class="col-2 d-flex flex-column">
+                <br>
+                <p class="text-center ml-4">&nbsp;XXX.XX</p>
+            </div>  
+        </div>
+
+        <div class="row justify-content-center"> <!-- Centering the third row -->
+            <div class="col-5">
+                <p>Undeposited Collections, this Report</p>
+            </div>
+            <div class="col-2 d-flex flex-column">
+            </span>
+                <span class="text-center ml-4">&nbsp;&nbsp;XXX.XX</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container border border-dark text-center ">
+        <h5 class="mt-4 font-weight-bold">CERTIFICATION</h5>
+        <p style="text-align: justify;margin-left: 15%; margin-right: 15%;">
+            &nbsp;&nbsp;I hereby certify on my official oath that I have reviewed and found in order the above statement of
+            all
+            collection
+            based on the list provided by (Intermediary) corresponding to the period stated above for which Electronic AR
+            Nos.
+            _____________ to ______________ inclusive, consisting of __(number of)__ transactions, were actually issued by
+            them in
+            the amount shown thereon. I also certify that I have verified and confirmed that the amount of<br>
+            __________________________ was deposited and credited to the appropriate bank account of this agency
+        </p>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="container">
+            <div class="row justify-content-end">
+                <div class="col-md-6">
+                    <p>
+                        <span style="border-top: 1px solid black; display: inline-block;padding:0 50px;">Name and Signature
+                            of the Designated Officer</span>
+                    </p>
+                </div>
+            </div>
+            <br>
+            <div class="row justify-content-end">
+                <div class="col-3">
+                    <p>
+                        <span style="border-top: 1px solid black; display: inline-block;padding: 0 15px;">Official
+                            Designated</span>
+                    </p>
+                </div>
+
+                <div class="col-3">
+                    <p>
+                        <span style="border-top: 1px solid black; display: inline-block; padding: 0 25px;">Date</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+                </div>
+            `;
+
+                // Update totalAmount inside the loop
+                rows.forEach(row => {
+                    totalAmount += parseFloat(row?.total_amount ?? 0);
+                });
+                doc.addPage();
+                i++;
+            } catch (e) {
+                console.log(e);
+            }
+        }
+        let pdfHeight = 1200; // Adjust this value based on your content
+        doc.html(printContent.replace("[content]", content).replaceAll("[total-page]", 1).replaceAll("[total-amount]", totalAmount.toFixed(2)), {
+            html2canvas: {
+                scale: .3
+            },
+            callback: async function (doc) {
+                await doc.output("dataurlnewwindow", "e-collectionReport.pdf");
+            },
+            x: 15,
+            y: 15,
+            margin: 10,
+            height: pdfHeight
+        });
+    }
+
+
     $('#DownloadECollect').on('click', (e) => console.log(e))
 
     $('botton.btn-print-receipt').on('click', (e) => console.log(e))
