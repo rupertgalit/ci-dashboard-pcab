@@ -225,7 +225,7 @@ table thead th {
 	text-align: left;
 	font-size: 0.8rem;
 	font-weight: 700;
-}
+} 
 
 table tr td {
 	padding-top: 0.3rem;
@@ -233,7 +233,8 @@ table tr td {
 	font-size: 0.8rem;
 }
 
-table tbody tr:last-child {
+table tbody tr:last-child,
+table tbody th {
 	border-bottom: 1px #ddd solid;
 }
 
