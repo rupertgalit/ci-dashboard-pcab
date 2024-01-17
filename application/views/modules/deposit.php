@@ -26,7 +26,7 @@
                 </div>
 
 
-                <table id="myTable" class="table table-striped text-center ecollection-table-container" width="100%">
+                <table id="myTable" class="text-center ecollection-table-container" width="100%">
                     <thead class="w-100">
                         <tr>
                             <th colspan="2">Undeposited Collection (per last Report)</th>
@@ -99,100 +99,72 @@
             orientation: 'p', unit: 'px'
         })
 
-
-        let printContent = `
-            <html><title>Receipt</title>
-                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-                integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous">
-                <\/script>
-                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-                integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"><\/link>
-                <style>
-                    tbody tr td:last-child {
-                        text-align: right !important;
-                    }
-                    table tbody tr:last-child,
-                    table tbody th {
-                        border-bottom: 0;
-                    }
-                    table tr:nth-child(even) {
-                        background-color: #FFF !important;
-                    }
-                    body {
-                        display:flex;
-                        justify-content:center;
-                    }
-
-
-                </style></head><body>
-                [content]
-                </html>
-                `;
         const content = `
-<div class="mx-auto my-5" style="width: 55rem; ">
+<div class="mx-auto my-5 d-flex justify-content-center" style="width: 67.5rem; ">
+    <div class="w-75">
     <div class="text-center my-3">[Letterhead of the Intermediary]</div>
     <div class="">
         <div class="text-center text-uppercase py-3">
-            <u>Certification of Deposit</u>
+            <u>Certification&nbsp; of Deposit</u>
         </div>
         <div class="text-center m-3">
             <b>Summary</b>
         </div>
         <table class="border-0">
-            <tbody>
-                <tr>
-                    <td colspan="3">Undeposited Collections per last Report,</td>
-                    <td>P xxx.xx</td>
-                </tr>
-                <tr>
-                    <td colspan="3">(date: mmm/dd/yyyy)</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td colspan="3">Collections, mmm/dd/yyy</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="pl-5 pb-3">Total Number of Transaction</td>
-                    <td colspan="2" class="text-right" style="padding-right:3rem;">xxxx</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="pl-5">Total Amount of Collection</td>
-                    <td class="text-right" style="padding-right:3rem;">xxx.xx</td>
-                    <td>xxx.xx</td>
-                </tr>
-                <tr>
-                    <td colspan="3" class="pb-3">Deposit / Fund Transfers</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="pl-5">
-                        <div class="w-100 d-flex justify-content-between">
-                            <span>
-                                Date: <label class="border-bottom border-dark text-center m-0"
-                                    style="width:5rem;display:inline-block"></label>
-                            </span>
-                            <span class="position-relative">xxx.xx</span>
-                        </div>
-                    </td>
-                    <td class="text-right" style="padding-right:3rem;"></td>
-                    <td>xxx.xx</td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="pl-5 pb-3">Total Amount of Collection</td>
-                    <td class="text-right" style="padding-right:3rem;">xxx.xx</td>
-                    <td>(xxx.xx)</td>
-                </tr>
-                <tr>
-                    <td colspan="3">Undeposited Collections, this Report</td>
-                    <td>P xxx.xx</td>
-                </tr>
+        <tbody>
+            <tr>
+                <td colspan="3">Undeposited Collections per last Report,</td>
+                <td class="text-right">P ${'xxx.xx'}</td>
+            </tr>
+            <tr style="background-color: #FFF!important">
+                <td colspan="3">(date: ${'mmm/dd/yyyy'})</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="3">Collections, ${'mmm/dd/yyyy'}</td>
+                <td></td>
+            </tr>
+            <tr style="background-color: #FFF!important">
+                <td class="pl-5 pb-3">Total Number of Transaction</td>
+                <td colspan="2" class="text-right" style="padding-right:3rem;">${'xxxx'}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="pl-5">Total Amount of Collection</td>
+                <td class="text-right" style="padding-right:3rem;">${'xxx.xx'}</td>
+                <td class="text-right">${'xxx.xx'}</td>
+            </tr>
+            <tr style="background-color: #FFF!important">
+                <td colspan="3" class="pb-3">Deposit / Fund Transfers</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="pl-5">
+                    <div class="w-100 d-flex justify-content-between">
+                        <span>
+                            Date: <label class="border-bottom border-dark text-center m-0"
+                                style="width:5rem;display:inline-block"></label>
+                        </span>
+                        <span class="position-relative">${'xxx.xx'}</span>
+                    </div>
+                </td>
+                <td class="text-right" style="padding-right:3rem;"></td>
+                <td class="text-right">${'xxx.xx'}</td>
+            </tr>
+            <tr style="background-color: #FFF!important;vertical-align: top;">
+                <td colspan="2" class="pl-5 pb-3">Total Amount of Collection</td>
+                <td class="text-right" style="padding-right:3rem;">${'xxx.xx'}</td>
+                <td class="text-right">(${'xxx.xx'})</td>
+            </tr>
+            <tr>
+                <td colspan="3">Undeposited Collections, this Report</td>
+                <td class="text-right">P ${'xxx.xx'}</td>
+            </tr>
             </tbody>
         </table>
         <div style=" text-align: justify;text-justify: inter-word;margin-top: 2rem; font-size: .9rem">
             This is to certify the above is true and correct statement. That the amount collected is to deposited intact
-            to the [bank name] bank account of the [agency name] with amount number [account number], and duly supported
+            to the ${'[bank name]'} bank account of the ${"[agency name]"} with amount number ${'[account number]'}, and duly supported
             by attached proof of deposit. Details of collections can be generated from our online reporting facility or
             in the attached electronic file of the List if Daily Collection.
         </div>
@@ -202,11 +174,12 @@
             <p class="m-0">Official Designation&nbsp;</p>
         </div>
     </div>
+    </div>
 </div>`
 
-        doc.html(printContent.replace("[content]", content), {
+        doc.html(content, {
             html2canvas: {
-                scale: .3
+                scale: .4,
             },
             callback: async function (doc) {
                 // doc.addPage(
@@ -218,6 +191,5 @@
             x: 7,
             y: 7,
         })
-
     })
 </script>
