@@ -7,7 +7,8 @@
     }
 
     .ecollection-table-container tr th:last-child {
-        margin-right: 1px black solid;
+        margin-right: 1px;
+        border-right: 1px black solid;
     }
 
     th:last-child {
@@ -21,12 +22,12 @@
             <div class="card-body p-1 pt-3">
                 <div class="d-sm-flex align-items-center my-4 pl-2">
                     <!-- <h4 class="card-title mb-sm-0">Deposit</h4> -->
-                    <button type="button"
+                    <button style="margin-top: -20px;" type="button"
                         class="btn-sm btn-outline-dark mr-3 mb-2 rounded download-btn-modal">Deposit</button>
                 </div>
 
 
-                <table id="myTable" class="text-center ecollection-table-container" width="100%">
+                <table id="myTable" class="text-center ecollection-table-container" width="100%" style="margin-top: -20px;">
                     <thead class="w-100">
                         <tr>
                             <th colspan="2">Undeposited Collection (per last Report)</th>
@@ -35,24 +36,24 @@
                             <th rowspan="2">Undeposited Collection (this Report)</th>
                         </tr>
                         <tr>
-                            <th rowspan="2">Date</th>
-                            <th rowspan="2">Amount</th>
-                            <th rowspan="2">Date</th>
-                            <th rowspan="2">Total No. of Transaction</th>
-                            <th rowspan="2">Total Amt. of Collection</th>
-                            <th rowspan="3">Date</th>
-                            <th rowspan="3">Ref. No.</th>
-                            <th rowspan="3">Amount</th>
-                            <th rowspan="3">Amount</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                            <th>Total No. of Transaction</th>
+                            <th>Total Amt. of Collection</th>
+                            <th>Date</th>
+                            <th>Ref. No.</th>
+                            <th>Amount</th>
+                            <th>Amount</th>
                         </tr>
                     </thead>
                     <tbody class="w-100">
 
                         <?php
-                        // usort($data, function ($a, $b) {
-                        //     return strtotime($a['date_time']) < strtotime($b['date_time']);
-                        // });
-                        
+                        usort($data, function ($a, $b) {
+                            return strtotime($a['date_time']) < strtotime($b['date_time']);
+                        });
+
                         foreach ($data as $row) {
                             echo "<tr>";
                             echo "<td>" . $row["date_time"] . "</td>";
@@ -77,19 +78,13 @@
 
     </div>
 </div>
-</div>
-</div>
+
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script>
     $(document).ready(function () {
 
         var table = $('#myTable').DataTable({
-            dom: 'rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
-            ordering: false,
-            scrollX: true,
-        });
-
-        $('.search-btn').on('click', function () {
-            table.draw();
+            dom: '<"pull-left"b><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
         });
     });
 
@@ -102,7 +97,19 @@
         const content = `
 <div class="mx-auto my-5 d-flex justify-content-center" style="width: 67.5rem; ">
     <div class="w-75">
-    <div class="text-center my-3">[Letterhead of the Intermediary]</div>
+    <div class="container mt-3 justify-content-center mb-4">
+                        <div class="row justify-content-center">
+                            <div class="col-md-3">
+                                <img width="100%" height="100%" src="assets/images/ngsi-letterhead.png" alt="logo" class="logo-dark" />
+                            </div>
+                            <div class="col-md-4 mt-2">
+                                <p class="font-weight-bold" style="font-family: Century Gothic" ;>NET GLOBAL SOLUTIONS INC.</p>
+                                <p style="margin-top: -20px;margin-bottom: -5px; font-family: Century Gothic;">Tel. No. 632 82877374</p>
+                                <p style=" line-height: 80%; color:blue">Support@netglobalsolutions.net</p>
+                            </div>
+                        </div>
+                         <img width="100%" height="100%" style="margin-top: -10px;" src="assets/images/NGSI_header.png" alt="logo" class="logo-dark" />
+                    </div>
     <div class="">
         <div class="text-center text-uppercase py-3">
             <u>Certification&nbsp; of Deposit</u>
@@ -169,9 +176,23 @@
             in the attached electronic file of the List if Daily Collection.
         </div>
 
-        <div class="w-100 text-right pr-5 mt-3">
-            <p class="m-0">Name and Signature</p>
-            <p class="m-0">Official Designation&nbsp;</p>
+        <div class="w-100  pr-5 mt-5">
+            <div class="container">
+    <div class="row mt-4">
+        <div class="col">
+        <img style="margin-left:25%; background-position:center; margin-bottom:-15px;" width="35%" height="35%" src="assets/images/ma'am_je.png" alt="logo" class="logo-dark" />
+            <p>Prepared By: </p>
+            <p style="margin-top: -25px;margin-left: 87px;font-size: 18px; font-family: Arial, Helvetica, sans-serif;">Jeremie Soliveres </p>
+            <p style=" margin-top: -24px; margin-left: 106px; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">Accounting Specialist</p>
+        </div>
+        <div class="col ">
+        <img style="margin-left:13rem; margin-bottom:-15px;" width="35%" height="35%" src="assets/images/sir_peter.png" alt="logo" class="logo-dark" />
+            <p style="margin-left:6rem;">Approved By: </p>
+            <p style="margin-top: -25px;margin-left: 12rem;font-size: 18px; font-family: Arial, Helvetica, sans-serif;">Peter Lingatong</p>
+            <p style=" margin-top: -24px; margin-left: 13rem; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">Chairman & CEO</p>
+        </div>
+    </div>
+</div>
         </div>
     </div>
     </div>
