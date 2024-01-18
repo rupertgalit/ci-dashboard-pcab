@@ -3,10 +3,18 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-sm-flex align-items-center mb-4">
-                    <button type="button" class=" btn-primary" data-toggle="modal" data-target="#exampleModal">
-                        Electronic Official Receipt
-                    </button>
-
+                    <div class="container">
+                        <!-- dropdown button -->
+                        
+                        <div class="dropdown">
+                            <button class="btn-sm btn-outline-dark mr-3 mb-2 rounded dropdown-toggle" type="button" data-toggle="dropdown">Download
+                                <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Phantom</a></li>
+                                <li><a href="#">Cluster</a></li>
+                            </ul>
+                        </div>
+                    </div>
                     <a href="#" class="text-dark ml-auto mb-3 mb-sm-0"> View all Products</a>
                 </div>
                 <div class="border  rounded p-1">
@@ -37,7 +45,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -132,7 +140,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <script>
     $(document).ready(async function () {
 
