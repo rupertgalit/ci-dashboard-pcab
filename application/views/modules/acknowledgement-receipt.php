@@ -119,7 +119,7 @@
                                                     <th rowspan="3">Payor</th>
                                                     <th rowspan="3">Particulars</th>
                                                     <th rowspan="3">PREXC/PAP</th>
-                                                    <th colspan="3">Amount</th>
+                                                    <th colspan="4">Amount</th>
                                                 </tr>
                                                 <tr>
                                                     <th rowspan="2">Date</th>
@@ -128,8 +128,9 @@
                                                     <th colspan="3">Breakdown Collection</th>
                                                 </tr>
                                                 <tr>
-                                                    <th>Taxes</th>
-                                                    <th colspan="1">Fees</th>
+                                                    <th>CIAP-PCAB</th>
+                                                    <th colspan="1">DST</th>
+                                                    <th colspan="1">LRF</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -140,13 +141,15 @@
                                                     echo "<tr>";
                                                     echo "<td>" . $row["date_time"] . "</td>";
                                                     echo "<td>" . $row["ar_number"] . "</td>";
-                                                    echo "<td>" . $row["agency_name"] . "</td>";
+                                                    echo "<td></td>";
                                                     echo "<td>" . $row["name_of_payor"] . "</td>";
                                                     echo "<td>" . $row["particulars"] . "</td>";
-                                                    echo "<td>&#8369; " . number_format((float) $row["amount"], 2, '.', '') . "</td>";
+                                                    echo "<td></td>";
                                                     echo "<td>&#8369; " . number_format((float) $row["service_charge"], 2, '.', '') . "</td>";
                                                     echo "<td>&#8369; " . number_format((float) $row["tax"], 2, '.', '') . "</td>";
                                                     echo "<td>&#8369; " . number_format((float) $row["total_amount"], 2, '.', '') . "</td>";
+                                                    echo "<td></td>";
+
                                                     echo "</tr>";
                                                 }
                                                 ?>
@@ -196,10 +199,10 @@
                             <th class="font-weight-bold">Agency Name</th>
                             <th class="font-weight-bold">Name of Payor</th>
                             <th class="font-weight-bold">Particulars</th>
+                            <th class="font-weight-bold">PCAB Fees:</th>
                             <th class="font-weight-bold">document stamp tax</th>
-                            <th class="font-weight-bold">txn amount</th>
-                            <th class="font-weight-bold">document stamp tax</th>
-                            <th class="font-weight-bold">legal research fund</th>
+                            <th class="font-weight-bold">Legal Research Fund:</th>
+                            <th class="font-weight-bold">NGSI Convenience fee</th>
                             <th class="font-weight-bold">Reference Number</th>
                             <th class="font-weight-bold">Action</th>
                         </tr>
@@ -213,7 +216,7 @@
                             echo "<td>" . $row['id'] . "</td>";
                             echo "<td>" . $row["ar_number"] . "</td>";
                             echo "<td>" . $row["date_time"] . "</td>";
-                            echo "<td>" . $row["agency_name"] . "</td>";
+                            echo "<td>CIAP - PCAB</td>";
                             echo "<td>" . $row["name_of_payor"] . "</td>";
                             echo "<td>" . $row["particulars"] . "</td>";
                             echo "<td>&#8369; " . number_format((float) $row["amount"], 2, '.', '') . "</td>";
@@ -221,7 +224,7 @@
                             echo "<td>&#8369; " . number_format((float) $row["tax"], 2, '.', '') . "</td>";
                             echo "<td>&#8369; " . number_format((float) $row["total_amount"], 2, '.', '') . "</td>";
                             echo "<td>" . $row["reference_number"] . "</td>";
-                            echo "<td><button type='button'style='width: 80px; height: 25px;' class=' btn-outline-info btn-print-receipt' data-receipt-id='" . $row['id'] . "'  onclick='printRow(" . $row['id'] . ")'>Download</button></td>";
+                            echo "<td><button type='button'style='width: 80px; height: 25px;' class=' btn-outline-dark border-0 btn-print-receipt' data-receipt-id='" . $row['id'] . "'  onclick='printRow(" . $row['id'] . ")'>Download</button></td>";
                             echo "</tr>";
                         }
                         ?>
@@ -470,7 +473,19 @@
 <div id="DailyCollectionForm-${i}" class="bg-whites mx-auto mt-5" style="width: 90rem;${(i + 1) % 3 !== 0 || i == 0 ? "" : "margin-bottom: 8rem !important;"} }">
 <div class="border border-dark p-2 px-4">
 <div class="text-center">
-    <div class="text-uppercase">[Intermediary Name]</div>
+<div class="container mt-3 justify-content-center mb-4">
+                        <div class="row justify-content-center">
+                            <div class="col-md-3">
+                                <img width="100%" height="100%" src="assets/images/ngsi-letterhead.png" alt="logo" class="logo-dark" />
+                            </div>
+                            <div class="col-md-4 mt-2">
+                                <p class="font-weight-bold" style="font-family: Century Gothic" ;>NET GLOBAL SOLUTIONS INC.</p>
+                                <p style="margin-top: -20px;margin-bottom: -5px; font-family: Century Gothic;">Tel. No. 632 82877374</p>
+                                <p style=" line-height: 80%; color:blue">Support@netglobalsolutions.net</p>
+                            </div>
+                        </div>
+                         <img width="100%" height="100%" style="margin-top: -10px;" src="assets/images/NGSI_header.png" alt="logo" class="logo-dark" />
+                    </div>
     <b class="text-uppercase">List of daily collection</b>
     <div>For [Agency Name]</div>
     <div class="row d-flex align-items-center">
@@ -525,7 +540,7 @@
                 <div class="border border-dark border-right-0 border-top-0 col">${row?.name_of_payor ?? ""}</div>
                 <div class="border border-dark border-right-0 border-top-0 col">${row?.particulars ?? ""}</div>
                 <div class="border border-dark border-right-0 border-top-0 col-2">${row?.reference_number ?? ""}</div>
-                <div class="border border-dark border-top-0 col-1 text-right">${row?.total_amount ?? ""}</div>
+                <div class="border border-dark border-top-0 col-1 text-right">${parseFloat(row?.total_amount ?? 0).toFixed(2)}</div>
             </div>
             `;
                 });
@@ -560,21 +575,6 @@
                 i++;
             } catch (e) { console.log(e) }
         }
-
-        // document.write(printContent.replace("[content]", content).replaceAll("[total-page]", i))
-
-        //     let doc = window.open("", "My Page", "height=700,width=900,titlebar=no,resizable=no")
-        //     doc.document.write(`<html><title>Receipt</title>
-        //  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-        // integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous">
-        // <\/script>
-        // <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-        // integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"><\/link></head><body>`);
-        //     doc.document.write(printContent);
-        //     doc.document.write("</html>")
-        //     doc.document.close();
-        //     doc.document.onkeydown = (key) => alert(key)
-        //     setTimeout(() => { doc.print(); doc.close(); }, 300)
 
         doc.html(printContent.replace("[content]", content).replaceAll("[total-page]", i).replaceAll("[total-amount]", parseFloat(totalAmount).toFixed(2)), {
             html2canvas: {
@@ -611,14 +611,22 @@
         let content = ""
         try {
 
-
-            //             ${i % 2 == 1 ? '<div class="row" style="width: 52vw; border-bottom:1px black solid; border-bottom-style: dashed; margin: 6rem 0 6.18rem 0"></div>' : ''}
-            // ${i % 2 == 1 && i != 39 ? "margin-bottom:12rem !important;" : ""}
-
             content += `
                 <div class="mx-auto my-5" style="width: 50rem; ">
-                    <div class="text-center my-3">Letterhead of the Intermediary</div>
-                    <div class="border border-dark">
+                <div class="container mt-3 justify-content-center mb-4">
+                        <div class="row justify-content-center">
+                            <div class="col-md-3">
+                                <img width="100%" height="100%" src="assets/images/ngsi-letterhead.png" alt="logo" class="logo-dark" />
+                            </div>
+                            <div class="col-md-4 mt-2">
+                                <p class="font-weight-bold" style="font-family: Century Gothic" ;>NET GLOBAL SOLUTIONS INC.</p>
+                                <p style="margin-top: -20px;margin-bottom: -5px; font-family: Century Gothic;">Tel. No. 632 82877374</p>
+                                <p style="  color:blue">Support@netglobalsolutions.net</p>
+                            </div>
+                        </div>
+                        <img width="100%" height="100%" style="margin-top: -10px;" src="assets/images/NGSI_header.png" alt="logo" class="logo-dark" />
+                    </div>
+                    <div class="border border-dark">    
                     <div class="text-center text-uppercase py-3">
                         <u>Acknowledgement &nbsp; Receipt</u>  
                 </div>
@@ -644,18 +652,43 @@
                 `;
 
             for (const key in rowData) {
-                if (["id", "ar_number", "date_time"].includes(key)) continue
+                if (["id", "ar_number", "date_time"].includes(key)) continue;
+
+                let value = rowData[key];
+                console.log(key)
+                // Check if key is a special case
+                if (key == "total_amount"  || key == "service_charge" || key == "amount") {
+                    value = parseFloat(value ?? 0).toFixed(2);
+                }
 
                 content += `
-                        <div class="row d-flex">
-                            <div class="col text-capitalize">${key.split("_").join(" ")}<div class="float-right">:</div>
-                            </div>
-                            <div class="col">
-                                ${rowData[key]}
-                            </div>
-                    </div>
-                `;
+        <div class="row d-flex">
+            <div class="col text-capitalize">${key.split("_").join(" ")}<div class="float-right">:</div></div>
+            <div class="col">
+                ${value}
+            </div>
+        </div>
+    `;
 
+                if (key == "amount")
+                    content += `
+                    <div class="row d-flex">
+                        <div class="col text-capitalize pl-4">PCAB Fee<div class="float-right pr-2">:</div></div>
+                        <div class="col">
+                            ${parseFloat(500).toFixed(2)}
+                        </div>
+                    </div>
+                    <div class="row d-flex">
+                        <div class="col text-capitalize pl-4">Documentary Stamp Fee<div class="float-right pr-2">:</div></div>
+                        <div class="col">
+                            ${parseFloat(20).toFixed(2)}
+                        </div>
+                    </div>                    <div class="row d-flex">
+                        <div class="col text-capitalize pl-4">Legal Research Fee<div class="float-right pr-2">:</div></div>
+                        <div class="col">
+                           ${parseFloat(15).toFixed(2)}
+                        </div>
+                    </div>`
             }
 
             content += ` </div>
@@ -767,7 +800,7 @@
         <div class="row">
             <div class="col text-center">
                 <span class="fs-3 font-weight-bold">REPORT OF e-COLLECTION AND DEPOSIT</span>
-                <p class="fs-6">By: (Name of intermediary)</p>
+                <p class="fs-6">By:NET GLOBAL SOLUTIONS INC.</p>
             </div>
         </div>
 
@@ -830,17 +863,20 @@
         <div class="border border-dark col-1 d-flex align-items-center justify-content-around border-right-0">
             Particulars
         </div>
-        <div class="border border-dark col-2 d-flex align-items-center justify-content-around">
-            PREXC/PAP
+        <div class="border border-dark col-1 d-flex align-items-center justify-content-around">
+            PREXC &nbsp;/PAP
         </div>
         <div class="border border-dark col-2 d-flex align-items-center justify-content-around">
             Totla per AR
         </div>
         <div class="border border-dark col-1 d-flex align-items-center justify-content-around">
-            Tax
+            CIAP-PCAB
         </div>
         <div class="border border-dark col-1 d-flex align-items-center justify-content-around">
-            Fee
+            DST
+        </div>
+        <div class="border border-dark col-1 d-flex align-items-center justify-content-around">
+            LRF
         </div>
     </div>
     <div class="t-body p-0 m-0">
@@ -854,13 +890,14 @@
         <div class="row row-data">
             <div class="border border-dark border-right-0 border-top-0 col-1">${row?.date_time ?? "&nbsp;"}</div>
             <div class="border border-dark border-right-0 border-top-0 col-1">${row?.ar_number ?? ""}</div>
-            <div class="border border-dark border-right-0 border-top-0 col-2">${row?.agency_name ?? ""}</div>
+            <div class="border border-dark border-right-0 border-top-0 col-2"></div>
             <div class="border border-dark border-right-0 border-top-0 col-1">${row?.name_of_payor ?? ""}</div>
-            <div class="border border-dark border-right-0 border-top-0 col-1">${row?.particulars ?? ""}</div>
-            <div class="border border-dark border-right-0 border-top-0 col-2">${parseFloat(row?.amount ?? 0).toFixed(2)}</div>
+            <div class="border border-dark border-right-0 border-top-0 col-1 text-center">${row?.particulars ?? ""}</div>
+            <div class="border border-dark border-right-0 border-top-0 col-1"></div>
             <div class="border border-dark border-right-0 border-top-0 col-2">${parseFloat(row?.service_charge ?? 0).toFixed(2)}</div>
             <div class="border border-dark border-right-0 border-top-0 col-1">${parseFloat(row?.tax ?? 0).toFixed(2)}</div>
             <div class="border border-dark border-top-0 col-1 text-right-1">${parseFloat(row?.total_amount ?? 0).toFixed(2)}</div>
+            <div class="border border-dark border-right-0 border-top-0 col-1"></div>
         </div>
     `;
                 });
