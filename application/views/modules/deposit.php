@@ -1,19 +1,19 @@
 <style>
     table,
     th {
-        border: 1px black solid !important;
-        border-width: 1px 0 1px 1px;
+        border: 0.5px black solid !important;
+        border-width: 0.5px 0 0.5px 0.5px;
         border-collapse: collapse;
     }
 
     .ecollection-table-container tr th:last-child {
-        margin-right: 1px;
-        border-right: 1px black solid;
+        margin-right: 0.5px;
+        border-right: 0.5px black solid;
     }
 
-    th:last-child {
+    /* th:last-child {
         border-right: 1px black solid;
-    }
+    } */
 </style>
 
 <div class="row w-100">
@@ -27,8 +27,7 @@
                 </div>
 
 
-                <table id="myTable" class="text-center ecollection-table-container" width="100%"
-                    style="margin-top: -20px;">
+                <table id="myTable" class="text-center ecollection-table-container" width="100%">
                     <thead class="w-100">
                         <tr>
                             <th colspan="2">Undeposited Collection (per last Report)</th>
@@ -368,7 +367,7 @@
                             <tbody>
                                 <tr>
                                     <td colspan="3">Undeposited Collections per last Report,</td>
-                                    <td class="text-right">P ${'xxx.xx'}</td>
+                                    <td class="text-right">P ${''}</td>
                                 </tr>
                                 <tr style="background-color: #FFF!important">
                                     <td colspan="3">(date: ${'mmm/dd/yyyy'})</td>
@@ -380,13 +379,13 @@
                                 </tr>
                                 <tr style="background-color: #FFF!important">
                                     <td class="pl-5 pb-3">Total Number of Transaction</td>
-                                    <td colspan="2" class="text-right" style="padding-right:3rem;">${'xxxx'}</td>
+                                    <td colspan="2" class="text-right" style="padding-right:3rem;">${''}</td>
                                     <td></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2" class="pl-5">Total Amount of Collection</td>
-                                    <td class="text-right" style="padding-right:3rem;">${'xxx.xx'}</td>
-                                    <td class="text-right">${'xxx.xx'}</td>
+                                    <td class="text-right" style="padding-right:3rem;">${''}</td>
+                                    <td class="text-right">${''}</td>
                                 </tr>
                                 <tr style="background-color: #FFF!important">
                                     <td colspan="3" class="pb-3">Deposit / Fund Transfers</td>
@@ -399,20 +398,20 @@
                                                 Date: <label class="border-bottom border-dark text-center m-0"
                                                     style="width:5rem;display:inline-block"></label>
                                             </span>
-                                            <span class="position-relative">${'xxx.xx'}</span>
+                                            <span class="position-relative">${''}</span>
                                         </div>
                                     </td>
                                     <td class="text-right" style="padding-right:3rem;"></td>
-                                    <td class="text-right">${'xxx.xx'}</td>
+                                    <td class="text-right">${''}</td>
                                 </tr>
                                 <tr style="background-color: #FFF!important;vertical-align: top;">
                                     <td colspan="2" class="pl-5 pb-3">Total Amount of Collection</td>
-                                    <td class="text-right" style="padding-right:3rem;">${'xxx.xx'}</td>
-                                    <td class="text-right">(${'xxx.xx'})</td>
+                                    <td class="text-right" style="padding-right:3rem;">${''}</td>
+                                    <td class="text-right">(${''})</td>
                                 </tr>
                                 <tr>
                                     <td colspan="3">Undeposited Collections, this Report</td>
-                                    <td class="text-right">P ${'xxx.xx'}</td>
+                                    <td class="text-right">P ${''}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -431,7 +430,7 @@
                             <div class="container">
                                 <div class="row mt-4">
                                     <div class="col pl-5">
-                                        <img style="margin-left:25%; background-position:center; margin-bottom:-15px;z-index:0;position:relative;transform:scale(1.1)"
+                                        <img style="margin-left:20%; background-position:center; margin-bottom:-15px;z-index:0;position:relative;transform:scale(1.1)"
                                             width="35%" height="35%" src="assets/images/ma'am_je.png" alt="logo"
                                             class="logo-dark" />
                                         <p style="position:relative;left:-11px;margin:0;">Prepared By: </p>
@@ -514,7 +513,7 @@
                             </div>
             <div class="">
                 <div class="text-center text-uppercase py-3">
-                    <u>Certification&nbsp; of Deposit</u>
+                    <u>Certification &nbsp;&nbsp; of Deposit</u>
                 </div>
                 <div class="text-center m-3">
                     <b>Summary</b>
@@ -523,7 +522,7 @@
                 <tbody>
                     <tr>
                         <td colspan="3">Undeposited Collections per last Report,</td>
-                        <td class="text-right">P ${'xxx.xx'}</td>
+                        <td class="text-right"> ${''}</td>
                     </tr>
                     <tr style="background-color: #FFF!important">
                         <td colspan="3">(date: ${'mmm/dd/yyyy'})</td>
@@ -535,13 +534,13 @@
                     </tr>
                     <tr style="background-color: #FFF!important">
                         <td class="pl-5 pb-3">Total Number of Transaction</td>
-                        <td colspan="2" class="text-right" style="padding-right:3rem;">${'xxxx'}</td>
+                        <td colspan="2" class="text-right" style="padding-right:3rem;">${''}</td>
                         <td></td>
                     </tr>
                     <tr>
                         <td colspan="2" class="pl-5">Total Amount of Collection</td>
-                        <td class="text-right" style="padding-right:3rem;">${'xxx.xx'}</td>
-                        <td class="text-right">${'xxx.xx'}</td>
+                        <td class="text-right" style="padding-right:3rem;">${''}</td>
+                        <td class="text-right">${''}</td>
                     </tr>
                     <tr style="background-color: #FFF!important">
                         <td colspan="3" class="pb-3">Deposit / Fund Transfers</td>
@@ -554,20 +553,20 @@
                                     Date: <label class="border-bottom border-dark text-center m-0"
                                         style="width:5rem;display:inline-block"></label>
                                 </span>
-                                <span class="position-relative">${'xxx.xx'}</span>
+                                <span class="position-relative">${''}</span>
                             </div>
                         </td>
                         <td class="text-right" style="padding-right:3rem;"></td>
-                        <td class="text-right">${'xxx.xx'}</td>
+                        <td class="text-right">${''}</td>
                     </tr>
                     <tr style="background-color: #FFF!important;vertical-align: top;">
                         <td colspan="2" class="pl-5 pb-3">Total Amount of Collection</td>
-                        <td class="text-right" style="padding-right:3rem;">${'xxx.xx'}</td>
-                        <td class="text-right">(${'xxx.xx'})</td>
+                        <td class="text-right" style="padding-right:3rem;">${''}</td>
+                        <td class="text-right">${''}</td>
                     </tr>
                     <tr>
                         <td colspan="3">Undeposited Collections, this Report</td>
-                        <td class="text-right">P ${'xxx.xx'}</td>
+                        <td class="text-right"> ${''}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -578,24 +577,36 @@
                     in the attached electronic file of the List if Daily Collection.
                 </div>
 
-                <div class="w-100  pr-5 mt-5">
-                    <div class="container">
-            <div class="row mt-4">
-                <div class="col">
-                <img style="margin-left:25%; background-position:center; margin-bottom:-15px;" width="35%" height="35%" src="assets/images/maam_je.png" alt="logo" class="logo-dark" />
-                    <p style="position:relative;left:-11px;margin:0;">Prepared By: </p>
-                    <p style="margin-top: -25px;margin-left: 87px;font-size: 18px; font-family: Arial, Helvetica, sans-serif;z-index:1;">Jeremie Soliveres </p>
-                    <p style=" margin-top: -24px; margin-left: 106px; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">Accounting Specialist</p>
-                </div>
-                <div class="col ">
-                <img style="margin-left:13rem; margin-bottom:-15px;" width="35%" height="35%" src="assets/images/sir_peter.png" alt="logo" class="logo-dark" />
-                    <p style="margin-left:6rem;">Approved By: </p>
-                    <p style="margin-top: -25px;margin-left: 12rem;font-size: 18px; font-family: Arial, Helvetica, sans-serif;">Peter Lingatong</p>
-                    <p style=" margin-top: -24px; margin-left: 13rem; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">Chairman & CEO</p>
-                </div>
-            </div>
-        </div>
-                </div>
+                <div class="w-100 mt-5">
+                            <div class="container">
+                                <div class="row mt-4">
+                                    <div class="col pl-5">
+                                        <img style="margin-left:25%; background-position:center; margin-bottom:-15px;z-index:0;position:relative;transform:scale(1.1)"
+                                            width="35%" height="35%" src="assets/images/ma'am_je.png" alt="logo"
+                                            class="logo-dark" />
+                                        <p style="position:relative;left:-11px;margin:0;">Prepared By: </p>
+                                        <p
+                                            style="margin-top: -25px;margin-left: 87px;font-size: 18px; font-family: Arial, Helvetica, sans-serif;z-index:1;position:relative;">
+                                            Jeremie Soliveres </p>
+                                        <p
+                                            style=" margin-top: -24px; margin-left: 106px; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
+                                            Accounting Specialist</p>
+                                    </div>
+                                    <div class="col pl-5">
+                                        <img style="margin-left:13rem; margin-bottom:-15px;" width="35%"
+                                            height="35%" src="assets/images/sir_peter.png" alt="logo"
+                                            class="logo-dark" />
+                                        <p style="position:relative;left:5.7rem;margin:0;">Approved By: </p>
+                                        <p
+                                            style="margin-top: -25px;margin-left: 12rem;font-size: 18px; font-family: Arial, Helvetica, sans-serif;">
+                                            Peter Lingatong</p>
+                                        <p
+                                            style=" margin-top: -24px; margin-left: 13rem; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
+                                            Chairman & CEO</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
             </div>
             </div>
         </div>
