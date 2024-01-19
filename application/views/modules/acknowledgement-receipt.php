@@ -652,17 +652,24 @@
                 <div class='row pt-4 pb-3'>
                 <div class="col">
                 `;
-
-            for (const key in rowData) {
-                if (["id", "ar_number", "date_time"].includes(key)) continue;
+            for (let key in rowData) {
+                if (["id", "ar_number", "date_time", "tax"].includes(key)) continue;
 
                 let value = rowData[key];
-                console.log(key)
+                console.log(key);
+
                 // Check if key is a special case
-                if (key == "total_amount"  || key == "service_charge" || key == "amount") {
+                if (key == "total_amount" || key == "amount") {
                     value = parseFloat(value ?? 0).toFixed(2);
                 }
 
+                // Change the display name for "service_charge"
+                if (key == "service_charge") {
+                    key = "NGSI Convenience Fee";
+                }
+                if (key == "agency_name") {
+                    value = "CIAP - PCAB";
+                }
                 content += `
         <div class="row d-flex">
             <div class="col text-capitalize">${key.split("_").join(" ")}<div class="float-right">:</div></div>
@@ -672,27 +679,28 @@
         </div>
     `;
 
-                if (key == "amount")
+                if (key == "amount") {
                     content += `
-                    <div class="row d-flex">
-                        <div class="col text-capitalize pl-4">PCAB Fee<div class="float-right pr-2">:</div></div>
-                        <div class="col">
-                            ${parseFloat(500).toFixed(2)}
-                        </div>
-                    </div>
-                    <div class="row d-flex">
-                        <div class="col text-capitalize pl-4">Documentary Stamp Fee<div class="float-right pr-2">:</div></div>
-                        <div class="col">
-                            ${parseFloat(20).toFixed(2)}
-                        </div>
-                    </div>                    <div class="row d-flex">
-                        <div class="col text-capitalize pl-4">Legal Research Fee<div class="float-right pr-2">:</div></div>
-                        <div class="col">
-                           ${parseFloat(15).toFixed(2)}
-                        </div>
-                    </div>`
+            <div class="row d-flex">
+                <div style="margin-left:-15px;" class="col text-capitalize pl-4">PCAB Fee<div class="float-right pr-2">:</div></div>
+                <div class="col">
+                    ${parseFloat(500).toFixed(2)}
+                </div>
+            </div>
+            <div class="row d-flex">
+                <div style="margin-left:-15px;" class="col text-capitalize pl-4">Documentary Stamp Fee<div class="float-right pr-2">:</div></div>
+                <div class="col">
+                    ${parseFloat(20).toFixed(2)}
+                </div>
+            </div>
+            <div class="row d-flex">
+                <div style="margin-left:-15px;" class="col text-capitalize pl-4">Legal Research Fee<div class="float-right pr-2">:</div></div>
+                <div class="col">
+                    ${parseFloat(15).toFixed(2)}
+                </div>
+            </div>`;
+                }
             }
-
             content += ` </div>
                 </div>
                     <div class="row mb-4">
@@ -786,7 +794,7 @@
         let content = "";
         let totalAmount = 0; // Initialize totalAmount here
 
-        while (filteredData.length - (i * 10) > 0) {
+        while (filteredData.length - (i * 10) > 1) {
             let rows = filteredData.slice(i * 10, i * 10 + 10);
 
             if (rows.length < 10) {
