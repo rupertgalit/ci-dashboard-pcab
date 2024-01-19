@@ -100,12 +100,12 @@
     <div class="container mt-3 justify-content-center mb-4">
                         <div class="row justify-content-center">
                             <div class="col-md-3">
-                                <img width="100%" height="100%" src="assets/images/ngsi-letterhead.png" alt="logo" class="logo-dark" />
+                                <img  height="100px" style="margin-left:-1rem;" src="assets/images/ngsi-letterhead.png" alt="logo" class="logo-dark" />
                             </div>
-                            <div class="col-md-4 mt-2">
-                                <p class="font-weight-bold" style="font-family: Century Gothic" ;>NET GLOBAL SOLUTIONS INC.</p>
+                            <div class="col-md-4 mt-3"  style="margin-left:11rem;">
+                                <p class="font-weight-bold" style="font-family: Century Gothic; font-size:16px;" ;>NET GLOBAL SOLUTIONS&nbsp;&nbsp; INC.</p>
                                 <p style="margin-top: -20px;margin-bottom: -5px; font-family: Century Gothic;">Tel. No. 632 82877374</p>
-                                <p style=" line-height: 80%; color:blue">Support@netglobalsolutions.net</p>
+                                <p style=" line-height: 80%; color:blue;margin-top: 10px;">Support@netglobalsolutions.net</p>
                             </div>
                         </div>
                          <img width="100%" height="100%" style="margin-top: -10px;" src="assets/images/NGSI_header.png" alt="logo" class="logo-dark" />

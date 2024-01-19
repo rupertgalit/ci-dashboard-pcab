@@ -474,14 +474,15 @@
 <div class="border border-dark p-2 px-4">
 <div class="text-center">
 <div class="container mt-3 justify-content-center mb-4">
+<div class="container mt-3 justify-content-center mb-4">
                         <div class="row justify-content-center">
                             <div class="col-md-3">
-                                <img width="100%" height="100%" src="assets/images/ngsi-letterhead.png" alt="logo" class="logo-dark" />
+                                <img  height="100px" style="margin-left:-1rem;" src="assets/images/ngsi-letterhead.png" alt="logo" class="logo-dark" />
                             </div>
-                            <div class="col-md-4 mt-2">
-                                <p class="font-weight-bold" style="font-family: Century Gothic" ;>NET GLOBAL SOLUTIONS INC.</p>
-                                <p style="margin-top: -20px;margin-bottom: -5px; font-family: Century Gothic;">Tel. No. 632 82877374</p>
-                                <p style=" line-height: 80%; color:blue">Support@netglobalsolutions.net</p>
+                            <div class="col-md-4 mt-3"  style="margin-left:2rem;">
+                                <p class="font-weight-bold" style="font-family: Century Gothic; font-size:16px;" ;>NET GLOBAL SOLUTIONS&nbsp;&nbsp; INC.</p>
+                                <p style="margin-top: -20px;margin-bottom: -5px; font-family: Century Gothic;margin-left:-5rem;">Tel. No. 632 82877374</p>
+                                <p style=" line-height: 80%; color:blue;margin-top: 10px;">Support@netglobalsolutions.net</p>
                             </div>
                         </div>
                          <img width="100%" height="100%" style="margin-top: -10px;" src="assets/images/NGSI_header.png" alt="logo" class="logo-dark" />
@@ -614,18 +615,19 @@
             content += `
                 <div class="mx-auto my-5" style="width: 50rem; ">
                 <div class="container mt-3 justify-content-center mb-4">
-                        <div class="row justify-content-center">
+                        <div class="row justify-content-center mb-2">
                             <div class="col-md-3">
-                                <img width="100%" height="100%" src="assets/images/ngsi-letterhead.png" alt="logo" class="logo-dark" />
+                                <img  height="100px" style="margin-left:-1rem;" src="assets/images/ngsi-letterhead.png" alt="logo" class="logo-dark" />
                             </div>
-                            <div class="col-md-4 mt-2">
-                                <p class="font-weight-bold" style="font-family: Century Gothic" ;>NET GLOBAL SOLUTIONS INC.</p>
+                            <div class="col-md-4 mt-3"  style="margin-left:11rem;">
+                                <p class="font-weight-bold" style="font-family: Century Gothic; font-size:16px;" ;>NET GLOBAL SOLUTIONS&nbsp;&nbsp; INC.</p>
                                 <p style="margin-top: -20px;margin-bottom: -5px; font-family: Century Gothic;">Tel. No. 632 82877374</p>
-                                <p style="  color:blue">Support@netglobalsolutions.net</p>
+                                <p style=" line-height: 80%; color:blue;margin-top: 10px;">Support@netglobalsolutions.net</p>
                             </div>
                         </div>
-                        <img width="100%" height="100%" style="margin-top: -10px;" src="assets/images/NGSI_header.png" alt="logo" class="logo-dark" />
+                         <img width="100%" height="100%" style="margin-top: -10px;" src="assets/images/NGSI_header.png" alt="logo" class="logo-dark" />
                     </div>
+                      
                     <div class="border border-dark">    
                     <div class="text-center text-uppercase py-3">
                         <u>Acknowledgement &nbsp; Receipt</u>  
@@ -925,9 +927,9 @@
             <div class="col-2">
                 <br>
                 <span class="text-left">
-                    <span>&#8369;XXX.XX</span>
+                    <span>&#8369;</span>
                 </span><br>
-                <span class="text-left">&nbsp;&nbsp;XXX.XX</span>
+                <span class="text-left">&nbsp;&nbsp;</span>
             </div>
         </div>
 
@@ -941,11 +943,11 @@
             </div>
             <div class="col-md-1">
                 <br>
-                <p>XXX.XX</p>
+                <p></p>
             </div>
             <div class="col-2 d-flex flex-column">
                 <br>
-                <p class="text-center ml-4">&nbsp;XXX.XX</p>
+                <p class="text-center ml-4">&nbsp;</p>
             </div>  
         </div>
 
@@ -955,7 +957,7 @@
             </div>
             <div class="col-2 d-flex flex-column">
             </span>
-                <span class="text-center ml-4">&nbsp;&nbsp;XXX.XX</span>
+                <span class="text-center ml-4">&nbsp;&nbsp;</span>
             </div>
         </div>
     </div>
