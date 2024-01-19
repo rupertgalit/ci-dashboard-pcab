@@ -3,6 +3,11 @@ body {
 	overflow: hidden !important;
 }
 
+button {
+	background-color: #908e8e;
+	color: #FFF !important
+}
+
 .active::before {
 	color: #0fb413 !important;
 	-webkit-user-select: none !important;

@@ -83,7 +83,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <span class="dot"></span>
                     </div>
                 </div>
-                <div class="content-wrapper p-0">
+                <div class="content-wrapper p-0 pl-3 m-0 bg-white">
                     <!-- main view container -->
                     <?php
                     $view = isset($route) ? $route : "dashboard";
