@@ -62,24 +62,19 @@
                         </div>
                     </div>
                     <div class=" col-mb-3 mr-3 mt-3">
-                        <button class="btn-lg btn-outline-dark rounded border-0" data-toggle="modal"
-                            data-target="#Daily_CollectionModal">Daily Collection</button>
-                        <div class="modal fade" id="Daily_CollectionModal" tabindex="-1" role="dialog"
-                            aria-labelledby="Daily_CollectionModalLabel" aria-hidden="true">
+                        <button class="btn-lg btn-outline-dark rounded border-0" data-toggle="modal" data-target="#Daily_CollectionModal">Daily Collection</button>
+                        <div class="modal fade" id="Daily_CollectionModal" tabindex="-1" role="dialog" aria-labelledby="Daily_CollectionModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-sm" role="document">
                                 <div id="DailyCollectModal" class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="Daily_CollectionModalLabel">Daily Collection</h5>
-                                        <button type="button" class="close text-right pr-4" data-dismiss="modal"
-                                            aria-hidden="true">&times;</button>
+                                        <button type="button" class="close text-right pr-4" data-dismiss="modal" aria-hidden="true">&times;</button>
                                     </div>
                                     <div class="modal-body bg-white pb-3">
                                         <div class="row mb-2">
                                             <div class="col-12 d-flex flex-row flex-wrap">
-                                                <label for="modal_selected_date"
-                                                    class="mr-2 d-flex align-items-center">Select Date:</label>
-                                                <input type="date" id="modal_selected_date" value="2022-02-18"
-                                                    class="form-control" style="width: 16rem;">
+                                                <label for="modal_selected_date" class="mr-2 d-flex align-items-center">Select Date:</label>
+                                                <input type="date" id="modal_selected_date" value="2022-02-18" class="form-control" style="width: 16rem;">
                                                 <div id="validationMessage"></div>
 
                                             </div>
@@ -88,20 +83,16 @@
                                         <div id="modalDataTableContainer" class="overflow-auto"></div>
                                     </div>
                                     <div class="modal-footer bg-white border-top-0">
-                                        <button type="button"
-                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded preview-btn-modal">Preview</button>
-                                        <button type="button"
-                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded download-btn-modal">Download</button>
+                                        <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded preview-btn-modal">Preview</button>
+                                        <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded download-btn-modal">Download</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class=" col-mb-3 mr-3 mt-3">
-                        <button class="btn-lg btn-outline-dark rounded border-0 w-50" data-toggle="modal"
-                            data-target="#exportModal">E-Collection</button>
-                        <div class="modal fade" id="exportModal" tabindex="-1" role="dialog"
-                            aria-labelledby="exportModalLabel" aria-hidden="true">
+                        <button class="btn-lg btn-outline-dark rounded border-0 w-50" data-toggle="modal" data-target="#exportModal">E-Collection</button>
+                        <div class="modal fade" id="exportModal" tabindex="-1" role="dialog" aria-labelledby="exportModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -158,8 +149,7 @@
                                         </table>
                                     </div>
                                     <div class="modal-footer bg-white border-top-0">
-                                        <button type="button"
-                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded border-0 btn-download-collection">Download
+                                        <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded border-0 btn-download-collection">Download
                                         </button>
                                     </div>
                                 </div>
@@ -243,9 +233,7 @@
 </div>
 
 <script>
-
-
-    $(document).ready(function () {
+    $(document).ready(function() {
 
         var table = $('#myTable').DataTable({
             dom: '<"pull-left"b><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
@@ -253,7 +241,7 @@
             scrollCollapse: true,
         });
 
-        $('.search-btn').on('click', function () {
+        $('.search-btn').on('click', function() {
             table.draw();
         });
         $('#EcollectTable').DataTable({
@@ -269,7 +257,7 @@
 
     }
 
-    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+    $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
         var startDate = $('#start_date').val();
         var endDate = $('#end_date').val();
         var currentDate = data[2]; // Assuming date is at index 2
@@ -284,7 +272,7 @@
         return false;
     });
     // Modal date filter
-    $('.preview-btn-modal').on('click', function () {
+    $('.preview-btn-modal').on('click', function() {
         var modalStartDate = $('#modal_selected_date').val();
         const filteredData = _jsonData.filter(item => item.date_time == modalStartDate)
 
@@ -328,8 +316,7 @@
         filteredData
             .forEach((row) => {
                 modalTableBody.innerHTML += `<tr><td>${row.date_time}</td><td>${row.ar_number}</td><td>${row.name_of_payor}</td><td>${row.particulars}</td><td>${row.reference_number}</td><td class="text-right">${row.total_amount}</td></tr>`
-            }
-            )
+            })
 
         // Find rows that match the selected date
         // var matchingRows = Array.from(originalTable.querySelectorAll('tbody tr')).filter(function (row) {
@@ -374,10 +361,12 @@
         table.draw();
     });
 
-    $('#modal_selected_date').on("change", (el) => { $('#validationMessage').empty(); })
+    $('#modal_selected_date').on("change", (el) => {
+        $('#validationMessage').empty();
+    })
 
     // Add a function for the close button in the modal
-    $('.close, [data-dismiss="modal"]').on('click', function () {
+    $('.close, [data-dismiss="modal"]').on('click', function() {
         // Clear existing content in the modal
         $('#validationMessage').empty();
         $('#modalDataTableContainer').empty();
@@ -400,7 +389,7 @@
 
 
 
-    $('.download-btn-modal').on('click', function () {
+    $('.download-btn-modal').on('click', function() {
         var modalStartDate = $('#modal_selected_date').val();
 
         if (!modalStartDate) {
@@ -421,7 +410,8 @@
         const filteredData = _jsonData.filter(object => object["date_time"] === modalStartDate);
 
         let doc = new jspdf.jsPDF({
-            orientation: 'p', unit: 'px'
+            orientation: 'p',
+            unit: 'px'
         })
 
         let printContent = `
@@ -574,14 +564,16 @@
 </div>
 </div></div>`
                 i++;
-            } catch (e) { console.log(e) }
+            } catch (e) {
+                console.log(e)
+            }
         }
 
         doc.html(printContent.replace("[content]", content).replaceAll("[total-page]", i).replaceAll("[total-amount]", parseFloat(totalAmount).toFixed(2)), {
             html2canvas: {
                 scale: .3
             },
-            callback: async function (doc) {
+            callback: async function(doc) {
                 // doc.addPage(
                 //     { orientation: 'p', unit: 'px' }
                 // )
@@ -596,7 +588,8 @@
     async function printRow(id) {
         const rowData = _jsonData.find(obj => obj.id == id)
         let doc = new jspdf.jsPDF({
-            orientation: 'p', unit: 'px'
+            orientation: 'p',
+            unit: 'px'
         })
 
         let printContent = `
@@ -737,7 +730,7 @@
                 html2canvas: {
                     scale: .5
                 },
-                callback: async function (doc) {
+                callback: async function(doc) {
                     // doc.addPage(
                     //     { orientation: 'p', unit: 'px' }
                     // )
@@ -746,10 +739,12 @@
                 x: 25,
                 y: 10,
             })
-        } catch (e) { console.log(e) }
+        } catch (e) {
+            console.log(e)
+        }
     }
 
-    $('.btn-download-collection').on('click', function () {
+    $('.btn-download-collection').on('click', function() {
         printECollectionReport();
     });
 
@@ -1042,7 +1037,7 @@
             html2canvas: {
                 scale: .31
             },
-            callback: async function (doc) {
+            callback: async function(doc) {
                 await doc.output("dataurlnewwindow", "e-collectionReport.pdf");
             },
             x: 15,
@@ -1054,5 +1049,4 @@
     $('#DownloadECollect').on('click', (e) => console.log(e))
 
     $('botton.btn-print-receipt').on('click', (e) => console.log(e))
-
 </script>
