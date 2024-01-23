@@ -218,7 +218,7 @@
                             echo "<td>" . $row["date_time"] . "</td>";
                             echo "<td>CIAP - PCAB</td>";
                             echo "<td>" . $row["name_of_payor"] . "</td>";
-                            echo "<td>" . $row["particulars"] . "</td>";
+                            echo "<td>Break Down of PCAB Fees</td>";
                             echo "<td>&#8369; " . number_format((float) $row["amount"], 2, '.', '') . "</td>";
                             echo "<td>&#8369; " . number_format((float) $row["service_charge"], 2, '.', '') . "</td>";
                             echo "<td>&#8369; " . number_format((float) $row["tax"], 2, '.', '') . "</td>";
@@ -667,8 +667,12 @@
                 if (key == "service_charge") {
                     key = "NGSI Convenience Fee";
                 }
+                
                 if (key == "agency_name") {
                     value = "CIAP - PCAB";
+                }
+                if (key == "particulars") {
+                    value = "Break Down of PCAB Fees";
                 }
                 content += `
         <div class="row d-flex">
@@ -942,7 +946,7 @@
         </div>
 
         <div class="row justify-content-md-center"> <!-- Centering the second row -->
-            <div class="col-4">
+            <div class="col-3">
                 <h5>Deposit</h5>
                 <span>Date:<div class="list-inline-item font-weight-light border-dark border-bottom custom-font-size px-5">
                     </div></span>
@@ -955,17 +959,17 @@
             </div>
             <div class="col-2 d-flex flex-column">
                 <br>
-                <p class="text-center ml-4">&nbsp;</p>
+                <p class="text-center ml-3 custom-font-size px-5">_______________________</p>
             </div>  
         </div>
 
         <div class="row justify-content-center"> <!-- Centering the third row -->
-            <div class="col-5">
+            <div class="col-4">
                 <p>Undeposited Collections, this Report</p>
             </div>
             <div class="col-2 d-flex flex-column">
             </span>
-                <span class="text-center ml-4">&nbsp;&nbsp;</span>
+                <span class="text-center ml-4 custom-font-size px-5">_____________________</span>
             </div>
         </div>
     </div>
