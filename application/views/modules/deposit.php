@@ -16,13 +16,18 @@
     } */
 </style>
 
-<div class="row w-100">
+<div class="row w-100 mb-5">
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body p-1 pt-3">
                 <div class="d-sm-flex align-items-center my-4 pl-2">
                     <!-- <h4 class="card-title mb-sm-0">Deposit</h4> -->
-                    <button style="margin-top: -20px;" type="button" class="btn-sm btn-outline-dark border-0 mr-3 mb-2 rounded download-btn-modal">Deposit</button>
+                    <button class='btn-sm btn-outline-dark border-0 px-3 py-1 rounded '
+                        type='button' data-toggle='modal' data-target='#editModal'>
+                        Settle
+                    </button>
+                    <!-- <button style="margin-top: -20px;" type="button"
+                        class="btn-sm btn-outline-dark border-0 mr-3 mb-2 rounded download-btn-modal">Deposit</button> -->
                 </div>
 
 
@@ -75,10 +80,53 @@
                 </table>
             </div>
         </div>
+        <!-- Modal -->
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+        aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Edit Modal</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="dateInput" class="text-dark">Date:</label>
+                                        <input type="date" class="form-control" id="dateInput">
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="refNumberInput" class="text-dark">Reference Number:</label>
+                                        <input type="text" class="form-control" id="refNumberInput">
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="amountInput" class="text-dark">Total Amount:</label>
+                                        <input type="text" class="form-control" id="amountInput">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn-md btn-success border-0 px-3 py-1 rounded">Submit</button>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
         <script>
-            $(document).ready(function() {
+            $(document).ready(function () {
 
                 var table = $('#myTable').DataTable({
                     dom: '<"pull-left"b><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
@@ -213,7 +261,7 @@
 
                 for (let i = 0; i < length; i++) {
                     if (i % 2 == 0) {
-                        toPrint += `<div class="mx-auto d-flex flex-column border-dark" style="/*margin-top:3rem*/;width:80rem;height:112.75rem;border:1px black solid;${i == length-1 ? `padding-top:5rem;">${content()}</div>` : `justify-content:space-evenly;">${content()}`}`;
+                        toPrint += `<div class="mx-auto d-flex flex-column border-dark" style="/*margin-top:3rem*/;width:80rem;height:112.75rem;border:1px black solid;${i == length - 1 ? `padding-top:5rem;">${content()}</div>` : `justify-content:space-evenly;">${content()}`}`;
                         // toPrint += `${content()} ${i == 38 ? "</div>" : ""}`;
 
                     } else toPrint += `<div style="display:block;width:100%;border-bottom:1px #666 dashed;"></div>${content()}</div>`;
@@ -358,7 +406,7 @@
                     html2canvas: {
                         scale: .4,
                     },
-                    callback: async function(doc) {
+                    callback: async function (doc) {
                         // doc.addPage(
                         //     { orientation: 'p', unit: 'px' }
                         // )
