@@ -305,7 +305,7 @@
 
         var modalTableHead = document.createElement('thead');
         modalTableHead.classList.add('thead-light'); // Added light background for the table head
-        modalTableHead.innerHTML = '<tr><th>Date and Time</th><th>AR Number</th><th>Name of Payor</th><th>Particulars</th><th>Reference Number</th><th class="text-right">Amount</th></tr>';
+        modalTableHead.innerHTML = ' <tr><th colspan="8" class="text-center">Collec</th></tr><tr><th rowspan="2">Date & Time</th><th rowspan="2">AR Number</th><th rowspan="2">Name of Payor</th><th rowspan="2">Reference Number</th><th>CIAP-PCAB</th><th>LRF</th><th>DST</th><th rowspan="2">Total Amount</th></tr><tr><th>Acount Number</th><th>Acount Number</th><th>Acount Number</th></tr>';
 
         var modalTableBody = document.createElement('tbody');
 
@@ -315,7 +315,7 @@
         console.log(_jsonData.filter(item => item.date_time == modalStartDate))
         filteredData
             .forEach((row) => {
-                modalTableBody.innerHTML += `<tr><td>${row.date_time}</td><td>${row.ar_number}</td><td>${row.name_of_payor}</td><td>${row.particulars}</td><td>${row.reference_number}</td><td class="text-right">${row.total_amount}</td></tr>`
+                modalTableBody.innerHTML += `<tr><td>${row.date_time}</td><td>${row.ar_number}</td><td>${row.name_of_payor}</td><td>${row.name_of_payor}</td><td>${row.name_of_payor}</td><td>${row.particulars}</td><td>${row.reference_number}</td><td class="text-right">${row.total_amount}</td></tr>`
             })
 
         // Find rows that match the selected date
@@ -478,7 +478,8 @@
                          <img width="100%" height="100%" style="margin-top: -10px;" src="assets/images/NGSI_header.png" alt="logo" class="logo-dark" />
                     </div>
     <b class="text-uppercase">List of daily collection</b>
-    <div>For [Agency Name]</div>
+    <div>Agency: CONSTRUCTION INDUSTY AUTHORITY OF THE PHILIPPINES</div>
+        <div>Board: Philippine Constraction Accreditation board(PCAB)</div>
     <div class="row d-flex align-items-center">
         <div class="col-12">
             <div class="list-inline-item ">Date:</div>
@@ -496,27 +497,65 @@
     </div>
 </div>
 <div class="col-12 d-flex flex-column data-table py-0">
-    <div class="row t-head">
-        <div class="border border-dark col-1 d-flex align-items-center justify-content-around border-right-0">
-            Date and Time
-        </div>
-        <div class="border border-dark col-1 d-flex align-items-center justify-content-around border-right-0">
-            AR Number
-        </div>
-        <div class="border border-dark col d-flex align-items-center justify-content-around border-right-0">
-            Name of payor
-        </div>
-        <div class="border border-dark col d-flex align-items-center justify-content-around border-right-0">
-            Particulars
-        </div>
-        <div
-            class="border border-dark col-2 d-flex align-items-center justify-content-around border-right-0 text-center">
-            Reference Number
-        </div> 
-        <div class="border border-dark col-1 d-flex align-items-center justify-content-around">
-            Amount
-        </div>
-    </div>
+<div class="row t-head">
+                <div class="border border-dark col-12 d-flex align-items-center justify-content-around ">
+                    Collection
+                </div>
+            </div>
+            <div class="row ">
+                <div class="border border-dark col d-flex align-items-center justify-content-around  border-bottom-0">
+                    Date and Time
+                </div>
+                <div class="border border-dark col d-flex align-items-center justify-content-around border-bottom-0">
+                    AR Number
+                </div>
+                <div class="border border-dark col d-flex align-items-center justify-content-around border-bottom-0">
+                    Name of payor
+                </div>
+                <div class="border border-dark col d-flex align-items-center justify-content-around border-bottom-0">
+                    Reference Number
+                </div>
+                <div
+                    class="border border-dark col-2 d-flex align-items-center justify-content-around border-right-0 text-center">
+                    CIAP-PCAB
+                </div>
+                <div class="border border-dark col d-flex align-items-center justify-content-around">
+                    LRF
+                </div>
+                <div class="border border-dark col d-flex align-items-center justify-content-around">
+                    DST
+                </div>
+                <div class="border border-dark col d-flex align-items-center justify-content-around border-bottom-0">
+                    total Amount
+                </div>
+            </div>
+            <div class="row ">
+                <div class="border border-dark col d-flex align-items-center justify-content-around border-top-0">
+
+                </div>
+                <div class="border border-dark col d-flex align-items-center justify-content-around border-top-0">
+
+                </div>
+                <div class="border border-dark col d-flex align-items-center justify-content-around border-top-0">
+
+                </div>
+                <div class="border border-dark col d-flex align-items-center justify-content-around border-top-0">
+
+                </div>
+                <div
+                    class="border border-dark col-2 d-flex align-items-center justify-content-around border-right-0 text-center">
+                    Account No.
+                </div>
+                <div class="border border-dark col d-flex align-items-center justify-content-around">
+                    Account No.
+                </div>
+                <div class="border border-dark col d-flex align-items-center justify-content-around">
+                    Account No.
+                </div>
+                <div class="border border-dark col d-flex align-items-center justify-content-around border-top-0">
+
+                </div>
+            </div>
     <div class="t-body p-0 m-0">
     `
 
@@ -526,42 +565,48 @@
                     totalAmount += parseFloat(row?.total_amount ?? 0)
                     content += `
             <div class="row row-data">
-                <div class="border border-dark border-right-0 border-top-0 col-1">${row?.date_time ?? "&nbsp;"}</div>
-                <div class="border border-dark border-right-0 border-top-0 col-1">${row?.ar_number ?? ""}</div>
+                <div class="border border-dark border-right-0 border-top-0 col">${row?.date_time ?? "&nbsp;"}</div>
+                <div class="border border-dark border-right-0 border-top-0 col">${row?.ar_number ?? ""}</div>
                 <div class="border border-dark border-right-0 border-top-0 col">${row?.name_of_payor ?? ""}</div>
                 <div class="border border-dark border-right-0 border-top-0 col">${row?.particulars ?? ""}</div>
                 <div class="border border-dark border-right-0 border-top-0 col-2">${row?.reference_number ?? ""}</div>
-                <div class="border border-dark border-top-0 col-1 text-right">${parseFloat(row?.total_amount ?? 0).toFixed(2)}</div>
+                <div class="border border-dark border-right-0 border-top-0 col">${row?.particulars ?? ""}</div>
+                <div class="border border-dark border-right-0 border-top-0 col">${row?.reference_number ?? ""}</div>
+                <div class="border border-dark border-top-0 col text-right">${parseFloat(row?.total_amount ?? 0).toFixed(2)}</div>
             </div>
             `;
                 });
                 content += `</div>
         <div class="row t-total-row">
-        <div class="border border-dark border-right-0 border-top-0 col-1"></div>
-        <div class="border border-dark border-right-0 border-top-0 col-1"></div>
+        <div class="border border-dark border-right-0 border-top-0 col"></div>
+        <div class="border border-dark border-right-0 border-top-0 col"></div>
         <div class="border border-dark border-right-0 border-top-0 col text-center">Total Amount</div>
         <div class="border border-dark border-right-0 border-top-0 col"></div>
         <div class="border border-dark border-right-0 border-top-0 col-2"></div>
-        <div class="border border-dark border-top-0 col-1 text-right">P &nbsp; [total-amount]</div>
+        <div class="border border-dark border-right-0 border-top-0 col"></div>
+        <div class="border border-dark border-right-0 border-top-0 col"></div>
+        <div class="border border-dark border-top-0 col text-right">P &nbsp; [total-amount]</div>
     </div>
 </div>
-<div class="row py-4">
-    <div class="col-8">
-    </div>
-    <div class="col flex flex-column">
-        <div class="row">
-            Page No. <div
-                class="list-inline-item font-weight-light border-dark border-bottom custom-font-size px-3">${i + 1}
-            </div> of <div
-                class="list-inline-item font-weight-light border-dark border-bottom custom-font-size px-3">[total-page]
-            </div>
-        </div>
-        <div class="row">
-            Date and time generated: <div class="list-inline-item font-weight-light custom-font-size px-3 pt-1">
-            </div>
-        </div>
-    </div>
 </div>
+<div class="row" style="height:6rem; margin-top:2rem; margin-bottom:2rem;">
+                                        <div class="col" style="position:relative; margin-left:5rem; ">
+                                            <img style="margin-left: 13%;background-position:center;margin-bottom:-15px;z-index:0;transform:scale(1.1);display:block;position:relative;top:px;"  height="70px" src="assets/images/ma'am_je.png" alt="logo" class="logo-dark" />
+                                            <p style="position:relative;left:-11px;margin:0;">Prepared By: </p>
+                                            <p style="margin-top:-20px;margin-left:87px;font-size:18px;font-family:Arial,Helvetica,sans-serif;z-index:1;position:relative;">
+                                                   Jeremie Soliveres </p>
+                                            <p style="margin-top:-24px;margin-left:106px;font-family:Arial,Helvetica,sans-serif;font-size:12px;z-index:1;position:relative;">
+                                                Accounting Specialist</p>
+                                        </div>
+                                        <div class="col" style="position:relative;left:120px; margin-top:4rem;">
+                                            
+                                            <p style="position:relative;left:1rem;margin:0;">Checked & Certified By: </p>
+                                            <p style="margin-top:-25px;margin-left:11.5rem;font-size:18px;font-family:Arial,Helvetica,sans-serif;z-index:1;position:relative;">
+                                            Mischell A. Fernandez</p>
+                                            <p style=" margin-top:-24px;margin-left:11.5rem;font-family:Arial,Helvetica,sans-serif;font-size:12px;z-index:1;position:relative;">
+                                            Admin Officer III/Cashier II CIAP</p>
+                                        </div>
+                                    </div>
 </div></div>`
                 i++;
             } catch (e) {
@@ -577,8 +622,8 @@
                 // doc.addPage(
                 //     { orientation: 'p', unit: 'px' }
                 // )
-                // await doc.save(`daily-collection-`)
-                await doc.output("dataurlnewwindow", "receipt-123.pdf");
+                await doc.save(`daily-collection-`)
+                // await doc.output("dataurlnewwindow", "receipt-123.pdf");
             },
             x: 7,
             y: 7,
