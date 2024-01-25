@@ -269,6 +269,12 @@ table tr:nth-child(odd) {
 #myTable_filter{
 	margin-right: 0.5rem;
 }
+#PDFContent tr,
+#PDFContent td {
+	background-color: #fff;
+	margin: 1rem;
+}
+
 /* .card {
         min-height: 0;
         max-height: 95vh;

@@ -651,53 +651,52 @@
         try {
 
             content += `
-                <div class="mx-auto my-5" style="width: 50rem; ">
-                <div class="container mt-3 justify-content-center mb-4">
-                        <div class="row justify-content-center mb-2">
-                            <div class="col-md-3">
-                                <img  height="100px" style="margin-left:-1rem;" src="assets/images/ngsi-letterhead.png" alt="logo" class="logo-dark" />
-                            </div>
-                            <div class="col-md-4 mt-3"  style="margin-left:11rem;">
-                                <p class="font-weight-bold" style="font-family: Century Gothic; font-size:16px;" ;>NET GLOBAL SOLUTIONS&nbsp;&nbsp; INC.</p>
-                                <p style="margin-top: -20px;margin-bottom: -5px; font-family: Century Gothic;">Tel. No. 632 82877374</p>
-                                <p style=" line-height: 80%; color:blue;margin-top: 10px;">Support@netglobalsolutions.net</p>
-                            </div>
+            <div class="mx-auto my-5" style="width: 50rem; ">
+            <div class="container mt-3 justify-content-center mb-5">
+                    <div class="row justify-content-center mb-2">
+                        <div class="col-md-3">
+                            <img  height="100px" style="margin-left:-1rem;" src="assets/images/ngsi-letterhead.png" alt="logo" class="logo-dark" />
                         </div>
-                         <img width="100%" height="100%" style="margin-top: -10px;" src="assets/images/NGSI_header.png" alt="logo" class="logo-dark" />
-                    </div>
-                      
-                    <div class="border border-dark">    
-                    <div class="text-center text-uppercase py-3">
-                        <u>Acknowledgement &nbsp; Receipt</u>  
-                </div>
-                <div class="row d-flex">
-                    <div class="col"></div>
-                    <div class="col">
-                        <div class="row d-flex">
-                            <div class="col">AR Number: </div>
-                            <div class="col">
-                                ${rowData.ar_number}
-                            </div>
-                        </div>
-                        <div class="row d-flex">
-                            <div class="col">Date and Time: </div>
-                            <div class="col">
-                               ${rowData.date_time}
-                            </div>
+                        <div class="col-md-4 mt-3"  style="margin-left:11rem;">
+                            <p class="font-weight-bold" style="font-family: Century Gothic; font-size:16px;" ;>NET GLOBAL SOLUTIONS&nbsp;&nbsp; INC.</p>
+                            <p style="margin-top: -20px;margin-bottom: -5px; font-family: Century Gothic;">Tel. No. 632 82877374</p>
+                            <p style=" line-height: 80%; color:blue;margin-top: 10px;">Support@netglobalsolutions.net</p>
                         </div>
                     </div>
+                     <img width="100%" height="100%" style="margin-top: -10px;" src="assets/images/NGSI_header.png" alt="logo" class="logo-dark" />
                 </div>
-                <div class='row pt-4 pb-3'>
+
+                <div class="border border-dark">    
+                <div class="text-center text-uppercase py-4">
+                    <u>Acknowledgement &nbsp; Receipt</u>  
+            </div>
+            <div class="row d-flex">
+                <div class="col"></div>
                 <div class="col">
-                `;
+                    <div class="row d-flex">
+                        <div class="col">AR Number: </div>
+                        <div class="col">
+                            ${rowData.ar_number}
+                        </div>
+                    </div>
+                    <div class="row d-flex">
+                        <div class="col">Date and Time: </div>
+                        <div class="col">
+                           ${rowData.date_time}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class='row pt-4 pb-3 px-2'>
+            <div class="col">
+            `;
             for (let key in rowData) {
                 if (["id", "ar_number", "date_time", "tax"].includes(key)) continue;
 
                 let value = rowData[key];
-                console.log(key);
 
                 // Check if key is a special case
-                if (key == "total_amount" || key == "amount") {
+                if (key == "total_amount" || key == "amount" || key == "service_charge") {
                     value = parseFloat(value ?? 0).toFixed(2);
                 }
 
@@ -705,7 +704,7 @@
                 if (key == "service_charge") {
                     key = "NGSI Convenience Fee";
                 }
-                
+
                 if (key == "agency_name") {
                     value = "CIAP - PCAB";
                 }
@@ -724,20 +723,20 @@
                 if (key == "amount") {
                     content += `
             <div class="row d-flex">
-                <div style="margin-left:-15px;" class="col text-capitalize pl-4">PCAB Fee<div class="float-right pr-2">:</div></div>
-                <div class="col">
+                <div style="margin-left:1px;" class="col text-capitalize pl-4">PCAB Fee<div class="float-right pr-2">:</div></div>
+                <div class="col" style="position: relative;left: -8px;">
                     ${parseFloat(500).toFixed(2)}
                 </div>
             </div>
             <div class="row d-flex">
-                <div style="margin-left:-15px;" class="col text-capitalize pl-4">Documentary Stamp Fee<div class="float-right pr-2">:</div></div>
-                <div class="col">
+                <div style="margin-left:1px;" class="col text-capitalize pl-4">Documentary Stamp Fee<div class="float-right pr-2">:</div></div>
+                <div class="col" style="position: relative;left: -8px;">
                     ${parseFloat(20).toFixed(2)}
                 </div>
             </div>
             <div class="row d-flex">
-                <div style="margin-left:-15px;" class="col text-capitalize pl-4">Legal Research Fee<div class="float-right pr-2">:</div></div>
-                <div class="col">
+                <div style="margin-left:1px;" class="col text-capitalize pl-4">Legal Research Fee<div class="float-right pr-2">:</div></div>
+                <div class="col" style="position: relative;left: -8px;">
                     ${parseFloat(15).toFixed(2)}
                 </div>
             </div>`;
@@ -771,7 +770,7 @@
             //     doc.document.onkeydown = (key) => alert(key)
             //     setTimeout(() => { doc.print(); doc.close(); }, 300)
 
-            doc.html(printContent.replace("[content]", content), {
+            doc.html(content, {
                 html2canvas: {
                     scale: .5
                 },
@@ -779,6 +778,7 @@
                     // doc.addPage(
                     //     { orientation: 'p', unit: 'px' }
                     // )
+                    // document.querySelector(".card").innerHTML = content;
                     await doc.output("dataurlnewwindow", "receipt.pdf");
                 },
                 x: 25,
