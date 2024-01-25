@@ -62,19 +62,24 @@
                         </div>
                     </div>
                     <div class=" col-mb-3 mr-3 mt-3">
-                        <button class="btn-lg btn-outline-dark rounded border-0" data-toggle="modal" data-target="#Daily_CollectionModal">Daily Collection</button>
-                        <div class="modal fade" id="Daily_CollectionModal" tabindex="-1" role="dialog" aria-labelledby="Daily_CollectionModalLabel" aria-hidden="true">
+                        <button class="btn-lg btn-outline-dark rounded border-0" data-toggle="modal"
+                            data-target="#Daily_CollectionModal">Daily Collection</button>
+                        <div class="modal fade" id="Daily_CollectionModal" tabindex="-1" role="dialog"
+                            aria-labelledby="Daily_CollectionModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-sm" role="document">
                                 <div id="DailyCollectModal" class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="Daily_CollectionModalLabel">Daily Collection</h5>
-                                        <button type="button" class="close text-right pr-4" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <button type="button" class="close text-right pr-4" data-dismiss="modal"
+                                            aria-hidden="true">&times;</button>
                                     </div>
                                     <div class="modal-body bg-white pb-3">
                                         <div class="row mb-2">
                                             <div class="col-12 d-flex flex-row flex-wrap">
-                                                <label for="modal_selected_date" class="mr-2 d-flex align-items-center">Select Date:</label>
-                                                <input type="date" id="modal_selected_date" value="2022-02-18" class="form-control" style="width: 16rem;">
+                                                <label for="modal_selected_date"
+                                                    class="mr-2 d-flex align-items-center">Select Date:</label>
+                                                <input type="date" id="modal_selected_date" value="2022-02-18"
+                                                    class="form-control" style="width: 16rem;">
                                                 <div id="validationMessage"></div>
 
                                             </div>
@@ -83,16 +88,20 @@
                                         <div id="modalDataTableContainer" class="overflow-auto"></div>
                                     </div>
                                     <div class="modal-footer bg-white border-top-0">
-                                        <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded preview-btn-modal">Preview</button>
-                                        <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded download-btn-modal">Download</button>
+                                        <button type="button"
+                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded preview-btn-modal">Preview</button>
+                                        <button type="button"
+                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded download-btn-modal">Download</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class=" col-mb-3 mr-3 mt-3">
-                        <button class="btn-lg btn-outline-dark rounded border-0 w-50" data-toggle="modal" data-target="#exportModal">E-Collection</button>
-                        <div class="modal fade" id="exportModal" tabindex="-1" role="dialog" aria-labelledby="exportModalLabel" aria-hidden="true">
+                        <button class="btn-lg btn-outline-dark rounded border-0 w-50" data-toggle="modal"
+                            data-target="#exportModal">E-Collection</button>
+                        <div class="modal fade" id="exportModal" tabindex="-1" role="dialog"
+                            aria-labelledby="exportModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -102,6 +111,22 @@
                                         </button>
                                     </div>
                                     <div class="modal-body  bg-white pb-3">
+                                        <label for="monthFilter">Select Month: </label>
+                                        <select id="monthFilter">
+                                            <option value="0">All Months</option>
+                                            <option value="1">January</option>
+                                            <option value="2">February</option>
+                                            <option value="3">March</option>
+                                            <option value="4">April</option>
+                                            <option value="5">May</option>
+                                            <option value="6">June</option>
+                                            <option value="7">July</option>
+                                            <option value="8">August</option>
+                                            <option value="9">September</option>
+                                            <option value="10">October</option>
+                                            <option value="11">November</option>
+                                            <option value="12">December</option>
+                                        </select>
                                         <table id="EcollectTable" class="table table-striped text-center" width="100%">
                                             <thead>
                                                 <tr>
@@ -149,7 +174,8 @@
                                         </table>
                                     </div>
                                     <div class="modal-footer bg-white border-top-0">
-                                        <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded border-0 btn-download-collection">Download
+                                        <button type="button"
+                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded border-0 btn-download-collection">Download
                                         </button>
                                     </div>
                                 </div>
@@ -200,22 +226,26 @@
                     <tbody>
                         <?php
                         // Assuming $data is your array of data
-                        foreach ($data as $row) {
-                            $date = date_create($row['date_time']);
-                            echo "<tr>";
-                            echo "<td>" . $row['id'] . "</td>";
-                            echo "<td>" . $row["ar_number"] . "</td>";
-                            echo "<td>" . $row["date_time"] . "</td>";
-                            echo "<td>CIAP - PCAB</td>";
-                            echo "<td>" . $row["name_of_payor"] . "</td>";
-                            echo "<td>Break Down of PCAB Fees</td>";
-                            echo "<td>&#8369; " . number_format((float) $row["amount"], 2, '.', '') . "</td>";
-                            echo "<td>&#8369; " . number_format((float) $row["service_charge"], 2, '.', '') . "</td>";
-                            echo "<td>&#8369; " . number_format((float) $row["tax"], 2, '.', '') . "</td>";
-                            echo "<td>&#8369; " . number_format((float) $row["total_amount"], 2, '.', '') . "</td>";
-                            echo "<td>" . $row["reference_number"] . "</td>";
-                            echo "<td><button type='button'style='width: 80px; height: 25px;' class=' btn-outline-dark border-0 btn-print-receipt' data-receipt-id='" . $row['id'] . "'  onclick='printRow(" . $row['id'] . ")'>Download</button></td>";
-                            echo "</tr>";
+                        if (empty($data)) {
+                            echo "<tr><td colspan='10'>No data available</td></tr>";
+                        } else {
+                            foreach ($data as $row) {
+                                $date = date_create($row['date_time']);
+                                echo "<tr>";
+                                echo "<td>" . $row['id'] . "</td>";
+                                echo "<td>" . $row["ar_number"] . "</td>";
+                                echo "<td>" . $row["date_time"] . "</td>";
+                                echo "<td>CIAP - PCAB</td>";
+                                echo "<td>" . $row["name_of_payor"] . "</td>";
+                                echo "<td>Break Down of PCAB Fees</td>";
+                                echo "<td>&#8369; " . number_format((float) $row["amount"], 2, '.', '') . "</td>";
+                                echo "<td>&#8369; " . number_format((float) $row["service_charge"], 2, '.', '') . "</td>";
+                                echo "<td>&#8369; " . number_format((float) $row["tax"], 2, '.', '') . "</td>";
+                                echo "<td>&#8369; " . number_format((float) $row["total_amount"], 2, '.', '') . "</td>";
+                                echo "<td>" . $row["reference_number"] . "</td>";
+                                echo "<td><button type='button'style='width: 80px; height: 25px;' class=' btn-outline-dark border-0 btn-print-receipt' data-receipt-id='" . $row['id'] . "'  onclick='printRow(" . $row['id'] . ")'>Download</button></td>";
+                                echo "</tr>";
+                            }
                         }
                         ?>
 
@@ -233,7 +263,8 @@
 </div>
 
 <script>
-    $(document).ready(function() {
+
+    $(document).ready(function () {
 
         var table = $('#myTable').DataTable({
             dom: '<"pull-left"b><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
@@ -241,14 +272,34 @@
             scrollCollapse: true,
         });
 
-        $('.search-btn').on('click', function() {
+        $('.search-btn').on('click', function () {
             table.draw();
         });
-        $('#EcollectTable').DataTable({
+
+    });
+    $(document).ready(function () {
+        var dataTable = $('#EcollectTable').DataTable({
             dom: 'rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>'
         });
-    });
+        $('#monthFilter').on('change', function () {
+            var selectedMonth = $(this).val();
 
+            // Use DataTables API to filter by month
+            dataTable.column(0).search(selectedMonth ? `-${selectedMonth.padStart(2, '0')}` : "", true, false).draw();
+            var filteredData = dataTable.rows({ search: 'applied' }).data().toArray();
+        });
+        // $('#monthFilter').on('change', function () {
+        //     var selectedMonth = $(this).val();
+
+        //     const toSearch = selectedMonth < 10 ? `0${selectedMonth}` : selectedMonth
+
+        //     // console.log(toSearch, selectedMonth ? `2023-${toSearch}` : "")
+        //     // Use DataTables API to filter by month
+        //     dataTable.column(0).search(toSearch ? `2022-${toSearch}` : "", true, false).draw();
+        // });
+        // Call the printECollectionReport function with the selected month
+    
+    });
     const _jsonData = JSON.parse('<?php echo json_encode($data) ?>')
 
     function applyDateFilter() {
@@ -257,7 +308,7 @@
 
     }
 
-    $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
         var startDate = $('#start_date').val();
         var endDate = $('#end_date').val();
         var currentDate = data[2]; // Assuming date is at index 2
@@ -272,7 +323,7 @@
         return false;
     });
     // Modal date filter
-    $('.preview-btn-modal').on('click', function() {
+    $('.preview-btn-modal').on('click', function () {
         var modalStartDate = $('#modal_selected_date').val();
         const filteredData = _jsonData.filter(item => item.date_time == modalStartDate)
 
@@ -305,7 +356,7 @@
 
         var modalTableHead = document.createElement('thead');
         modalTableHead.classList.add('thead-light'); // Added light background for the table head
-        modalTableHead.innerHTML = ' <tr><th colspan="8" class="text-center">Collec</th></tr><tr><th rowspan="2">Date & Time</th><th rowspan="2">AR Number</th><th rowspan="2">Name of Payor</th><th rowspan="2">Reference Number</th><th>CIAP-PCAB</th><th>LRF</th><th>DST</th><th rowspan="2">Total Amount</th></tr><tr><th>Acount Number</th><th>Acount Number</th><th>Acount Number</th></tr>';
+        modalTableHead.innerHTML = ' <tr><th colspan="8" class="text-center">Collection</th></tr><tr><th rowspan="2">Date & Time</th><th rowspan="2">AR Number</th><th rowspan="2">Name of Payor</th><th rowspan="2">Reference Number</th><th>CIAP-PCAB</th><th>LRF</th><th>DST</th><th rowspan="2">Total Amount</th></tr><tr><th>Acount Number</th><th>Acount Number</th><th>Acount Number</th></tr>';
 
         var modalTableBody = document.createElement('tbody');
 
@@ -366,7 +417,7 @@
     })
 
     // Add a function for the close button in the modal
-    $('.close, [data-dismiss="modal"]').on('click', function() {
+    $('.close, [data-dismiss="modal"]').on('click', function () {
         // Clear existing content in the modal
         $('#validationMessage').empty();
         $('#modalDataTableContainer').empty();
@@ -389,7 +440,7 @@
 
 
 
-    $('.download-btn-modal').on('click', function() {
+    $('.download-btn-modal').on('click', function () {
         var modalStartDate = $('#modal_selected_date').val();
 
         if (!modalStartDate) {
@@ -498,64 +549,63 @@
 </div>
 <div class="col-12 d-flex flex-column data-table py-0">
 <div class="row t-head">
-                <div class="border border-dark col-12 d-flex align-items-center justify-content-around ">
-                    Collection
-                </div>
-            </div>
-            <div class="row ">
-                <div class="border border-dark col d-flex align-items-center justify-content-around  border-bottom-0">
-                    Date and Time
-                </div>
-                <div class="border border-dark col d-flex align-items-center justify-content-around border-bottom-0">
-                    AR Number
-                </div>
-                <div class="border border-dark col d-flex align-items-center justify-content-around border-bottom-0">
-                    Name of payor
-                </div>
-                <div class="border border-dark col d-flex align-items-center justify-content-around border-bottom-0">
-                    Reference Number
-                </div>
-                <div
-                    class="border border-dark col-2 d-flex align-items-center justify-content-around border-right-0 text-center">
-                    CIAP-PCAB
-                </div>
-                <div class="border border-dark col d-flex align-items-center justify-content-around">
-                    LRF
-                </div>
-                <div class="border border-dark col d-flex align-items-center justify-content-around">
-                    DST
-                </div>
-                <div class="border border-dark col d-flex align-items-center justify-content-around border-bottom-0">
-                    total Amount
-                </div>
-            </div>
-            <div class="row ">
-                <div class="border border-dark col d-flex align-items-center justify-content-around border-top-0">
+    <div class="border border-dark col-12 d-flex align-items-center justify-content-around text-center">
+        Collection
+    </div>
+</div>
+<div class="row ">
+    <div class="border border-dark col d-flex align-items-center justify-content-around  border-bottom-0 text-center ">
+        Date and Time
+    </div>
+    <div class="border border-dark col d-flex align-items-center justify-content-around border-bottom-0 text-center">
+        AR Number
+    </div>
+    <div class="border border-dark col d-flex align-items-center justify-content-around border-bottom-0 text-center">
+        Name of payor
+    </div>
+    <div class="border border-dark col d-flex align-items-center justify-content-around border-bottom-0 text-center">
+        Reference Number
+    </div>
+    <div class="border border-dark col-2 d-flex align-items-center justify-content-around border-right-0 text-center">
+        CIAP-PCAB
+    </div>
+    <div class="border border-dark col d-flex align-items-center justify-content-around text-center">
+        LRF
+    </div>
+    <div class="border border-dark col d-flex align-items-center justify-content-around text-center">
+        DST
+    </div>
+    <div class="border border-dark col d-flex align-items-center justify-content-around border-bottom-0 text-center">
+        Total Amount
+    </div>
+</div>
+<div class="row ">
+    <div class="border border-dark col d-flex align-items-center justify-content-around border-top-0 ">
 
-                </div>
-                <div class="border border-dark col d-flex align-items-center justify-content-around border-top-0">
+    </div>
+    <div class="border border-dark col d-flex align-items-center justify-content-around border-top-0">
 
-                </div>
-                <div class="border border-dark col d-flex align-items-center justify-content-around border-top-0">
+    </div>
+    <div class="border border-dark col d-flex align-items-center justify-content-around border-top-0">
 
-                </div>
-                <div class="border border-dark col d-flex align-items-center justify-content-around border-top-0">
+    </div>
+    <div class="border border-dark col d-flex align-items-center justify-content-around border-top-0">
 
-                </div>
-                <div
-                    class="border border-dark col-2 d-flex align-items-center justify-content-around border-right-0 text-center">
-                    Account No.
-                </div>
-                <div class="border border-dark col d-flex align-items-center justify-content-around">
-                    Account No.
-                </div>
-                <div class="border border-dark col d-flex align-items-center justify-content-around">
-                    Account No.
-                </div>
-                <div class="border border-dark col d-flex align-items-center justify-content-around border-top-0">
+    </div>
+    <div class="border border-dark col-2 d-flex align-items-center justify-content-around border-right-0 text-center">
+        Account No.
+    </div>
+    <div class="border border-dark col d-flex align-items-center justify-content-around text-center">
+        Account No.
+    </div>
+    <div class="border border-dark col d-flex align-items-center justify-content-around text-center">
+        Account No.
+    </div>
+    <div class="border border-dark col d-flex align-items-center justify-content-around border-top-0">
 
-                </div>
-            </div>
+    </div>
+</div>
+
     <div class="t-body p-0 m-0">
     `
 
@@ -580,8 +630,8 @@
         <div class="row t-total-row">
         <div class="border border-dark border-right-0 border-top-0 col"></div>
         <div class="border border-dark border-right-0 border-top-0 col"></div>
-        <div class="border border-dark border-right-0 border-top-0 col text-center">Total Amount</div>
         <div class="border border-dark border-right-0 border-top-0 col"></div>
+        <div class="border border-dark border-right-0 border-top-0 col text-center">Total Amount</div>
         <div class="border border-dark border-right-0 border-top-0 col-2"></div>
         <div class="border border-dark border-right-0 border-top-0 col"></div>
         <div class="border border-dark border-right-0 border-top-0 col"></div>
@@ -589,25 +639,41 @@
     </div>
 </div>
 </div>
-<div class="row" style="height:6rem; margin-top:2rem; margin-bottom:2rem;">
-                                        <div class="col" style="position:relative; margin-left:5rem; ">
-                                            <img style="margin-left: 13%;background-position:center;margin-bottom:-15px;z-index:0;transform:scale(1.1);display:block;position:relative;top:px;"  height="70px" src="assets/images/ma'am_je.png" alt="logo" class="logo-dark" />
-                                            <p style="position:relative;left:-11px;margin:0;">Prepared By: </p>
-                                            <p style="margin-top:-20px;margin-left:87px;font-size:18px;font-family:Arial,Helvetica,sans-serif;z-index:1;position:relative;">
-                                                   Jeremie Soliveres </p>
-                                            <p style="margin-top:-24px;margin-left:106px;font-family:Arial,Helvetica,sans-serif;font-size:12px;z-index:1;position:relative;">
-                                                Accounting Specialist</p>
-                                        </div>
-                                        <div class="col" style="position:relative;left:120px; margin-top:4rem;">
+<div class="row mt-4" >
+                                        <div class="col" style="position:relative; margin-left:6.5rem;  ">
                                             
-                                            <p style="position:relative;left:1rem;margin:0;">Checked & Certified By: </p>
-                                            <p style="margin-top:-25px;margin-left:11.5rem;font-size:18px;font-family:Arial,Helvetica,sans-serif;z-index:1;position:relative;">
-                                            Mischell A. Fernandez</p>
-                                            <p style=" margin-top:-24px;margin-left:11.5rem;font-family:Arial,Helvetica,sans-serif;font-size:12px;z-index:1;position:relative;">
-                                            Admin Officer III/Cashier II CIAP</p>
+                                            <p >Prepared By: </p>
+                        
+                                        </div>
+                                        <div class="col" style="position:relative;left:120px; ">
+                                            
+                                            <p >Checked & Certified By: </p>
+                                           
                                         </div>
                                     </div>
-</div></div>`
+<div class="row" style="height:6rem;  margin-bottom:4rem;">
+                                        <div class="col" style="position:relative; margin-left:6.5rem;  ">
+                                        <img style="margin-left: 5rem;background-position:center;z-index:0;transform:scale(1.1);display:block;position:relative;"  height="70px" src="assets/images/ma'am_je.png" alt="logo" class="logo-dark" />
+                                            <p style="margin-top:-20px;margin-left:87px;font-size:18px;font-family:Arial,Helvetica,sans-serif;z-index:1;position:relative;">
+                                                   Jeremie Soliveres </p>
+                                            <p style="margin-top:-24px;margin-left:90px;font-family:Arial,Helvetica,sans-serif;font-size:12px;z-index:1;position:relative;">
+                                                Accounting Specialist</p>
+                                                <p style="margin-top:-22px;margin-left:90px;font-family:Arial,Helvetica,sans-serif;font-size:12px;z-index:1;position:relative;">
+                                                Netglobal Solution Inc</p>
+                                        </div>
+                                        <div class="col" style="position:relative;left:120px; margin-top:4.5rem;">
+                                            
+                                            
+                                            <p style="margin-top:-25px;margin-left:10rem;font-size:18px;font-family:Arial,Helvetica,sans-serif;z-index:1;position:relative;">
+                                            Mischell A. Fernandez</p>
+                                            <p style=" margin-top:-24px;margin-left:10rem;font-family:Arial,Helvetica,sans-serif;font-size:12px;z-index:1;position:relative;">
+                                            Admin Officer III/Cashier II </p>
+                                            <p style=" margin-top:-22px;margin-left:10rem;font-family:Arial,Helvetica,sans-serif;font-size:12px;z-index:1;position:relative;">
+                                            CIAP </p>
+                                        </div>
+                                    </div>
+</div>
+</div>`
                 i++;
             } catch (e) {
                 console.log(e)
@@ -618,7 +684,7 @@
             html2canvas: {
                 scale: .3
             },
-            callback: async function(doc) {
+            callback: async function (doc) {
                 // doc.addPage(
                 //     { orientation: 'p', unit: 'px' }
                 // )
@@ -774,7 +840,7 @@
                 html2canvas: {
                     scale: .5
                 },
-                callback: async function(doc) {
+                callback: async function (doc) {
                     // doc.addPage(
                     //     { orientation: 'p', unit: 'px' }
                     // )
@@ -789,12 +855,14 @@
         }
     }
 
-    $('.btn-download-collection').on('click', function() {
+    $('.btn-download-collection').on('click', function () {
         printECollectionReport();
     });
 
     async function printECollectionReport() {
-        const filteredData = _jsonData; // Assuming _jsonData is the array with your data
+        const selectedMonth = $('#selectedMonth').val();
+
+        const filteredData = _jsonData.filter(object => object["date_time"] === selectedMonth);
 
         let doc = new jspdf.jsPDF({
             orientation: 'p',
@@ -833,7 +901,6 @@
 </div>
         </html>
     `;
-
         let i = 0;
         let content = "";
         let totalAmount = 0; // Initialize totalAmount here
@@ -1082,7 +1149,7 @@
             html2canvas: {
                 scale: .31
             },
-            callback: async function(doc) {
+            callback: async function (doc) {
                 await doc.output("dataurlnewwindow", "e-collectionReport.pdf");
             },
             x: 15,

@@ -22,9 +22,7 @@
             <div class="card-body p-1 pt-3">
                 <div class="d-sm-flex align-items-center my-4 pl-2">
                     <!-- <h4 class="card-title mb-sm-0">Deposit</h4> -->
-                    <button class='btn-sm btn-outline-dark border-0 px-3 py-1 rounded ' type='button' data-toggle='modal' data-target='#editModal'>
-                        Settle
-                    </button>
+                    
                     <!-- <button style="margin-top: -20px;" type="button"
                         class="btn-sm btn-outline-dark border-0 mr-3 mb-2 rounded download-btn-modal">Deposit</button> -->
                 </div>
@@ -70,7 +68,10 @@
                             echo "<td>&#8369; " . number_format((float) $row["tax"], 2, '.', '') . "</td>";
                             echo "<td>&#8369; " . number_format((float) $row["total_amount"], 2, '.', '') . "</td>";
                             echo "<td>&#8369; " . number_format((float) $row["total_amount"], 2, '.', '') . "</td>";
-                            echo "<td><button class='btn-sm btn-outline-dark border-0 px-3 py-1 rounded download-btn-modal' onclick='downloadDeposit()'>Download</button></td>";
+                            if ("super_admin" == "admin")
+                                echo "<td><button class='btn-sm btn-outline-dark border-0 px-3 py-1 rounded ' type='button' data-toggle='modal' data-target='#editModal'>Settle</button></td>";
+                            else
+                                echo "<td><button class='btn-sm btn-outline-dark border-0 px-3 py-1 rounded download-btn-modal' onclick='downloadDeposit()'>Download</button></td>";
                             echo "</tr>";
                         }
                         ?>
@@ -80,7 +81,8 @@
             </div>
         </div>
         <!-- Modal -->
-        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+            aria-hidden="true" data-backdrop="static">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -318,7 +320,7 @@
             <div class="container mt-3 justify-content-center mb-4">
                                 <div class="row justify-content-center">
                                     <div class="col-md-3">
-                                        <img  height="100px" style="margin-left:-1rem;" src="assets/images/ngsi-letterhead.png" alt="logo" class="logo-dark" />
+                                        <img  height="100" style="margin-left:-rem;" src="assets/images/ngsi-letterhead.png" alt="logo" class="logo-dark" />
                                     </div>
                                     <div class="col-md-4 mt-3"  style="margin-left:11rem;">
                                         <p class="font-weight-bold" style="font-family: Century Gothic; font-size:16px;" ;>NET GLOBAL SOLUTIONS&nbsp;&nbsp; INC.</p>
@@ -326,7 +328,7 @@
                                         <p style=" line-height: 80%; color:blue;margin-top: 10px;">Support@netglobalsolutions.net</p>
                                     </div>
                                 </div>
-                                 <img width="100%" height="100%" style="margin-top: -10px;" src="assets/images/NGSI_header.png" alt="logo" class="logo-dark" />
+                                 <img  height="100%" style="margin-top: -10px;" src="assets/images/NGSI_header.png" alt="logo" class="logo-dark" />
                             </div>
             <div class="">
                 <div class="text-center text-uppercase py-3">
