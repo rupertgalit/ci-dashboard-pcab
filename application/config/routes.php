@@ -54,6 +54,11 @@ $route['404_override'] = '' ;
 $route['translate_uri_dashes'] = FALSE ;
 
 
+$route['login']  = 'login/index'; 
+$route['logout']  = 'login/logout'; 
+
+
+
 $route['test']  = 'welcome/test'; 
 $route['transaction-table']  = 'welcome/index';
 $route['acknowledgement-receipt']  = 'welcome/index';
@@ -65,5 +70,4 @@ $route['get-transactions']  = 'welcome/getTransactions';
 $route['testapi']  = 'authcontroller/test_api';
 $route['index']  = 'authcontroller/test_api';
 $route['get-data']  = 'welcome/get_data';
-
 
