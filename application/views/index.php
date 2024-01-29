@@ -118,6 +118,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.js"></script>
     <!-- End custom js for this page -->
+    <link rel="stylesheet" href="//cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
+    <script src="//cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+    <script src="//cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="//cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
 </body>
 <script>
     setTimeout(() => { $(".main-panel .box").css("display", "none") }, 1000)
