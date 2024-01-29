@@ -1,4 +1,24 @@
 <style>
+    .custom-button {
+        background-color: #4CAF50;
+        border: none;
+        color: black;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 11px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 4px;
+
+    }
+
+    .custom-button:hover {
+        background-color: #45a049;
+        /* Darker Green */
+    }
+
     table {
         border-top: 1px black solid;
     }
@@ -21,17 +41,7 @@
         min-width: 13rem;
     }
 
-    /* #EcollectTable tr:first-child th:first-child {
-        border-width: 1px 0 1px 0;
-    }
 
-    #EcollectTable tr:first-child th:last-child {
-        border-width: 0 0 1px 1px;
-    }
-
-    #EcollectTable tr:nth-child(2) th:first-child {
-        border-left: 0;
-    } */
 
     #EcollectTable tr th {
         border-width: 1px 0 1px 1px;
@@ -46,6 +56,7 @@
         width: 7rem;
         border: 0 !important;
     }
+
 
     .top-btn-container {}
 </style>
@@ -130,23 +141,25 @@
                                         <table id="EcollectTable" class="table table-striped text-center" width="100%">
                                             <thead>
                                                 <tr>
-                                                    <th colspan="2">Electronic Acknowledgement Receipt</th>
-                                                    <th rowspan="3">Responsibility Center Code</th>
-                                                    <th rowspan="3">Payor</th>
-                                                    <th rowspan="3">Particulars</th>
-                                                    <th rowspan="3">PREXC/PAP</th>
-                                                    <th colspan="4">Amount</th>
+
+                                                    <th colspan="2" class="text-center">Electronic Acknowledgement
+                                                        Receipt</th>
+
+                                                    <th rowspan="3" class="text-center">Payor</th>
+                                                    <th rowspan="3" class="text-center">Particulars</th>
+
+                                                    <th colspan="4" class="text-center">Amount</th>
                                                 </tr>
                                                 <tr>
-                                                    <th rowspan="2">Date</th>
-                                                    <th rowspan="2">Number</th>
-                                                    <th rowspan="2">Total per AR</th>
-                                                    <th colspan="3">Breakdown Collection</th>
+                                                    <th rowspan="2" class="text-center">Date</th>
+                                                    <th rowspan="2" class="text-center">Number</th>
+                                                    <th rowspan="2" class="text-center">Total per AR</th>
+                                                    <th colspan="3" class="text-center">Breakdown Collection</th>
                                                 </tr>
                                                 <tr>
-                                                    <th>CIAP-PCAB</th>
-                                                    <th colspan="1">DST</th>
-                                                    <th colspan="1">LRF</th>
+                                                    <th class="text-center">CIAP-PCAB</th>
+                                                    <th colspan="1" class="text-center">DST</th>
+                                                    <th colspan="1" class="text-center">LRF</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -157,10 +170,8 @@
                                                     echo "<tr>";
                                                     echo "<td>" . $row["date_time"] . "</td>";
                                                     echo "<td>" . $row["ar_number"] . "</td>";
-                                                    echo "<td></td>";
                                                     echo "<td>" . $row["name_of_payor"] . "</td>";
                                                     echo "<td>" . $row["particulars"] . "</td>";
-                                                    echo "<td></td>";
                                                     echo "<td>&#8369; " . number_format((float) $row["service_charge"], 2, '.', '') . "</td>";
                                                     echo "<td>&#8369; " . number_format((float) $row["tax"], 2, '.', '') . "</td>";
                                                     echo "<td>&#8369; " . number_format((float) $row["total_amount"], 2, '.', '') . "</td>";
@@ -174,9 +185,7 @@
                                         </table>
                                     </div>
                                     <div class="modal-footer bg-white border-top-0">
-                                        <button type="button"
-                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded border-0 btn-download-collection">Download
-                                        </button>
+
                                     </div>
                                 </div>
                             </div>
@@ -279,8 +288,23 @@
     });
     $(document).ready(function () {
         var dataTable = $('#EcollectTable').DataTable({
-            dom: 'rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>'
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    className: 'custom-button',
+                    filename: function () {
+                        // Custom filename logic with today's date and selected month
+                        var today = new Date();
+                        var selectedMonth = $('#monthFilter').val();
+                        var monthPrefix = selectedMonth ? '_' + selectedMonth : ''; // Add the selected month if available
+                        var dateString = today.getFullYear() + '_' + ('0' + (today.getMonth() + 1)).slice(-2) + '_' + ('0' + today.getDate()).slice(-2); // Format date as YYYY_MM_DD
+                        return 'NGSI_E-collectData_' + dateString + monthPrefix;
+                    }
+                }
+            ]
         });
+
         $('#monthFilter').on('change', function () {
             var selectedMonth = $(this).val();
 
@@ -288,17 +312,6 @@
             dataTable.column(0).search(selectedMonth ? `-${selectedMonth.padStart(2, '0')}` : "", true, false).draw();
             var filteredData = dataTable.rows({ search: 'applied' }).data().toArray();
         });
-        // $('#monthFilter').on('change', function () {
-        //     var selectedMonth = $(this).val();
-
-        //     const toSearch = selectedMonth < 10 ? `0${selectedMonth}` : selectedMonth
-
-        //     // console.log(toSearch, selectedMonth ? `2023-${toSearch}` : "")
-        //     // Use DataTables API to filter by month
-        //     dataTable.column(0).search(toSearch ? `2022-${toSearch}` : "", true, false).draw();
-        // });
-        // Call the printECollectionReport function with the selected month
-    
     });
     const _jsonData = JSON.parse('<?php echo json_encode($data) ?>')
 
@@ -356,7 +369,7 @@
 
         var modalTableHead = document.createElement('thead');
         modalTableHead.classList.add('thead-light'); // Added light background for the table head
-        modalTableHead.innerHTML = ' <tr><th colspan="8" class="text-center">Collection</th></tr><tr><th rowspan="2">Date & Time</th><th rowspan="2">AR Number</th><th rowspan="2">Name of Payor</th><th rowspan="2">Reference Number</th><th>CIAP-PCAB</th><th>LRF</th><th>DST</th><th rowspan="2">Total Amount</th></tr><tr><th>Acount Number</th><th>Acount Number</th><th>Acount Number</th></tr>';
+        modalTableHead.innerHTML = ' <tr><th colspan="8" class="text-center">Collection</th></tr><tr><th rowspan="2">Date & Time</th><th rowspan="2">AR Number</th><th rowspan="2">Name of Payor</th><th rowspan="2">Reference Number</th><th>CIAP-PCAB</th><th>LRF</th><th>DST</th><th rowspan="2">Total Collection</th></tr><tr><th>Acount No.</th><th>Acount No.</th><th>Acount No.</th></tr>';
 
         var modalTableBody = document.createElement('tbody');
 
@@ -576,7 +589,7 @@
         DST
     </div>
     <div class="border border-dark col d-flex align-items-center justify-content-around border-bottom-0 text-center">
-        Total Amount
+        Total Collection
     </div>
 </div>
 <div class="row ">
@@ -717,52 +730,53 @@
         try {
 
             content += `
-            <div class="mx-auto my-5" style="width: 50rem; ">
-            <div class="container mt-3 justify-content-center mb-5">
-                    <div class="row justify-content-center mb-2">
-                        <div class="col-md-3">
-                            <img  height="100px" style="margin-left:-1rem;" src="assets/images/ngsi-letterhead.png" alt="logo" class="logo-dark" />
+                <div class="mx-auto my-5" style="width: 50rem; ">
+                <div class="container mt-3 justify-content-center mb-4">
+                        <div class="row justify-content-center mb-2">
+                            <div class="col-md-3">
+                                <img  height="100px" style="margin-left:-1rem;" src="assets/images/ngsi-letterhead.png" alt="logo" class="logo-dark" />
+                            </div>
+                            <div class="col-md-4 mt-3"  style="margin-left:11rem;">
+                                <p class="font-weight-bold" style="font-family: Century Gothic; font-size:16px;" ;>NET GLOBAL SOLUTIONS&nbsp;&nbsp; INC.</p>
+                                <p style="margin-top: -20px;margin-bottom: -5px; font-family: Century Gothic;">Tel. No. 632 82877374</p>
+                                <p style=" line-height: 80%; color:blue;margin-top: 10px;">Support@netglobalsolutions.net</p>
+                            </div>
                         </div>
-                        <div class="col-md-4 mt-3"  style="margin-left:11rem;">
-                            <p class="font-weight-bold" style="font-family: Century Gothic; font-size:16px;" ;>NET GLOBAL SOLUTIONS&nbsp;&nbsp; INC.</p>
-                            <p style="margin-top: -20px;margin-bottom: -5px; font-family: Century Gothic;">Tel. No. 632 82877374</p>
-                            <p style=" line-height: 80%; color:blue;margin-top: 10px;">Support@netglobalsolutions.net</p>
+                         <img width="100%" height="100%" style="margin-top: -10px;" src="assets/images/NGSI_header.png" alt="logo" class="logo-dark" />
+                    </div>
+                      
+                    <div class="border border-dark">    
+                    <div class="text-center text-uppercase py-3">
+                        <u>Acknowledgement &nbsp; Receipt</u>  
+                </div>
+                <div class="row d-flex">
+                    <div class="col"></div>
+                    <div class="col">
+                        <div class="row d-flex">
+                            <div class="col">AR Number: </div>
+                            <div class="col">
+                                ${rowData.ar_number}
+                            </div>
+                        </div>
+                        <div class="row d-flex">
+                            <div class="col">Date and Time: </div>
+                            <div class="col">
+                               ${rowData.date_time}
+                            </div>
                         </div>
                     </div>
-                     <img width="100%" height="100%" style="margin-top: -10px;" src="assets/images/NGSI_header.png" alt="logo" class="logo-dark" />
                 </div>
-
-                <div class="border border-dark">    
-                <div class="text-center text-uppercase py-4">
-                    <u>Acknowledgement &nbsp; Receipt</u>  
-            </div>
-            <div class="row d-flex">
-                <div class="col"></div>
+                <div class='row pt-4 pb-3'>
                 <div class="col">
-                    <div class="row d-flex">
-                        <div class="col">AR Number: </div>
-                        <div class="col">
-                            ${rowData.ar_number}
-                        </div>
-                    </div>
-                    <div class="row d-flex">
-                        <div class="col">Date and Time: </div>
-                        <div class="col">
-                           ${rowData.date_time}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class='row pt-4 pb-3 px-2'>
-            <div class="col">
-            `;
+                `;
             for (let key in rowData) {
                 if (["id", "ar_number", "date_time", "tax"].includes(key)) continue;
 
                 let value = rowData[key];
+                console.log(key);
 
                 // Check if key is a special case
-                if (key == "total_amount" || key == "amount" || key == "service_charge") {
+                if (key == "total_amount" || key == "amount") {
                     value = parseFloat(value ?? 0).toFixed(2);
                 }
 
@@ -789,20 +803,20 @@
                 if (key == "amount") {
                     content += `
             <div class="row d-flex">
-                <div style="margin-left:1px;" class="col text-capitalize pl-4">PCAB Fee<div class="float-right pr-2">:</div></div>
-                <div class="col" style="position: relative;left: -8px;">
+                <div  class="col text-capitalize pl-4">PCAB Fee<div class="float-right pr-2">:</div></div>
+                <div class="col">
                     ${parseFloat(500).toFixed(2)}
                 </div>
             </div>
             <div class="row d-flex">
-                <div style="margin-left:1px;" class="col text-capitalize pl-4">Documentary Stamp Fee<div class="float-right pr-2">:</div></div>
-                <div class="col" style="position: relative;left: -8px;">
+                <div  class="col text-capitalize pl-4">Documentary Stamp Fee<div class="float-right pr-2">:</div></div>
+                <div class="col">
                     ${parseFloat(20).toFixed(2)}
                 </div>
             </div>
             <div class="row d-flex">
-                <div style="margin-left:1px;" class="col text-capitalize pl-4">Legal Research Fee<div class="float-right pr-2">:</div></div>
-                <div class="col" style="position: relative;left: -8px;">
+                <div  class="col text-capitalize pl-4">Legal Research Fee<div class="float-right pr-2">:</div></div>
+                <div class="col">
                     ${parseFloat(15).toFixed(2)}
                 </div>
             </div>`;
@@ -836,7 +850,7 @@
             //     doc.document.onkeydown = (key) => alert(key)
             //     setTimeout(() => { doc.print(); doc.close(); }, 300)
 
-            doc.html(content, {
+            doc.html(printContent.replace("[content]", content), {
                 html2canvas: {
                     scale: .5
                 },
@@ -844,7 +858,6 @@
                     // doc.addPage(
                     //     { orientation: 'p', unit: 'px' }
                     // )
-                    // document.querySelector(".card").innerHTML = content;
                     await doc.output("dataurlnewwindow", "receipt.pdf");
                 },
                 x: 25,
@@ -853,308 +866,6 @@
         } catch (e) {
             console.log(e)
         }
-    }
-
-    $('.btn-download-collection').on('click', function () {
-        printECollectionReport();
-    });
-
-    async function printECollectionReport() {
-        const selectedMonth = $('#selectedMonth').val();
-
-        const filteredData = _jsonData.filter(object => object["date_time"] === selectedMonth);
-
-        let doc = new jspdf.jsPDF({
-            orientation: 'p',
-            unit: 'px'
-        });
-
-        let printContent = `
-        <html><title>Receipt</title>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous">
-        <\/script>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"><\/link>
-        <style>
-            div#ECollectionForm div.data-table {
-                font-size: 13px;
-            }
-
-            div#ECollectionForm div.custom-font-size {
-                font-size: 12px;
-            }
-
-            div#ECollectionForm div.data-table div.row-data {
-                font-size: 12px;
-                overflow: nowrap;
-            }
-            div#ECollectionForm div.data-table div.t-body div.row-data:nth-child(2) {
-                width: 405.3px;
-                white-space: nowrap;
-                overflow: visible;
-            }
-        </style></head><body>
-        [content]
-</div>
-</div>
-</div>
-        </html>
-    `;
-        let i = 0;
-        let content = "";
-        let totalAmount = 0; // Initialize totalAmount here
-
-        while (filteredData.length - (i * 10) > 1) {
-            let rows = filteredData.slice(i * 10, i * 10 + 10);
-
-            if (rows.length < 10) {
-                addIndex = 10 - rows.length;
-                rows = rows.concat(Array(addIndex).fill(null));
-            }
-
-            try {
-                content += `
-                ${i % 3 !== 0 ? '<div class="row" style="width: 89.5vw; border-bottom:1px black solid; border-bottom-style: dashed; margin: 6rem 0 6rem 0"></div>' : ''}
-                <div id="ECollectionForm-${i}" class="bg-whites mx-auto mt-5" style="width: 90rem;${(i + 1) % 3 !== 0 || i == 0 ? "" : "margin-bottom: 10rem !important;margin-top: 50rem !important;"} }">
-                <div class="container "style="margin-top: 10rem !important;">
-        <div class="row">
-            <div class="col text-center">
-                <span class="fs-3 font-weight-bold">REPORT OF e-COLLECTION AND DEPOSIT</span>
-                <p class="fs-6">By:NET GLOBAL SOLUTIONS INC.</p>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-8">
-                <span>Entity Name:<div
-                        class="list-inline-item font-weight-light border-dark border-bottom custom-font-size px-5"></div>
-                </span><br>
-                <span>Fund Cluster:<div
-                        class="list-inline-item font-weight-light border-dark border-bottom custom-font-size px-5"></div>
-                </span>
-            </div>
-            <div class="col-4">
-                <span>Report No.:<div
-                        class="list-inline-item font-weight-light border-dark border-bottom custom-font-size px-5"></div>
-                </span><br>
-                <span>Sheet No.:<div
-                        class="list-inline-item font-weight-light border-dark border-bottom custom-font-size px-5"></div>
-                </span><br>
-                <span>Date:<div class="list-inline-item font-weight-light border-dark border-bottom custom-font-size px-5">
-                    </div></span>
-            </div>
-        </div>
-    </div>
-
-    <div class="container mt-3 border border-dark table-bordered">
-    <div class="row t-head">
-        <div
-            class="border border-dark col-3 d-flex align-items-center text-center justify-content-around border-right-0">
-            Electronic Acknowledgement Receipt
-        </div>
-        <div class="border border-dark col-5 d-flex align-items-center justify-content-around border-right-0">
-
-        </div>
-        <div class="border border-dark col-4 d-flex align-items-center justify-content-around border-right-0">
-            Amount
-        </div>
-    </div>
-    <div class="row t-head">
-        <div class="border border-dark col-9 d-flex align-items-center justify-content-around border-right-0">
-        </div>
-        <div class="border border-dark col-3 d-flex align-items-center justify-content-around border-right-0">
-            Breakdown Collection
-        </div>
-    </div>
-    <div class="row t-head">
-        <div class="border border-dark col-1 d-flex align-items-center justify-content-around border-right-0">
-            Date and Time
-        </div>
-        <div class="border border-dark col-1 d-flex align-items-center justify-content-around border-right-0">
-            Number
-        </div>
-        <div class="border border-dark col-2 d-flex text-center align-items-center justify-content-around border-right-0">
-            Responsibility Center Code
-        </div>
-        <div
-            class="border border-dark col-1 d-flex align-items-center justify-content-around border-right-0 text-center">
-            Payor
-        </div>
-        <div class="border border-dark col-1 d-flex align-items-center justify-content-around border-right-0">
-            Particulars
-        </div>
-        <div class="border border-dark col-1 d-flex align-items-center justify-content-around">
-            PREXC &nbsp;/PAP
-        </div>
-        <div class="border border-dark col-2 d-flex align-items-center justify-content-around">
-            Totla per AR
-        </div>
-        <div class="border border-dark col-1 d-flex align-items-center justify-content-around">
-            CIAP-PCAB
-        </div>
-        <div class="border border-dark col-1 d-flex align-items-center justify-content-around">
-            DST
-        </div>
-        <div class="border border-dark col-1 d-flex align-items-center justify-content-around">
-            LRF
-        </div>
-    </div>
-    <div class="t-body p-0 m-0">
-    `
-
-                //             ${i % 2 == 1 ? '<div class="row" style="width: 52vw; border-bottom:1px black solid; border-bottom-style: dashed; margin: 6rem 0 6.18rem 0"></div>' : ''}
-                // ${i % 2 == 1 && i != 39 ? "margin-bottom:12rem !important;" : ""}
-                rows.forEach(row => {
-                    totalAmount += parseFloat(row?.total_amount ?? 0);
-                    content += `
-        <div class="row row-data">
-            <div class="border border-dark border-right-0 border-top-0 col-1">${row?.date_time ?? "&nbsp;"}</div>
-            <div class="border border-dark border-right-0 border-top-0 col-1">${row?.ar_number ?? ""}</div>
-            <div class="border border-dark border-right-0 border-top-0 col-2"></div>
-            <div class="border border-dark border-right-0 border-top-0 col-1">${row?.name_of_payor ?? ""}</div>
-            <div class="border border-dark border-right-0 border-top-0 col-1 text-center">${row?.particulars ?? ""}</div>
-            <div class="border border-dark border-right-0 border-top-0 col-1"></div>
-            <div class="border border-dark border-right-0 border-top-0 col-2">${parseFloat(row?.service_charge ?? 0).toFixed(2)}</div>
-            <div class="border border-dark border-right-0 border-top-0 col-1">${parseFloat(row?.tax ?? 0).toFixed(2)}</div>
-            <div class="border border-dark border-top-0 col-1 text-right-1">${parseFloat(row?.total_amount ?? 0).toFixed(2)}</div>
-            <div class="border border-dark border-right-0 border-top-0 col-1"></div>
-        </div>
-    `;
-                });
-                content += `</div>
-        <div class="row t-total-row">
-        <div class="border border-dark border-right-0 border-top-0 col-1"></div>
-        <div class="border border-dark border-right-0 border-top-0 col-1"></div>
-        <div class="border border-dark border-right-0 border-top-0 col text-center">Total Amount</div>
-        <div class="border border-dark border-right-0 border-top-0 col"></div>
-        <div class="border border-dark border-right-0 border-top-0 col-2"></div>
-        <div class="border border-dark border-top-0 col-1 text-right">P &nbsp; [total-amount]</div>
-    </div>
-</div>
-
-    <div class="container border border-dark ">
-        <div class="row justify-content-center  ml-5 mt-3">
-            <div class="col-6">
-                <h5>Summary</h5>
-                <span class="text-left">Undeposited Collections per last report</span><br>
-                <span class="text-left">Collections per AR Nos.<div
-                        class="list-inline-item font-weight-light border-dark border-bottom custom-font-size px-5"></div>
-                    to <div class="list-inline-item font-weight-light border-dark border-bottom custom-font-size px-5">
-                    </div></span>
-            </div>
-            <div class="col-2">
-                <br>
-                <span class="text-left">
-                    <span>&#8369;</span>
-                </span><br>
-                <span class="text-left">&nbsp;&nbsp;</span>
-            </div>
-        </div>
-
-        <div class="row justify-content-md-center"> <!-- Centering the second row -->
-            <div class="col-3">
-                <h5>Deposit</h5>
-                <span>Date:<div class="list-inline-item font-weight-light border-dark border-bottom custom-font-size px-5">
-                    </div></span>
-                <span>Ref #<div class="list-inline-item font-weight-light border-dark border-bottom custom-font-size px-5">
-                    </div></span>
-            </div>
-            <div class="col-md-1">
-                <br>
-                <p></p>
-            </div>
-            <div class="col-2 d-flex flex-column">
-                <br>
-                <p class="text-center ml-3 custom-font-size px-5">_______________________</p>
-            </div>  
-        </div>
-
-        <div class="row justify-content-center"> <!-- Centering the third row -->
-            <div class="col-4">
-                <p>Undeposited Collections, this Report</p>
-            </div>
-            <div class="col-2 d-flex flex-column">
-            </span>
-                <span class="text-center ml-4 custom-font-size px-5">_____________________</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="container border border-dark text-center ">
-        <h5 class="mt-4 font-weight-bold">CERTIFICATION</h5>
-        <p style="text-align: justify;margin-left: 15%; margin-right: 15%;">
-            &nbsp;&nbsp;I hereby certify on my official oath that I have reviewed and found in order the above statement of
-            all
-            collection
-            based on the list provided by (Intermediary) corresponding to the period stated above for which Electronic AR
-            Nos.
-            _____________ to ______________ inclusive, consisting of __(number of)__ transactions, were actually issued by
-            them in
-            the amount shown thereon. I also certify that I have verified and confirmed that the amount of<br>
-            __________________________ was deposited and credited to the appropriate bank account of this agency
-        </p>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <div class="container">
-            <div class="row justify-content-end">
-                <div class="col-md-6">
-                    <p>
-                        <span style="border-top: 1px solid black; display: inline-block;padding:0 50px;">Name and Signature
-                            of the Designated Officer</span>
-                    </p>
-                </div>
-            </div>
-            <br>
-            <div class="row justify-content-end">
-                <div class="col-3">
-                    <p>
-                        <span style="border-top: 1px solid black; display: inline-block;padding: 0 15px;">Official
-                            Designated</span>
-                    </p>
-                </div>
-
-                <div class="col-3">
-                    <p>
-                        <span style="border-top: 1px solid black; display: inline-block; padding: 0 25px;">Date</span>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-
-    </div>
-    <div class="container"style="margin-bottom:25rem !important;"">
-    </div>
-
-                </div>
-            `;
-
-                // Update totalAmount inside the loop
-                rows.forEach(row => {
-                    totalAmount += parseFloat(row?.total_amount ?? 0);
-                });
-                doc.addPage();
-                i++;
-            } catch (e) {
-                console.log(e);
-            }
-        }
-        let pdfHeight = 1200; // Adjust this value based on your content
-        doc.html(printContent.replace("[content]", content).replaceAll("[total-page]", 1).replaceAll("[total-amount]", totalAmount.toFixed(2)), {
-            html2canvas: {
-                scale: .31
-            },
-            callback: async function (doc) {
-                await doc.output("dataurlnewwindow", "e-collectionReport.pdf");
-            },
-            x: 15,
-            y: 15,
-        });
     }
 
 
