@@ -48,8 +48,9 @@ class Welcome extends CI_Controller
 
 	}
 
-	public function index()
+	public function index()	
 	{
+	
 		// $result['data'] = $this->db->select('*')
 		// 	->from('payment_transaction')
 		// 	->get()->result_array();

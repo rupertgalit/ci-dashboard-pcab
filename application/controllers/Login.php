@@ -15,31 +15,65 @@ class Login extends CI_Controller {
     public function process_login() {
         $username = $this->input->post('username');
         $password = $this->input->post('password');
-		
 
-        // Validate against the database
-        $user = $this->user->get_user($username);
 
-        if ($user && $password === $user['Password']) {
-            // Set user data in session
+        $UserType = $this->user->get_user($username);
+        if ($UserType !== false) {
             $user_data = array(
-                'username' => $username,
+                'username' => "admin",
                 'logged_in' => TRUE
             );
-            redirect('welcome/index');  // Redirect to the dashboard or any other page after successful login
+            $this->session->set_userdata($user_data);
+
+            if ($UserType->Password == md5($password)) {
+
+
+
+
+
+
+                redirect($this->redirect($UserType)->UserType);
+                
+            }else{
+                echo "
+                <script>
+                    alert('Wrong Password.');
+                    window.location.href = '" . base_url('/login') . "';
+                </script>
+            ";
+            }
+
         } else {
-            // Invalid login, redirect to login page with an error message
-            // $this->session->set_flashdata('error', 'Invalid username or password');
-            redirect('login');
-			// echo "failed";
+         echo "
+            <script>
+                alert('Account not found.');
+                window.location.href = '" . base_url('/login') . "';
+            </script>
+        ";
+
         }
 
-
     }
+
+
+    function redirect($type)
+	{
+		$caffeine = '';
+		$map = [
+			'superadmin' => 'dashboard',
+			'admin' => 'dashboard',
+
+		];
+		// $caffeine = $map[$type] ?? 'Not found';
+		$caffeine = $map[$type];
+		return $caffeine;
+	}
+
+
     function logout()
 	{
 		$this->session->sess_destroy();
 
-		redirect('login/index');
+		redirect('login');
 	}
 }

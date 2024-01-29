@@ -5,11 +5,17 @@ class User extends CI_Model
 {
 
 	public function get_user($username) {
-    	$this->db->select('*');
-		$this->db->from('tbl_user');
-		$this->db->where('UserName', $username);
-		$query = $this->db->get();
-        return $query->row_array();
+        
+		// $this->db->select('*');
+
+        $this->db->where('UserName', $username);
+        $query = $this->db->get('tbl_user'); // 
+        if ($query->num_rows() == 1) {
+            return $query->row();
+        } else {
+            return false; 
+        }
+
 	}
 
 	
