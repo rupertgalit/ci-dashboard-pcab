@@ -2,26 +2,34 @@
   <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
    <!-- Link to the external CSS file -->
    
-    <title>Log_in PCAB</title>
+    <title>PCAB Login</title>
   </head>
   <body>
-    <div class="panel">
-		<div class="state"><br><i class="fa fa-unlock-alt"></i><br><h1>Log in</h1></div>
-		<div class="form">
-        <form action="<?= base_url('login/process_login')?>" method="POST">
-			<input name="username" placeholder='UserName' type="text">
-			<input name="password" placeholder='Password' type="text">
-               <button type="submit"><i class="fa fa-arrow-right"></i></button>
-		
-         </form>
-		</div>
-		<div class="fack"><a href="#"><i class="fa fa-question-circle"></i>Forgot password?</a></div>
-	</div>
+    <div class="login" style="transform: scale(1.0);">
+      <div id="loginform">
+        <div id="PCAB"><a href="https://pcabgovph.com/" target="_blank"><img width="200" height="200" src='http://ci-dashboard-pcab.test/assets/images/pcab_logo.png') alt="logo" class="logo-dark" /></a>
+        </div>
+        <div id="mainlogin">
+          <div id="or">
+            <i class="fas fa-user-tie" style="color:white"></i>
+
+          </div>
+          <h1>Log in as admin</h1>
+          <form action="<?= base_url('login/process_login')?>" method="POST">
+            <input type="text" name="username" placeholder="username or email" value="" required>
+            <input type="password" name="password" placeholder="password" value="" required>
+            <button type="submit"><i class="fa fa-arrow-right"></i></button>
+          </form>
+          <div id="note"><a href="#">Forgot your password?</a></div>
+        </div>
+      </div>
+    </div>
+
+  </body>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script>
    $(document).ready(function() {
@@ -36,145 +44,377 @@
   });
 });
   </script>
-  <style>
-    @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700,900');
+ <style>* {
+    margin: 0px;
+    padding: 0px;
+  }
+  body {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    min-width: 100vw;
+    position: relative; 
+    overflow-x: hidden;
+    background-size: cover;
+  }
+  
+  body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('/assets/images/pcab_login.png') no-repeat left center fixed;
+    background-size: cover;
+    opacity: 0.6; 
+    z-index: -1; 
+  }
+  
+  
+  #loginform {
+    width: 550px;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: fade-in 0.8s ease-in-out;
 
-* {
-  padding: 0;
-  margin: 0;
-  outline: none;
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+  
+  
+    }
+  
+    to {
+      opacity: 1;
+  
+  
+    }
+  }
+  input {
+    display: block;
+    margin: 0px auto 15px;
+    border-radius: 5px;
+    background: #333;
+    width: 85%;
+    padding: 12px 20px 12px 10px;
+    border: none;
+    color: #c3c3c3;
+    box-shadow: inset 0px 1px 5px #272727;
+    font-size: 0.8em;
+    -webkit-transition: 0.5s ease;
+    -moz-transition: 0.5s ease;
+    -o-transition: 0.5s ease;
+    -ms-transition: 0.5s ease;
+    transition: 0.5s ease;
+  }
+  input:focus {
+    -webkit-transition: 0.5s ease;
+    -moz-transition: 0.5s ease;
+    -o-transition: 0.5s ease;
+    -ms-transition: 0.5s ease;
+    transition: 0.5s ease;
+    box-shadow: 0px 0px 5px 1px #161718;
+  }
+  button {
+    margin-top: 25px;
+    background: #32b8ff;
+    border-radius: 50%;
+    border: 10px solid #222526;
+    font-size: 0.9em;
+    color: #000000;
+    font-weight: bold;
+    cursor: pointer;
+    width: 85px;
+    height: 85px;
+    position: absolute;
+    right: -42px;
+    top: 54px;
+    text-align: center;
+    -webkit-transition: 0.5s ease;
+    -moz-transition: 0.5s ease;
+    -o-transition: 0.5s ease;
+    -ms-transition: 0.5s ease;
+    transition: 0.5s ease;
+  }
+  button:hover {
+    background: #222526;
+    border-color: #32b8ff;
+    -webkit-transition: 0.5s ease;
+    -moz-transition: 0.5s ease;
+    -o-transition: 0.5s ease;
+    -ms-transition: 0.5s ease;
+    transition: 0.5s ease;
+  }
+  button i {
+    font-size: 20px;
+    -webkit-transition: 0.5s ease;
+    -moz-transition: 0.5s ease;
+    -o-transition: 0.5s ease;
+    -ms-transition: 0.5s ease;
+    transition: 0.5s ease;
+  }
+  button:hover i {
+    color: #32b8ff;
+    -webkit-transition: 0.5s ease;
+    -moz-transition: 0.5s ease;
+    -o-transition: 0.5s ease;
+    -ms-transition: 0.5s ease;
+    transition: 0.5s ease;
+  }
+  *:focus {
+    outline: none;
+  }
+  ::-webkit-input-placeholder {
+    color: #c3c3c3;
+  }
+  :-moz-placeholder {
+   /* Firefox 18- */
+    color: #c3c3c3;
+  }
+  ::-moz-placeholder {
+   /* Firefox 19+ */
+    color: #c3c3c3;
+  }
+  :-ms-input-placeholder {
+    color: #c3c3c3; 
+  }
+  h1 {
+    margin-top: 20px;
+    text-align: center;
+    color: #fff;
+    font-size: 13px;
+    padding: 12px 0px;
+  }
+  #note { 
+    color: #88887a;
+    font-size: 0.8em;
+    text-align: left;
+    padding-left: 5px;
+  }
+  #PCAB {
+    text-align: center;
+    float: left;
+    background: #fff;
+    padding: 20px 20px 20px 20px;
+    width: 256px;
+    height: 245px;
+    border-radius: 3px;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px 2px #161718;
+    margin-right: 10px;
+    -webkit-transition: 0.5s ease;
+    -moz-transition: 0.5s ease;
+    -o-transition: 0.5s ease;
+    -ms-transition: 0.5s ease;
+    transition: 0.5s ease;
+  }
+  #PCAB:hover {
+    text-align: center;
+    float: left;
+    margin-right: 10px;
+    box-shadow: 0px 0px 10px 2px darkblue;
+    -webkit-transition: 0.5s ease;
+    -moz-transition: 0.5s ease;
+    -o-transition: 0.5s ease;
+    -ms-transition: 0.5s ease;
+    transition: 0.5s ease;
+  }
+  .fa-ISELOC {
+    color: #fff;
+    font-size: 7em;
+    display: block;
+  }
+  a {
+    margin-top: 10px;
+    margin-left: 10px;
+    color: #c3c3c3;
+    text-decoration: none;
+    -webkit-transition: 0.5s ease;
+    -moz-transition: 0.5s ease;
+    -o-transition: 0.5s ease;
+    -ms-transition: 0.5s ease;
+    transition: 0.5s ease;
+  }
+  a:hover {
+    color: #fff;
+    margin-left: 5px;
+    -webkit-transition: 0.5s ease;
+    -moz-transition: 0.5s ease;
+    -o-transition: 0.5s ease;
+    -ms-transition: 0.5s ease;
+    transition: 0.5s ease;
+  }
+  #mainlogin {
+    display: inline-block; /* Change from float to display */
+    width: 270px;
+    height: 245px;
+    padding: 11px 15px;
+    position: relative;
+    background: #555;
+    border-radius: 3px;
+  }
+  
+  #connect {
+    font-weight: bold;
+    color: #fff;
+    font-size: 13px;
+    text-align: left;
+    font-family: verdana;
+    padding-top: 10px;
+  }
+  #or {
+    position: absolute;
+    left: -25px;
+    top: 10px;
+    background: #222;
+    text-shadow: 0 2px 0px #121212;
+    color: #999;
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    border-radius: 50%;
+    font-weight: bold;
+    line-height: 38px;
+    font-size: 13px;
+  }
+
+    
+  
+  @media screen and (min-width: 1024px) {
+    .login{
+      transform: scale(1.0)!important;
+    }
+}
+ 
+
+@media screen and (min-device-width: 768px) 
+    and (max-device-width: 1024px) {
+      .login{
+        transform: scale(1.6)!important;
+      }
+      h1{
+        font-size: 18px;
+      }
+      a{
+        font-size: 14px;
+      }
+      input{
+        font-size: 14px;
+      }
+}
+ 
+/* For Mobile Portrait View */
+@media screen and (max-device-width: 480px) 
+    and (orientation: portrait) {
+      .login{
+        transform: scale(1.6)!important;
+      }
+      h1{
+        font-size: 18px;
+      }
+      a{
+        font-size: 14px;
+      }
+      input{
+        font-size: 14px;
+      }
+}
+ 
+/* For Mobile Landscape View */
+@media screen and (max-device-width: 640px) 
+    and (orientation: landscape) {
+      .login{
+        transform: scale(1.6)!important;
+      }
+      h1{
+        font-size: 18px;
+      }
+      a{
+        font-size: 14px;
+      }
+      input{
+        font-size: 14px;
+      }
+}
+ 
+/* For Mobile Phones Portrait or Landscape View */
+@media screen
+    and (max-device-width: 640px) {
+      .login{
+        transform: scale(2.0)!important;
+      }
+      h1{
+        font-size: 18px;
+      }
+      a{
+        font-size: 14px;
+      }
+      input{
+        font-size: 14px;
+      }
+}
+ 
+/* For iPhone 4 Portrait or Landscape View */
+@media screen and (min-device-width: 320px) 
+    and (-webkit-min-device-pixel-ratio: 2) {
+      .login{
+        transform: scale(1.6)!important;
+      }
+      h1{
+        font-size: 18px;
+      }
+      a{
+        font-size: 14px;
+      }
+      input{
+        font-size: 15px;
+      }
 }
 
 
-
-/* body {
-  font-family: 'Roboto', sans-serif;
-  background: linear-gradient(45deg, rgba(4, 2, 96, 0.7), rgba(180, 49, 183, 0.9)), 
-              linear-gradient(90deg, rgba(51, 136, 140, 0.3), rgba(87, 240, 240, 0.1));
-  overflow: hidden;
-} */
-
-.panel {
-  width: 400px;
-  height: 500px;
-  border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-  background: #141519;
-  margin: 100px auto;
-  text-align: center;
+ 
+/* For iPhone 5 Portrait or Landscape View */
+@media (device-height: 568px) 
+    and (device-width: 320px) 
+    and (-webkit-min-device-pixel-ratio: 2) {
+      .login{
+        transform: scale(1.6)!important;
+      }
+      h1{
+        font-size: 18px;
+      }
+      a{
+        font-size: 14px;
+      }
+      input{
+        font-size: 14px;
+      }
 }
-
-.panel .state {
-  margin-top: 5px;
-  width: 100%;
-  height: 155px;
-  color: white;
-  font-size: 20px;
-}
-
-.panel .state i.fa-ban {
-  font-size: 40px;
-}
-
-.panel .state i.fa-unlock-alt {
-  font-size: 25px;
-  color: white;
-  line-height: 33px;
-  height: 30px;
-  width: 30px;
-  display: inline-block;
-  border-radius: 50%;
-  border: 2px solid;
-}
-
-.panel .state h2 {
-  font-weight: 400;
-}
-
-.panel .form {
-  width: 340px;
-  margin: 5px auto;
-}
-
-.panel .login {
-  height: 45px;
-  width: 100%;
-  background-color: #8bc34a;
-  border-radius: 45px;
-  position: relative;
-  line-height: 45px;
-  text-align: center;
-  font-weight: bold;
-  color: white;
-  margin-top: 10px;
-  transition: background .2s, transform .2s;
-  cursor: pointer;
-}
-
-.panel .login:active {
-  transform: translateY(2px);
-}
-
-.panel .login:hover {
-  background-color: #599b2d;
-}
-
-.panel .login:after {
-  content: "\f084";
-  font-family: 'FontAwesome';
-  position: absolute;
-  width: 45px;
-  height: 45px;
-  background-color: #599b2d;
-  color: #fff;
-  text-shadow: 1px -1px #467a23, 2px -2px #487d24, 3px -3px #4a8025, 4px -4px #4b8326, 5px -5px #4d8627, 6px -6px #4f8928, 7px -7px #508c28, 8px -8px #528f29, 9px -9px #54922a, 10px -10px #55952b, 11px -11px #57982c;
-  left: 0;
-  top: 0;
-  transform: rotate(90deg);
-  border-radius: 50%;
-  text-align: center;
-  line-height: 45px;
-}
-
-.panel input[type='text'] {
-  background-color: #22232a;
-  border-radius: 45px;
-  font-size: 15px;
-  height: 45px;
-  border: none;
-  padding-left: 15px;
-  width: calc(100% - 15px);
-  margin-bottom: 10px;
-}
-
-.panel input[type='text'][placeholder] {
-  color: #656d79;
-  font-size: 15px;
-  font-weight: 500;
-}
-
-.panel .fack {
-  margin-top: 30px;
-  font-size: 14px;
-}
-
-.panel .fack i.fa {
-  text-decoration: none;
-  color: #fff;
-  vertical-align: middle;
-  font-size: 20px;
-  margin-right: 5px;
-}
-
-.panel .fack a:link {
-  color: #616973;
-}
-
-.panel .fack a:visited {
-  color: #555c65;
-}
-
-  </style>
-  </body>
-  </html>
+ 
+/* For iPhone 6 and 6 plus Portrait or Landscape View */
+@media (min-device-height: 667px) 
+    and (min-device-width: 375px) 
+    and (-webkit-min-device-pixel-ratio: 3) {
+      .login{
+        transform: scale(2.5)!important;
+      }
+      h1{
+        font-size: 18px;
+      }
+      a{
+        font-size: 14px;
+      }
+      input{
+        font-size: 14px;
+      }
+};</style>
