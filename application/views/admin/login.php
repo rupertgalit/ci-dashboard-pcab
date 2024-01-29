@@ -199,7 +199,7 @@
   }
   a {
     margin-top: 10px;
-    margin-left: 10px;
+    margin:0;
     color: #c3c3c3;
     text-decoration: none;
     -webkit-transition: 0.5s ease;
@@ -210,7 +210,7 @@
   }
   a:hover {
     color: #fff;
-    margin-left: 5px;
+    /* margin-left: 5px; */
     -webkit-transition: 0.5s ease;
     -moz-transition: 0.5s ease;
     -o-transition: 0.5s ease;
