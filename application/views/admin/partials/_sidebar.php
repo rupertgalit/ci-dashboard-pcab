@@ -7,12 +7,18 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="transaction-table">
-        <span class="menu-title text-capitalize">transactions</span>
+      <a class="nav-link" href="acknowledgement-receipt">
+        <span class="menu-title text-capitalize">Transactions</span>
         <i class="icon-grid  menu-icon"></i>
       </a>
     </li>
     <li class="nav-item">
+      <a class="nav-link" href="deposit">
+        <span class="menu-title text-capitalize">Deposit</span>
+        <i class="icon-grid  menu-icon"></i>
+      </a>
+    </li>
+    <!-- <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
         <span class="menu-title text-capitalize">Data Table</span>
         <i class="icon-layers menu-icon"></i>
@@ -24,7 +30,7 @@
           <li class="nav-item"> <a class="nav-link" href="deposit"> Deposit</a></li>
         </ul>
       </div>
-    </li>
+    </li> -->
   </ul>
   <div class="footer-powered-by text-center d-flex flex-column align-content-center justify-content-start p-1">
     <span class="mr-1">Powered by:</span>
