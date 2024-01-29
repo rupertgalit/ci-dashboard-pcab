@@ -2,6 +2,7 @@
   <html lang="en">
   <head>
     <meta charset="UTF-8">
+    <link rel="shortcut icon" href="/assets/images/pcab_logo.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
    <!-- Link to the external CSS file -->
