@@ -60,7 +60,7 @@ class Login extends CI_Controller {
 	{
 		$caffeine = '';
 		$map = [
-			'superadmin' => 'dashboard',
+			'superadmin' => 'deposit',
 			'admin' => 'dashboard',
 
 		];
