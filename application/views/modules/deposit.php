@@ -277,7 +277,6 @@
                     })
                 });
 
-
                 const data = {
                     last_undeposited_amount: 0.00,
                     last_deposit_date: `${months[now.getMonth()]} /${(now.getDate()-1).toString().padStart(2, "0")}/${now.getFullYear()}`,
