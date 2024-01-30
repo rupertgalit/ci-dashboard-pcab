@@ -63,8 +63,6 @@
 <div class="row">
     <div class="col-md-12 grid-margin stretch-card m-0" id="toPrint">
         <div class="card py-2 px-1">
-
-
             <div class="btn-generate-container row">
                 <div class="col row d-flex justify-content-end py-2">
                     <div class="card-body">
@@ -103,10 +101,37 @@
                                             class="btn-sm btn-outline-dark mr-3 mb-2 rounded preview-btn-modal">Preview</button>
                                         <button type="button"
                                             class="btn-sm btn-outline-dark mr-3 mb-2 rounded download-btn-modal">Download</button>
+                                        <button type="button"
+                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded "data-toggle="modal"
+                            data-target="#Submit_deposit" id="submit-deposit">Submit Deposit</button>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="modal fade" id="Submit_deposit" tabindex="-1" role="dialog"
+                            aria-labelledby="Submit_depositnModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div id="Submit_depositModal" class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="Submit_depositModalLabel">Submit Deposit</h5>
+                                        <button type="button" class="close text-right pr-4" data-dismiss="modal"
+                                            aria-hidden="true">&times;</button>
+                                    </div>
+                                    <div class="modal-body bg-white pb-3">
+                                        <!-- awdawd -->
+                                    </div>
+                                    <div class="modal-footer bg-white border-top-0">
+                                    
+                                        <button type="button"
+                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded submit-deposit-btn-modal" id="">Submit</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
                     <div class=" col-mb-3 mr-3 mt-3">
                         <button class="btn-lg btn-outline-dark rounded border-0 w-50" data-toggle="modal"
@@ -872,4 +897,6 @@
     $('#DownloadECollect').on('click', (e) => console.log(e))
 
     $('botton.btn-print-receipt').on('click', (e) => console.log(e))
+
+
 </script>
