@@ -20,6 +20,13 @@ class Model_repo extends CI_Model
 
     }
 
+    public function allDepositData()
+    {
+        $qry = 'select * from tbl_deposit ';
+        $Q = $this->db->query( $qry );
+        return $Q->row_array()?$Q->result_array():false;
+    }
+
     public function insertApiLogs( $data ) 
     {
         $lastId = $this->db->insert_id( $this->db->insert( 'api_logs', $data ) );
@@ -35,7 +42,7 @@ class Model_repo extends CI_Model
 
     public function  total_transcation_perday($request) 
     {
-        $result="SELECT sum(txn_amount) as txn_amt,
+        $result="SELECT COUNT(*) AS ttl_trnsact, sum(txn_amount) as txn_amt,
         sum(legal_research_fund) as lrfund,
         sum(document_stamp_tax) as ds_tax,
         sum(fees_pcab) as feespcab,
