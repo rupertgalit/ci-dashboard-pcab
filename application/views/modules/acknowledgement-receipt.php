@@ -72,25 +72,33 @@
                 <div class="col row d-flex justify-content-end py-2">
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center mb-4">
-                            <!--     -->
                         </div>
                     </div>
+
+                    
                     <div class=" col-mb-3 mr-3 mt-3">
-                        <button class="btn-lg btn-outline-dark rounded border-0" data-toggle="modal" data-target="#Daily_CollectionModal">Daily Collection</button>
-                        <div class="modal fade" id="Daily_CollectionModal" tabindex="-1" role="dialog" aria-labelledby="Daily_CollectionModalLabel" aria-hidden="true">
+                        <button class="btn-lg btn-outline-dark rounded border-0" data-toggle="modal"
+                            data-target="#Daily_CollectionModal">Daily Collection</button>
+                        <div class="modal fade" id="Daily_CollectionModal" tabindex="-1" role="dialog"
+                            aria-labelledby="Daily_CollectionModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-sm" role="document">
                                 <div id="DailyCollectModal" class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="Daily_CollectionModalLabel">Daily Collection</h5>
-                                        <button type="button" class="close text-right pr-4" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <button type="button" class="close text-right pr-4" data-dismiss="modal"
+                                            aria-hidden="true">&times;</button>
                                     </div>
                                     <div class="modal-body bg-white pb-3">
                                         <div class="row mb-2">
                                             <div class="col-12 d-flex flex-row flex-wrap">
-                                                <label for="modal_start_date" class="mr-2 d-flex align-items-center">Start Date:</label>
-                                                <input type="date" id="modal_start_date" class="form-control" style="width: 16rem;">
-                                                <label for="modal_end_date" class="mr-2 ml-4 d-flex align-items-center">End Date:</label>
-                                                <input type="date" id="modal_end_date" class="form-control" style="width: 16rem;">
+                                                <label for="modal_start_date"
+                                                    class="mr-2 d-flex align-items-center">Start Date:</label>
+                                                <input type="date" id="modal_start_date" class="form-control"
+                                                    style="width: 16rem;">
+                                                <label for="modal_end_date"
+                                                    class="mr-2 ml-4 d-flex align-items-center">End Date:</label>
+                                                <input type="date" id="modal_end_date" class="form-control"
+                                                    style="width: 16rem;">
                                                 <div id="validationMessage"></div>
                                             </div>
                                         </div>
@@ -98,9 +106,34 @@
                                         <div id="modalDataTableContainer" class="overflow-auto"></div>
                                     </div>
                                     <div class="modal-footer bg-white border-top-0">
-                                        <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded preview-btn-modal">Preview</button>
-                                        <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded download-btn-modal">Download</button>
-                                        <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded " data-toggle="modal" data-target="#Submit_deposit" id="submit-deposit">Submit Deposit</button>
+                                        <button type="button"
+                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded preview-btn-modal">Preview</button>
+                                        <button type="button"  onclick="downloadPDF()"
+                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded" >Download</button>
+                                        <button type="button"
+                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded "data-toggle="modal"
+                            data-target="#Submit_deposit" id="submit-deposit">Submit Deposit</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="Submit_deposit" tabindex="-1" role="dialog"
+                            aria-labelledby="Submit_depositnModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div id="Submit_depositModal" class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="Submit_depositModalLabel">Submit Deposit</h5>
+                                        <button type="button" class="close text-right pr-4" data-dismiss="modal"
+                                            aria-hidden="true">&times;</button>
+                                    </div>
+                                    <div class="modal-body bg-white pb-3">
+                                        <!-- awdawd -->
+                                    </div>
+                                    <div class="modal-footer bg-white border-top-0">
+                                    
+                                        <button type="button"
+                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded submit-deposit-btn-modal" id="">Submit</button>
 
                                     </div>
                                 </div>
@@ -108,11 +141,12 @@
                         </div>
 
 
-
                     </div>
                     <div class=" col-mb-3 mr-3 mt-3">
-                        <button class="btn-lg btn-outline-dark rounded border-0 w-50" data-toggle="modal" data-target="#exportModal">E-Collection</button>
-                        <div class="modal fade" id="exportModal" tabindex="-1" role="dialog" aria-labelledby="exportModalLabel" aria-hidden="true">
+                        <button class="btn-lg btn-outline-dark rounded border-0 w-50" data-toggle="modal"
+                            data-target="#exportModal">E-Collection</button>
+                        <div class="modal fade" id="exportModal" tabindex="-1" role="dialog"
+                            aria-labelledby="exportModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -168,13 +202,15 @@
 
                                                 foreach ($data as $row) {
                                                     echo "<tr>";
-                                                    echo "<td>" . $row["date_time"] . "</td>";
-                                                    echo "<td>" . $row["ar_number"] . "</td>";
+                                                    echo "<td>" . $row["date"] . "</td>";
+                                                    echo "<td>" . $row["date"] . "</td>";
                                                     echo "<td>" . $row["name_of_payor"] . "</td>";
                                                     echo "<td>" . $row["particulars"] . "</td>";
-                                                    echo "<td>&#8369; " . number_format((float) $row["service_charge"], 2, '.', '') . "</td>";
-                                                    echo "<td>&#8369; " . number_format((float) $row["tax"], 2, '.', '') . "</td>";
-                                                    echo "<td>&#8369; " . number_format((float) $row["total_amount"], 2, '.', '') . "</td>";
+                                                    echo "<td>"  . $row["particulars"] .  "</td>";
+                                                    echo "<td>"  . $row["txn_amount"] .  "</td>";
+                                                    echo "<td>"  . $row["txn_amount"] .  "</td>";
+
+                                                 
                                                     echo "<td></td>";
 
                                                     echo "</tr>";
@@ -221,7 +257,7 @@
                             <th class="font-weight-bold">Transaction ID</th>
                             <th class="font-weight-bold">Reference No.</th>
                             <th class="font-weight-bold">Name of Payor</th>
-                            <th class="font-weight-bold">Mobile No.</th>
+                            <!-- <th class="font-weight-bold">Mobile No.</th> -->
                             <th class="font-weight-bold">Particular</th>
                             <th class="font-weight-bold">Status</th>
                             <th class="font-weight-bold">PCAB Fee</th>
@@ -239,20 +275,19 @@
                             echo "<tr><td colspan='10'>No data available</td></tr>";
                         } else {
                             foreach ($data as $row) {
-                                $date = date_create($row['date_time']);
+                                $date = date_create($row['date']);
                                 echo "<tr>";
-                                echo "<td>" . $row['id'] . "</td>";
-                                echo "<td>" . $row["ar_number"] . "</td>";
-                                echo "<td>" . $row["date_time"] . "</td>";
-                                echo "<td>CIAP - PCAB</td>";
+                                echo "<td>" . $row["trans_id"] . "</td>";
+                                echo "<td>" . $row["txn_amount"] . "</td>";
                                 echo "<td>" . $row["name_of_payor"] . "</td>";
-                                echo "<td>Break Down of PCAB Fees</td>";
-                                echo "<td>&#8369; " . number_format((float) $row["amount"], 2, '.', '') . "</td>";
-                                echo "<td>&#8369; " . number_format((float) $row["service_charge"], 2, '.', '') . "</td>";
-                                echo "<td>&#8369; " . number_format((float) $row["tax"], 2, '.', '') . "</td>";
-                                echo "<td>&#8369; " . number_format((float) $row["total_amount"], 2, '.', '') . "</td>";
-                                echo "<td>" . $row["reference_number"] . "</td>";
-                                echo "<td><button type='button'style='width: 80px; height: 25px;' class=' btn-outline-dark border-0 btn-print-receipt' data-receipt-id='" . $row['id'] . "'  onclick='printRow(" . $row['id'] . ")'>Download</button></td>";
+                                echo "<td>" . $row["particulars"] . "</td>";
+                                echo "<td>" . $row["status"] . "</td>";
+                                echo "<td>&#8369; " . $row["fees_pcab"] . "</td>";
+                                echo "<td>&#8369; " . $row["legal_research_fund"] . "</td>";
+                                echo "<td>&#8369; " . $row["document_stamp_tax"] . "</td>";
+                                echo "<td>&#8369; " . $row["document_stamp_tax"] . "</td>";
+                                echo "<td>" . $row['txn_amount'] . "</td>";
+                                echo "<td><button type='button'style='width: 80px; height: 25px;' class=' btn-outline-dark border-0 btn-print-receipt' data-receipt-id='" . $row['trans_id'] . "'  onclick='printRow(" . $row['trans_id'] . ")'>Download</button></td>";
                                 echo "</tr>";
                             }
                         }
@@ -269,33 +304,11 @@
 
     </div>
 </div>
-<div class="modal fade" id="Submit_deposit" tabindex="-1" role="dialog" aria-labelledby="Submit_depositnModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg d-flex justify-content-center" role="document">
-        <div id="Submit_depositModal" class="modal-content" style="width: 25rem;">
-            <div class="modal-header">
-                <h5 class="modal-title" id="Submit_depositModalLabel">Submit Deposit</h5>
-                <button type="button" class="close text-right pr-4" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-            <div class="modal-body bg-white pb-3">
-                <!-- awdawd -->
-                <div class="d-flex flex-column">
-                    <label class="pb-2">Range of Collection </label>
-                    <input type="date" aria-label="Date from" class="p-1" />
-
-                    <input type="date" aria-label="Date to" class="p-1" />
-                </div>
-            </div>
-            <div class="modal-footer bg-white border-top-0">
-
-                <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded submit-deposit-btn-modal" id="">Submit</button>
-
-            </div>
-        </div>
-    </div>
 </div>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script>
-    $(document).ready(function() {
+
+    $(document).ready(function () {
 
         var table = $('#myTable').DataTable({
             dom: '<"pull-left"b><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
@@ -303,13 +316,13 @@
             scrollCollapse: true,
         });
 
-        $('.search-btn').on('click', function() {
+        $('.search-btn').on('click', function () {
             table.draw();
         });
 
     });
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         var today = new Date();
         var dateString = today.getFullYear() + '-' + (today.getMonth() + 1).toString().padStart(2, '0') + '-' + today.getDate().toString().padStart(2, '0');
         var filename = 'NGSI_E-Collection_' + dateString;
@@ -321,7 +334,7 @@
                 text: 'Export',
                 filename: filename,
                 className: 'export-btn', // Add class name for styling
-                customize: function(csv) {
+                customize: function (csv) {
                     // Modify the header row according to the provided <thead> structure
                     var header = 'Electronic Acknowledgement Receipt, ,, , Amount\n';
                     var header1 = ',, ,, , Breakdown Collection\n';
@@ -332,14 +345,12 @@
         });
 
         // Event handler for month filter
-        $('#monthFilter').on('change', function() {
+        $('#monthFilter').on('change', function () {
             var selectedMonth = $(this).val();
 
             // Use DataTables API to filter by month
             dataTable.column(0).search(selectedMonth ? `-${selectedMonth.padStart(2, '0')}` : "", true, false).draw();
-            var filteredData = dataTable.rows({
-                search: 'applied'
-            }).data().toArray();
+            var filteredData = dataTable.rows({ search: 'applied' }).data().toArray();
         });
     });
     const _jsonData = JSON.parse('<?php echo json_encode($data) ?>')
@@ -350,7 +361,7 @@
 
     }
 
-    $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
         var startDate = $('#start_date').val();
         var endDate = $('#end_date').val();
         var currentDate = data[2]; // Assuming date is at index 2
@@ -365,7 +376,7 @@
         return false;
     });
     // Modal date filter
-    $('.preview-btn-modal').on('click', function() {
+    $('.preview-btn-modal').on('click', function () {
         var modalStartDate = $('#modal_start_date').val();
         var modalEndDate = $('#modal_end_date').val();
 
@@ -378,7 +389,7 @@
 
         // Your existing code for data filtering and display goes here
         const filteredData = _jsonData.filter(item => {
-            let itemDate = new Date(item.date_time)
+            let itemDate = new Date(item.date)
             let modalSD = new Date(modalStartDate)
             let modalED = new Date(modalEndDate)
 
@@ -422,10 +433,10 @@
         // Iterate through filtered data to calculate totals
         filteredData.forEach((row) => {
             // Parse amounts to numbers
-            const CIAPPCAB = parseFloat(row.service_charge);
-            const LRF = parseFloat(row.tax);
-            const DST = parseFloat(row.amount);
-            const collection = parseFloat(row.total_amount);
+            const CIAPPCAB = parseFloat(row.fees_pcab);
+            const LRF = parseFloat(row.txn_amount);
+            const DST = parseFloat(row.txn_amount);
+            const collection = parseFloat(row.txn_amount);
 
             // Add to total amounts
             totalCIAPPCAB += CIAPPCAB;
@@ -434,7 +445,7 @@
             totalCollection += collection;
 
             // Append row to modal table body
-            modalTableBody.innerHTML += `<tr><td>${row.date_time}</td><td>${row.ar_number}</td><td>${row.name_of_payor}</td><td>${row.reference_number}</td><td>${CIAPPCAB.toFixed(2)}</td><td>${LRF.toFixed(2)}</td><td>${DST.toFixed(2)}</td><td class="text-right">${collection.toFixed(2)}</td></tr>`;
+            modalTableBody.innerHTML += `<tr><td>${row.date}</td><td>${row.trans_id}</td><td>${row.name_of_payor}</td><td>${row.reference_number}</td><td>${CIAPPCAB.toFixed(2)}</td><td>${LRF.toFixed(2)}</td><td>${DST.toFixed(2)}</td><td class="text-right">${collection.toFixed(2)}</td></tr>`;
         });
 
         // Append the new table to the modal body
@@ -455,7 +466,7 @@
         var modalDialog = $('#Daily_CollectionModal .modal-dialog');
 
         // Remove table content when modal is closed
-        $('#Daily_CollectionModal').on('hidden.bs.modal', function(e) {
+        $('#Daily_CollectionModal').on('hidden.bs.modal', function (e) {
             // Reset form fields
             $('#modal_start_date').val('');
             $('#modal_end_date').val('');
@@ -481,11 +492,11 @@
 
     });
 
-    $('#modal_start_date, #modal_end_date').on("change", function() {
+    $('#modal_start_date, #modal_end_date').on("change", function () {
         $('#validationMessage').empty();
     });
 
-    $('.download-btn-modal').on('click', function() {
+    $('.download-btn-modal').on('click', function () {
         var modalStartDate = $('#modal_start_date').val();
         var modalEndDate = $('#modal_end_date').val();
 
@@ -501,216 +512,122 @@
     });
 
     // Remove table content when modal is closed
-    $('#Daily_CollectionModal').on('hidden.bs.modal', function(e) {
+    $('#Daily_CollectionModal').on('hidden.bs.modal', function (e) {
         $('#modalDataTableContainer').empty();
 
     });
 
 
 
-    async function printDailyReport(startDate, endDate) {
+//     async function printDailyReport(startDate, endDate) {
 
-        // Your code to fetch data and generate PDF report goes here
-        const filteredData = _jsonData.filter(object => object.date_time >= startDate && object.date_time <= endDate);
+//         // Your code to fetch data and generate PDF report goes here
+//         const filteredData = _jsonData.filter(object => object.date_time >= startDate && object.date_time <= endDate);
 
-        let doc = new jspdf.jsPDF({
-            orientation: 'p',
-            unit: 'px'
-        })
+//         let doc = new jspdf.jsPDF({
+//             orientation: 'p',
+//             unit: 'px'
+//         })
 
-        let printContent = `
-        <div class="border border-dark p-2 px-4">
-<div class="text-center">
-<div class="container mt-3 justify-content-center mb-4">
-<div class="container mt-3 justify-content-center mb-4">
-                        <div class="row justify-content-center">
-                            <div class="col-md-3">
-                                <img  height="100px" style="margin-left:-1rem;" src="assets/images/ngsi-letterhead.png" alt="logo" class="logo-dark" />
-                            </div>
-                            <div class="col-md-4 mt-3"  style="margin-left:2rem;">
-                                <p class="font-weight-bold" style="font-family: Century Gothic; font-size:16px;" ;>NET GLOBAL SOLUTIONS&nbsp;&nbsp; INC.</p>
-                                <p style="margin-top: -20px;margin-bottom: -5px; font-family: Century Gothic;margin-left:-5rem;">Tel. No. 632 82877374</p>
-                                <p style=" line-height: 80%; color:blue;margin-top: 10px;">Support@netglobalsolutions.net</p>
-                            </div>
-                        </div>
-                         <img width="100%" height="100%" style="margin-top: -10px;" src="assets/images/NGSI_header.png" alt="logo" class="logo-dark" />
-                    </div>
-    <b class="text-uppercase">List of daily collection</b>
-    <div>Agency: CONSTRUCTION INDUSTY AUTHORITY OF THE PHILIPPINES</div>
-        <div>Board: Philippine Constraction Accreditation board(PCAB)</div>
-    <div class="row d-flex align-items-center">
-        <div class="col-12">
-            <div class="list-inline-item ">Date:</div>
-            <div class="list-inline-item font-weight-light border-dark border-bottom custom-font-size px-3">
-                10/12/2023
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row text-right pb-2">
-    <div class="col">Report No. <div
-            class="list-inline-item font-weight-light border-dark border-bottom custom-font-size px-3">
-            ${Math.floor(Math.random() * 1000000000)}
-    </div>
-    </div>
-</div>
-<div class="col-12 d-flex flex-column data-table py-0">
-<div class="row t-head">
-    <div class="border border-dark col-12 d-flex align-items-center justify-content-around text-center">
-        Collection
-    </div>
-</div>
-<div class="row ">
-    <div class="border border-dark col d-flex align-items-center justify-content-around  border-bottom-0 text-center ">
-        Date and Time
-    </div>
-    <div class="border border-dark col d-flex align-items-center justify-content-around border-bottom-0 text-center">
-        AR Number
-    </div>
-    <div class="border border-dark col d-flex align-items-center justify-content-around border-bottom-0 text-center">
-        Name of payor
-    </div>
-    <div class="border border-dark col d-flex align-items-center justify-content-around border-bottom-0 text-center">
-        Reference Number
-    </div>
-    <div class="border border-dark col-2 d-flex align-items-center justify-content-around border-right-0 text-center">
-        CIAP-PCAB
-    </div>
-    <div class="border border-dark col d-flex align-items-center justify-content-around text-center">
-        LRF
-    </div>
-    <div class="border border-dark col d-flex align-items-center justify-content-around text-center">
-        DST
-    </div>
-    <div class="border border-dark col d-flex align-items-center justify-content-around border-bottom-0 text-center">
-        Total Collection
-    </div>
-</div>
-<div class="row ">
-    <div class="border border-dark col d-flex align-items-center justify-content-around border-top-0 ">
+//         let printContent = `
+      
+//         `;
+//         let i = 1;
+//         let content = "";
+//         let totalAmount = 0
+//         let yOffset = 0; // Track vertical position
 
-    </div>
-    <div class="border border-dark col d-flex align-items-center justify-content-around border-top-0">
-
-    </div>
-    <div class="border border-dark col d-flex align-items-center justify-content-around border-top-0">
-
-    </div>
-    <div class="border border-dark col d-flex align-items-center justify-content-around border-top-0">
-
-    </div>
-    <div class="border border-dark col-2 d-flex align-items-center justify-content-around border-right-0 text-center">
-        Account No.
-    </div>
-    <div class="border border-dark col d-flex align-items-center justify-content-around text-center">
-        Account No.
-    </div>
-    <div class="border border-dark col d-flex align-items-center justify-content-around text-center">
-        Account No.
-    </div>
-    <div class="border border-dark col d-flex align-items-center justify-content-around border-top-0">
-
-    </div>
-</div>
-
-    <div class="t-body p-0 m-0">
-        `;
-        let i = 1;
-        let content = "";
-        let totalAmount = 0
-        let yOffset = 0; // Track vertical position
-
-        while (i) {
-            let dataToPopulate = filteredData;
-            // let remainingData = filteredData.length - 10;
-            let rows = [];
-            // splice(starting index e.g. 0, range of indexes e.g. 10)
-            let pivot = i * 10
-            console.log(i, filteredData.splice(0, 10))
-            console.log(dataToPopulate)
-            i++
-            if (i >= 10) i = -1;
+//         while (i) {
+//             let dataToPopulate = filteredData;
+//             // let remainingData = filteredData.length - 10;
+//             let rows = [];
+//             // splice(starting index e.g. 0, range of indexes e.g. 10)
+//             let pivot = i * 10
+//             console.log(i, filteredData.splice(0, 10))
+//             console.log(dataToPopulate)
+//             i++
+//             if (i >= 10) i = -1;
 
 
-            //             ${i % 2 == 1 ? '<div class="row" style="width: 52vw; border-bottom:1px black solid; border-bottom-style: dashed; margin: 6rem 0 6.18rem 0"></div>' : ''}
-            // ${i % 2 == 1 && i != 39 ? "margin-bottom:12rem !important;" : ""}
+//             //             ${i % 2 == 1 ? '<div class="row" style="width: 52vw; border-bottom:1px black solid; border-bottom-style: dashed; margin: 6rem 0 6.18rem 0"></div>' : ''}
+//             // ${i % 2 == 1 && i != 39 ? "margin-bottom:12rem !important;" : ""}
 
-            const content = (row) => `
-            <div class="row row-data">
-                <div class="border border-dark border-right-0 border-top-0 col">${row?.date_time ?? "&nbsp;"}</div>
-                <div class="border border-dark border-right-0 border-top-0 col">${row?.ar_number ?? ""}</div>
-                <div class="border border-dark border-right-0 border-top-0 col">${row?.name_of_payor ?? ""}</div>
-                <div class="border border-dark border-right-0 border-top-0 col">${row?.particulars ?? ""}</div>
-                <div class="border border-dark border-right-0 border-top-0 col-2">${row?.reference_number ?? ""}</div>
-                <div class="border border-dark border-right-0 border-top-0 col">${row?.particulars ?? ""}</div>
-                <div class="border border-dark border-right-0 border-top-0 col">${row?.reference_number ?? ""}</div>
-                <div class="border border-dark border-top-0 col text-right">${parseFloat(row?.total_amount ?? 0).toFixed(2)}</div>
-            </div>
-            `;
-            let content = `</div>
-        <div class="row t-total-row">
-        <div class="border border-dark border-right-0 border-top-0 col"></div>
-        <div class="border border-dark border-right-0 border-top-0 col"></div>
-        <div class="border border-dark border-right-0 border-top-0 col"></div>
-        <div class="border border-dark border-right-0 border-top-0 col text-center">Total Amount</div>
-        <div class="border border-dark border-right-0 border-top-0 col-2"></div>
-        <div class="border border-dark border-right-0 border-top-0 col"></div>
-        <div class="border border-dark border-right-0 border-top-0 col"></div>
-        <div class="border border-dark border-top-0 col text-right">P &nbsp; [total-amount]</div>
-    </div>
-</div>
-</div>
-<div class="row mt-4" >
-                                        <div class="col" style="position:relative; margin-left:6.5rem;  ">
+//             const content = (row) => `
+//             <div class="row row-data">
+//                 <div class="border border-dark border-right-0 border-top-0 col">${row?.date_time ?? "&nbsp;"}</div>
+//                 <div class="border border-dark border-right-0 border-top-0 col">${row?.ar_number ?? ""}</div>
+//                 <div class="border border-dark border-right-0 border-top-0 col">${row?.name_of_payor ?? ""}</div>
+//                 <div class="border border-dark border-right-0 border-top-0 col">${row?.particulars ?? ""}</div>
+//                 <div class="border border-dark border-right-0 border-top-0 col-2">${row?.reference_number ?? ""}</div>
+//                 <div class="border border-dark border-right-0 border-top-0 col">${row?.particulars ?? ""}</div>
+//                 <div class="border border-dark border-right-0 border-top-0 col">${row?.reference_number ?? ""}</div>
+//                 <div class="border border-dark border-top-0 col text-right">${parseFloat(row?.total_amount ?? 0).toFixed(2)}</div>
+//             </div>
+//             `;
+//             let content = `</div>
+//         <div class="row t-total-row">
+//         <div class="border border-dark border-right-0 border-top-0 col"></div>
+//         <div class="border border-dark border-right-0 border-top-0 col"></div>
+//         <div class="border border-dark border-right-0 border-top-0 col"></div>
+//         <div class="border border-dark border-right-0 border-top-0 col text-center">Total Amount</div>
+//         <div class="border border-dark border-right-0 border-top-0 col-2"></div>
+//         <div class="border border-dark border-right-0 border-top-0 col"></div>
+//         <div class="border border-dark border-right-0 border-top-0 col"></div>
+//         <div class="border border-dark border-top-0 col text-right">P &nbsp; [total-amount]</div>
+//     </div>
+// </div>
+// </div>
+// <div class="row mt-4" >
+//                                         <div class="col" style="position:relative; margin-left:6.5rem;  ">
                                             
-                                            <p >Prepared By: </p>
+//                                             <p >Prepared By: </p>
                         
-                                        </div>
-                                        <div class="col" style="position:relative;left:120px; ">
+//                                         </div>
+//                                         <div class="col" style="position:relative;left:120px; ">
                                             
-                                            <p >Checked & Certified By: </p>
+//                                             <p >Checked & Certified By: </p>
                                            
-                                        </div>
-                                    </div>
-<div class="row" style="height:6rem;  margin-bottom:4rem;">
-                                        <div class="col" style="position:relative; margin-left:6.5rem;  ">
-                                        <img style="margin-left: 5rem;background-position:center;z-index:0;transform:scale(1.1);display:block;position:relative;"  height="70px" src="assets/images/ma'am_je.png" alt="logo" class="logo-dark" />
-                                            <p style="margin-top:-20px;margin-left:87px;font-size:18px;font-family:Arial,Helvetica,sans-serif;z-index:1;position:relative;">
-                                                   Jeremie Soliveres </p>
-                                            <p style="margin-top:-24px;margin-left:90px;font-family:Arial,Helvetica,sans-serif;font-size:12px;z-index:1;position:relative;">
-                                                Accounting Specialist</p>
-                                                <p style="margin-top:-22px;margin-left:90px;font-family:Arial,Helvetica,sans-serif;font-size:12px;z-index:1;position:relative;">
-                                                Netglobal Solution Inc</p>
-                                        </div>
-                                        <div class="col" style="position:relative;left:120px; margin-top:4.5rem;">
+//                                         </div>
+//                                     </div>
+// <div class="row" style="height:6rem;  margin-bottom:4rem;">
+//                                         <div class="col" style="position:relative; margin-left:6.5rem;  ">
+//                                         <img style="margin-left: 5rem;background-position:center;z-index:0;transform:scale(1.1);display:block;position:relative;"  height="70px" src="assets/images/ma'am_je.png" alt="logo" class="logo-dark" />
+//                                             <p style="margin-top:-20px;margin-left:87px;font-size:18px;font-family:Arial,Helvetica,sans-serif;z-index:1;position:relative;">
+//                                                    Jeremie Soliveres </p>
+//                                             <p style="margin-top:-24px;margin-left:90px;font-family:Arial,Helvetica,sans-serif;font-size:12px;z-index:1;position:relative;">
+//                                                 Accounting Specialist</p>
+//                                                 <p style="margin-top:-22px;margin-left:90px;font-family:Arial,Helvetica,sans-serif;font-size:12px;z-index:1;position:relative;">
+//                                                 Netglobal Solution Inc</p>
+//                                         </div>
+//                                         <div class="col" style="position:relative;left:120px; margin-top:4.5rem;">
                                             
                                             
-                                            <p style="margin-top:-25px;margin-left:10rem;font-size:18px;font-family:Arial,Helvetica,sans-serif;z-index:1;position:relative;">
-                                            Mischell A. Fernandez</p>
-                                            <p style=" margin-top:-24px;margin-left:10rem;font-family:Arial,Helvetica,sans-serif;font-size:12px;z-index:1;position:relative;">
-                                            Admin Officer III/Cashier II </p>
-                                            <p style=" margin-top:-22px;margin-left:10rem;font-family:Arial,Helvetica,sans-serif;font-size:12px;z-index:1;position:relative;">
-                                            CIAP </p>
-                                        </div>
-                                    </div>
-</div>
-</div>`
+//                                             <p style="margin-top:-25px;margin-left:10rem;font-size:18px;font-family:Arial,Helvetica,sans-serif;z-index:1;position:relative;">
+//                                             Mischell A. Fernandez</p>
+//                                             <p style=" margin-top:-24px;margin-left:10rem;font-family:Arial,Helvetica,sans-serif;font-size:12px;z-index:1;position:relative;">
+//                                             Admin Officer III/Cashier II </p>
+//                                             <p style=" margin-top:-22px;margin-left:10rem;font-family:Arial,Helvetica,sans-serif;font-size:12px;z-index:1;position:relative;">
+//                                             CIAP </p>
+//                                         </div>
+//                                     </div>
+// </div>
+// </div>`
 
 
-            doc.html(`<div id="PDFContent" class="mx-auto d-flex flex-column border-dark" style="width:55.8rem;padding-top:6rem;/*border:1px black solid;*/">${content(data)}</div>`, {
-                html2canvas: {
-                    scale: .5
-                },
-                async callback(pdf) {
-                    const date = new Date();
-                    document.querySelector(".card").innerHTML = content(data);
-                    // await pdf.save(`receipt-${date.toLocaleDateString()}.pdf`);
-                },
-            })
-        }
-    }
-    async function printRow(id) {
-        const rowData = _jsonData.find(obj => obj.id == id)
+//             doc.html(`<div id="PDFContent" class="mx-auto d-flex flex-column border-dark" style="width:55.8rem;padding-top:6rem;/*border:1px black solid;*/">${content(data)}</div>`, {
+//                 html2canvas: {
+//                     scale: .5
+//                 },
+//                 async callback(pdf) {
+//                     const date = new Date();
+//                     document.querySelector(".card").innerHTML = content(data);
+//                     // await pdf.save(`receipt-${date.toLocaleDateString()}.pdf`);
+//                 },
+//             })
+//         }
+//     }
+    async function printRow(trans_id) {
+        const rowData = _jsonData.find(obj => obj.trans_id == trans_id)
         let doc = new jspdf.jsPDF({
             orientation: 'p',
             unit: 'px'
@@ -755,13 +672,13 @@
                         <div class="row d-flex">
                             <div class="col">AR Number: </div>
                             <div class="col">
-                                ${rowData.ar_number}
+                                ${rowData.trans_id}
                             </div>
                         </div>
                         <div class="row d-flex">
                             <div class="col">Date and Time: </div>
                             <div class="col">
-                               ${rowData.date_time}
+                               ${rowData.date}
                             </div>
                         </div>
                     </div>
@@ -770,7 +687,7 @@
                 <div class="col">
                 `;
             for (let key in rowData) {
-                if (["id", "ar_number", "date_time", "tax"].includes(key)) continue;
+                if (["id", "trans_id", "date", "txn_amount"].includes(key)) continue;
 
                 let value = rowData[key];
                 console.log(key);
@@ -854,7 +771,7 @@
                 html2canvas: {
                     scale: .5
                 },
-                callback: async function(doc) {
+                callback: async function (doc) {
                     // doc.addPage(
                     //     { orientation: 'p', unit: 'px' }
                     // )
@@ -872,4 +789,16 @@
     $('#DownloadECollect').on('click', (e) => console.log(e))
 
     $('botton.btn-print-receipt').on('click', (e) => console.log(e))
+
+    function downloadPDF() {
+        // const doc = new jsPDF();
+        // doc.autoTable({ html: '#myTable' });
+        // doc.save('table.pdf');
+        
+
+        var doc = new jsPDF();
+autoTable(doc, "#myTable");
+doc.save("table.pdf");
+
+    }
 </script>

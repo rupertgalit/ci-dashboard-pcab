@@ -20,6 +20,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             // return $query();
         }
 
+        public function get_all_data(){
+            
+            $sql = 'SELECT * FROM transactions';
+            $Q = $this->db->query( $sql );
+            return $Q->row_array()?$Q->result_array():false;
+            
+        }
     }
 
     ?>
