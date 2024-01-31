@@ -66,8 +66,7 @@ $route['deposit']  = 'welcome/index';
 $route['dashboard']  = 'welcome/index';
 $route['get-transactions']  = 'welcome/getTransactions';
 
-// $route['api']   = 'api/DashApi';
-$route['testapi']  = 'authcontroller/test_api';
-$route['index']  = 'authcontroller/test_api';
 $route['get-data']  = 'welcome/get_data';
-
+//api
+$route['generate-qr'] = 'middleware/generate_qr';
+$route['all-transaction-data'] = 'api/all_transaction_data';
