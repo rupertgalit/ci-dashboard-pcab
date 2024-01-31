@@ -313,16 +313,37 @@ class Middleware extends REST_Controller
 
     }
 
-    public function get_deposit_data()
+    public function all_deposit_data_get()
     {
      $deposiitData =  $this->model->allDepositData(); 
+         
+            if($deposiitData)
+            {
+                $result=$deposiitData;
+            }else{
+                $result=array();
+            }
 
        $this->response( [
         'status' => true,
         'message' => 'succes',
-        'data' =>  $deposiitData,
-
-    ], Rest_Controller::HTTP_OK );
+        'data' =>  $deposiitData, ], Rest_Controller::HTTP_OK );
     }
 
+    public function all_transaction_data_get()
+    {
+        $deposiitData =  $this->model->transaction_data(); 
+
+                if($deposiitData){
+
+                    $result=$deposiitData;
+                }else{
+                    $result=array();
+                }
+
+        $this->response( [
+         'status' => true,
+         'message' => 'succes',
+         'data' =>  $deposiitData, ], Rest_Controller::HTTP_OK );
+    }
     }
