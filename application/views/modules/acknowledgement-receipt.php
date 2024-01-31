@@ -118,27 +118,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="modal fade" id="Submit_deposit" tabindex="-1" role="dialog"
-                            aria-labelledby="Submit_depositnModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div id="Submit_depositModal" class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="Submit_depositModalLabel">Submit Deposit</h5>
-                                        <button type="button" class="close text-right pr-4" data-dismiss="modal"
-                                            aria-hidden="true">&times;</button>
-                                    </div>
-                                    <div class="modal-body bg-white pb-3">
-                                        <!-- awdawd -->
-                                    </div>
-                                    <div class="modal-footer bg-white border-top-0">
-                                    
-                                        <button type="button"
-                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded submit-deposit-btn-modal" id="">Submit</button>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
 
                     </div>
@@ -304,6 +283,40 @@
 
     </div>
 </div>
+<div class="modal fade" id="Submit_deposit" tabindex="-1" role="dialog" aria-labelledby="Submit_depositnModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg d-flex justify-content-center" role="document">
+        <div id="Submit_depositModal" class="modal-content" style="width: 25rem;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="Submit_depositModalLabel">Collection to Settle</h5>
+                <button type="button" class="close text-right pr-4" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body bg-white pb-3">
+                <!-- awdawd -->
+                <div class="d-flex flex-column">
+                    <label class="pb-1">Day(s) of Collection</label>
+                    <div for="dateFrom">
+                        <span>From</span>
+                        <input type="date" id="dateFrom" aria-label="Date from" class="p-2 border rounded"></input>
+
+                    </div>
+                    <div for="dateFrom" class="mt-4">
+                        <span>To</span>
+                        <input type="date" id="dateTo" aria-label="Date to" class="p-2 border border-black rounded"></input>
+                    </div>
+                    <input type="text" id="referreceNo" aria-label="Date to" class="p-2 border border-black mt-2 rounded"></input>
+                    <input type="text" id="dateOfDeposit" aria-label="Date to" class="p-2 border border-black mt-2 rounded"></input>
+                    <input type="text" id="depositedAmount" aria-label="Date to" class="p-2 border border-black mt-2 rounded"></input>
+                    <input type="text" id="dateTo" aria-label="Date to" class="p-2 border border-black mt-2 rounded"></input>
+                </div>
+            </div>
+            <div class="modal-footer bg-white border-top-0">
+
+                <button type="button" class="btn-sm btn-outline-dark m-0 ml-2 mb-2 rounded submit-deposit-btn-modal" id="">Cancel</button>
+                <button type="button" class="btn-sm btn-outline-dark m-0 ml-2 mb-2 rounded submit-deposit-btn-modal" id="">Submit</button>
+
+            </div>
+        </div>
+    </div>
 </div>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script>

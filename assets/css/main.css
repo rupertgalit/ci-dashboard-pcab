@@ -31,7 +31,8 @@ div.container-scroller {
 
 div.main-panel #myTable_wrapper div.row div#myTable_length
 
-    /*.dataTables-length*/ {
+/*.dataTables-length*/
+	{
 	margin-top: 10px;
 }
 
@@ -220,6 +221,10 @@ div.card-body {
 	background: #555;
 }
 
+.modal {
+	backdrop-filter: brightness(.5)!important;
+}
+
 table {
 	width: 100%;
 }
@@ -230,7 +235,7 @@ table thead th {
 	text-align: left;
 	font-size: 0.8rem;
 	font-weight: 700;
-} 
+}
 
 table tr td {
 	padding-top: 0.3rem;
@@ -266,13 +271,24 @@ table tr:nth-child(even) {
 table tr:nth-child(odd) {
 	background-color: #fff !important;
 }
-#myTable_filter{
+
+#myTable_filter {
 	margin-right: 0.5rem;
 }
+
 #PDFContent tr,
 #PDFContent td {
 	background-color: #fff;
 	margin: 1rem;
+}
+
+.modal#Submit_deposit div > span {
+	position: absolute;
+    background-color: #FFF;
+    font-size: 13px;
+    margin-top: -0.6rem;
+    margin-left: 0.6rem;
+    padding: 0 5px;
 }
 
 /* .card {
