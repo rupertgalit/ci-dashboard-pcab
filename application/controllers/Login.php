@@ -19,16 +19,16 @@ class Login extends CI_Controller {
 
         $UserType = $this->user->get_user($username);
         if ($UserType !== false) {
-            $user_data = array(
-                'username' => "admin",
-                'logged_in' => TRUE
-            );
-            $this->session->set_userdata($user_data);
+           
 
             if ($UserType->Password == md5($password)) {
 
 
-
+                $user_data = array(
+                    'username' => "admin",
+                    'logged_in' => TRUE
+                );
+                $this->session->set_userdata($user_data);
 
 
 

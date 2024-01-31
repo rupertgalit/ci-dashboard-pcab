@@ -72,6 +72,7 @@ class Middleware extends REST_Controller
 
         $transaction['txn_amount'] = $txnAmount;
         $transaction['date_created'] = date('Y-m-d H:i:s');
+        $transaction['date'] = date('Y/m/d');
         $transaction['status'] = 'STARTED';
 
         $totalAmount = 0;
@@ -230,5 +231,86 @@ class Middleware extends REST_Controller
             'messege0' => 'Success',
             'error0' => 'false'
         ], Rest_Controller::HTTP_OK);
+    }
+
+
+
+    public function deposit_log_post(){
+
+        $this->form_validation->set_rules( 'deposited_date', 'deposited date', 'required' );
+        $this->form_validation->set_rules( 'deposited_amount', 'deposited amount', 'required' );
+        $this->form_validation->set_rules( 'deposit_reference_no', 'deposit reference number', 'required' );
+        $this->form_validation->set_rules( 'collection_date_from', 'collection dater', 'required' );
+        $this->form_validation->set_rules( 'collection_date_to', 'collection dater', 'required' );
+
+        $this->output->set_content_type( 'application/json' );
+
+        switch ( $_SERVER[ 'CONTENT_TYPE' ] ) {
+            case 'application/json':
+
+            $_POST = json_decode( file_get_contents( 'php://input' ), true );
+            $postdata = $_POST;
+
+            break;
+            default:
+
+            $postdata = array(
+                'deposited_date' => $this->input->post( 'deposited_date' ),
+                'deposited_amount' => $this->input->post( 'deposited_amount' ),
+                'deposit_reference_no' => $this->input->post( 'deposit_reference_no' ),
+                'collection_date_from' => $this->input->post( 'collection_date_from' ),
+                'collection_date_to' => $this->input->post( 'collection_date_to' ),
+
+            );
+        }
+
+        if ( $this->form_validation->run() == FALSE ) {
+            
+
+            $errors = str_replace( '\n', '', strip_tags( validation_errors() ) );
+
+            $this->response( [
+                'status' => false,
+                'message' => 'Validation error',
+                'data' =>  $errors,
+
+            ], Rest_Controller::HTTP_UNPROCESSABLE_ENTITY );
+        } else {
+
+           
+
+      $getTotalAmount=     $this->model->total_transcation_perday($postdata) ;
+if($getTotalAmount){
+    
+
+    $depositLogs['deposited_date']= $postdata['deposited_date'];
+    $depositLogs['deposited_amount']= $postdata['deposited_amount'];
+    $depositLogs['deposit_reference_no']= $postdata['deposit_reference_no'];
+    $depositLogs['txn_amount']= $getTotalAmount['txn_amt'];
+    $depositLogs['document_stamp_tax']= $getTotalAmount['ds_tax'];
+
+    $depositLogs['fees_pcab']= $getTotalAmount['feespcab'];
+
+    $depositLogs['legal_research_fund']= $getTotalAmount['lrfund'];
+
+    $depositLogs['ngsi_convenience_fee']= $getTotalAmount['ngsi_convfee'];
+     $depositLogs['date_covered']= $postdata['collection_date_from']." to" .$postdata['collection_date_to'];
+
+
+
+   $this->model->log_deposit($depositLogs); 
+}
+
+
+            
+            $this->response( [
+                'status' => true,
+                'message' => 'Success',
+                'data' =>  $depositLogs,
+
+            ], Rest_Controller::HTTP_UNPROCESSABLE_ENTITY );
+
+        }
+
     }
 }
