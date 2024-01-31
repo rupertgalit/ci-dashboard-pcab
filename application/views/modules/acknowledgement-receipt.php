@@ -319,6 +319,8 @@
     </div>
 </div>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
 <script>
 
     $(document).ready(function () {
@@ -808,10 +810,11 @@
         // doc.autoTable({ html: '#myTable' });
         // doc.save('table.pdf');
         
+        var pdf = new jsPDF();
+            pdf.text(20,20,"Employee Details");
+            pdf.autoTable({html:'#myTable'});
+            window.open(URL.createObjectURL(pdf.output("blob")))
 
-        var doc = new jsPDF();
-autoTable(doc, "#myTable");
-doc.save("table.pdf");
 
     }
 </script>
