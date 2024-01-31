@@ -71,4 +71,4 @@ $route['get-data']  = 'welcome/get_data';
 $route['generate-qr'] = 'middleware/generate_qr';
 $route['all-transaction-data'] = 'api/all_transaction_data';
 
-$route['deposit-log'] = 'middleware/deposit_log';
+$route['submit-deposit'] = 'middleware/deposit_log';
