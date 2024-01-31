@@ -76,28 +76,21 @@
                         </div>
                     </div>
                     <div class=" col-mb-3 mr-3 mt-3">
-                        <button class="btn-lg btn-outline-dark rounded border-0" data-toggle="modal"
-                            data-target="#Daily_CollectionModal">Daily Collection</button>
-                        <div class="modal fade" id="Daily_CollectionModal" tabindex="-1" role="dialog"
-                            aria-labelledby="Daily_CollectionModalLabel" aria-hidden="true">
+                        <button class="btn-lg btn-outline-dark rounded border-0" data-toggle="modal" data-target="#Daily_CollectionModal">Daily Collection</button>
+                        <div class="modal fade" id="Daily_CollectionModal" tabindex="-1" role="dialog" aria-labelledby="Daily_CollectionModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-sm" role="document">
                                 <div id="DailyCollectModal" class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="Daily_CollectionModalLabel">Daily Collection</h5>
-                                        <button type="button" class="close text-right pr-4" data-dismiss="modal"
-                                            aria-hidden="true">&times;</button>
+                                        <button type="button" class="close text-right pr-4" data-dismiss="modal" aria-hidden="true">&times;</button>
                                     </div>
                                     <div class="modal-body bg-white pb-3">
                                         <div class="row mb-2">
                                             <div class="col-12 d-flex flex-row flex-wrap">
-                                                <label for="modal_start_date"
-                                                    class="mr-2 d-flex align-items-center">Start Date:</label>
-                                                <input type="date" id="modal_start_date" class="form-control"
-                                                    style="width: 16rem;">
-                                                <label for="modal_end_date"
-                                                    class="mr-2 ml-4 d-flex align-items-center">End Date:</label>
-                                                <input type="date" id="modal_end_date" class="form-control"
-                                                    style="width: 16rem;">
+                                                <label for="modal_start_date" class="mr-2 d-flex align-items-center">Start Date:</label>
+                                                <input type="date" id="modal_start_date" class="form-control" style="width: 16rem;">
+                                                <label for="modal_end_date" class="mr-2 ml-4 d-flex align-items-center">End Date:</label>
+                                                <input type="date" id="modal_end_date" class="form-control" style="width: 16rem;">
                                                 <div id="validationMessage"></div>
                                             </div>
                                         </div>
@@ -105,47 +98,21 @@
                                         <div id="modalDataTableContainer" class="overflow-auto"></div>
                                     </div>
                                     <div class="modal-footer bg-white border-top-0">
-                                        <button type="button"
-                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded preview-btn-modal">Preview</button>
-                                        <button type="button"
-                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded download-btn-modal">Download</button>
-                                        <button type="button"
-                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded "data-toggle="modal"
-                            data-target="#Submit_deposit" id="submit-deposit">Submit Deposit</button>
+                                        <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded preview-btn-modal">Preview</button>
+                                        <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded download-btn-modal">Download</button>
+                                        <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded " data-toggle="modal" data-target="#Submit_deposit" id="submit-deposit">Submit Deposit</button>
 
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="modal fade" id="Submit_deposit" tabindex="-1" role="dialog"
-                            aria-labelledby="Submit_depositnModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div id="Submit_depositModal" class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="Submit_depositModalLabel">Submit Deposit</h5>
-                                        <button type="button" class="close text-right pr-4" data-dismiss="modal"
-                                            aria-hidden="true">&times;</button>
-                                    </div>
-                                    <div class="modal-body bg-white pb-3">
-                                        <!-- awdawd -->
-                                    </div>
-                                    <div class="modal-footer bg-white border-top-0">
-                                    
-                                        <button type="button"
-                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded submit-deposit-btn-modal" id="">Submit</button>
 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
 
                     </div>
                     <div class=" col-mb-3 mr-3 mt-3">
-                        <button class="btn-lg btn-outline-dark rounded border-0 w-50" data-toggle="modal"
-                            data-target="#exportModal">E-Collection</button>
-                        <div class="modal fade" id="exportModal" tabindex="-1" role="dialog"
-                            aria-labelledby="exportModalLabel" aria-hidden="true">
+                        <button class="btn-lg btn-outline-dark rounded border-0 w-50" data-toggle="modal" data-target="#exportModal">E-Collection</button>
+                        <div class="modal fade" id="exportModal" tabindex="-1" role="dialog" aria-labelledby="exportModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -302,11 +269,33 @@
 
     </div>
 </div>
+<div class="modal fade" id="Submit_deposit" tabindex="-1" role="dialog" aria-labelledby="Submit_depositnModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg d-flex justify-content-center" role="document">
+        <div id="Submit_depositModal" class="modal-content" style="width: 25rem;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="Submit_depositModalLabel">Submit Deposit</h5>
+                <button type="button" class="close text-right pr-4" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body bg-white pb-3">
+                <!-- awdawd -->
+                <div class="d-flex flex-column">
+                    <label class="pb-2">Range of Collection </label>
+                    <input type="date" aria-label="Date from" class="p-1" />
+
+                    <input type="date" aria-label="Date to" class="p-1" />
+                </div>
+            </div>
+            <div class="modal-footer bg-white border-top-0">
+
+                <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded submit-deposit-btn-modal" id="">Submit</button>
+
+            </div>
+        </div>
+    </div>
 </div>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script>
-
-    $(document).ready(function () {
+    $(document).ready(function() {
 
         var table = $('#myTable').DataTable({
             dom: '<"pull-left"b><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
@@ -314,13 +303,13 @@
             scrollCollapse: true,
         });
 
-        $('.search-btn').on('click', function () {
+        $('.search-btn').on('click', function() {
             table.draw();
         });
 
     });
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         var today = new Date();
         var dateString = today.getFullYear() + '-' + (today.getMonth() + 1).toString().padStart(2, '0') + '-' + today.getDate().toString().padStart(2, '0');
         var filename = 'NGSI_E-Collection_' + dateString;
@@ -332,7 +321,7 @@
                 text: 'Export',
                 filename: filename,
                 className: 'export-btn', // Add class name for styling
-                customize: function (csv) {
+                customize: function(csv) {
                     // Modify the header row according to the provided <thead> structure
                     var header = 'Electronic Acknowledgement Receipt, ,, , Amount\n';
                     var header1 = ',, ,, , Breakdown Collection\n';
@@ -343,12 +332,14 @@
         });
 
         // Event handler for month filter
-        $('#monthFilter').on('change', function () {
+        $('#monthFilter').on('change', function() {
             var selectedMonth = $(this).val();
 
             // Use DataTables API to filter by month
             dataTable.column(0).search(selectedMonth ? `-${selectedMonth.padStart(2, '0')}` : "", true, false).draw();
-            var filteredData = dataTable.rows({ search: 'applied' }).data().toArray();
+            var filteredData = dataTable.rows({
+                search: 'applied'
+            }).data().toArray();
         });
     });
     const _jsonData = JSON.parse('<?php echo json_encode($data) ?>')
@@ -359,7 +350,7 @@
 
     }
 
-    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+    $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
         var startDate = $('#start_date').val();
         var endDate = $('#end_date').val();
         var currentDate = data[2]; // Assuming date is at index 2
@@ -374,7 +365,7 @@
         return false;
     });
     // Modal date filter
-    $('.preview-btn-modal').on('click', function () {
+    $('.preview-btn-modal').on('click', function() {
         var modalStartDate = $('#modal_start_date').val();
         var modalEndDate = $('#modal_end_date').val();
 
@@ -464,7 +455,7 @@
         var modalDialog = $('#Daily_CollectionModal .modal-dialog');
 
         // Remove table content when modal is closed
-        $('#Daily_CollectionModal').on('hidden.bs.modal', function (e) {
+        $('#Daily_CollectionModal').on('hidden.bs.modal', function(e) {
             // Reset form fields
             $('#modal_start_date').val('');
             $('#modal_end_date').val('');
@@ -490,11 +481,11 @@
 
     });
 
-    $('#modal_start_date, #modal_end_date').on("change", function () {
+    $('#modal_start_date, #modal_end_date').on("change", function() {
         $('#validationMessage').empty();
     });
 
-    $('.download-btn-modal').on('click', function () {
+    $('.download-btn-modal').on('click', function() {
         var modalStartDate = $('#modal_start_date').val();
         var modalEndDate = $('#modal_end_date').val();
 
@@ -510,7 +501,7 @@
     });
 
     // Remove table content when modal is closed
-    $('#Daily_CollectionModal').on('hidden.bs.modal', function (e) {
+    $('#Daily_CollectionModal').on('hidden.bs.modal', function(e) {
         $('#modalDataTableContainer').empty();
 
     });
@@ -863,7 +854,7 @@
                 html2canvas: {
                     scale: .5
                 },
-                callback: async function (doc) {
+                callback: async function(doc) {
                     // doc.addPage(
                     //     { orientation: 'p', unit: 'px' }
                     // )
@@ -881,6 +872,4 @@
     $('#DownloadECollect').on('click', (e) => console.log(e))
 
     $('botton.btn-print-receipt').on('click', (e) => console.log(e))
-
-
 </script>

@@ -16,7 +16,8 @@
 		"guzzlehttp/guzzle": "^7.7",
 		"phpoffice/phpspreadsheet": "^1.28",
 		"chriskacerguis/codeigniter-restserver": "^3.1",
-		"firebase/php-jwt": "^6.5"
+		"firebase/php-jwt": "^6.5",
+		"lib-curl": "*"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"
