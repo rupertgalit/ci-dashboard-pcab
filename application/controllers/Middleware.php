@@ -300,6 +300,10 @@ class Middleware extends REST_Controller
 
                 $depositLogs[ 'date_covered' ] = $postdata[ 'collection_date_from' ].' to' .$postdata[ 'collection_date_to' ];
 
+                $depositLogs[ 'date_from' ] = $postdata[ 'collection_date_from' ];
+                
+                $depositLogs[ 'date_to' ] = $postdata[ 'collection_date_to' ];
+
                 $this->model->log_deposit( $depositLogs );
 
             }
