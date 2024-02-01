@@ -300,6 +300,10 @@ class Middleware extends REST_Controller
 
                 $depositLogs[ 'date_covered' ] = $postdata[ 'collection_date_from' ].' to' .$postdata[ 'collection_date_to' ];
 
+                $depositLogs[ 'date_from' ] = $postdata[ 'collection_date_from' ];
+                
+                $depositLogs[ 'date_to' ] = $postdata[ 'collection_date_to' ];
+
                 $this->model->log_deposit( $depositLogs );
 
             }
@@ -307,7 +311,7 @@ class Middleware extends REST_Controller
             $this->response( [
                 'status' => true,
                 'message' => 'Success',
-                'data' =>  $depositLogs, ], Rest_Controller::HTTP_UNPROCESSABLE_ENTITY );
+                'data' =>  $depositLogs, ], Rest_Controller::HTTP_OK );
 
             }
 
