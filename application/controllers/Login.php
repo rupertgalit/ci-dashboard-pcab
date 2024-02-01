@@ -9,7 +9,12 @@ class Login extends CI_Controller {
     }
 
     public function index() {
+        if ($this->is_user_logged_in()) {
+            redirect('dashboard');
+        }
+        else {
         $this->load->view('admin/login');
+        }
     }
 
     public function process_login() {
@@ -17,31 +22,17 @@ class Login extends CI_Controller {
         $password = $this->input->post('password');
 
 
-        $UserType = $this->user->get_user($username);
-        if ($UserType !== false) {
-           
-
-            if ($UserType->Password == md5($password)) {
-
-
+        $user = $this->user->get_user($username);
+        if ($user && $password === $user['Password']) {
+            // echo $user['UserType'];
+            // if ($UserType->Password == md5($password)) {
                 $user_data = array(
                     'username' => "admin",
-                    'logged_in' => TRUE
+                    'logged_in' => TRUE,
+                    'usertype' => $user['UserType']
                 );
                 $this->session->set_userdata($user_data);
-
-
-
-                redirect($this->redirect($UserType)->UserType);
-                
-            }else{
-                echo "
-                <script>
-                    alert('Wrong Password.');
-                    window.location.href = '" . base_url('/login') . "';
-                </script>
-            ";
-            }
+                redirect('dashboard');
 
         } else {
          echo "
@@ -75,5 +66,11 @@ class Login extends CI_Controller {
 		$this->session->sess_destroy();
 
 		redirect('login');
+	}
+
+    private function is_user_logged_in()
+	{
+		// Check if the 'logged_in' session variable exists and is set to TRUE
+		return $this->session->userdata('logged_in') === TRUE;
 	}
 }
