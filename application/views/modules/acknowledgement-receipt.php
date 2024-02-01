@@ -426,7 +426,7 @@
         console.log(modalEndDate, modalStartDate)
         // Validation for start and end date
         if (!modalStartDate || !modalEndDate) {
-            $('#validationMessage').html('<span style="font-size:.8rem; color: red; margin-left:1.5rem;" role="alert">Please select both start and end dates.</span>');
+            $('#validationMessage').html('<span style="font-size:.8rem; color: red; text-align:center;" role="alert">Please select both start and end dates.</span>');
             return;
         }
 
@@ -441,7 +441,7 @@
         });
 
         if (!filteredData.length) {
-            $('#validationMessage').html('<span style="font-size:.8rem; color: red; margin-left:1.5rem;" role="alert">No data found for the selected date range.</span>');
+            $('#validationMessage').html('<span style="font-size:.8rem; color: red; text-align:center;" role="alert">No data found for the selected date range.</span>');
             return;
         }
 
@@ -462,7 +462,7 @@
         modalTable.classList.add('table', 'table-bordered', 'table-hover', 'table-striped'); // Add DataTable styling classes
 
         var modalTableHead = document.createElement('thead');
-        modalTableHead.classList.add('thead-light'); // Added light background for the table head
+        modalTableHead.classList.add('thead'); // Added light background for the table head
         modalTableHead.innerHTML = ' <tr><th colspan="8" class="text-center">Collection</th></tr><tr><th rowspan="2">Date & Time</th><th rowspan="2">AR Number</th><th rowspan="2">Name of Payor</th><th rowspan="2">Reference Number</th><th>CIAP-PCAB</th><th>LRF</th><th>DST</th><th rowspan="2">Total Collection</th></tr><tr><th>Account No.</th><th>Account No.</th><th>Account No.</th></tr>';
 
         var modalTableBody = document.createElement('tbody');
