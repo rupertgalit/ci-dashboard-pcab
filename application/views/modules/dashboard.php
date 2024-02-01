@@ -24,11 +24,11 @@
                                 <?php
                                 foreach ($dash_report as $row) {
                                     echo "<tr>";
-                                    echo "<td>" . date_format(date_create($row['date_time']), "m/d/Y") . "</td>";
-                                    echo "<td>" . str_pad($row['ar_number'], 10, "0", STR_PAD_LEFT) . "</td>";
+                                    echo "<td>" . date_format(date_create($row['date']), "m/d/Y") . "</td>";
                                     echo "<td>" . str_pad($row['reference_number'], 10, "0", STR_PAD_LEFT) . "</td>";
+                                    echo "<td>" . str_pad($row['referenceNumber'], 10, "0", STR_PAD_LEFT) . "</td>";
                                     echo "<td>" . $row['name_of_payor'] . "</td>";
-                                    echo "<td class='text-right'>" . number_format((float) $row["total_amount"], 2, '.', '') . "</td>";
+                                    echo "<td class='text-right'>" . number_format((float) $row["txn_amount"], 2, '.', '') . "</td>";
                                     echo "</tr>";
                                 }
                                 ;
@@ -58,11 +58,11 @@
                             <?php
                             foreach ($dash_report as $key => $row) {
                                 echo "<tr>";
-                                echo "<td>" . date_format(date_create($row['date_time']), "m/d/Y") . "</td>";
-                                echo "<td>" . str_pad($row['ar_number'], 10, "0", STR_PAD_LEFT) . "</td>";
+                                echo "<td>" . date_format(date_create($row['date']), "m/d/Y") . "</td>";
                                 echo "<td>" . str_pad($row['reference_number'], 10, "0", STR_PAD_LEFT) . "</td>";
+                                echo "<td>" . str_pad($row['referenceNumber'], 10, "0", STR_PAD_LEFT) . "</td>";
                                 echo "<td>" . $row['name_of_payor'] . "</td>";
-                                echo "<td class='text-right'>" . number_format((float) $row["total_amount"], 2, '.', '') . "</td>";
+                                echo "<td class='text-right'>" . number_format((float) $row["txn_amount"], 2, '.', '') . "</td>";
                                 echo "</tr>";
                             }
                             ;
