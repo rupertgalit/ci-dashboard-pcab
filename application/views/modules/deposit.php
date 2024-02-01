@@ -55,20 +55,20 @@
 
                         <?php
 
-                        foreach ($data as $key => $row) {
+                        foreach ($depositdata as $key => $row) {
                             echo "<tr>";
-                            echo "<td>" . $row["date"] . "</td>";
-                            echo "<td>" . $row["reference_number"] . "</td>";
-                            echo "<td>" . $row["reference_number"] . "</td>";
-                            echo "<td>" . $row["reference_number"] . "</td>";
-                            echo "<td>" . json_encode($_SESSION) . "</td>";
-                            echo "<td>&#8369; " . number_format((float) $row["reference_number"], 2, '.', '') . "</td>";
-                            echo "<td>&#8369; " . number_format((float) $row["ngsi_convenience_fee"], 2, '.', '') . "</td>";
-                            echo "<td>&#8369; " . number_format((float) $row["reference_number"], 2, '.', '') . "</td>";
-                            echo "<td>&#8369; " . number_format((float) $row["reference_number"], 2, '.', '') . "</td>";
-                            echo "<td>&#8369; " . number_format((float) $row["reference_number"], 2, '.', '') . "</td>";
-                            echo "<td>&#8369; " . number_format((float) $row["reference_number"], 2, '.', '') . "</td>";
-                            echo "<td>&#8369; " . number_format((float) $row["reference_number"], 2, '.', '') . "</td>";
+                            echo "<td>" . $row["last_date"] . "</td>";
+                            echo "<td>" . $row["last_txn_amont"] . "</td>";
+                            echo "<td>" . $row["created_at"] . "</td>";
+                            echo "<td>" . $row["ttl_trnsact"] . "</td>";
+                            echo "<td>" .$row["txn_amount"]."</td>";
+                            echo "<td>" . $row["deposited_date"] . "</td>";
+                            echo "<td> " .  $row["deposit_reference_no"] . "</td>";
+                            echo "<td>&#8369; " . number_format((float) $row["legal_research_fund"], 2, '.', '') . "</td>";
+                            echo "<td>&#8369; " . number_format((float) $row["document_stamp_tax"], 2, '.', '') . "</td>";
+                            echo "<td>&#8369; " . number_format((float) $row["fees_pcab"], 2, '.', '') . "</td>";
+                            echo "<td>&#8369; " . number_format((float) $row["deposited_amount"], 2, '.', '') . "</td>";
+                            echo "<td>&#8369; " . number_format((float) $row["date"], 2, '.', '') . "</td>";
                             if ($_SESSION["usertype"] == "superadmin")
                                 echo "<td><button class='btn-sm btn-outline-dark border-0 px-3 py-1 rounded ' type='button' data-toggle='modal' data-target='#editModal'>Settle</button></td>";
                             else

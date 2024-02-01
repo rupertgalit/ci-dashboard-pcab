@@ -22,9 +22,13 @@ class Middleware extends REST_Controller
 
     public function index_post()
     {
-        $this->response( [
-            'messege0' => 'FORBIDDEN'
-        ], Rest_Controller::HTTP_FORBIDDEN );
+
+        $last_data_deposit =     $this->model->last_data_deposit() ;
+
+        echo json_encode( $last_data_deposit);
+        // $this->response( [
+        //     'messege0' => 'FORBIDDEN'
+        // ], Rest_Controller::HTTP_FORBIDDEN );
     }
 
     public function index_get()
@@ -277,7 +281,15 @@ class Middleware extends REST_Controller
         } else {
 
             $getTotalAmount =     $this->model->total_transcation_perday( $postdata ) ;
+            $last_data_deposit =     $this->model->last_data_deposit() ;
 
+            if($last_data_deposit){
+                $depositLogs[ 'last_txn_amont' ] = $last_data_deposit[ 'txn_amount' ];
+                $depositLogs[ 'last_date' ] = $last_data_deposit[ 'created_at' ];
+            }else{
+                $depositLogs[ 'date_to' ] = '';
+                $depositLogs[ 'date_to' ] = '';
+            }
             if ( $getTotalAmount ) {
 
                 $depositLogs[ 'deposited_date' ] = $postdata[ 'deposited_date' ];
@@ -298,10 +310,12 @@ class Middleware extends REST_Controller
 
                 $depositLogs[ 'ttl_trnsact' ] = $getTotalAmount[ 'ttl_trnsact' ];
 
+                $depositLogs[ 'created_at' ] =  date( 'Y-m-d' );
+
                 $depositLogs[ 'date_covered' ] = $postdata[ 'collection_date_from' ].' to' .$postdata[ 'collection_date_to' ];
 
                 $depositLogs[ 'date_from' ] = $postdata[ 'collection_date_from' ];
-                
+
                 $depositLogs[ 'date_to' ] = $postdata[ 'collection_date_to' ];
 
                 $this->model->log_deposit( $depositLogs );
