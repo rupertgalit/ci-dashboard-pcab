@@ -59,14 +59,14 @@ $route['logout']  = 'login/logout';
 
 
 
-$route['test']  = 'welcome/test'; 
+// $route['test']  = 'welcome/test'; 
 $route['transaction-table']  = 'welcome/index';
 $route['acknowledgement-receipt']  = 'welcome/index';
 $route['deposit']  = 'welcome/index';
 $route['dashboard']  = 'welcome/index';
 $route['get-transactions']  = 'welcome/getTransactions';
 
-$route['get-data']  = 'welcome/get_data';
+// $route['get-data']  = 'welcome/get_data';
 //api  deposit_log
 $route['generate-qr'] = 'middleware/generate_qr';
 // $route['all-transaction-data'] = 'api/all_transaction_data';
@@ -74,3 +74,4 @@ $route['generate-qr'] = 'middleware/generate_qr';
 $route['submit-deposit'] = 'middleware/deposit_log';
 $route['deposit-logs'] = 'middleware/all_deposit_data';
 $route['all-transaction-data'] = 'middleware/all_transaction_data';
+$route['logout'] = 'login/logout';

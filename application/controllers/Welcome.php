@@ -91,10 +91,10 @@ class Welcome extends CI_Controller
 		}
 	}
 
-	public function test()
-	{
-		$this->load->view('hello');
-	}
+	// public function test()
+	// {
+	// 	$this->load->view('hello');
+	// }
 
 
 	public function redirect()

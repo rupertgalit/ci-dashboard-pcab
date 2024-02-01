@@ -29,7 +29,8 @@ class Login extends CI_Controller {
                 $user_data = array(
                     'username' => "admin",
                     'logged_in' => TRUE,
-                    'usertype' => $user['UserType']
+                    'usertype' => $user['UserType'],
+                    'fullname' => $user['Fullname']
                 );
                 $this->session->set_userdata($user_data);
                 redirect('dashboard');

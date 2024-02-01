@@ -80,20 +80,20 @@
       <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
         <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
           <img class="img-xs rounded-circle ml-2" src=<?php echo base_url('./assets/images/faces/face8.jpg'); ?>
-            alt="Profile image"> <span class="font-weight-normal"> Henry Klein </span></a>
+            alt="Profile image"> <span class="font-weight-normal"> <?= $this->session->userdata('fullname'); ?> </span></a>
         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
           <div class="dropdown-header text-center">
             <img class="img-md rounded-circle" src=<?php echo base_url('./assets/images/faces/face8.jpg'); ?>
               alt="Profile image">
-            <p class="mb-1 mt-3">Allen Moreno</p>
-            <p class="font-weight-light text-muted mb-0">allenmoreno@gmail.com</p>
+            <p class="mb-1 mt-3"><?= $this->session->userdata('fullname'); ?></p>
+            <!-- <p class="font-weight-light text-muted mb-0">allenmoreno@gmail.com</p> -->
           </div>
           <a class="dropdown-item"><i class="dropdown-item-icon icon-user text-primary"></i> My Profile <span
               class="badge badge-pill badge-danger">1</span></a>
           <!-- <a class="dropdown-item"><i class="dropdown-item-icon icon-speech text-primary"></i> Messages</a>
             <a class="dropdown-item"><i class="dropdown-item-icon icon-energy text-primary"></i> Activity</a>
             <a class="dropdown-item"><i class="dropdown-item-icon icon-question text-primary"></i> FAQ</a> -->
-          <a class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary" href="<?= base_url('login/logout')?>"></i>Sign Out</a>
+          <a class="dropdown-item" href="<?= base_url('logout') ?>"><i class="dropdown-item-icon icon-power text-primary" ></i>SignOut</a>
         </div>
       </li>
     </ul>
