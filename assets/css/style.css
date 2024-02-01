@@ -12690,6 +12690,9 @@ dl {
               padding: 11px 13px;
               cursor: pointer; 
               }
+              .navbar .navbar-menu-wrapper .navbar-nav .nav-item.dropdown .dropdown-menu.navbar-dropdown .dropdown-item:hover {
+              background: #bde8ff!important;
+                }
               .navbar .navbar-menu-wrapper .navbar-nav .nav-item.dropdown .dropdown-menu.navbar-dropdown .dropdown-item i {
                 font-size: 17px; }
               .navbar .navbar-menu-wrapper .navbar-nav .nav-item.dropdown .dropdown-menu.navbar-dropdown .dropdown-item .ellipsis {
@@ -12712,7 +12715,8 @@ dl {
           min-width: 250px;
           margin-top: 9px; }
           .navbar .navbar-menu-wrapper .navbar-nav .nav-item.user-dropdown .dropdown-menu .dropdown-header {
-            padding: 20px; }
+            padding: 20px;
+          background: #fef9f3; }
           .navbar .navbar-menu-wrapper .navbar-nav .nav-item.user-dropdown .dropdown-menu .dropdown-item {
             padding: 10px 15px; }
             .navbar .navbar-menu-wrapper .navbar-nav .nav-item.user-dropdown .dropdown-menu .dropdown-item .dropdown-item-icon {
