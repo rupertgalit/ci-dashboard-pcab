@@ -13,35 +13,41 @@
         border-radius: 4px;
 
     }
-    a:focus, input:focus{
-        border: 2px solid #000!important;
+
+    a:focus,
+    input:focus {
+        border: 2px solid #000 !important;
     }
-   
+
     .custom-button:hover {
         background-color: #45a049;
         /* Darker Green */
     }
+
     table {
         border-top: 1px black solid;
-    } 
+    }
+
     .export-btn {
-        color:#000 !important;
-        background: #bde8ff!important;
-        border: 1px solid black!important;
-        
+        color: #000 !important;
+        background: #bde8ff !important;
+        border: 1px solid black !important;
+
     }
-  
-    .modal-header .close{
-        margin: -43px -26px -25px auto!important;
-        color:#555!important;
+
+    .modal-header .close {
+        margin: -43px -26px -25px auto !important;
+        color: #555 !important;
     }
-    .modal .modal-dialog .modal-content .modal-header{
-        display: inline-block!important;
+
+    .modal .modal-dialog .modal-content .modal-header {
+        display: inline-block !important;
     }
+
     .modal .modal-dialog .modal-content .modal-header .close span {
-    font-size: 20px;
-    font-weight: 900!important;
-    color: #6a6a6a;
+        font-size: 20px;
+        font-weight: 900 !important;
+        color: #6a6a6a;
     }
 
 
@@ -61,17 +67,20 @@
 
     .btn-generate-container button {
         min-width: 13rem;
-        background:#00507a;
+        background: #00507a;
     }
+
     .btn-generate-container button:hover {
         min-width: 13rem;
-        background:#909090;
+        background: #909090;
     }
-    .close{
-        background: none!important;
+
+    .close {
+        background: none !important;
     }
-    .close:hover{
-        background: none!important;
+
+    .close:hover {
+        background: none !important;
     }
 
 
@@ -103,44 +112,33 @@
                         </div>
                     </div>
 
-                    
+
                     <div class=" col-mb-3 mr-3 mt-3">
-                        <button class="btn-lg btn-outline-dark rounded border-0" data-toggle="modal"
-                            data-target="#Daily_CollectionModal">Daily Collection</button>
-                        <div class="modal fade" id="Daily_CollectionModal" tabindex="-1" role="dialog"
-                            aria-labelledby="Daily_CollectionModalLabel" aria-hidden="true">
+                        <button class="btn-lg btn-outline-dark rounded border-0" data-toggle="modal" data-target="#Daily_CollectionModal">Daily Collection</button>
+                        <div class="modal fade" id="Daily_CollectionModal" tabindex="-1" role="dialog" aria-labelledby="Daily_CollectionModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-sm" role="document">
-                                <div id="DailyCollectModal" class="modal-content">
+                                <div id="DailyCollectModal" class="modal-content" style="width:22rem;">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="Daily_CollectionModalLabel">Daily Collection</h5>
-                                        <button type="button" class="close text-right pr-4" data-dismiss="modal"
-                                            aria-hidden="true">&times;</button>
+                                        <button type="button" class="close text-right pr-4 text-dark" data-dismiss="modal" aria-hidden="true">&times;</button>
                                     </div>
                                     <div class="modal-body bg-white pb-3">
                                         <div class="row mb-2">
-                                            <div class="col-12 d-flex flex-row flex-wrap">
-                                                <label for="modal_start_date"
-                                                    class="mr-2 d-flex align-items-center">Start Date:</label>
-                                                <input type="date" id="modal_start_date" class="form-control"
-                                                    style="width: 16rem;">
-                                                <label for="modal_end_date"
-                                                    class="mr-2  d-flex align-items-center">End Date:</label>
-                                                <input type="date" id="modal_end_date" class="form-control"
-                                                    style="width: 16rem;">
+                                            <div class="col-12 d-flex flex-column">
+                                                <label for="modal_start_date" class="mr-2 d-flex align-items-center">Start Date:</label>
+                                                <input type="date" id="modal_start_date" class="form-control w-100" style="width: 16rem;">
+                                                <label for="modal_end_date" class="mr-2 d-flex align-items-center">End Date:</label>
+                                                <input type="date" id="modal_end_date" class="form-control w-100" style="width: 16rem;">
                                                 <div id="validationMessage"></div>
                                             </div>
                                         </div>
 
                                         <div id="modalDataTableContainer" class="overflow-auto"></div>
                                     </div>
-                                    <div class="modal-footer bg-white border-top-0">
-                                        <button type="button"
-                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded preview-btn-modal">Preview</button>
-                                        <button type="button"  onclick="downloadPDF()"
-                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded" >Download</button>
-                                        <button type="button"
-                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded "data-toggle="modal"
-                            data-target="#Submit_deposit" id="submit-deposit">Submit Deposit</button>
+                                    <div class="modal-footer bg-white border-top-0 d-flex flex-column">
+                                        <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded preview-btn-modal">Preview</button>
+                                        <button type="button" onclick="downloadPDF()" class="btn-sm btn-outline-dark mr-3 mb-2 rounded">Download</button>
+                                        <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded " data-toggle="modal" data-target="#Submit_deposit" id="submit-deposit" data-backdrop="static" data-keyboard="false">Submit Deposit</button>
 
                                     </div>
                                 </div>
@@ -150,10 +148,8 @@
 
                     </div>
                     <div class=" col-mb-3 mr-3 mt-3">
-                        <button class="btn-lg btn-outline-dark rounded border-0 w-50" data-toggle="modal"
-                            data-target="#exportModal">E-Collection</button>
-                        <div class="modal fade" id="exportModal" tabindex="-1" role="dialog"
-                            aria-labelledby="exportModalLabel" aria-hidden="true">
+                        <button class="btn-lg btn-outline-dark rounded border-0 w-50" data-toggle="modal" data-target="#exportModal">E-Collection</button>
+                        <div class="modal fade" id="exportModal" tabindex="-1" role="dialog" aria-labelledby="exportModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -217,7 +213,7 @@
                                                     echo "<td>"  . $row["txn_amount"] .  "</td>";
                                                     echo "<td>"  . $row["txn_amount"] .  "</td>";
 
-                                                 
+
                                                     echo "<td></td>";
 
                                                     echo "</tr>";
@@ -313,34 +309,44 @@
 </div>
 <div class="modal fade" id="Submit_deposit" tabindex="-1" role="dialog" aria-labelledby="Submit_depositnModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg d-flex justify-content-center" role="document">
-        <div id="Submit_depositModal" class="modal-content" style="width: 25rem;">
+        <div id="Submit_depositModal" class="modal-content" style="width: 24rem;">
             <div class="modal-header">
-                <h5 class="modal-title" id="Submit_depositModalLabel">Collection to Settle</h5>
-                <button type="button" class="close text-right pr-4" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h5 class="modal-title" id="Submit_depositModalLabel">Collections Settlement</h5>
+                <button type="button" class="close text-right pr-4 text-dark" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body bg-white pb-3">
                 <!-- awdawd -->
                 <div class="d-flex flex-column">
                     <label class="pb-1">Day(s) of Collection</label>
-                    <div for="dateFrom">
-                        <span>From</span>
-                        <input type="date" id="dateFrom" aria-label="Date from" class="p-2 border rounded"></input>
+                    <div class="d-flex flex-row justify-content-between mt-3">
+                        <div id="dateRange">
+                            <span>From *</span>
+                            <input type="date" name="collection_date_from" class="p-2 border rounded" value="<?php echo date('Y-m-d'); ?>">
 
+                        </div>
+                        <div id="dateRange">
+                            <span>To *</span>
+                            <input type="date" name="collection_date_to" class="p-2 border border-black rounded" value="<?php echo date('Y-m-d'); ?>">
+                        </div>
                     </div>
-                    <div for="dateFrom" class="mt-4">
-                        <span>To</span>
-                        <input type="date" id="dateTo" aria-label="Date to" class="p-2 border border-black rounded"></input>
+                    <div id="referenceNo">
+                        <span>Reference No. *</span>
+                        <input type="text" name="deposit_reference_no" class="p-2 pl-3 border border-black mt-3 rounded w-100">
                     </div>
-                    <input type="text" id="referreceNo" aria-label="Date to" class="p-2 border border-black mt-2 rounded"></input>
-                    <input type="text" id="dateOfDeposit" aria-label="Date to" class="p-2 border border-black mt-2 rounded"></input>
-                    <input type="text" id="depositedAmount" aria-label="Date to" class="p-2 border border-black mt-2 rounded"></input>
-                    <input type="text" id="dateTo" aria-label="Date to" class="p-2 border border-black mt-2 rounded"></input>
+                    <div id="dateOfDeposit">
+                        <span>Date of Deposit *</span>
+                        <input type="date" name="deposited_date" class="p-2 pl-3 border border-black mt-3 rounded w-100">
+                    </div>
+                    <div id="depositedAmount">
+                        <span>Deposited Amount *</span>
+                        <input type="text" name="deposited_amount" class="p-2 pl-3 border border-black mt-3 rounded w-100">
+                    </div>
                 </div>
             </div>
             <div class="modal-footer bg-white border-top-0">
 
-                <button type="button" class="btn-sm btn-outline-dark m-0 ml-2 mb-2 rounded submit-deposit-btn-modal" id="">Cancel</button>
-                <button type="button" class="btn-sm btn-outline-dark m-0 ml-2 mb-2 rounded submit-deposit-btn-modal" id="">Submit</button>
+                <button type="button" class="btn-sm border-0 m-0 ml-2 mb-2 rounded close-modal bg-secondary" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                <button type="button" class="btn-sm border-0 m-0 ml-2 mb-2 rounded submit-deposit-btn-modal bg-info" id="submitDeposit">Submit</button>
 
             </div>
         </div>
@@ -348,10 +354,9 @@
 </div>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
 <script>
-
-    $(document).ready(function () {
+    $(document).ready(function() {
 
         var table = $('#myTable').DataTable({
             dom: '<"pull-left"b><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
@@ -359,13 +364,13 @@
             scrollCollapse: true,
         });
 
-        $('.search-btn').on('click', function () {
+        $('.search-btn').on('click', function() {
             table.draw();
         });
 
     });
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         var today = new Date();
         var dateString = today.getFullYear() + '-' + (today.getMonth() + 1).toString().padStart(2, '0') + '-' + today.getDate().toString().padStart(2, '0');
         var filename = 'NGSI_E-Collection_' + dateString;
@@ -377,7 +382,7 @@
                 text: 'Export',
                 filename: filename,
                 className: 'export-btn', // Add class name for styling
-                customize: function (csv) {
+                customize: function(csv) {
                     // Modify the header row according to the provided <thead> structure
                     var header = 'Electronic Acknowledgement Receipt, ,, , Amount\n';
                     var header1 = ',, ,, , Breakdown Collection\n';
@@ -388,12 +393,14 @@
         });
 
         // Event handler for month filter
-        $('#monthFilter').on('change', function () {
+        $('#monthFilter').on('change', function() {
             var selectedMonth = $(this).val();
 
             // Use DataTables API to filter by month
             dataTable.column(0).search(selectedMonth ? `-${selectedMonth.padStart(2, '0')}` : "", true, false).draw();
-            var filteredData = dataTable.rows({ search: 'applied' }).data().toArray();
+            var filteredData = dataTable.rows({
+                search: 'applied'
+            }).data().toArray();
         });
     });
     const _jsonData = JSON.parse('<?php echo json_encode($data) ?>')
@@ -404,7 +411,7 @@
 
     }
 
-    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+    $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
         var startDate = $('#start_date').val();
         var endDate = $('#end_date').val();
         var currentDate = data[2]; // Assuming date is at index 2
@@ -419,7 +426,7 @@
         return false;
     });
     // Modal date filter
-    $('.preview-btn-modal').on('click', function () {
+    $('.preview-btn-modal').on('click', function() {
         var modalStartDate = $('#modal_start_date').val();
         var modalEndDate = $('#modal_end_date').val();
 
@@ -509,7 +516,7 @@
         var modalDialog = $('#Daily_CollectionModal .modal-dialog');
 
         // Remove table content when modal is closed
-        $('#Daily_CollectionModal').on('hidden.bs.modal', function (e) {
+        $('#Daily_CollectionModal').on('hidden.bs.modal', function(e) {
             // Reset form fields
             $('#modal_start_date').val('');
             $('#modal_end_date').val('');
@@ -535,11 +542,11 @@
 
     });
 
-    $('#modal_start_date, #modal_end_date').on("change", function () {
+    $('#modal_start_date, #modal_end_date').on("change", function() {
         $('#validationMessage').empty();
     });
 
-    $('.download-btn-modal').on('click', function () {
+    $('.download-btn-modal').on('click', function() {
         var modalStartDate = $('#modal_start_date').val();
         var modalEndDate = $('#modal_end_date').val();
 
@@ -555,120 +562,120 @@
     });
 
     // Remove table content when modal is closed
-    $('#Daily_CollectionModal').on('hidden.bs.modal', function (e) {
+    $('#Daily_CollectionModal').on('hidden.bs.modal', function(e) {
         $('#modalDataTableContainer').empty();
 
     });
 
 
 
-//     async function printDailyReport(startDate, endDate) {
+    //     async function printDailyReport(startDate, endDate) {
 
-//         // Your code to fetch data and generate PDF report goes here
-//         const filteredData = _jsonData.filter(object => object.date_time >= startDate && object.date_time <= endDate);
+    //         // Your code to fetch data and generate PDF report goes here
+    //         const filteredData = _jsonData.filter(object => object.date_time >= startDate && object.date_time <= endDate);
 
-//         let doc = new jspdf.jsPDF({
-//             orientation: 'p',
-//             unit: 'px'
-//         })
+    //         let doc = new jspdf.jsPDF({
+    //             orientation: 'p',
+    //             unit: 'px'
+    //         })
 
-//         let printContent = `
-      
-//         `;
-//         let i = 1;
-//         let content = "";
-//         let totalAmount = 0
-//         let yOffset = 0; // Track vertical position
+    //         let printContent = `
 
-//         while (i) {
-//             let dataToPopulate = filteredData;
-//             // let remainingData = filteredData.length - 10;
-//             let rows = [];
-//             // splice(starting index e.g. 0, range of indexes e.g. 10)
-//             let pivot = i * 10
-//             console.log(i, filteredData.splice(0, 10))
-//             console.log(dataToPopulate)
-//             i++
-//             if (i >= 10) i = -1;
+    //         `;
+    //         let i = 1;
+    //         let content = "";
+    //         let totalAmount = 0
+    //         let yOffset = 0; // Track vertical position
 
-
-//             //             ${i % 2 == 1 ? '<div class="row" style="width: 52vw; border-bottom:1px black solid; border-bottom-style: dashed; margin: 6rem 0 6.18rem 0"></div>' : ''}
-//             // ${i % 2 == 1 && i != 39 ? "margin-bottom:12rem !important;" : ""}
-
-//             const content = (row) => `
-//             <div class="row row-data">
-//                 <div class="border border-dark border-right-0 border-top-0 col">${row?.date_time ?? "&nbsp;"}</div>
-//                 <div class="border border-dark border-right-0 border-top-0 col">${row?.ar_number ?? ""}</div>
-//                 <div class="border border-dark border-right-0 border-top-0 col">${row?.name_of_payor ?? ""}</div>
-//                 <div class="border border-dark border-right-0 border-top-0 col">${row?.particulars ?? ""}</div>
-//                 <div class="border border-dark border-right-0 border-top-0 col-2">${row?.reference_number ?? ""}</div>
-//                 <div class="border border-dark border-right-0 border-top-0 col">${row?.particulars ?? ""}</div>
-//                 <div class="border border-dark border-right-0 border-top-0 col">${row?.reference_number ?? ""}</div>
-//                 <div class="border border-dark border-top-0 col text-right">${parseFloat(row?.total_amount ?? 0).toFixed(2)}</div>
-//             </div>
-//             `;
-//             let content = `</div>
-//         <div class="row t-total-row">
-//         <div class="border border-dark border-right-0 border-top-0 col"></div>
-//         <div class="border border-dark border-right-0 border-top-0 col"></div>
-//         <div class="border border-dark border-right-0 border-top-0 col"></div>
-//         <div class="border border-dark border-right-0 border-top-0 col text-center">Total Amount</div>
-//         <div class="border border-dark border-right-0 border-top-0 col-2"></div>
-//         <div class="border border-dark border-right-0 border-top-0 col"></div>
-//         <div class="border border-dark border-right-0 border-top-0 col"></div>
-//         <div class="border border-dark border-top-0 col text-right">P &nbsp; [total-amount]</div>
-//     </div>
-// </div>
-// </div>
-// <div class="row mt-4" >
-//                                         <div class="col" style="position:relative; margin-left:6.5rem;  ">
-                                            
-//                                             <p >Prepared By: </p>
-                        
-//                                         </div>
-//                                         <div class="col" style="position:relative;left:120px; ">
-                                            
-//                                             <p >Checked & Certified By: </p>
-                                           
-//                                         </div>
-//                                     </div>
-// <div class="row" style="height:6rem;  margin-bottom:4rem;">
-//                                         <div class="col" style="position:relative; margin-left:6.5rem;  ">
-//                                         <img style="margin-left: 5rem;background-position:center;z-index:0;transform:scale(1.1);display:block;position:relative;"  height="70px" src="assets/images/ma'am_je.png" alt="logo" class="logo-dark" />
-//                                             <p style="margin-top:-20px;margin-left:87px;font-size:18px;font-family:Arial,Helvetica,sans-serif;z-index:1;position:relative;">
-//                                                    Jeremie Soliveres </p>
-//                                             <p style="margin-top:-24px;margin-left:90px;font-family:Arial,Helvetica,sans-serif;font-size:12px;z-index:1;position:relative;">
-//                                                 Accounting Specialist</p>
-//                                                 <p style="margin-top:-22px;margin-left:90px;font-family:Arial,Helvetica,sans-serif;font-size:12px;z-index:1;position:relative;">
-//                                                 Netglobal Solution Inc</p>
-//                                         </div>
-//                                         <div class="col" style="position:relative;left:120px; margin-top:4.5rem;">
-                                            
-                                            
-//                                             <p style="margin-top:-25px;margin-left:10rem;font-size:18px;font-family:Arial,Helvetica,sans-serif;z-index:1;position:relative;">
-//                                             Mischell A. Fernandez</p>
-//                                             <p style=" margin-top:-24px;margin-left:10rem;font-family:Arial,Helvetica,sans-serif;font-size:12px;z-index:1;position:relative;">
-//                                             Admin Officer III/Cashier II </p>
-//                                             <p style=" margin-top:-22px;margin-left:10rem;font-family:Arial,Helvetica,sans-serif;font-size:12px;z-index:1;position:relative;">
-//                                             CIAP </p>
-//                                         </div>
-//                                     </div>
-// </div>
-// </div>`
+    //         while (i) {
+    //             let dataToPopulate = filteredData;
+    //             // let remainingData = filteredData.length - 10;
+    //             let rows = [];
+    //             // splice(starting index e.g. 0, range of indexes e.g. 10)
+    //             let pivot = i * 10
+    //             console.log(i, filteredData.splice(0, 10))
+    //             console.log(dataToPopulate)
+    //             i++
+    //             if (i >= 10) i = -1;
 
 
-//             doc.html(`<div id="PDFContent" class="mx-auto d-flex flex-column border-dark" style="width:55.8rem;padding-top:6rem;/*border:1px black solid;*/">${content(data)}</div>`, {
-//                 html2canvas: {
-//                     scale: .5
-//                 },
-//                 async callback(pdf) {
-//                     const date = new Date();
-//                     document.querySelector(".card").innerHTML = content(data);
-//                     // await pdf.save(`receipt-${date.toLocaleDateString()}.pdf`);
-//                 },
-//             })
-//         }
-//     }
+    //             //             ${i % 2 == 1 ? '<div class="row" style="width: 52vw; border-bottom:1px black solid; border-bottom-style: dashed; margin: 6rem 0 6.18rem 0"></div>' : ''}
+    //             // ${i % 2 == 1 && i != 39 ? "margin-bottom:12rem !important;" : ""}
+
+    //             const content = (row) => `
+    //             <div class="row row-data">
+    //                 <div class="border border-dark border-right-0 border-top-0 col">${row?.date_time ?? "&nbsp;"}</div>
+    //                 <div class="border border-dark border-right-0 border-top-0 col">${row?.ar_number ?? ""}</div>
+    //                 <div class="border border-dark border-right-0 border-top-0 col">${row?.name_of_payor ?? ""}</div>
+    //                 <div class="border border-dark border-right-0 border-top-0 col">${row?.particulars ?? ""}</div>
+    //                 <div class="border border-dark border-right-0 border-top-0 col-2">${row?.reference_number ?? ""}</div>
+    //                 <div class="border border-dark border-right-0 border-top-0 col">${row?.particulars ?? ""}</div>
+    //                 <div class="border border-dark border-right-0 border-top-0 col">${row?.reference_number ?? ""}</div>
+    //                 <div class="border border-dark border-top-0 col text-right">${parseFloat(row?.total_amount ?? 0).toFixed(2)}</div>
+    //             </div>
+    //             `;
+    //             let content = `</div>
+    //         <div class="row t-total-row">
+    //         <div class="border border-dark border-right-0 border-top-0 col"></div>
+    //         <div class="border border-dark border-right-0 border-top-0 col"></div>
+    //         <div class="border border-dark border-right-0 border-top-0 col"></div>
+    //         <div class="border border-dark border-right-0 border-top-0 col text-center">Total Amount</div>
+    //         <div class="border border-dark border-right-0 border-top-0 col-2"></div>
+    //         <div class="border border-dark border-right-0 border-top-0 col"></div>
+    //         <div class="border border-dark border-right-0 border-top-0 col"></div>
+    //         <div class="border border-dark border-top-0 col text-right">P &nbsp; [total-amount]</div>
+    //     </div>
+    // </div>
+    // </div>
+    // <div class="row mt-4" >
+    //                                         <div class="col" style="position:relative; margin-left:6.5rem;  ">
+
+    //                                             <p >Prepared By: </p>
+
+    //                                         </div>
+    //                                         <div class="col" style="position:relative;left:120px; ">
+
+    //                                             <p >Checked & Certified By: </p>
+
+    //                                         </div>
+    //                                     </div>
+    // <div class="row" style="height:6rem;  margin-bottom:4rem;">
+    //                                         <div class="col" style="position:relative; margin-left:6.5rem;  ">
+    //                                         <img style="margin-left: 5rem;background-position:center;z-index:0;transform:scale(1.1);display:block;position:relative;"  height="70px" src="assets/images/ma'am_je.png" alt="logo" class="logo-dark" />
+    //                                             <p style="margin-top:-20px;margin-left:87px;font-size:18px;font-family:Arial,Helvetica,sans-serif;z-index:1;position:relative;">
+    //                                                    Jeremie Soliveres </p>
+    //                                             <p style="margin-top:-24px;margin-left:90px;font-family:Arial,Helvetica,sans-serif;font-size:12px;z-index:1;position:relative;">
+    //                                                 Accounting Specialist</p>
+    //                                                 <p style="margin-top:-22px;margin-left:90px;font-family:Arial,Helvetica,sans-serif;font-size:12px;z-index:1;position:relative;">
+    //                                                 Netglobal Solution Inc</p>
+    //                                         </div>
+    //                                         <div class="col" style="position:relative;left:120px; margin-top:4.5rem;">
+
+
+    //                                             <p style="margin-top:-25px;margin-left:10rem;font-size:18px;font-family:Arial,Helvetica,sans-serif;z-index:1;position:relative;">
+    //                                             Mischell A. Fernandez</p>
+    //                                             <p style=" margin-top:-24px;margin-left:10rem;font-family:Arial,Helvetica,sans-serif;font-size:12px;z-index:1;position:relative;">
+    //                                             Admin Officer III/Cashier II </p>
+    //                                             <p style=" margin-top:-22px;margin-left:10rem;font-family:Arial,Helvetica,sans-serif;font-size:12px;z-index:1;position:relative;">
+    //                                             CIAP </p>
+    //                                         </div>
+    //                                     </div>
+    // </div>
+    // </div>`
+
+
+    //             doc.html(`<div id="PDFContent" class="mx-auto d-flex flex-column border-dark" style="width:55.8rem;padding-top:6rem;/*border:1px black solid;*/">${content(data)}</div>`, {
+    //                 html2canvas: {
+    //                     scale: .5
+    //                 },
+    //                 async callback(pdf) {
+    //                     const date = new Date();
+    //                     document.querySelector(".card").innerHTML = content(data);
+    //                     // await pdf.save(`receipt-${date.toLocaleDateString()}.pdf`);
+    //                 },
+    //             })
+    //         }
+    //     }
     async function printRow(trans_id) {
         const rowData = _jsonData.find(obj => obj.trans_id == trans_id)
         let doc = new jspdf.jsPDF({
@@ -814,7 +821,7 @@
                 html2canvas: {
                     scale: .5
                 },
-                callback: async function (doc) {
+                callback: async function(doc) {
                     // doc.addPage(
                     //     { orientation: 'p', unit: 'px' }
                     // )
@@ -837,12 +844,57 @@
         // const doc = new jsPDF();
         // doc.autoTable({ html: '#myTable' });
         // doc.save('table.pdf');
-        
+
         var pdf = new jsPDF();
-            pdf.text(20,20,"Employee Details");
-            pdf.autoTable({html:'#myTable'});
-            window.open(URL.createObjectURL(pdf.output("blob")))
+        pdf.text(20, 20, "Employee Details");
+        pdf.autoTable({
+            html: '#myTable'
+        });
+        window.open(URL.createObjectURL(pdf.output("blob")))
 
 
     }
+
+    $("#referenceNo input, #dateOfDeposit input, #depositedAmount input").on("input", function() {
+        if (this.value != "") {
+            this.parentElement.classList.add("filled")
+            this.parentElement.classList.remove("error")
+        } else
+            this.parentElement.classList.remove("filled", "error")
+    })
+
+    $("#submitDeposit").on("click", async () => {
+        let payload = {}
+        let isInvalid = false
+        $("#Submit_deposit input").each(function() {
+            let value = this.value
+
+            if (this.name == "deposited_date") {
+                value = new Date(this.value) <= new Date() ? this.value : ""
+            }
+
+            if (value == "") {
+                this.parentElement.classList.add("error")
+                isInvalid = true;
+                return;
+            }
+
+            payload[this.name] = this.value;
+        })
+        console.log(payload)
+        if (isInvalid) return;
+
+        $(".modal button[data-dismiss=modal").each(function() {
+            this.click()
+        })
+
+        const res = await fetch("/submit-deposit", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        })
+        console.log(await res.json())
+    })
 </script>

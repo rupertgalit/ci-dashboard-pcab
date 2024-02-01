@@ -5,7 +5,7 @@ body {
 
 button {
 	background-color: #908e8e;
-	color: #FFF !important
+	color: #fff !important;
 }
 
 .active::before {
@@ -31,8 +31,7 @@ div.container-scroller {
 
 div.main-panel #myTable_wrapper div.row div#myTable_length
 
-/*.dataTables-length*/
-	{
+/*.dataTables-length*/ {
 	margin-top: 10px;
 }
 
@@ -222,7 +221,14 @@ div.card-body {
 }
 
 .modal {
-	backdrop-filter: brightness(.5)!important;
+	backdrop-filter: brightness(0.5) !important;
+}
+
+.error > input,
+.error > label,
+.error > span {
+	border-color: #ef5350!important;
+	color: #ef5350!important;
 }
 
 table {
@@ -284,11 +290,51 @@ table tr:nth-child(odd) {
 	margin: 1rem;
 }
 
-.modal#Submit_deposit div > span {
+.modal#Submit_deposit div#dateRange > span {
 	position: absolute;
+	background-color: #fff;
+	font-size: 13px;
+	margin-top: -0.6rem;
+	margin-left: 0.6rem;
+	padding: 0 5px;
+}
+.modal#Submit_deposit div#dateRange > input {
+	font-size: 14px;
+	width: 10rem;
+	padding-left: 1rem !important;
+}
+.modal#Submit_deposit div#referenceNo span,
+.modal#Submit_deposit div#dateOfDeposit span,
+.modal#Submit_deposit div#depositedAmount span {
+	position: absolute;
+	opacity: 0.5;
+	background-color: #fff;
+	font-size: 13px;
+	margin-top: 1.7rem;
+	margin-left: 0.6rem;
+	padding: 0 5px;
+	pointer-events: none;
+	transition: all 200ms;
+}
+
+.modal#Submit_deposit div#referenceNo.filled span,
+.modal#Submit_deposit div#dateOfDeposit.filled span,
+.modal#Submit_deposit div#depositedAmount.filled span {
+	opacity: 1;
+	margin-top: 0.4rem;
+}
+
+.modal#Submit_deposit div#dateOfDeposit span {
+	opacity: 1;
+	margin-top: 0.4rem;
+}
+
+/* .modal#Submit_deposit div#requirements input#referenceNo:focus > span {
+	position: absolute;
+    opacity: .6;
     background-color: #FFF;
     font-size: 13px;
-    margin-top: -0.6rem;
+    margin-top: 1.7rem;
     margin-left: 0.6rem;
     padding: 0 5px;
 }
@@ -299,6 +345,8 @@ table tr:nth-child(odd) {
     white-space: nowrap;
 	border: 0.52px solid black;
 }
+    pointer-events: none;
+} */
 
 /* .card {
         min-height: 0;
