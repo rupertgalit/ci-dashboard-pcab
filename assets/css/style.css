@@ -1988,7 +1988,9 @@ th {
 
 label {
   display: inline-block;
-  margin-bottom: 0.5rem; }
+  margin-bottom: 0.5rem;
+font-weight: 600!important; }
+
 
 button {
   border-radius: 0; }
@@ -12686,7 +12688,8 @@ dl {
             .navbar .navbar-menu-wrapper .navbar-nav .nav-item.dropdown .dropdown-menu.navbar-dropdown .dropdown-item {
               margin-bottom: 0;
               padding: 11px 13px;
-              cursor: pointer; }
+              cursor: pointer; 
+              }
               .navbar .navbar-menu-wrapper .navbar-nav .nav-item.dropdown .dropdown-menu.navbar-dropdown .dropdown-item i {
                 font-size: 17px; }
               .navbar .navbar-menu-wrapper .navbar-nav .nav-item.dropdown .dropdown-menu.navbar-dropdown .dropdown-item .ellipsis {
@@ -12846,7 +12849,7 @@ dl {
           font-family: "Open Sans", sans-serif;
           font-weight: 600; }
         .sidebar .nav .nav-item.active:not(.navbar-brand-mini-wrapper) > .nav-link i {
-          color: #38ce3c; }
+          color: #32b8ff; }
       .sidebar .nav .nav-item:not(.nav-category):hover {
         background: #2c2c43; }
       .sidebar .nav .nav-item.nav-profile {

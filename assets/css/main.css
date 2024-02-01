@@ -231,11 +231,13 @@ table {
 
 table thead th {
 	padding: 0.5rem;
-	background-color: #bfe7c1 !important;
+	background-color: #00507a  !important;
 	text-align: left;
+	color: white;
 	font-size: 0.8rem;
 	font-weight: 700;
 }
+
 
 table tr td {
 	padding-top: 0.3rem;
@@ -265,7 +267,7 @@ table td {
 }
 
 table tr:nth-child(even) {
-	background-color: #e5f4e6 !important;
+	background-color: #bde8ff !important;
 }
 
 table tr:nth-child(odd) {
@@ -289,6 +291,13 @@ table tr:nth-child(odd) {
     margin-top: -0.6rem;
     margin-left: 0.6rem;
     padding: 0 5px;
+}
+.table th, .table td {
+    vertical-align: middle;
+    font-size: 0.875rem;
+    line-height: 0.6!important;
+    white-space: nowrap;
+	border: 0.52px solid black;
 }
 
 /* .card {

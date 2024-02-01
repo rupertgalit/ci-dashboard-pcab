@@ -13,20 +13,37 @@
         border-radius: 4px;
 
     }
-
-    .export-btn {
-        color: black !important;
-        /* Ensure the color is applied */
+    a:focus, input:focus{
+        border: 2px solid #000!important;
     }
-
+   
     .custom-button:hover {
         background-color: #45a049;
         /* Darker Green */
     }
-
     table {
         border-top: 1px black solid;
+    } 
+    .export-btn {
+        color:#000 !important;
+        background: #bde8ff!important;
+        border: 1px solid black!important;
+        
     }
+  
+    .modal-header .close{
+        margin: -43px -26px -25px auto!important;
+        color:#555!important;
+    }
+    .modal .modal-dialog .modal-content .modal-header{
+        display: inline-block!important;
+    }
+    .modal .modal-dialog .modal-content .modal-header .close span {
+    font-size: 20px;
+    font-weight: 900!important;
+    color: #6a6a6a;
+    }
+
 
     th {
         border: 1px black solid;
@@ -44,6 +61,17 @@
 
     .btn-generate-container button {
         min-width: 13rem;
+        background:#00507a;
+    }
+    .btn-generate-container button:hover {
+        min-width: 13rem;
+        background:#909090;
+    }
+    .close{
+        background: none!important;
+    }
+    .close:hover{
+        background: none!important;
     }
 
 
@@ -96,7 +124,7 @@
                                                 <input type="date" id="modal_start_date" class="form-control"
                                                     style="width: 16rem;">
                                                 <label for="modal_end_date"
-                                                    class="mr-2 ml-4 d-flex align-items-center">End Date:</label>
+                                                    class="mr-2  d-flex align-items-center">End Date:</label>
                                                 <input type="date" id="modal_end_date" class="form-control"
                                                     style="width: 16rem;">
                                                 <div id="validationMessage"></div>
@@ -222,7 +250,7 @@
 
                     </div>
                     <div class="col-md-auto mb-2 d-flex align-items-end">
-                        <button class="btn-outline-dark border-0 btn-sm w-100 h-50 px-4 search-btn">Select</button>
+                        <button class="btn-outline-dark border-0 btn-sm w-100 h-50 px-4 search-btn" style="background:#bde8ff!important; color:black!important;border:1px solid black!important;">Select</button>
                     </div>
                 </div>
             </div>
@@ -266,7 +294,7 @@
                                 echo "<td>&#8369; " . $row["document_stamp_tax"] . "</td>";
                                 echo "<td>&#8369; " . $row["document_stamp_tax"] . "</td>";
                                 echo "<td>" . $row['txn_amount'] . "</td>";
-                                echo "<td><button type='button'style='width: 80px; height: 25px;' class=' btn-outline-dark border-0 btn-print-receipt' data-receipt-id='" . $row['trans_id'] . "'  onclick='printRow(" . $row['trans_id'] . ")'>Download</button></td>";
+                                echo "<td><button type='button'style='width: 80px; height: 25px; background: #555;' class=' btn-outline-dark border-0 btn-print-receipt' data-receipt-id='" . $row['trans_id'] . "'  onclick='printRow(" . $row['trans_id'] . ")'>Download</button></td>";
                                 echo "</tr>";
                             }
                         }

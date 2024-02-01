@@ -6,7 +6,7 @@
                 <div class="card">
                     <div class="card-title">
                         ack. report table
-                        <a class=" btn-success btn-view-all-ack " href="acknowledgement-receipt">View All</a>
+                        <a class=" btn-success btn-view-all-ack " href="acknowledgement-receipt" style="background: #555!important;">View All</a>
                     </div>
 
                     <div class="card-body">
@@ -41,7 +41,7 @@
             <div class="col-6">
                 <div class="card-title">
                     deposit table
-                    <a class=" btn-success btn-view-all" href="deposit">View All</a>
+                    <a class=" btn-success btn-view-all" href="deposit"style="background: #555!important;" >View All</a>
                 </div>
                 <div class="card-body">
                     <table class="deposit-table">
