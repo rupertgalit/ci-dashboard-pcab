@@ -307,7 +307,7 @@ class Middleware extends REST_Controller
             $this->response( [
                 'status' => true,
                 'message' => 'Success',
-                'data' =>  $depositLogs, ], Rest_Controller::HTTP_UNPROCESSABLE_ENTITY );
+                'data' =>  $depositLogs, ], Rest_Controller::HTTP_OK );
 
             }
 
