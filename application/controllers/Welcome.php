@@ -68,6 +68,8 @@ class Welcome extends CI_Controller
 	
 		
 		$data = $this->crud->get_all_data();
+		$result["depositdata"] = $this->crud->all_deposit_data();
+
 		$result["data"]=$data;
 	
 		

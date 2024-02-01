@@ -33,7 +33,7 @@
                         <tr>
                             <th colspan="2">Undeposited Collection (per last Report)</th>
                             <th colspan="3">Collections</th>
-                            <th colspan="4">Deposit / Fund Transfer</th>
+                            <th colspan="6">Deposit / Fund Transfer</th>
                             <th rowspan="2">Undeposited Collection (this Report)</th>
                             <th rowspan="2" class="text-center">Action</th>
                         </tr>
@@ -45,30 +45,31 @@
                             <th>Total Amt. of Collection</th>
                             <th>Date</th>
                             <th>Ref. No.</th>
-                            <th>Amount</th>
-                            <th>Amount</th>
+                            <th>LRF</th>
+                            <th>DSF</th>
+                            <th>PCAB Fee</th>
+                            <th>Total Amount</th>
                         </tr>
                     </thead>
                     <tbody class="w-100">
 
                         <?php
-                        usort($data, function ($a, $b) {
-                            return strtotime($a['date_time']) < strtotime($b['date_time']);
-                        });
 
-                        foreach ($data as $key => $row) {
+                        foreach ($depositdata as $key => $row) {
                             echo "<tr>";
-                            echo "<td>" . $row["date_time"] . "</td>";
-                            echo "<td>" . $row["ar_number"] . "</td>";
-                            echo "<td>" . $row["agency_name"] . "</td>";
-                            echo "<td>" . $row["name_of_payor"] . "</td>";
-                            echo "<td>" . $row["particulars"] . "</td>";
-                            echo "<td>&#8369; " . number_format((float) $row["amount"], 2, '.', '') . "</td>";
-                            echo "<td>&#8369; " . number_format((float) $row["service_charge"], 2, '.', '') . "</td>";
-                            echo "<td>&#8369; " . number_format((float) $row["tax"], 2, '.', '') . "</td>";
-                            echo "<td>&#8369; " . number_format((float) $row["total_amount"], 2, '.', '') . "</td>";
-                            echo "<td>&#8369; " . number_format((float) $row["total_amount"], 2, '.', '') . "</td>";
-                            if ("super_admin" == "admin")
+                            echo "<td>" . $row["last_date"] . "</td>";
+                            echo "<td>" . $row["last_txn_amont"] . "</td>";
+                            echo "<td>" . $row["created_at"] . "</td>";
+                            echo "<td>" . $row["ttl_trnsact"] . "</td>";
+                            echo "<td>" .$row["txn_amount"]."</td>";
+                            echo "<td>" . $row["deposited_date"] . "</td>";
+                            echo "<td> " .  $row["deposit_reference_no"] . "</td>";
+                            echo "<td>&#8369; " . number_format((float) $row["legal_research_fund"], 2, '.', '') . "</td>";
+                            echo "<td>&#8369; " . number_format((float) $row["document_stamp_tax"], 2, '.', '') . "</td>";
+                            echo "<td>&#8369; " . number_format((float) $row["fees_pcab"], 2, '.', '') . "</td>";
+                            echo "<td>&#8369; " . number_format((float) $row["deposited_amount"], 2, '.', '') . "</td>";
+                            echo "<td>&#8369; " . number_format((float) $row["date"], 2, '.', '') . "</td>";
+                            if ($_SESSION["usertype"] == "superadmin")
                                 echo "<td><button class='btn-sm btn-outline-dark border-0 px-3 py-1 rounded ' type='button' data-toggle='modal' data-target='#editModal'>Settle</button></td>";
                             else
                                 echo "<td><button class='btn-sm btn-outline-dark border-0 px-3 py-1 rounded download-btn-modal' onclick='downloadDeposit()'>Download</button></td>";

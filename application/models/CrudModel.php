@@ -10,7 +10,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
            parent::__construct();  
         } 
 
-        public function display_record(){
+        public function display_record()
+        {
 
             return $query = $this->db->select('*')
                     ->from('payment_transaction')
@@ -20,9 +21,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             // return $query();
         }
 
-        public function get_all_data(){
+        public function get_all_data()
+        {
             
             $sql = 'SELECT * FROM transactions';
+            $Q = $this->db->query( $sql );
+            return $Q->row_array()?$Q->result_array():false;
+            
+        }
+        public function all_deposit_data()
+        {
+            
+            $sql = 'SELECT * FROM tbl_deposit';
             $Q = $this->db->query( $sql );
             return $Q->row_array()?$Q->result_array():false;
             

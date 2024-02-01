@@ -48,10 +48,20 @@ class Model_repo extends CI_Model
         sum(fees_pcab) as feespcab,
         sum(ngsi_convenience_fee) as ngsi_convfee
           FROM pcab_db.transactions where status ='SUCCESS' and date BETWEEN 
-          '".$request['collection_date_from']."' AND '".$request['collection_date_from']."';";
+          '".$request['collection_date_from']."' AND '".$request['collection_date_to']."';";
           $data = $this->db->query($result);
           return $data->row_array() ? $data->row_array() : false;
     }
+
+   public function last_data_deposit(){
+    $result ="SELECT *
+    FROM pcab_db.tbl_deposit
+    ORDER BY dep_id DESC LIMIT 1 OFFSET 1";
+
+    $data = $this->db->query($result);
+    return $data->row_array() ? $data->row_array() : false;
+
+   }
 
      
     public function doInsertCallback( $data ) 
