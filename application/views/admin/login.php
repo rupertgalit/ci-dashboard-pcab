@@ -13,6 +13,7 @@
   </head>
   <body>
     <div class="login" style="transform: scale(1.0);">
+   
       <div id="loginform">
         <div id="PCAB"><a href="https://pcabgovph.com/" target="_blank"><img width="200" height="200" src='http://ci-dashboard-pcab.test/assets/images/pcab_logo.png') alt="logo" class="logo-dark" /></a>
         </div>
@@ -22,12 +23,20 @@
 
           </div>
           <h1>Log in as admin</h1>
+          <?php if ($this->session->flashdata('error_message')): ?>
+            <center>
+            <h6 style="font-size:70%; color:red">
+          <?php echo $this->session->flashdata('error_message'); ?>
+          </h6>
+          </center>
+          <?php endif; ?>
+          
           <form action="<?= base_url('login/process_login')?>" method="POST">
             <input type="text" name="username" placeholder="username or email" value="" required>
             <input type="password" name="password" placeholder="password" value="" required>
             <button type="submit"><i class="fa fa-arrow-right"></i></button>
           </form>
-          <div id="note"><a href="#">Forgot your password?</a></div>
+          <!-- <div id="note"><a href="#">Forgot your password?</a></div> -->
         </div>
       </div>
     </div>

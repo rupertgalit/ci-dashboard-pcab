@@ -36,12 +36,15 @@ class Login extends CI_Controller {
                 redirect('dashboard');
 
         } else {
-         echo "
-            <script>
-                alert('Account not found.');
-                window.location.href = '" . base_url('/login') . "';
-            </script>
-        ";
+
+        $this->session->set_flashdata('error_message', 'Invalid Username or Password!');
+        redirect('login');
+        //  echo "
+        //     <script>
+        //         alert('Account not found.');
+        //         window.location.href = '" . base_url('/login') . "';
+        //     </script>
+        // ";
 
         }
 
