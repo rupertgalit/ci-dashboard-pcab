@@ -318,14 +318,15 @@ class Middleware extends REST_Controller
 
                 $depositLogs[ 'date_to' ] = $postdata[ 'collection_date_to' ];
 
+                $depositLogs[ 'undeposit_collection' ] =$last_data_deposit[ 'undeposit_collection' ]+$getTotalAmount[ 'txn_amt' ]- $postdata[ 'deposited_amount' ];
                 $this->model->log_deposit( $depositLogs );
 
             }
 
             $this->response( [
                 'status' => true,
-                'message' => 'Success',
-                'data' =>  $depositLogs, ], Rest_Controller::HTTP_OK );
+                'message' =>   $depositLogs[ 'undeposit_collection' ],
+                'data' =>  $last_data_deposit, ], Rest_Controller::HTTP_OK );
 
             }
 

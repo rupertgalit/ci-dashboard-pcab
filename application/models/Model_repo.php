@@ -56,7 +56,7 @@ class Model_repo extends CI_Model
    public function last_data_deposit(){
     $result ="SELECT *
     FROM pcab_db.tbl_deposit
-    ORDER BY dep_id DESC LIMIT 1 OFFSET 1";
+    ORDER BY dep_id DESC LIMIT 1";
 
     $data = $this->db->query($result);
     return $data->row_array() ? $data->row_array() : false;
