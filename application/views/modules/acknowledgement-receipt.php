@@ -281,15 +281,15 @@
                                 $date = date_create($row['date']);
                                 echo "<tr>";
                                 echo "<td>" . $row["trans_id"] . "</td>";
-                                echo "<td>" . $row["txn_amount"] . "</td>";
+                                echo "<td>" . $row["reference_number"] . "</td>";
                                 echo "<td>" . $row["name_of_payor"] . "</td>";
                                 echo "<td>" . $row["particulars"] . "</td>";
                                 echo "<td>" . $row["status"] . "</td>";
                                 echo "<td>&#8369; " . $row["fees_pcab"] . "</td>";
                                 echo "<td>&#8369; " . $row["legal_research_fund"] . "</td>";
                                 echo "<td>&#8369; " . $row["document_stamp_tax"] . "</td>";
-                                echo "<td>&#8369; " . $row["document_stamp_tax"] . "</td>";
-                                echo "<td>" . $row['txn_amount'] . "</td>";
+                                echo "<td>&#8369; " . $row["ngsi_convenience_fee"] . "</td>";
+                                echo "<td>&#8369; " . $row['txn_amount'] . "</td>";
                                 echo "<td><button type='button'style='width: 80px; height: 25px; background: #555;' class=' btn-outline-dark border-0 btn-print-receipt' data-receipt-id='" . $row['trans_id'] . "'  onclick='printRow(" . $row['trans_id'] . ")'>Download</button></td>";
                                 echo "</tr>";
                             }

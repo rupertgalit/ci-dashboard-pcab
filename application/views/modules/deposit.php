@@ -32,8 +32,8 @@
                     <thead class="w-100">
                         <tr>
                             <th colspan="2">Undeposited Collection (per last Report)</th>
-                            <th colspan="3">Collections</th>
-                            <th colspan="6">Deposit / Fund Transfer</th>
+                            <th colspan="6">Collections</th>
+                            <th colspan="3">Deposit / Fund Transfer</th>
                             <th rowspan="2">Undeposited Collection (this Report)</th>
                             <th rowspan="2" class="text-center">Action</th>
                         </tr>
@@ -42,12 +42,12 @@
                             <th>Amount</th>
                             <th>Date</th>
                             <th>Total No. of Transaction</th>
-                            <th>Total Amt. of Collection</th>
-                            <th>Date</th>
-                            <th>Ref. No.</th>
                             <th>LRF</th>
                             <th>DSF</th>
                             <th>PCAB Fee</th>
+                            <th>Total Amt. of Collection</th>
+                            <th>Date</th>
+                            <th>Ref. No.</th>
                             <th>Total Amount</th>
                         </tr>
                     </thead>
@@ -61,14 +61,14 @@
                             echo "<td>" . $row["last_txn_amont"] . "</td>";
                             echo "<td>" . $row["created_at"] . "</td>";
                             echo "<td>" . $row["ttl_trnsact"] . "</td>";
-                            echo "<td>" .$row["txn_amount"]."</td>";
-                            echo "<td>" . $row["deposited_date"] . "</td>";
-                            echo "<td> " .  $row["deposit_reference_no"] . "</td>";
                             echo "<td>&#8369; " . number_format((float) $row["legal_research_fund"], 2, '.', '') . "</td>";
                             echo "<td>&#8369; " . number_format((float) $row["document_stamp_tax"], 2, '.', '') . "</td>";
                             echo "<td>&#8369; " . number_format((float) $row["fees_pcab"], 2, '.', '') . "</td>";
+                            echo "<td>&#8369;" .$row["txn_amount"]."</td>";
+                            echo "<td>" . $row["deposited_date"] . "</td>";
+                            echo "<td> " .  $row["deposit_reference_no"] . "</td>";
                             echo "<td>&#8369; " . number_format((float) $row["deposited_amount"], 2, '.', '') . "</td>";
-                            echo "<td>&#8369; " . number_format((float) $row["date"], 2, '.', '') . "</td>";
+                            echo "<td>" . $row["date"] . "</td>";
                             if ($_SESSION["usertype"] == "superadmin")
                                 echo "<td><button class='btn-sm btn-outline-dark border-0 px-3 py-1 rounded ' type='button' data-toggle='modal' data-target='#editModal'>Settle</button></td>";
                             else
