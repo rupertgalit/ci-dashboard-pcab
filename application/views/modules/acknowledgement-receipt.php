@@ -206,15 +206,14 @@
                                                 foreach ($data as $row) {
                                                     echo "<tr>";
                                                     echo "<td>" . $row["date"] . "</td>";
-                                                    echo "<td>" . $row["date"] . "</td>";
+                                                    echo "<td>" . $row["mobile_number"] . "</td>";
                                                     echo "<td>" . $row["name_of_payor"] . "</td>";
                                                     echo "<td>" . $row["particulars"] . "</td>";
-                                                    echo "<td>"  . $row["particulars"] .  "</td>";
-                                                    echo "<td>"  . $row["txn_amount"] .  "</td>";
-                                                    echo "<td>"  . $row["txn_amount"] .  "</td>";
-
-
-                                                    echo "<td></td>";
+                                                    $total_per_AR = $row["fees_pcab"] + $row["document_stamp_tax"] + $row["legal_research_fund"];
+                                                    echo "<td>" . $total_per_AR . "</td>";
+                                                    echo "<td>" . $row["fees_pcab"] . "</td>";
+                                                    echo "<td>"  . $row["document_stamp_tax"] .  "</td>";
+                                                    echo "<td> " . $row["legal_research_fund"] . "</td>";
 
                                                     echo "</tr>";
                                                 }
@@ -289,7 +288,9 @@
                                 echo "<td>&#8369; " . $row["legal_research_fund"] . "</td>";
                                 echo "<td>&#8369; " . $row["document_stamp_tax"] . "</td>";
                                 echo "<td>&#8369; " . $row["ngsi_convenience_fee"] . "</td>";
-                                echo "<td>&#8369; " . $row['txn_amount'] . "</td>";
+                                $total_AR = $row["fees_pcab"] + $row["document_stamp_tax"] + $row["legal_research_fund"]+ $row["ngsi_convenience_fee"];
+                                echo "<td>" . $total_AR . "</td>";
+                                $total_per_AR_formatted = number_format($total_per_AR, 2);
                                 echo "<td><button type='button'style='width: 80px; height: 25px; background: #555;' class=' btn-outline-dark border-0 btn-print-receipt' data-receipt-id='" . $row['trans_id'] . "'  onclick='printRow(" . $row['trans_id'] . ")'>Download</button></td>";
                                 echo "</tr>";
                             }
@@ -427,120 +428,120 @@
     });
     // Modal date filter
     $('.preview-btn-modal').on('click', function() {
-        var modalStartDate = $('#modal_start_date').val();
-        var modalEndDate = $('#modal_end_date').val();
+    var modalStartDate = $('#modal_start_date').val();
+    var modalEndDate = $('#modal_end_date').val();
 
-        console.log(modalEndDate, modalStartDate)
-        // Validation for start and end date
-        if (!modalStartDate || !modalEndDate) {
-            $('#validationMessage').html('<span style="font-size:.8rem; color: red; text-align:center;" role="alert">Please select both start and end dates.</span>');
-            return;
-        }
+    console.log(modalEndDate, modalStartDate);
+    
+    // Validation for start and end date
+    if (!modalStartDate || !modalEndDate) {
+        $('#validationMessage').html('<span style="font-size:.8rem; color: red; text-align:center;" role="alert">Please select both start and end dates.</span>');
+        return;
+    }
 
-        // Your existing code for data filtering and display goes here
-        const filteredData = _jsonData.filter(item => {
-            let itemDate = new Date(item.date)
-            let modalSD = new Date(modalStartDate)
-            let modalED = new Date(modalEndDate)
+    // Your existing code for data filtering and display goes here
+    const filteredData = _jsonData.filter(item => {
+        let itemDate = new Date(item.date);
+        let modalStartDateObj = new Date(modalStartDate);
+        let modalEndDateObj = new Date(modalEndDate);
 
-            console.log(itemDate, modalSD, modalED, itemDate >= modalSD, itemDate <= modalED)
-            return itemDate >= modalSD && itemDate <= modalED;
-        });
-
-        if (!filteredData.length) {
-            $('#validationMessage').html('<span style="font-size:.8rem; color: red; text-align:center;" role="alert">No data found for the selected date range.</span>');
-            return;
-        }
-
-        // Clear existing content in the modal
-        $('#validationMessage').empty();
-        $('#modalDataTableContainer').empty();
-
-        // Create a new div to wrap the table and add additional elements if needed     
-        var modalContent = document.createElement('div');
-        modalContent.classList.add('modal-content', 'table-responsive'); // Add classes for styling and responsiveness
-
-        var modalBody = document.createElement('div');
-        modalBody.classList.add('modal-body-content');
-
-        // Create a new table with the matching rows and an id
-        var modalTable = document.createElement('table');
-        modalTable.id = 'modalDataTable'; // Add id to the table
-        modalTable.classList.add('table', 'table-bordered', 'table-hover', 'table-striped'); // Add DataTable styling classes
-
-        var modalTableHead = document.createElement('thead');
-        modalTableHead.classList.add('thead'); // Added light background for the table head
-        modalTableHead.innerHTML = ' <tr><th colspan="8" class="text-center">Collection</th></tr><tr><th rowspan="2">Date & Time</th><th rowspan="2">AR Number</th><th rowspan="2">Name of Payor</th><th rowspan="2">Reference Number</th><th>CIAP-PCAB</th><th>LRF</th><th>DST</th><th rowspan="2">Total Collection</th></tr><tr><th>Account No.</th><th>Account No.</th><th>Account No.</th></tr>';
-
-        var modalTableBody = document.createElement('tbody');
-
-        // Initialize variables to hold the total amounts
-        let totalCIAPPCAB = 0;
-        let totalLRF = 0;
-        let totalDST = 0;
-        let totalCollection = 0;
-
-        // Iterate through filtered data to calculate totals
-        filteredData.forEach((row) => {
-            // Parse amounts to numbers
-            const CIAPPCAB = parseFloat(row.fees_pcab);
-            const LRF = parseFloat(row.txn_amount);
-            const DST = parseFloat(row.txn_amount);
-            const collection = parseFloat(row.txn_amount);
-
-            // Add to total amounts
-            totalCIAPPCAB += CIAPPCAB;
-            totalLRF += LRF;
-            totalDST += DST;
-            totalCollection += collection;
-
-            // Append row to modal table body
-            modalTableBody.innerHTML += `<tr><td>${row.date}</td><td>${row.trans_id}</td><td>${row.name_of_payor}</td><td>${row.reference_number}</td><td>${CIAPPCAB.toFixed(2)}</td><td>${LRF.toFixed(2)}</td><td>${DST.toFixed(2)}</td><td class="text-right">${collection.toFixed(2)}</td></tr>`;
-        });
-
-        // Append the new table to the modal body
-        modalTable.appendChild(modalTableHead);
-        modalTable.appendChild(modalTableBody);
-        modalBody.appendChild(modalTable);
-
-        // Append totals row to modal table body
-        modalTableBody.innerHTML += `<tr><td colspan="4">Total:</td><td>${totalCIAPPCAB.toFixed(2)}</td><td>${totalLRF.toFixed(2)}</td><td>${totalDST.toFixed(2)}</td><td class="text-right">${totalCollection.toFixed(2)}</td></tr>`;
-
-        // Append the modal body to the modal content
-        modalContent.appendChild(modalBody);
-
-        // Append the modal content to the modal container
-        document.getElementById('modalDataTableContainer').appendChild(modalContent);
-
-        // Change the modal dialog size with a transition
-        var modalDialog = $('#Daily_CollectionModal .modal-dialog');
-
-        // Remove table content when modal is closed
-        $('#Daily_CollectionModal').on('hidden.bs.modal', function(e) {
-            // Reset form fields
-            $('#modal_start_date').val('');
-            $('#modal_end_date').val('');
-            // Clear any validation messages
-            $('#validationMessage').empty();
-            // Clear table content
-            $('#modalDataTableContainer').empty();
-        });
-
-        // Ensure that it stays in modal-lg size
-        if (!modalDialog.hasClass('modal-lg')) {
-            modalDialog.removeClass('modal-sm');
-            modalDialog.addClass('modal-lg');
-            modalDialog.css('transition', 'width 0.5s ease-in-out'); // Adjust the duration and easing as needed
-        }
-
-        // Initialize DataTable for the modal table with sorting enabled
-        var table = $('#modalDataTable').DataTable({
-            dom: '<"pull-left"b><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
-            scrollX: '90%',
-            scrollCollapse: true,
-        });
-
+        console.log(itemDate, modalStartDateObj, modalEndDateObj, itemDate >= modalStartDateObj, itemDate <= modalEndDateObj);
+        return itemDate >= modalStartDateObj && itemDate <= modalEndDateObj;
     });
+
+    if (!filteredData.length) {
+        $('#validationMessage').html('<span style="font-size:.8rem; color: red; text-align:center;" role="alert">No data found for the selected date range.</span>');
+        return;
+    }
+
+    // Clear existing content in the modal
+    $('#validationMessage').empty();
+    $('#modalDataTableContainer').empty();
+
+    // Create a new div to wrap the table and add additional elements if needed     
+    var modalContent = document.createElement('div');
+    modalContent.classList.add('modal-content', 'table-responsive'); // Add classes for styling and responsiveness
+
+    var modalBody = document.createElement('div');
+    modalBody.classList.add('modal-body-content');
+
+    // Create a new table with the matching rows and an id
+    var modalTable = document.createElement('table');
+    modalTable.id = 'modalDataTable'; // Add id to the table
+    modalTable.classList.add('table', 'table-bordered', 'table-hover', 'table-striped'); // Add DataTable styling classes
+
+    var modalTableHead = document.createElement('thead');
+    modalTableHead.classList.add('thead'); // Added light background for the table head
+    modalTableHead.innerHTML = ' <tr><th colspan="8" class="text-center">Collection</th></tr><tr><th rowspan="2">Date & Time</th><th rowspan="2">AR Number</th><th rowspan="2">Name of Payor</th><th rowspan="2">Reference Number</th><th>CIAP-PCAB</th><th>LRF</th><th>DST</th><th rowspan="2">Total Collection</th></tr><tr><th>Account No.</th><th>Account No.</th><th>Account No.</th></tr>';
+
+    var modalTableBody = document.createElement('tbody');
+
+    // Initialize variables to hold the total amounts
+    let totalCIAPPCAB = 0;
+    let totalLRF = 0;
+    let totalDST = 0;
+    let totalCollection = 0;
+
+    // Iterate through filtered data to calculate totals
+    filteredData.forEach((row) => {
+        // Parse amounts to numbers
+        const CIAPPCAB = parseFloat(row.fees_pcab);
+        const LRF = parseFloat(row.lrf); // Correct parsing
+        const DST = parseFloat(row.dst); // Correct parsing
+        const collection = parseFloat(row.total_collection); // Correct parsing
+
+        // Add to total amounts
+        totalCIAPPCAB += CIAPPCAB;
+        totalLRF += LRF;
+        totalDST += DST;
+        totalCollection += collection;
+
+        // Append row to modal table body
+        modalTableBody.innerHTML += `<tr><td>${row.date}</td><td>${row.trans_id}</td><td>${row.name_of_payor}</td><td>${row.reference_number}</td><td>${CIAPPCAB.toFixed(2)}</td><td>${LRF.toFixed(2)}</td><td>${DST.toFixed(2)}</td><td class="text-right">${collection.toFixed(2)}</td></tr>`;
+    });
+
+    // Append the new table to the modal body
+    modalTable.appendChild(modalTableHead);
+    modalTable.appendChild(modalTableBody);
+    modalBody.appendChild(modalTable);
+
+    // Append totals row to modal table body
+    modalTableBody.innerHTML += `<tr><td colspan="4">Total:</td><td>${totalCIAPPCAB.toFixed(2)}</td><td>${totalLRF.toFixed(2)}</td><td>${totalDST.toFixed(2)}</td><td class="text-right">${totalCollection.toFixed(2)}</td></tr>`;
+
+    // Append the modal body to the modal content
+    modalContent.appendChild(modalBody);
+
+    // Append the modal content to the modal container
+    document.getElementById('modalDataTableContainer').appendChild(modalContent);
+
+    // Change the modal dialog size with a transition
+    var modalDialog = $('#Daily_CollectionModal .modal-dialog');
+
+    // Remove table content when modal is closed
+    $('#Daily_CollectionModal').on('hidden.bs.modal', function(e) {
+        // Reset form fields
+        $('#modal_start_date').val('');
+        $('#modal_end_date').val('');
+        // Clear any validation messages
+        $('#validationMessage').empty();
+        // Clear table content
+        $('#modalDataTableContainer').empty();
+    });
+
+    // Ensure that it stays in modal-lg size
+    if (!modalDialog.hasClass('modal-lg')) {
+        modalDialog.removeClass('modal-sm');
+        modalDialog.addClass('modal-lg');
+        modalDialog.css('transition', 'width 0.5s ease-in-out'); // Adjust the duration and easing as needed
+    }
+
+    // Initialize DataTable for the modal table with sorting enabled
+    var table = $('#modalDataTable').DataTable({
+        dom: '<"pull-left"b><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
+        scrollX: '90%',
+        scrollCollapse: true,
+    });
+}); 
 
     $('#modal_start_date, #modal_end_date').on("change", function() {
         $('#validationMessage').empty();
@@ -652,52 +653,40 @@
     //                                         <div class="col" style="position:relative;left:120px; margin-top:4.5rem;">
 
 
-    //                                             <p style="margin-top:-25px;margin-left:10rem;font-size:18px;font-family:Arial,Helvetica,sans-serif;z-index:1;position:relative;">
-    //                                             Mischell A. Fernandez</p>
-    //                                             <p style=" margin-top:-24px;margin-left:10rem;font-family:Arial,Helvetica,sans-serif;font-size:12px;z-index:1;position:relative;">
-    //                                             Admin Officer III/Cashier II </p>
-    //                                             <p style=" margin-top:-22px;margin-left:10rem;font-family:Arial,Helvetica,sans-serif;font-size:12px;z-index:1;position:relative;">
-    //                                             CIAP </p>
-    //                                         </div>
-    //                                     </div>
-    // </div>
-    // </div>`
+//             doc.html(`<div id="PDFContent" class="mx-auto d-flex flex-column border-dark" style="width:55.8rem;padding-top:6rem;/*border:1px black solid;*/">${content(data)}</div>`, {
+//                 html2canvas: {
+//                     scale: .5
+//                 },
+//                 async callback(pdf) {
+//                     const date = new Date();
+//                     document.querySelector(".card").innerHTML = content(data);
+//                     // await pdf.save(`receipt-${date.toLocaleDateString()}.pdf`);
+//                 },
+//             })
+//         }
+//     }
+async function printRow(trans_id) {
+    const rowData = _jsonData.find(obj => obj.trans_id == trans_id);
+    let doc = new jspdf.jsPDF({
+        orientation: 'p',
+        unit: 'px'
+    });
+
+    // Set agency name directly to "CIAP - PCAB"
+    let agencyName = "CIAP - PCAB";
+    const totalAmount = parseFloat(rowData.fees_pcab) +
+                        parseFloat(rowData.legal_research_fund) +
+                        parseFloat(rowData.document_stamp_tax) +
+                        parseFloat(rowData.ngsi_convenience_fee);
+    
+    const Amount = parseFloat(rowData.fees_pcab) +
+                        parseFloat(rowData.legal_research_fund) +
+                        parseFloat(rowData.document_stamp_tax);
 
 
-    //             doc.html(`<div id="PDFContent" class="mx-auto d-flex flex-column border-dark" style="width:55.8rem;padding-top:6rem;/*border:1px black solid;*/">${content(data)}</div>`, {
-    //                 html2canvas: {
-    //                     scale: .5
-    //                 },
-    //                 async callback(pdf) {
-    //                     const date = new Date();
-    //                     document.querySelector(".card").innerHTML = content(data);
-    //                     // await pdf.save(`receipt-${date.toLocaleDateString()}.pdf`);
-    //                 },
-    //             })
-    //         }
-    //     }
-    async function printRow(trans_id) {
-        const rowData = _jsonData.find(obj => obj.trans_id == trans_id)
-        let doc = new jspdf.jsPDF({
-            orientation: 'p',
-            unit: 'px'
-        })
-
-        let printContent = `
-            <html><title>Receipt</title>
-                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-                integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous">
-                <\/script>
-                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-                integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"><\/link></head><body>
-                [content]
-                </html>
-                `;
-        let content = ""
-        try {
-
-            content += `
-                <div class="mx-auto my-5" style="width: 50rem; ">
+    let content = `
+  
+    <div class="mx-auto my-5" style="width: 50rem; ">
                 <div class="container mt-3 justify-content-center mb-4">
                         <div class="row justify-content-center mb-2">
                             <div class="col-md-3">
@@ -711,129 +700,99 @@
                         </div>
                          <img width="100%" height="100%" style="margin-top: -10px;" src="assets/images/NGSI_header.png" alt="logo" class="logo-dark" />
                     </div>
-                      
-                    <div class="border border-dark">    
-                    <div class="text-center text-uppercase py-3">
-                        <u>Acknowledgement &nbsp; Receipt</u>  
+            <div class="border border-dark">    
+                <div class="text-center text-uppercase py-3">
+                    <u>Acknowledgement &nbsp; Receipt</u>  
                 </div>
                 <div class="row d-flex">
                     <div class="col"></div>
                     <div class="col">
                         <div class="row d-flex">
                             <div class="col">AR Number: </div>
-                            <div class="col">
-                                ${rowData.trans_id}
-                            </div>
+                            <div class="col">${rowData.trans_id}</div>
                         </div>
                         <div class="row d-flex">
                             <div class="col">Date and Time: </div>
-                            <div class="col">
-                               ${rowData.date}
-                            </div>
+                            <div class="col">${rowData.date}</div>
                         </div>
                     </div>
                 </div>
                 <div class='row pt-4 pb-3'>
-                <div class="col">
-                `;
-            for (let key in rowData) {
-                if (["id", "trans_id", "date", "txn_amount"].includes(key)) continue;
+                    <div class="col">
+                        <div class="row d-flex">
+                            <div class="col text-capitalize ">Agency Name<div class="float-right">  :</div></div>
+                            <div class="col">${agencyName}</div>
+                        </div>
+    `;
 
-                let value = rowData[key];
-                console.log(key);
-
-                // Check if key is a special case
-                if (key == "total_amount" || key == "amount") {
-                    value = parseFloat(value ?? 0).toFixed(2);
-                }
-
-                // Change the display name for "service_charge"
-                if (key == "service_charge") {
-                    key = "NGSI Convenience Fee";
-                }
-
-                if (key == "agency_name") {
-                    value = "CIAP - PCAB";
-                }
-                if (key == "particulars") {
-                    value = "Break Down of PCAB Fees";
-                }
-                content += `
+    
+    content += `
+    <div class="row d-flex">
+            <div class="col text-capitalize ">Name of Payor<div class="float-right">  :</div></div>
+            <div class="col"> ${rowData.name_of_payor}</div>
+        </div>
         <div class="row d-flex">
-            <div class="col text-capitalize">${key.split("_").join(" ")}<div class="float-right">:</div></div>
-            <div class="col">
-                ${value}
+            <div class="col text-capitalize ">Particular<div class="float-right">  :</div></div>
+            <div class="col">PCAB fee</div>
+        </div>
+        <div class="row d-flex">
+            <div class="col text-capitalize ">Amount<div class="float-right ">:</div></div>
+            <div class="col"> ${Amount.toFixed(2)} </div>
+        </div>
+        <div class="row d-flex">
+        <div class="col text-capitalize pl-4">PCAB Fee<div class="float-right pr-2">:</div></div>
+            <div class="col"> ${rowData.fees_pcab}</div>
+        </div>
+        <div class="row d-flex">
+            <div class="col text-capitalize pl-4">Legal Research Fee<div class="float-right pr-2">:</div></div>
+            <div class="col"> ${rowData.legal_research_fund}</div>
+        </div>
+        <div class="row d-flex">
+            <div class="col text-capitalize pl-4">Documentary Stamp<div class="float-right pr-2">:</div></div>
+            <div class="col"> ${rowData.document_stamp_tax}</div>
+        </div>
+        <div class="row d-flex">
+            <div class="col text-capitalize ">NGSI Conveniece fee<div class="float-right">:</div></div>
+            <div class="col"> ${rowData.ngsi_convenience_fee}</div>
+        </div>
+        <div class="row d-flex">
+            <div class="col text-capitalize ">Total Amount<div class="float-right ">:</div></div>
+            <div class="col"> ${totalAmount.toFixed(2)} </div>
+        </div>
+        <div class="row d-flex">
+            <div class="col text-capitalize ">Reference Number<div class="float-right">:</div></div>
+            <div class="col"> ${rowData.reference_number}</div>
+        </div>
+    `;
+
+    content += ` 
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <span class="col font-italic font-weight-light">This is a system generated receipt. Signature is not required.</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-1">Note:</div>
+                <div class="col">
+                    <div>This proforma represents minimum data.</div>
+                    <div>Moreover, the format may vary depending on the system being used</div>
+                </div>
             </div>
         </div>
     `;
 
-                if (key == "amount") {
-                    content += `
-            <div class="row d-flex">
-                <div  class="col text-capitalize pl-4">PCAB Fee<div class="float-right pr-2">:</div></div>
-                <div class="col">
-                    ${parseFloat(500).toFixed(2)}
-                </div>
-            </div>
-            <div class="row d-flex">
-                <div  class="col text-capitalize pl-4">Documentary Stamp Fee<div class="float-right pr-2">:</div></div>
-                <div class="col">
-                    ${parseFloat(20).toFixed(2)}
-                </div>
-            </div>
-            <div class="row d-flex">
-                <div  class="col text-capitalize pl-4">Legal Research Fee<div class="float-right pr-2">:</div></div>
-                <div class="col">
-                    ${parseFloat(15).toFixed(2)}
-                </div>
-            </div>`;
-                }
-            }
-            content += ` </div>
-                </div>
-                    <div class="row mb-4">
-                        <span class="col font-italic font-weight-light">This is a system generated receipt. Signature is not required.</span>
-                    </div>
-                </div>`;
-
-            content += `<div class="row">
-                    <div class="col-1">Note:</div>
-                    <div class="col">
-                        <div>This proforma represents minimum data.</div>
-                        <div>Moreover, the format may vary depending on the system being used</div>
-                    </div>
-                </div></div>
-                `;
-            //     let doc = window.open("", "My Page", "height=700,width=900,titlebar=no,resizable=no")
-            //     doc.document.write(`<html><title>Receipt</title>
-            //  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-            // integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous">
-            // <\/script>
-            // <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-            // integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"><\/link></head><body>`);
-            //     doc.document.write(printContent);
-            //     doc.document.write("</html>")
-            //     doc.document.close();
-            //     doc.document.onkeydown = (key) => alert(key)
-            //     setTimeout(() => { doc.print(); doc.close(); }, 300)
-
-            doc.html(printContent.replace("[content]", content), {
-                html2canvas: {
-                    scale: .5
-                },
-                callback: async function(doc) {
-                    // doc.addPage(
-                    //     { orientation: 'p', unit: 'px' }
-                    // )
-                    await doc.output("dataurlnewwindow", "receipt.pdf");
-                },
-                x: 25,
-                y: 10,
-            })
-        } catch (e) {
-            console.log(e)
-        }
-    }
+    doc.html(content, {
+        html2canvas: {
+            scale: .5
+        },
+        callback: async function (doc) {
+            await doc.output("dataurlnewwindow", "receipt.pdf");
+        },
+        x: 25,
+        y: 10,
+    });
+}
 
 
     $('#DownloadECollect').on('click', (e) => console.log(e))
