@@ -275,7 +275,7 @@
                                                     <th colspan="4" class="text-center">Amount</th>
                                                 </tr>
                                                 <tr>
-                                                    <th rowspan="2" class="text-center">Date</th>
+                                                    <th rowspan="2" class="text-center">Date<i class="m-0">(mm/dd/yyyy)</i></th>
                                                     <th rowspan="2" class="text-center">Number</th>
                                                     <th rowspan="2" class="text-center">Total per AR</th>
                                                     <th colspan="3" class="text-center">Breakdown Collection</th>
@@ -292,15 +292,15 @@
 
                                                 foreach ($data as $row) {
                                                     echo "<tr>";
-                                                    echo "<td>" . $row["date"] . "</td>";
+                                                    echo "<td>" .  date_format(date_create($row['date']), "m/d/Y") . "</td>";
                                                     echo "<td>" . $row["mobile_number"] . "</td>";
                                                     echo "<td>" . $row["name_of_payor"] . "</td>";
                                                     echo "<td>" . $row["particulars"] . "</td>";
                                                     $total_per_AR = $row["fees_pcab"] + $row["document_stamp_tax"] + $row["legal_research_fund"];
                                                     echo "<td>" . $total_per_AR . "</td>";
-                                                    echo "<td>" . $row["fees_pcab"] . "</td>";
-                                                    echo "<td>" . $row["document_stamp_tax"] . "</td>";
-                                                    echo "<td> " . $row["legal_research_fund"] . "</td>";
+                                                    echo "<td class='text-right'>" . $row["fees_pcab"] . "</td>";
+                                                    echo "<td class='text-right'>" . $row["document_stamp_tax"] . "</td>";
+                                                    echo "<td class='text-right'> " . $row["legal_research_fund"] . "</td>";
 
                                                     echo "</tr>";
                                                 }
@@ -337,7 +337,7 @@
                     </span>
                 </div>
             </div>
-            
+
             <div class="scrollable-container" style="padding: 0.5rem;">
 
                 <table id="myTable" class="table table-striped text-center" width="100%">
@@ -347,7 +347,7 @@
 
 
                             <th class="font-weight-bold">Transaction ID</th>
-                            <th class="font-weight-bold">Date</th>
+                            <th class="font-weight-bold">Date<i class="m-0">(mm/dd/yyyy)</i></th>
                             <th class="font-weight-bold">Reference No.</th>
                             <th class="font-weight-bold">Name of Payor</th>
                             <!-- <th class="font-weight-bold">Mobile No.</th> -->
@@ -373,17 +373,17 @@
 
 
                                 echo "<td>" . $row["trans_id"] . "</td>";
-                                echo "<td>" . $row["date"] . "</td>";
+                                echo "<td>" .  date_format(date_create($row['date']), "m/d/Y") . "</td>";
                                 echo "<td>" . $row["reference_number"] . "</td>";
                                 echo "<td>" . $row["name_of_payor"] . "</td>";
                                 echo "<td>" . $row["particulars"] . "</td>";
                                 echo "<td>" . $row["status"] . "</td>";
-                                echo "<td>&#8369; " . $row["fees_pcab"] . "</td>";
-                                echo "<td>&#8369; " . $row["legal_research_fund"] . "</td>";
-                                echo "<td>&#8369; " . $row["document_stamp_tax"] . "</td>";
-                                echo "<td>&#8369; " . $row["ngsi_convenience_fee"] . "</td>";
+                                echo "<td class='text-right'>&#8369; " . $row["fees_pcab"] . "</td>";
+                                echo "<td class='text-right'>&#8369; " . $row["legal_research_fund"] . "</td>";
+                                echo "<td class='text-right'>&#8369; " . $row["document_stamp_tax"] . "</td>";
+                                echo "<td class='text-right'>&#8369; " . $row["ngsi_convenience_fee"] . "</td>";
                                 $total_AR = $row["fees_pcab"] + $row["document_stamp_tax"] + $row["legal_research_fund"] + $row["ngsi_convenience_fee"];
-                                echo "<td>" . $total_AR . "</td>";
+                                echo "<td class='text-right'>&#8369; " . $total_AR . "</td>";
                                 $total_per_AR_formatted = number_format($total_per_AR, 2);
                                 echo "<td><button type='button'style='width: 80px; height: 25px; background: #555;' class=' btn-outline-dark border-0 btn-print-receipt' data-receipt-id='" . $row['trans_id'] . "'  onclick='printRow(" . $row['trans_id'] . ")'>Download</button></td>";
                                 echo "</tr>";
@@ -789,7 +789,7 @@
             <br>
         </div> `;
 
-         //test
+        //test
         let perPage = rows => `
 
         <div id="PDFContent" class="mx-auto d-flex flex-column border-dark" style="height:78.85rem;padding-top:15rem;border:1px black ;">
@@ -824,7 +824,7 @@
             </div>
             <br>
             <br>`
-           
+
         const content = row => `
             <tr>
                 <td  style="  border: 1px solid black;">${row?.date ?? "&nbsp;"}</td>
@@ -840,7 +840,7 @@
 
         for (let i = 0; i < filteredData.length; i++)
             rowsPerPage += content(filteredData[i])
-        
+
         const footer = `
 
         <div class="mx-auto d-flex flex-column border-dark "style=";width:70rem;height:5rem;position:absolute;bottom: 0;">
@@ -883,10 +883,10 @@
 
 
         //awdperPage(rowsPerPage)
-        doc.html( header + perPage(rowsPerPage) + footer , {
+        doc.html(header + perPage(rowsPerPage) + footer, {
             html2canvas: {
                 scale: .40
-               
+
             },
             async callback(pdf) {
                 const date = new Date();
@@ -1171,7 +1171,7 @@
         </div>
         <div style="display:block;width:100%;border-bottom:1px #666 dashed;"></div> `;
 
-           
+
             doc.html(content, {
                 html2canvas: {
                     scale: .35
@@ -1239,6 +1239,9 @@
         })
 
         if (isInvalid) return;
+
+        if (new Date(payload.collection_date_from) >= new Date(payload.collection_date_to))
+            $(".collection_date_from input").parentElement.classList.add("error")
 
         if ($("#Submit_deposit .input-form .error").length) return;
 

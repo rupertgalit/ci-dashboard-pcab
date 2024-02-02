@@ -248,6 +248,7 @@ span.message.success {
 
 table {
 	width: 100%;
+	min-width: 550px;
 }
 
 table thead th {
@@ -257,6 +258,14 @@ table thead th {
 	color: white;
 	font-size: 0.8rem;
 	font-weight: 700;
+}
+
+table thead th i {
+	font-weight: 200;
+    font-size: 10px;
+    display: block;
+    position: absolute;
+    margin-top: -2px;
 }
 
 table tr td {
@@ -276,7 +285,7 @@ table tr td:first-child {
 
 table tr td:last-child {
 	padding-right: 1rem;
-	display: inline-grid;
+	/* display: inline-block; */
 }
 
 table td {

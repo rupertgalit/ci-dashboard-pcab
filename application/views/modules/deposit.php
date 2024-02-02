@@ -32,43 +32,52 @@
                     <thead class="w-100">
                         <tr>
                             <th colspan="2">Undeposited Collection (per last Report)</th>
-                            <th colspan="6">Collections</th>
+                            <th colspan="7">Collections</th>
                             <th colspan="3">Deposit / Fund Transfer</th>
                             <th rowspan="2">Undeposited Collection (this Report)</th>
                             <th rowspan="2" style="width: 10rem!important;" class="text-center">Action</th>
                         </tr>
                         <tr>
-                            <th>Date</th>
-                            <th>Amount</th>
-                            <th>Date</th>
+                            <th>Date <i class="m-0">(mm/dd/yyyy)</i></th>
+                            <th>Undeposited Amount</th>
+                            <th>Date From <i class="m-0">(mm/dd/yyyy)</i></th>
+                            <th>Date To <i class="m-0">(mm/dd/yyyy)</i></th>
                             <th>Total No. of Transaction</th>
                             <th>LRF</th>
                             <th>DSF</th>
                             <th>PCAB Fee</th>
                             <th>Total Amt. of Collection</th>
-                            <th>Date</th>
+                            <th>Date <i class="m-0">(mm/dd/yyyy)</i></th>
                             <th>Ref. No.</th>
-                            <th>Total Amount</th>
+                            <th>Deposited Amount</th>
                         </tr>
                     </thead>
                     <tbody class="w-100">
 
                         <?php
 
+                        $fmt = new NumberFormatter('en-US', NumberFormatter::CURRENCY);
+                        $fmt->setPattern(str_replace('¤#',"\xC2\xA0#", $fmt->getPattern()));
+
+
                         foreach ($depositdata as $key => $row) {
+                            $undeposited = (float) $row["legal_research_fund"] +
+                                (float) $row["document_stamp_tax"] +
+                                (float) $row["fees_pcab"];
                             echo "<tr>";
-                            echo "<td>" . $row["last_date"] . "</td>";
-                            echo "<td>" . $row["last_txn_amont"] . "</td>";
-                            echo "<td>" . $row["created_at"] . "</td>";
+                            echo "<td>" .  date_format(date_create($row["last_date"]), "m/d/Y") . "</td>";
+                            echo "<td class='text-right'>&#8369; " . ($row["last_txn_amont"] != "" ? $fmt->formatCurrency(floatval($row["last_txn_amont"]), false) : "0.00") . "</td>";
+                            echo "<td>" .  date_format(date_create($row["date_from"]), "m/d/Y") . "</td>";
+                            echo "<td>" .  date_format(date_create($row["date_to"]), "m/d/Y") . "</td>";
                             echo "<td>" . $row["ttl_trnsact"] . "</td>";
-                            echo "<td>&#8369; " . number_format((float) $row["legal_research_fund"], 2, '.', '') . "</td>";
-                            echo "<td>&#8369; " . number_format((float) $row["document_stamp_tax"], 2, '.', '') . "</td>";
-                            echo "<td>&#8369; " . number_format((float) $row["fees_pcab"], 2, '.', '') . "</td>";
-                            echo "<td>&#8369;" . $row["txn_amount"] . "</td>";
-                            echo "<td>" . $row["deposited_date"] . "</td>";
+                            echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["legal_research_fund"]), false) . "</td>";
+                            echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["document_stamp_tax"]), false) . "</td>";
+                            echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["fees_pcab"]), false) . "</td>";
+                            echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["txn_amount"]), false) . "</td>";
+                            echo "<td>" .  date_format(date_create($row["deposited_date"]), "m/d/Y") . "</td>";
                             echo "<td> " .  $row["deposit_reference_no"] . "</td>";
-                            echo "<td>&#8369; " . number_format((float) $row["deposited_amount"], 2, '.', '') . "</td>";
-                            echo "<td>" . $row["date"] . "</td>";
+                            echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["deposited_amount"]), false) . "</td>";
+                            echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["undeposit_collection"]), false) . "</td>";
                             echo "<td><button class='btn-sm btn-outline-dark border-0 px-3 py-1 rounded download-btn-modal' onclick='downloadDeposit()'>Download</button></td>";
                             echo "</tr>";
                         }

@@ -62,7 +62,7 @@
                                 echo "<td>" . str_pad($row['reference_number'], 10, "0", STR_PAD_LEFT) . "</td>";
                                 echo "<td>" . str_pad($row['referenceNumber'], 10, "0", STR_PAD_LEFT) . "</td>";
                                 echo "<td>" . $row['name_of_payor'] . "</td>";
-                                echo "<td class='text-right'>" . number_format((float) $row["txn_amount"], 2, '.', '') . "</td>";
+                                echo "<td class='text-right'>123" . number_format((float) $row["txn_amount"], 2, '.', '') . "</td>";
                                 echo "</tr>";
                             }
                             ;
@@ -169,13 +169,14 @@
         margin-top: 0rem;
     }
 
-    .dashboard-container .card-body {
+    /* .dashboard-container .col-6 {
         padding: auto -1.1rem !important;
-    }
+    } */
 
-    @media screen and (max-width: 1201px) {
+    @media screen and (max-width: 1450px) {
         .dashboard-container .col-6 {
             min-width: 100%;
+            transition: all 2s;
         }
     }
 
