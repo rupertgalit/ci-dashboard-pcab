@@ -18,7 +18,25 @@
     input:focus {
         border: 2px solid #000 !important;
     }
+td.day:hover{
+    background: yellow;
 
+}
+td.today.active.day{
+    background: red;
+    color: #fff;
+}
+th.clear{
+    text-align: center;
+    background: #00507A;
+    color: #fff;
+}
+th.clear:hover{
+    text-align: center;
+    background: #909090;   
+     color: #fff;
+
+}
     .custom-button:hover {
         background-color: #45a049;
         /* Darker Green */
@@ -101,20 +119,19 @@
 
 
     .form-group {
-  display: flex;
-  align-items: center; 
-}
+        display: flex;
+        align-items: center;
+    }
 
-.date-label {
-  margin-top: 5px;
-  margin-right: 10px;
-}
+    .date-label {
+        margin-top: 5px;
+        margin-right: 10px;
+    }
 
-.date-input-group {
-  max-width: 170px;
-  margin-right: 20px;
-}
-
+    .date-input-group {
+        max-width: 170px;
+        margin-right: 20px;
+    }
 </style>
 <div class="row">
     <div class="col-md-12 grid-margin stretch-card m-0" id="toPrint">
@@ -131,25 +148,25 @@
                         <button class="btn-lg btn-outline-dark rounded border-0" data-toggle="modal" data-target="#Daily_CollectionModal">Daily Collection</button>
                         <div class="modal fade" id="Daily_CollectionModal" tabindex="-1" role="dialog" aria-labelledby="Daily_CollectionModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-sm" role="document">
-                                <div id="DailyCollectModal" class="modal-content" style="width:22rem;">
+                                <div id="DailyCollectModal" class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="Daily_CollectionModalLabel">Daily Collection</h5>
-                                        <button type="button" class="close text-right pr-4 text-dark" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <button type="button" class="close text-right pr-4" data-dismiss="modal" aria-hidden="true">&times;</button>
                                     </div>
                                     <div class="modal-body bg-white pb-3">
                                         <div class="row mb-2">
-                                            <div class="col-12 d-flex flex-column">
+                                            <div class="col-12 d-flex flex-row flex-wrap">
                                                 <label for="modal_start_date" class="mr-2 d-flex align-items-center">Start Date:</label>
-                                                <input type="date" id="modal_start_date" class="form-control w-100" style="width: 16rem;">
-                                                <label for="modal_end_date" class="mr-2 d-flex align-items-center">End Date:</label>
-                                                <input type="date" id="modal_end_date" class="form-control w-100" style="width: 16rem;">
+                                                <input type="date" id="modal_start_date" class="form-control" style="width: 16rem;">
+                                                <label for="modal_end_date" class="mr-2  d-flex align-items-center">End Date:</label>
+                                                <input type="date" id="modal_end_date" class="form-control" style="width: 16rem;">
                                                 <div id="validationMessage"></div>
                                             </div>
                                         </div>
 
                                         <div id="modalDataTableContainer" class="overflow-auto"></div>
                                     </div>
-                                    <div class="modal-footer bg-white border-top-0 d-flex flex-column">
+                                    <div class="modal-footer bg-white border-top-0 d-flex ">
                                         <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded preview-btn-modal">Preview</button>
                                         <button type="button" onclick="downloadPDF()" class="btn-sm btn-outline-dark mr-3 mb-2 rounded">Download</button>
                                         <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded " data-toggle="modal" data-target="#Submit_deposit" id="submit-deposit" data-backdrop="static" data-keyboard="false">Submit Deposit</button>
@@ -248,22 +265,22 @@
             </div>
 
             <div class="form-group">
-                  <label for="startDate" class="date-label">Start Date:</label>
-                  <div class="input-group date date-input-group" id="startDatePicker">
+                <label for="startDate" class="date-label">Start Date:</label>
+                <div class="input-group date date-input-group" id="startDatePicker">
                     <input type="text" class="form-control" name="startDate" id="startDate" style="z-index: 2" readonly placeholder="YYYY / MM / DD">
                     <span class="input-group-addon" id="startDateIcon">
-                      <i class="glyphicon glyphicon-calendar"></i>
+                        <i class="glyphicon glyphicon-calendar"></i>
                     </span>
-                  </div>
+                </div>
 
-                  <label for="endDate" class="date-label">End Date:</label>
-                  <div class="input-group date date-input-group" id="endDatePicker">
+                <label for="endDate" class="date-label">End Date:</label>
+                <div class="input-group date date-input-group" id="endDatePicker">
                     <input type="text" class="form-control" name="endDate" id="endDate" readonly placeholder="YYYY / MM / DD">
                     <span class="input-group-addon" id="endDateIcon">
-                      <i class="glyphicon glyphicon-calendar"></i>
+                        <i class="glyphicon glyphicon-calendar"></i>
                     </span>
-                  </div>
                 </div>
+            </div>
 
             <div class="scrollable-container" style="padding: 0.5rem;">
 
@@ -271,7 +288,7 @@
                     <!-- Your table headers go here -->
                     <thead>
                         <tr>
-                       
+
 
                             <th class="font-weight-bold">Transaction ID</th>
                             <th class="font-weight-bold">Date</th>
@@ -297,7 +314,7 @@
                             foreach ($data as $row) {
                                 $date = date_create($row['date']);
                                 echo "<tr>";
-                            
+
 
                                 echo "<td>" . $row["trans_id"] . "</td>";
                                 echo "<td>" . $row["date"] . "</td>";
@@ -309,7 +326,7 @@
                                 echo "<td>&#8369; " . $row["legal_research_fund"] . "</td>";
                                 echo "<td>&#8369; " . $row["document_stamp_tax"] . "</td>";
                                 echo "<td>&#8369; " . $row["ngsi_convenience_fee"] . "</td>";
-                                $total_AR = $row["fees_pcab"] + $row["document_stamp_tax"] + $row["legal_research_fund"]+ $row["ngsi_convenience_fee"];
+                                $total_AR = $row["fees_pcab"] + $row["document_stamp_tax"] + $row["legal_research_fund"] + $row["ngsi_convenience_fee"];
                                 echo "<td>" . $total_AR . "</td>";
                                 $total_per_AR_formatted = number_format($total_per_AR, 2);
                                 echo "<td><button type='button'style='width: 80px; height: 25px; background: #555;' class=' btn-outline-dark border-0 btn-print-receipt' data-receipt-id='" . $row['trans_id'] . "'  onclick='printRow(" . $row['trans_id'] . ")'>Download</button></td>";
@@ -379,27 +396,27 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script>
-   $(document).ready(function() {
-      function getCurrentDate() {
-        const today = new Date();
-        const year = today.getFullYear();
-        const month = (today.getMonth() + 1).toString().padStart(2, '0');
-        const day = today.getDate().toString().padStart(2, '0');
-        return `${year}-${month}-${day}`;
-      }
+    $(document).ready(function() {
+        function getCurrentDate() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = (today.getMonth() + 1).toString().padStart(2, '0');
+            const day = today.getDate().toString().padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
 
-      // Set default values for start and end date
-      $('#startDate').val(getCurrentDate());
-      $('#endDate').val(getCurrentDate());
+        // Set default values for start and end date
+        $('#startDate').val(getCurrentDate());
+        $('#endDate').val(getCurrentDate());
 
-      // Initialize datepicker
-      $('#startDate, #endDate').datepicker({
-        format: 'yyyy-mm-dd',
-        autoclose: true,
-        todayHighlight: true,
-        clearBtn: true,
-        orientation: 'bottom',
-      });
+        // Initialize datepicker
+        $('#startDate, #endDate').datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            todayHighlight: true,
+            clearBtn: true,
+            orientation: 'bottom',
+        });
 
         var table = $('#myTable').DataTable({
             dom: '<"pull-left"b><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
@@ -411,32 +428,32 @@
             table.draw();
         });
         $.fn.dataTable.ext.search.push(
-    function(settings, data, dataIndex) {
-        var startDate = $('#startDate').val();
-        var endDate = $('#endDate').val();
-        var currentDate = data[1]; 
+            function(settings, data, dataIndex) {
+                var startDate = $('#startDate').val();
+                var endDate = $('#endDate').val();
+                var currentDate = data[1];
 
-        if ((startDate === '' && endDate === '') ||
-            (startDate === '' && currentDate <= endDate) ||
-            (startDate <= currentDate && endDate === '') ||
-            (startDate <= currentDate && currentDate <= endDate)) {
-            return true;
-        }
+                if ((startDate === '' && endDate === '') ||
+                    (startDate === '' && currentDate <= endDate) ||
+                    (startDate <= currentDate && endDate === '') ||
+                    (startDate <= currentDate && currentDate <= endDate)) {
+                    return true;
+                }
 
-        return false;
-    }
-);
+                return false;
+            }
+        );
 
 
-      // Trigger initial table draw
-      table.draw();
-
-      // Update table on date change
-      $('#startDate, #endDate').on('change', function() {
+        // Trigger initial table draw
         table.draw();
-      });
+
+        // Update table on date change
+        $('#startDate, #endDate').on('change', function() {
+            table.draw();
+        });
     });
-    
+
 
     $(document).ready(function() {
         var today = new Date();
@@ -474,130 +491,130 @@
     const _jsonData = JSON.parse('<?php echo json_encode($data) ?>')
 
     function applyDateFilter() {
-    var start_date = $('#startDate').val();
-    var end_date = $('#endDate').val();
-    
-    table.draw();
-}
+        var start_date = $('#startDate').val();
+        var end_date = $('#endDate').val();
+
+        table.draw();
+    }
 
 
-   
+
     // Modal date filter
     $('.preview-btn-modal').on('click', function() {
-    var modalStartDate = $('#modal_start_date').val();
-    var modalEndDate = $('#modal_end_date').val();
+        var modalStartDate = $('#modal_start_date').val();
+        var modalEndDate = $('#modal_end_date').val();
 
-    console.log(modalEndDate, modalStartDate);
-    
-    // Validation for start and end date
-    if (!modalStartDate || !modalEndDate) {
-        $('#validationMessage').html('<span style="font-size:.8rem; color: red; text-align:center;" role="alert">Please select both start and end dates.</span>');
-        return;
-    }
+        console.log(modalEndDate, modalStartDate);
 
-    // Your existing code for data filtering and display goes here
-    const filteredData = _jsonData.filter(item => {
-        let itemDate = new Date(item.date);
-        let modalStartDateObj = new Date(modalStartDate);
-        let modalEndDateObj = new Date(modalEndDate);
+        // Validation for start and end date
+        if (!modalStartDate || !modalEndDate) {
+            $('#validationMessage').html('<span style="font-size:.8rem; color: red; text-align:center;" role="alert">Please select both start and end dates.</span>');
+            return;
+        }
 
-        console.log(itemDate, modalStartDateObj, modalEndDateObj, itemDate >= modalStartDateObj, itemDate <= modalEndDateObj);
-        return itemDate >= modalStartDateObj && itemDate <= modalEndDateObj;
-    });
+        // Your existing code for data filtering and display goes here
+        const filteredData = _jsonData.filter(item => {
+            let itemDate = new Date(item.date);
+            let modalStartDateObj = new Date(modalStartDate);
+            let modalEndDateObj = new Date(modalEndDate);
 
-    if (!filteredData.length) {
-        $('#validationMessage').html('<span style="font-size:.8rem; color: red; text-align:center;" role="alert">No data found for the selected date range.</span>');
-        return;
-    }
+            console.log(itemDate, modalStartDateObj, modalEndDateObj, itemDate >= modalStartDateObj, itemDate <= modalEndDateObj);
+            return itemDate >= modalStartDateObj && itemDate <= modalEndDateObj;
+        });
 
-    // Clear existing content in the modal
-    $('#validationMessage').empty();
-    $('#modalDataTableContainer').empty();
+        if (!filteredData.length) {
+            $('#validationMessage').html('<span style="font-size:.8rem; color: red; text-align:center;" role="alert">No data found for the selected date range.</span>');
+            return;
+        }
 
-    // Create a new div to wrap the table and add additional elements if needed     
-    var modalContent = document.createElement('div');
-    modalContent.classList.add('modal-content', 'table-responsive'); // Add classes for styling and responsiveness
-
-    var modalBody = document.createElement('div');
-    modalBody.classList.add('modal-body-content');
-
-    // Create a new table with the matching rows and an id
-    var modalTable = document.createElement('table');
-    modalTable.id = 'modalDataTable'; // Add id to the table
-    modalTable.classList.add('table', 'table-bordered', 'table-hover', 'table-striped'); // Add DataTable styling classes
-
-    var modalTableHead = document.createElement('thead');
-    modalTableHead.classList.add('thead'); // Added light background for the table head
-    modalTableHead.innerHTML = ' <tr><th colspan="8" class="text-center">Collection</th></tr><tr><th rowspan="2">Date & Time</th><th rowspan="2">AR Number</th><th rowspan="2">Name of Payor</th><th rowspan="2">Reference Number</th><th>CIAP-PCAB</th><th>LRF</th><th>DST</th><th rowspan="2">Total Collection</th></tr><tr><th>Account No.</th><th>Account No.</th><th>Account No.</th></tr>';
-
-    var modalTableBody = document.createElement('tbody');
-
-    // Initialize variables to hold the total amounts
-    let totalCIAPPCAB = 0;
-    let totalLRF = 0;
-    let totalDST = 0;
-    let totalCollection = 0;
-
-    // Iterate through filtered data to calculate totals
-    filteredData.forEach((row) => {
-        // Parse amounts to numbers
-        const CIAPPCAB = parseFloat(row.fees_pcab);
-        const LRF = parseFloat(row.lrf); // Correct parsing
-        const DST = parseFloat(row.dst); // Correct parsing
-        const collection = parseFloat(row.total_collection); // Correct parsing
-
-        // Add to total amounts
-        totalCIAPPCAB += CIAPPCAB;
-        totalLRF += LRF;
-        totalDST += DST;
-        totalCollection += collection;
-
-        // Append row to modal table body
-        modalTableBody.innerHTML += `<tr><td>${row.date}</td><td>${row.trans_id}</td><td>${row.name_of_payor}</td><td>${row.reference_number}</td><td>${CIAPPCAB.toFixed(2)}</td><td>${LRF.toFixed(2)}</td><td>${DST.toFixed(2)}</td><td class="text-right">${collection.toFixed(2)}</td></tr>`;
-    });
-
-    // Append the new table to the modal body
-    modalTable.appendChild(modalTableHead);
-    modalTable.appendChild(modalTableBody);
-    modalBody.appendChild(modalTable);
-
-    // Append totals row to modal table body
-    modalTableBody.innerHTML += `<tr><td colspan="4">Total:</td><td>${totalCIAPPCAB.toFixed(2)}</td><td>${totalLRF.toFixed(2)}</td><td>${totalDST.toFixed(2)}</td><td class="text-right">${totalCollection.toFixed(2)}</td></tr>`;
-
-    // Append the modal body to the modal content
-    modalContent.appendChild(modalBody);
-
-    // Append the modal content to the modal container
-    document.getElementById('modalDataTableContainer').appendChild(modalContent);
-
-    // Change the modal dialog size with a transition
-    var modalDialog = $('#Daily_CollectionModal .modal-dialog');
-
-    // Remove table content when modal is closed
-    $('#Daily_CollectionModal').on('hidden.bs.modal', function(e) {
-        // Reset form fields
-        $('#modal_start_date').val('');
-        $('#modal_end_date').val('');
-        // Clear any validation messages
+        // Clear existing content in the modal
         $('#validationMessage').empty();
-        // Clear table content
         $('#modalDataTableContainer').empty();
-    });
 
-    // Ensure that it stays in modal-lg size
-    if (!modalDialog.hasClass('modal-lg')) {
-        modalDialog.removeClass('modal-sm');
-        modalDialog.addClass('modal-lg');
-        modalDialog.css('transition', 'width 0.5s ease-in-out'); // Adjust the duration and easing as needed
-    }
+        // Create a new div to wrap the table and add additional elements if needed     
+        var modalContent = document.createElement('div');
+        modalContent.classList.add('modal-content', 'table-responsive'); // Add classes for styling and responsiveness
 
-    // Initialize DataTable for the modal table with sorting enabled
-    var table = $('#modalDataTable').DataTable({
-        dom: '<"pull-left"b><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
-        scrollX: '90%',
-        scrollCollapse: true,
+        var modalBody = document.createElement('div');
+        modalBody.classList.add('modal-body-content');
+
+        // Create a new table with the matching rows and an id
+        var modalTable = document.createElement('table');
+        modalTable.id = 'modalDataTable'; // Add id to the table
+        modalTable.classList.add('table', 'table-bordered', 'table-hover', 'table-striped'); // Add DataTable styling classes
+
+        var modalTableHead = document.createElement('thead');
+        modalTableHead.classList.add('thead'); // Added light background for the table head
+        modalTableHead.innerHTML = ' <tr><th colspan="8" class="text-center">Collection</th></tr><tr><th rowspan="2">Date & Time</th><th rowspan="2">AR Number</th><th rowspan="2">Name of Payor</th><th rowspan="2">Reference Number</th><th>CIAP-PCAB</th><th>LRF</th><th>DST</th><th rowspan="2">Total Collection</th></tr><tr><th>Account No.</th><th>Account No.</th><th>Account No.</th></tr>';
+
+        var modalTableBody = document.createElement('tbody');
+
+        // Initialize variables to hold the total amounts
+        let totalCIAPPCAB = 0;
+        let totalLRF = 0;
+        let totalDST = 0;
+        let totalCollection = 0;
+
+        // Iterate through filtered data to calculate totals
+        filteredData.forEach((row) => {
+            // Parse amounts to numbers
+            const CIAPPCAB = parseFloat(row.fees_pcab);
+            const LRF = parseFloat(row.lrf); // Correct parsing
+            const DST = parseFloat(row.dst); // Correct parsing
+            const collection = parseFloat(row.total_collection); // Correct parsing
+
+            // Add to total amounts
+            totalCIAPPCAB += CIAPPCAB;
+            totalLRF += LRF;
+            totalDST += DST;
+            totalCollection += collection;
+
+            // Append row to modal table body
+            modalTableBody.innerHTML += `<tr><td>${row.date}</td><td>${row.trans_id}</td><td>${row.name_of_payor}</td><td>${row.reference_number}</td><td>${CIAPPCAB.toFixed(2)}</td><td>${LRF.toFixed(2)}</td><td>${DST.toFixed(2)}</td><td class="text-right">${collection.toFixed(2)}</td></tr>`;
+        });
+
+        // Append the new table to the modal body
+        modalTable.appendChild(modalTableHead);
+        modalTable.appendChild(modalTableBody);
+        modalBody.appendChild(modalTable);
+
+        // Append totals row to modal table body
+        modalTableBody.innerHTML += `<tr><td colspan="4">Total:</td><td>${totalCIAPPCAB.toFixed(2)}</td><td>${totalLRF.toFixed(2)}</td><td>${totalDST.toFixed(2)}</td><td class="text-right">${totalCollection.toFixed(2)}</td></tr>`;
+
+        // Append the modal body to the modal content
+        modalContent.appendChild(modalBody);
+
+        // Append the modal content to the modal container
+        document.getElementById('modalDataTableContainer').appendChild(modalContent);
+
+        // Change the modal dialog size with a transition
+        var modalDialog = $('#Daily_CollectionModal .modal-dialog');
+
+        // Remove table content when modal is closed
+        $('#Daily_CollectionModal').on('hidden.bs.modal', function(e) {
+            // Reset form fields
+            $('#modal_start_date').val('');
+            $('#modal_end_date').val('');
+            // Clear any validation messages
+            $('#validationMessage').empty();
+            // Clear table content
+            $('#modalDataTableContainer').empty();
+        });
+
+        // Ensure that it stays in modal-lg size
+        if (!modalDialog.hasClass('modal-lg')) {
+            modalDialog.removeClass('modal-sm');
+            modalDialog.addClass('modal-lg');
+            modalDialog.css('transition', 'width 0.5s ease-in-out'); // Adjust the duration and easing as needed
+        }
+
+        // Initialize DataTable for the modal table with sorting enabled
+        var table = $('#modalDataTable').DataTable({
+            dom: '<"pull-left"b><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
+            scrollX: '90%',
+            scrollCollapse: true,
+        });
     });
-}); 
 
     $('#modal_start_date, #modal_end_date').on("change", function() {
         $('#validationMessage').empty();
@@ -709,38 +726,38 @@
     //                                         <div class="col" style="position:relative;left:120px; margin-top:4.5rem;">
 
 
-//             doc.html(`<div id="PDFContent" class="mx-auto d-flex flex-column border-dark" style="width:55.8rem;padding-top:6rem;/*border:1px black solid;*/">${content(data)}</div>`, {
-//                 html2canvas: {
-//                     scale: .5
-//                 },
-//                 async callback(pdf) {
-//                     const date = new Date();
-//                     document.querySelector(".card").innerHTML = content(data);
-//                     // await pdf.save(`receipt-${date.toLocaleDateString()}.pdf`);
-//                 },
-//             })
-//         }
-//     }
-async function printRow(trans_id) {
-    const rowData = _jsonData.find(obj => obj.trans_id == trans_id);
-    let doc = new jspdf.jsPDF({
-        orientation: 'p',
-        unit: 'px'
-    });
+    //             doc.html(`<div id="PDFContent" class="mx-auto d-flex flex-column border-dark" style="width:55.8rem;padding-top:6rem;/*border:1px black solid;*/">${content(data)}</div>`, {
+    //                 html2canvas: {
+    //                     scale: .5
+    //                 },
+    //                 async callback(pdf) {
+    //                     const date = new Date();
+    //                     document.querySelector(".card").innerHTML = content(data);
+    //                     // await pdf.save(`receipt-${date.toLocaleDateString()}.pdf`);
+    //                 },
+    //             })
+    //         }
+    //     }
+    async function printRow(trans_id) {
+        const rowData = _jsonData.find(obj => obj.trans_id == trans_id);
+        let doc = new jspdf.jsPDF({
+            orientation: 'p',
+            unit: 'px'
+        });
 
-    // Set agency name directly to "CIAP - PCAB"
-    let agencyName = "CIAP - PCAB";
-    const totalAmount = parseFloat(rowData.fees_pcab) +
-                        parseFloat(rowData.legal_research_fund) +
-                        parseFloat(rowData.document_stamp_tax) +
-                        parseFloat(rowData.ngsi_convenience_fee);
-    
-    const Amount = parseFloat(rowData.fees_pcab) +
-                        parseFloat(rowData.legal_research_fund) +
-                        parseFloat(rowData.document_stamp_tax);
+        // Set agency name directly to "CIAP - PCAB"
+        let agencyName = "CIAP - PCAB";
+        const totalAmount = parseFloat(rowData.fees_pcab) +
+            parseFloat(rowData.legal_research_fund) +
+            parseFloat(rowData.document_stamp_tax) +
+            parseFloat(rowData.ngsi_convenience_fee);
+
+        const Amount = parseFloat(rowData.fees_pcab) +
+            parseFloat(rowData.legal_research_fund) +
+            parseFloat(rowData.document_stamp_tax);
 
 
-    let content = `
+        let content = `
   
     <div class="mx-auto my-5" style="width: 50rem; ">
                 <div class="container mt-3 justify-content-center mb-4">
@@ -781,8 +798,8 @@ async function printRow(trans_id) {
                         </div>
     `;
 
-    
-    content += `
+
+        content += `
     <div class="row d-flex pl-5">
             <div class="col text-capitalize ">Name of Payor<div class="float-right">  :</div></div>
             <div class="col"> ${rowData.name_of_payor}</div>
@@ -821,7 +838,7 @@ async function printRow(trans_id) {
         </div>
     `;
 
-    content += ` 
+        content += ` 
                     </div>
                 </div>
                 <div class="row mb-4">
@@ -838,17 +855,17 @@ async function printRow(trans_id) {
         </div>
     `;
 
-    doc.html(content, {
-        html2canvas: {
-            scale: .5
-        },
-        callback: async function (doc) {
-            await doc.output("dataurlnewwindow", "receipt.pdf");
-        },
-        x: 25,
-        y: 10,
-    });
-}
+        doc.html(content, {
+            html2canvas: {
+                scale: .5
+            },
+            callback: async function(doc) {
+                await doc.output("dataurlnewwindow", "receipt.pdf");
+            },
+            x: 25,
+            y: 10,
+        });
+    }
 
 
     $('#DownloadECollect').on('click', (e) => console.log(e))
