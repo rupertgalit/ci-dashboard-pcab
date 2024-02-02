@@ -64,6 +64,9 @@
         border: 1px solid black !important;
 
     }
+    .dataTables_empty{
+        display: table-cell!important;
+    }
 
     .modal-header .close {
         margin: -43px -26px -25px auto !important;
