@@ -18,25 +18,30 @@
     input:focus {
         border: 2px solid #000 !important;
     }
-td.day:hover{
-    background: #ffffa2;
 
-}
-td.today.active.day{
-    background: #ff7373;
-    color: #fff;
-}
-th.clear{
-    text-align: center;
-    background: #00507A;
-    color: #fff;
-}
-th.clear:hover{
-    text-align: center;
-    background: #909090;   
-     color: #fff;
+    td.day:hover {
+        background: #ffffa2;
 
-}
+    }
+
+    td.today.active.day {
+        background: #ff7373;
+        color: #fff;
+    }
+
+    th.clear {
+        text-align: center;
+        background: #00507A;
+        color: #fff;
+    }
+
+    th.clear:hover {
+        text-align: center;
+        background: #909090;
+        color: #fff;
+
+    }
+
     .custom-button:hover {
         background-color: #45a049;
         /* Darker Green */
@@ -145,21 +150,28 @@ th.clear:hover{
 
 
                     <div class=" col-mb-3 mr-3 mt-3">
-                        <button class="btn-lg btn-outline-dark rounded border-0" data-toggle="modal" data-target="#Daily_CollectionModal">Daily Collection</button>
-                        <div class="modal fade" id="Daily_CollectionModal" tabindex="-1" role="dialog" aria-labelledby="Daily_CollectionModalLabel" aria-hidden="true">
+                        <button class="btn-lg btn-outline-dark rounded border-0" data-toggle="modal"
+                            data-target="#Daily_CollectionModal">Daily Collection</button>
+                        <div class="modal fade" id="Daily_CollectionModal" tabindex="-1" role="dialog"
+                            aria-labelledby="Daily_CollectionModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-sm" role="document">
                                 <div id="DailyCollectModal" class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="Daily_CollectionModalLabel">Daily Collection</h5>
-                                        <button type="button" class="close text-right pr-4" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <button type="button" class="close text-right pr-4" data-dismiss="modal"
+                                            aria-hidden="true">&times;</button>
                                     </div>
                                     <div class="modal-body bg-white pb-3">
                                         <div class="row mb-2">
                                             <div class="col-12 d-flex flex-row flex-wrap">
-                                                <label for="modal_start_date" class="mr-2 d-flex align-items-center">Start Date:</label>
-                                                <input type="date" id="modal_start_date" class="form-control" style="width: 16rem;">
-                                                <label for="modal_end_date" class="mr-2  d-flex align-items-center">End Date:</label>
-                                                <input type="date" id="modal_end_date" class="form-control" style="width: 16rem;">
+                                                <label for="modal_start_date"
+                                                    class="mr-2 d-flex align-items-center">Start Date:</label>
+                                                <input type="date" id="modal_start_date" class="form-control"
+                                                    style="width: 16rem;">
+                                                <label for="modal_end_date" class="mr-2  d-flex align-items-center">End
+                                                    Date:</label>
+                                                <input type="date" id="modal_end_date" class="form-control"
+                                                    style="width: 16rem;">
                                                 <div id="validationMessage"></div>
                                             </div>
                                         </div>
@@ -167,9 +179,13 @@ th.clear:hover{
                                         <div id="modalDataTableContainer" class="overflow-auto"></div>
                                     </div>
                                     <div class="modal-footer bg-white border-top-0 d-flex ">
-                                        <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded preview-btn-modal">Preview</button>
-                                        <button type="button" onclick="downloadPDF()" class="btn-sm btn-outline-dark mr-3 mb-2 rounded">Download</button>
-                                        <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded " data-toggle="modal" data-target="#Submit_deposit" id="submit-deposit" data-backdrop="static" data-keyboard="false">Submit Deposit</button>
+                                        <button type="button"
+                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded preview-btn-modal">Preview</button>
+                                        <button type="button" onclick="downloadPDF()"
+                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded">Download</button>
+                                        <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded "
+                                            data-toggle="modal" data-target="#Submit_deposit" id="submit-deposit"
+                                            data-backdrop="static" data-keyboard="false">Submit Deposit</button>
 
                                     </div>
                                 </div>
@@ -179,8 +195,10 @@ th.clear:hover{
 
                     </div>
                     <div class=" col-mb-3 mr-3 mt-3">
-                        <button class="btn-lg btn-outline-dark rounded border-0 w-50" data-toggle="modal" data-target="#exportModal">E-Collection</button>
-                        <div class="modal fade" id="exportModal" tabindex="-1" role="dialog" aria-labelledby="exportModalLabel" aria-hidden="true">
+                        <button class="btn-lg btn-outline-dark rounded border-0 w-50" data-toggle="modal"
+                            data-target="#exportModal">E-Collection</button>
+                        <div class="modal fade" id="exportModal" tabindex="-1" role="dialog"
+                            aria-labelledby="exportModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -243,7 +261,7 @@ th.clear:hover{
                                                     $total_per_AR = $row["fees_pcab"] + $row["document_stamp_tax"] + $row["legal_research_fund"];
                                                     echo "<td>" . $total_per_AR . "</td>";
                                                     echo "<td>" . $row["fees_pcab"] . "</td>";
-                                                    echo "<td>"  . $row["document_stamp_tax"] .  "</td>";
+                                                    echo "<td>" . $row["document_stamp_tax"] . "</td>";
                                                     echo "<td> " . $row["legal_research_fund"] . "</td>";
 
                                                     echo "</tr>";
@@ -267,7 +285,8 @@ th.clear:hover{
             <div class="form-group">
                 <label for="startDate" class="date-label">Start Date:</label>
                 <div class="input-group date date-input-group" id="startDatePicker">
-                    <input type="text" class="form-control" name="startDate" id="startDate" style="z-index: 2" readonly placeholder="YYYY / MM / DD">
+                    <input type="text" class="form-control" name="startDate" id="startDate" style="z-index: 2" readonly
+                        placeholder="YYYY / MM / DD">
                     <span class="input-group-addon" id="startDateIcon">
                         <i class="glyphicon glyphicon-calendar"></i>
                     </span>
@@ -275,7 +294,8 @@ th.clear:hover{
 
                 <label for="endDate" class="date-label">End Date:</label>
                 <div class="input-group date date-input-group" id="endDatePicker">
-                    <input type="text" class="form-control" name="endDate" id="endDate" readonly placeholder="YYYY / MM / DD">
+                    <input type="text" class="form-control" name="endDate" id="endDate" readonly
+                        placeholder="YYYY / MM / DD">
                     <span class="input-group-addon" id="endDateIcon">
                         <i class="glyphicon glyphicon-calendar"></i>
                     </span>
@@ -346,12 +366,14 @@ th.clear:hover{
 
     </div>
 </div>
-<div class="modal fade" id="Submit_deposit" tabindex="-1" role="dialog" aria-labelledby="Submit_depositnModalLabel" aria-hidden="true">
+<div class="modal fade" id="Submit_deposit" tabindex="-1" role="dialog" aria-labelledby="Submit_depositnModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg d-flex justify-content-center" role="document">
         <div id="Submit_depositModal" class="modal-content" style="width: 24rem;">
             <div class="modal-header">
                 <h5 class="modal-title" id="Submit_depositModalLabel">Collections Settlement</h5>
-                <button type="button" class="close text-right pr-4 text-dark" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <button type="button" class="close text-right pr-4 text-dark" data-dismiss="modal"
+                    aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body bg-white pb-3">
                 <!-- awdawd -->
@@ -360,32 +382,39 @@ th.clear:hover{
                     <div class="d-flex flex-row justify-content-between mt-3">
                         <div id="dateRange">
                             <span>From *</span>
-                            <input type="date" name="collection_date_from" class="p-2 border rounded" value="<?php echo date('Y-m-d'); ?>">
+                            <input type="date" name="collection_date_from" class="p-2 border rounded"
+                                value="<?php echo date('Y-m-d'); ?>">
 
                         </div>
                         <div id="dateRange">
                             <span>To *</span>
-                            <input type="date" name="collection_date_to" class="p-2 border border-black rounded" value="<?php echo date('Y-m-d'); ?>">
+                            <input type="date" name="collection_date_to" class="p-2 border border-black rounded"
+                                value="<?php echo date('Y-m-d'); ?>">
                         </div>
                     </div>
                     <div id="referenceNo">
                         <span>Reference No. *</span>
-                        <input type="text" name="deposit_reference_no" class="p-2 pl-3 border border-black mt-3 rounded w-100">
+                        <input type="text" name="deposit_reference_no"
+                            class="p-2 pl-3 border border-black mt-3 rounded w-100">
                     </div>
                     <div id="dateOfDeposit">
                         <span>Date of Deposit *</span>
-                        <input type="date" name="deposited_date" class="p-2 pl-3 border border-black mt-3 rounded w-100">
+                        <input type="date" name="deposited_date"
+                            class="p-2 pl-3 border border-black mt-3 rounded w-100">
                     </div>
                     <div id="depositedAmount">
                         <span>Deposited Amount *</span>
-                        <input type="text" name="deposited_amount" class="p-2 pl-3 border border-black mt-3 rounded w-100">
+                        <input type="text" name="deposited_amount"
+                            class="p-2 pl-3 border border-black mt-3 rounded w-100">
                     </div>
                 </div>
             </div>
             <div class="modal-footer bg-white border-top-0">
 
-                <button type="button" class="btn-sm border-0 m-0 ml-2 mb-2 rounded close-modal bg-secondary" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                <button type="button" class="btn-sm border-0 m-0 ml-2 mb-2 rounded submit-deposit-btn-modal bg-info" id="submitDeposit">Submit</button>
+                <button type="button" class="btn-sm border-0 m-0 ml-2 mb-2 rounded close-modal bg-secondary"
+                    data-dismiss="modal" aria-hidden="true">Cancel</button>
+                <button type="button" class="btn-sm border-0 m-0 ml-2 mb-2 rounded submit-deposit-btn-modal bg-info"
+                    id="submitDeposit">Submit</button>
 
             </div>
         </div>
@@ -396,7 +425,7 @@ th.clear:hover{
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         function getCurrentDate() {
             const today = new Date();
             const year = today.getFullYear();
@@ -424,11 +453,11 @@ th.clear:hover{
             scrollCollapse: true,
         });
 
-        $('.search-btn').on('click', function() {
+        $('.search-btn').on('click', function () {
             table.draw();
         });
         $.fn.dataTable.ext.search.push(
-            function(settings, data, dataIndex) {
+            function (settings, data, dataIndex) {
                 var startDate = $('#startDate').val();
                 var endDate = $('#endDate').val();
                 var currentDate = data[1];
@@ -449,13 +478,13 @@ th.clear:hover{
         table.draw();
 
         // Update table on date change
-        $('#startDate, #endDate').on('change', function() {
+        $('#startDate, #endDate').on('change', function () {
             table.draw();
         });
     });
 
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         var today = new Date();
         var dateString = today.getFullYear() + '-' + (today.getMonth() + 1).toString().padStart(2, '0') + '-' + today.getDate().toString().padStart(2, '0');
         var filename = 'NGSI_E-Collection_' + dateString;
@@ -467,7 +496,7 @@ th.clear:hover{
                 text: 'Export',
                 filename: filename,
                 className: 'export-btn', // Add class name for styling
-                customize: function(csv) {
+                customize: function (csv) {
                     // Modify the header row according to the provided <thead> structure
                     var header = 'Electronic Acknowledgement Receipt, ,, , Amount\n';
                     var header1 = ',, ,, , Breakdown Collection\n';
@@ -478,7 +507,7 @@ th.clear:hover{
         });
 
         // Event handler for month filter
-        $('#monthFilter').on('change', function() {
+        $('#monthFilter').on('change', function () {
             var selectedMonth = $(this).val();
 
             // Use DataTables API to filter by month
@@ -500,7 +529,7 @@ th.clear:hover{
 
 
     // Modal date filter
-    $('.preview-btn-modal').on('click', function() {
+    $('.preview-btn-modal').on('click', function () {
         var modalStartDate = $('#modal_start_date').val();
         var modalEndDate = $('#modal_end_date').val();
 
@@ -559,9 +588,11 @@ th.clear:hover{
         filteredData.forEach((row) => {
             // Parse amounts to numbers
             const CIAPPCAB = parseFloat(row.fees_pcab);
-            const LRF = parseFloat(row.lrf); // Correct parsing
-            const DST = parseFloat(row.dst); // Correct parsing
-            const collection = parseFloat(row.total_collection); // Correct parsing
+            const LRF = parseFloat(row.legal_research_fund);
+            const DST = parseFloat(row.document_stamp_tax);
+
+            // Sum of fees_pcab, legal_research_fund, and document_stamp_tax
+            const collection = CIAPPCAB + LRF + DST;
 
             // Add to total amounts
             totalCIAPPCAB += CIAPPCAB;
@@ -591,7 +622,7 @@ th.clear:hover{
         var modalDialog = $('#Daily_CollectionModal .modal-dialog');
 
         // Remove table content when modal is closed
-        $('#Daily_CollectionModal').on('hidden.bs.modal', function(e) {
+        $('#Daily_CollectionModal').on('hidden.bs.modal', function (e) {
             // Reset form fields
             $('#modal_start_date').val('');
             $('#modal_end_date').val('');
@@ -616,11 +647,11 @@ th.clear:hover{
         });
     });
 
-    $('#modal_start_date, #modal_end_date').on("change", function() {
+    $('#modal_start_date, #modal_end_date').on("change", function () {
         $('#validationMessage').empty();
     });
 
-    $('.download-btn-modal').on('click', function() {
+    $('.download-btn-modal').on('click', function () {
         var modalStartDate = $('#modal_start_date').val();
         var modalEndDate = $('#modal_end_date').val();
 
@@ -636,7 +667,7 @@ th.clear:hover{
     });
 
     // Remove table content when modal is closed
-    $('#Daily_CollectionModal').on('hidden.bs.modal', function(e) {
+    $('#Daily_CollectionModal').on('hidden.bs.modal', function (e) {
         $('#modalDataTableContainer').empty();
 
     });
@@ -859,7 +890,7 @@ th.clear:hover{
             html2canvas: {
                 scale: .5
             },
-            callback: async function(doc) {
+            callback: async function (doc) {
                 await doc.output("dataurlnewwindow", "receipt.pdf");
             },
             x: 25,
@@ -887,7 +918,7 @@ th.clear:hover{
 
     }
 
-    $("#referenceNo input, #dateOfDeposit input, #depositedAmount input").on("input", function() {
+    $("#referenceNo input, #dateOfDeposit input, #depositedAmount input").on("input", function () {
         if (this.value != "") {
             this.parentElement.classList.add("filled")
             this.parentElement.classList.remove("error")
@@ -898,7 +929,7 @@ th.clear:hover{
     $("#submitDeposit").on("click", async () => {
         let payload = {}
         let isInvalid = false
-        $("#Submit_deposit input").each(function() {
+        $("#Submit_deposit input").each(function () {
             let value = this.value
 
             if (this.name == "deposited_date") {
@@ -916,7 +947,7 @@ th.clear:hover{
         console.log(payload)
         if (isInvalid) return;
 
-        $(".modal button[data-dismiss=modal").each(function() {
+        $(".modal button[data-dismiss=modal").each(function () {
             this.click()
         })
 
