@@ -41,10 +41,13 @@
         color: #fff;
 
     }
-    .datepicker td, .datepicker th{
+
+    .datepicker td,
+    .datepicker th {
         cursor: pointer;
     }
-    span.month:hover{
+
+    span.month:hover {
         background: #ffffa2;
 
     }
@@ -64,8 +67,9 @@
         border: 1px solid black !important;
 
     }
-    .dataTables_empty{
-        display: table-cell!important;
+
+    .dataTables_empty {
+        display: table-cell !important;
     }
 
     .modal-header .close {
@@ -419,7 +423,7 @@
             </div>
             <div class="modal-footer bg-white border-top-0">
 
-                <button type="button" class="btn-sm border-0 m-0 ml-2 mb-2 rounded close-modal bg-secondary" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                <button type="button" class="btn-sm border-0 m-0 ml-2 mb-2 rounded close-modal bg-secondary" id="cancelDeposit" data-dismiss="modal" aria-hidden="true">Cancel</button>
                 <button type="button" class="btn-sm border-0 m-0 ml-2 mb-2 rounded submit-deposit-btn-modal bg-info" id="submitDeposit"><i class="icon-settings spin" hidden></i> <span>Submit</span><span hidden>Submitting</span></button>
 
             </div>
@@ -1050,6 +1054,13 @@
         }
     })
 
+    $("#cancelDeposit").on("click", async () => {
+        $("#Submit_deposit .message").text("").removeClass("success");
+        $("#Submit_deposit .filled").removeClass("filled");
+        $("#Submit_deposit input").val("")
+        $("#Submit_deposit #dateRange input").val('<?php echo date('Y-m-d'); ?>')
+        $("#Submit_deposit").removeClass('loading')
+    })
 
     $("#submitDeposit").on("click", async () => {
         let payload = {}
@@ -1092,6 +1103,7 @@
                         this.click()
                     })
                     $("#Submit_deposit .message").text("").removeClass("success");
+                    $("#Submit_deposit .filled").removeClass("filled");
                     $("#Submit_deposit input").val("")
                     $("#Submit_deposit #dateRange input").val('<?php echo date('Y-m-d'); ?>')
                     $("#Submit_deposit").removeClass('loading')
