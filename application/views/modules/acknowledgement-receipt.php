@@ -138,19 +138,20 @@
         margin-right: 20px;
     }
 
-        .custom-date-input input[type="date"] {
-            appearance: none;
-            -webkit-appearance: none;
-            padding: 0.375rem 0.75rem;
-            border: 1px solid #ced4da;
-            border-radius: 0.25rem;
-            margin-right: 0.5rem; /* Adjust margin as needed */
-        }
+    .custom-date-input input[type="date"] {
+        appearance: none;
+        -webkit-appearance: none;
+        padding: 0.375rem 0.75rem;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        margin-right: 0.5rem;
+        /* Adjust margin as needed */
+    }
 
-        /* Additional styling to hide the calendar icon */
-        .custom-date-input input[type="date"]::-webkit-calendar-picker-indicator {
-            display: none;
-        }
+    /* Additional styling to hide the calendar icon */
+    .custom-date-input input[type="date"]::-webkit-calendar-picker-indicator {
+        display: none;
+    }
 </style>
 <div class="row">
     <div class="col-md-12 grid-margin stretch-card m-0" id="toPrint">
@@ -164,28 +165,25 @@
 
 
                     <div class=" col-mb-3 mr-3 mt-3">
-                        <button class="btn-lg btn-outline-dark rounded border-0" data-toggle="modal"
-                            data-target="#Daily_CollectionModal">Daily Collection</button>
-                        <div class="modal fade" id="Daily_CollectionModal" tabindex="-1" role="dialog"
-                            aria-labelledby="Daily_CollectionModalLabel" aria-hidden="true">
+                        <button class="btn-lg btn-outline-dark rounded border-0" data-toggle="modal" data-target="#Daily_CollectionModal">Daily Collection</button>
+                        <div class="modal fade" id="Daily_CollectionModal" tabindex="-1" role="dialog" aria-labelledby="Daily_CollectionModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-sm" role="document">
                                 <div id="DailyCollectModal" class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="Daily_CollectionModalLabel">Daily Collection</h5>
-                                        <button type="button" class="close text-right pr-4" data-dismiss="modal"
-                                            aria-hidden="true">&times;</button>
+                                        <button type="button" class="close text-right pr-4" data-dismiss="modal" aria-hidden="true">&times;</button>
                                     </div>
                                     <div class="modal-body bg-white pb-3">
                                         <div class="row mb-2">
                                             <div class="col-12 d-flex flex-row flex-wrap">
-                                            <div class="custom-date-input">
-                                                <label for="modal_start_date" class="mr-2 d-flex align-items-center">Start Date:</label>
-                                                <input type="date" id="modal_start_date" class="form-control" style="width: 16rem;">
-                                            </div>
-                                            <div class="custom-date-input">
-                                                <label for="modal_end_date" class="mr-2  d-flex align-items-center">End Date:</label>
-                                                <input type="date" id="modal_end_date" class="form-control" style="width: 16rem;">
-                                            </div>
+                                                <div class="custom-date-input">
+                                                    <label for="modal_start_date" class="mr-2 d-flex align-items-center">Start Date:</label>
+                                                    <input type="date" id="modal_start_date" class="form-control" style="width: 16rem;">
+                                                </div>
+                                                <div class="custom-date-input">
+                                                    <label for="modal_end_date" class="mr-2  d-flex align-items-center">End Date:</label>
+                                                    <input type="date" id="modal_end_date" class="form-control" style="width: 16rem;">
+                                                </div>
                                                 <div id="validationMessage"></div>
                                             </div>
                                         </div>
@@ -193,34 +191,9 @@
                                         <div id="modalDataTableContainer" class="overflow-auto"></div>
                                     </div>
                                     <div class="modal-footer bg-white border-top-0 d-flex ">
-                                        <button type="button"
-                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded preview-btn-modal">Preview</button>
-                                        <button type="button" onclick="downloadPDF()"
-                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded">Download</button>
-                                        <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded "
-                                            data-toggle="modal" data-target="#Submit_deposit" id="submit-deposit"
-                                            data-backdrop="static" data-keyboard="false">Submit Deposit</button>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal fade" id="Submit_deposit" tabindex="-1" role="dialog"
-                            aria-labelledby="Submit_depositnModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div id="Submit_depositModal" class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="Submit_depositModalLabel">Submit Deposit</h5>
-                                        <button type="button" class="close text-right pr-4" data-dismiss="modal"
-                                            aria-hidden="true">&times;</button>
-                                    </div>
-                                    <div class="modal-body bg-white pb-3">
-                                        <!-- awdawd -->
-                                    </div>
-                                    <div class="modal-footer bg-white border-top-0">
-                                    
-                                        <button type="button"
-                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded submit-deposit-btn-modal" id="">Submit</button>
+                                        <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded preview-btn-modal">Preview</button>
+                                        <button type="button" onclick="downloadPDF()" class="btn-sm btn-outline-dark mr-3 mb-2 rounded">Download</button>
+                                        <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded " data-toggle="modal" data-target="#Submit_deposit" id="submit-deposit" data-backdrop="static" data-keyboard="false">Submit Deposit</button>
 
                                     </div>
                                 </div>
@@ -230,10 +203,8 @@
 
                     </div>
                     <div class=" col-mb-3 mr-3 mt-3">
-                        <button class="btn-lg btn-outline-dark rounded border-0 w-50" data-toggle="modal"
-                            data-target="#exportModal">E-Collection</button>
-                        <div class="modal fade" id="exportModal" tabindex="-1" role="dialog"
-                            aria-labelledby="exportModalLabel" aria-hidden="true">
+                        <button class="btn-lg btn-outline-dark rounded border-0 w-50" data-toggle="modal" data-target="#exportModal">E-Collection</button>
+                        <div class="modal fade" id="exportModal" tabindex="-1" role="dialog" aria-labelledby="exportModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -320,8 +291,7 @@
             <div class="form-group">
                 <label for="startDate" class="date-label">Start Date:</label>
                 <div class="input-group date date-input-group" id="startDatePicker">
-                    <input type="text" class="form-control" name="startDate" id="startDate" style="z-index: 2" readonly
-                        placeholder="YYYY / MM / DD">
+                    <input type="text" class="form-control" name="startDate" id="startDate" style="z-index: 2" readonly placeholder="YYYY / MM / DD">
                     <span class="input-group-addon" id="startDateIcon">
                         <i class="glyphicon glyphicon-calendar"></i>
                     </span>
@@ -329,8 +299,7 @@
 
                 <label for="endDate" class="date-label">End Date:</label>
                 <div class="input-group date date-input-group" id="endDatePicker">
-                    <input type="text" class="form-control" name="endDate" id="endDate" readonly
-                        placeholder="YYYY / MM / DD">
+                    <input type="text" class="form-control" name="endDate" id="endDate" readonly placeholder="YYYY / MM / DD">
                     <span class="input-group-addon" id="endDateIcon">
                         <i class="glyphicon glyphicon-calendar"></i>
                     </span>
@@ -401,55 +370,47 @@
 
     </div>
 </div>
-<div class="modal fade" id="Submit_deposit" tabindex="-1" role="dialog" aria-labelledby="Submit_depositnModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="Submit_deposit" tabindex="-1" role="dialog" aria-labelledby="Submit_depositnModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg d-flex justify-content-center" role="document">
         <div id="Submit_depositModal" class="modal-content" style="width: 24rem;">
             <div class="modal-header">
-                <h5 class="modal-title" id="Submit_depositModalLabel">Collections Settlement</h5>
-                <button type="button" class="close text-right pr-4 text-dark" data-dismiss="modal"
-                    aria-hidden="true">&times;</button>
+                <h5 class="modal-title" id="Submit_depositModalLabel">Collection(s) Settlement</h5>
+                <button type="button" class="close text-right pr-4 text-dark" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body bg-white pb-3">
                 <!-- awdawd -->
-                <div class="d-flex flex-column">
+                <div class="d-flex flex-column input-form">
+                    <span class="message" style="position:relative; bottom: 1rem"></span>
                     <label class="pb-1">Day(s) of Collection</label>
                     <div class="d-flex flex-row justify-content-between mt-3">
                         <div id="dateRange">
                             <span>From *</span>
-                            <input type="date" name="collection_date_from" class="p-2 border rounded"
-                                value="<?php echo date('Y-m-d'); ?>">
+                            <input type="date" name="collection_date_from" class="p-2 border rounded" value="<?php echo date('Y-m-d'); ?>">
 
                         </div>
                         <div id="dateRange">
                             <span>To *</span>
-                            <input type="date" name="collection_date_to" class="p-2 border border-black rounded"
-                                value="<?php echo date('Y-m-d'); ?>">
+                            <input type="date" name="collection_date_to" class="p-2 border border-black rounded" value="<?php echo date('Y-m-d'); ?>">
                         </div>
                     </div>
                     <div id="referenceNo">
                         <span>Reference No. *</span>
-                        <input type="text" name="deposit_reference_no"
-                            class="p-2 pl-3 border border-black mt-3 rounded w-100">
+                        <input type="text" name="deposit_reference_no" class="p-2 pl-3 border border-black mt-3 rounded w-100">
                     </div>
                     <div id="dateOfDeposit">
                         <span>Date of Deposit *</span>
-                        <input type="date" name="deposited_date"
-                            class="p-2 pl-3 border border-black mt-3 rounded w-100">
+                        <input type="date" name="deposited_date" class="p-2 pl-3 border border-black mt-3 rounded w-100">
                     </div>
                     <div id="depositedAmount">
-                        <span>Deposited Amount *</span>
-                        <input type="text" name="deposited_amount"
-                            class="p-2 pl-3 border border-black mt-3 rounded w-100">
+                        <span>Deposited Amount ( &#8369; ) *</span>
+                        <input type="text" name="deposited_amount" class="p-2 pl-3 border border-black mt-3 rounded w-100 text-right">
                     </div>
                 </div>
             </div>
             <div class="modal-footer bg-white border-top-0">
 
-                <button type="button" class="btn-sm border-0 m-0 ml-2 mb-2 rounded close-modal bg-secondary"
-                    data-dismiss="modal" aria-hidden="true">Cancel</button>
-                <button type="button" class="btn-sm border-0 m-0 ml-2 mb-2 rounded submit-deposit-btn-modal bg-info"
-                    id="submitDeposit">Submit</button>
+                <button type="button" class="btn-sm border-0 m-0 ml-2 mb-2 rounded close-modal bg-secondary" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                <button type="button" class="btn-sm border-0 m-0 ml-2 mb-2 rounded submit-deposit-btn-modal bg-info" id="submitDeposit"><i class="icon-settings spin" hidden></i> <span>Submit</span><span hidden>Submitting</span></button>
 
             </div>
         </div>
@@ -460,7 +421,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         function getCurrentDate() {
             const today = new Date();
             const year = today.getFullYear();
@@ -488,11 +449,11 @@
             scrollCollapse: true,
         });
 
-        $('.search-btn').on('click', function () {
+        $('.search-btn').on('click', function() {
             table.draw();
         });
         $.fn.dataTable.ext.search.push(
-            function (settings, data, dataIndex) {
+            function(settings, data, dataIndex) {
                 var startDate = $('#startDate').val();
                 var endDate = $('#endDate').val();
                 var currentDate = data[1];
@@ -513,13 +474,13 @@
         table.draw();
 
         // Update table on date change
-        $('#startDate, #endDate').on('change', function () {
+        $('#startDate, #endDate').on('change', function() {
             table.draw();
         });
     });
 
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         var today = new Date();
         var dateString = today.getFullYear() + '-' + (today.getMonth() + 1).toString().padStart(2, '0') + '-' + today.getDate().toString().padStart(2, '0');
         var filename = 'NGSI_E-Collection_' + dateString;
@@ -531,7 +492,7 @@
                 text: 'Export',
                 filename: filename,
                 className: 'export-btn', // Add class name for styling
-                customize: function (csv) {
+                customize: function(csv) {
                     // Modify the header row according to the provided <thead> structure
                     var header = 'Electronic Acknowledgement Receipt, ,, , Amount\n';
                     var header1 = ',, ,, , Breakdown Collection\n';
@@ -542,7 +503,7 @@
         });
 
         // Event handler for month filter
-        $('#monthFilter').on('change', function () {
+        $('#monthFilter').on('change', function() {
             var selectedMonth = $(this).val();
 
             // Use DataTables API to filter by month
@@ -554,6 +515,11 @@
     });
     const _jsonData = JSON.parse('<?php echo json_encode($data) ?>')
 
+    const toLocalCurrency = (val) => parseFloat(val).toLocaleString('en-US', {
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 2
+    })
+
     function applyDateFilter() {
         var start_date = $('#startDate').val();
         var end_date = $('#endDate').val();
@@ -563,14 +529,14 @@
 
 
     $('#modal_start_date, #modal_end_date').datepicker({
-            format: 'yyyy-mm-dd',
-            autoclose: true,
-            todayHighlight: true,
-            clearBtn: true,
-            orientation: 'bottom',
-        });
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        todayHighlight: true,
+        clearBtn: true,
+        orientation: 'bottom',
+    });
     // Modal date filter
-    $('.preview-btn-modal').on('click', function () {
+    $('.preview-btn-modal').on('click', function() {
         var modalStartDate = $('#modal_start_date').val();
         var modalEndDate = $('#modal_end_date').val();
 
@@ -607,7 +573,7 @@
 
         var modalBody = document.createElement('div');
         modalBody.classList.add('modal-body-content');
-        
+
 
         // Create a new table with the matching rows and an id
         var modalTable = document.createElement('table');
@@ -664,7 +630,7 @@
         var modalDialog = $('#Daily_CollectionModal .modal-dialog');
 
         // Remove table content when modal is closed
-        $('#Daily_CollectionModal').on('hidden.bs.modal', function (e) {
+        $('#Daily_CollectionModal').on('hidden.bs.modal', function(e) {
             // Reset form fields
             $('#modal_start_date').val('');
             $('#modal_end_date').val('');
@@ -689,11 +655,11 @@
         });
     });
 
-    $('#modal_start_date, #modal_end_date').on("change", function () {
+    $('#modal_start_date, #modal_end_date').on("change", function() {
         $('#validationMessage').empty();
     });
 
-    $('.download-btn-modal').on('click', function () {
+    $('.download-btn-modal').on('click', function() {
         var modalStartDate = $('#modal_start_date').val();
         var modalEndDate = $('#modal_end_date').val();
 
@@ -709,7 +675,7 @@
     });
 
     // Remove table content when modal is closed
-    $('#Daily_CollectionModal').on('hidden.bs.modal', function (e) {
+    $('#Daily_CollectionModal').on('hidden.bs.modal', function(e) {
         $('#modalDataTableContainer').empty();
 
     });
@@ -932,7 +898,7 @@
             html2canvas: {
                 scale: .5
             },
-            callback: async function (doc) {
+            callback: async function(doc) {
                 await doc.output("dataurlnewwindow", "receipt.pdf");
             },
             x: 25,
@@ -949,17 +915,17 @@
         // const doc = new jsPDF();
         // doc.autoTable({ html: '#myTable' });
         // doc.save('table.pdf');
-        
-            // var pdf = new jsPDF();
-            // pdf.autoTable({html:'#myTable'});
-            // window.open(URL.createObjectURL(pdf.output("blob")))
+
+        // var pdf = new jsPDF();
+        // pdf.autoTable({html:'#myTable'});
+        // window.open(URL.createObjectURL(pdf.output("blob")))
 
 
-            let doc = new jspdf.jsPDF({
+        let doc = new jspdf.jsPDF({
             orientation: 'p',
             unit: 'px'
         })
-            let printContent = `
+        let printContent = `
             <div class="mx-auto d-flex flex-column border-dark" style="/*margin-top:3rem*/;width:80rem;height:112.75rem;border:1px black solid;">[content]</div>`;
         let content = ``
         let ColTable = ``
@@ -1014,48 +980,46 @@
                 </div>
                </div> `;
 
-            
+
 
             //    printContent.replace("[content]", content  ) 
-                
+
             //     doc.html(printContent.replace("[content]", content  ),{
             //     html2canvas: {
             //         scale: .35
             //     },
             //     callback: async function (doc) {
- 
+
 
             //         await doc.output("dataurlnewwindow", "list_of_collection.pdf");
             //     },
             // })
 
-        //     var awd = new  jsPDF();
-        //  //   awd.fromHTML(document.getElementById("BillColHeader"))
-        //  awd.html(printContent.replace("[content]", content  ))
-        //    // awd.fromHTML(document.getElementById("modalDataTable"))
-        //     awd.output("dataurlnewwindow", "list_of_collection.pdf");
+            //     var awd = new  jsPDF();
+            //  //   awd.fromHTML(document.getElementById("BillColHeader"))
+            //  awd.html(printContent.replace("[content]", content  ))
+            //    // awd.fromHTML(document.getElementById("modalDataTable"))
+            //     awd.output("dataurlnewwindow", "list_of_collection.pdf");
 
-             doc.html( document.getElementById("#modalDataTable" ) ,
-             {
+            doc.html(document.getElementById("#modalDataTable"), {
                 html2canvas: {
                     scale: .35
                 },
-                callback: async function (doc) {
- 
+                callback: async function(doc) {
+
 
                     await doc.output("dataurlnewwindow", "list_of_collection.pdf");
                 },
-            }
-            )
+            })
 
         } catch (e) {
             console.log(e)
         }
 
-            
+
     }
 
-    $("#referenceNo input, #dateOfDeposit input, #depositedAmount input").on("input", function () {
+    $("#referenceNo input, #dateOfDeposit input, #depositedAmount input").on("input", function() {
         if (this.value != "") {
             this.parentElement.classList.add("filled")
             this.parentElement.classList.remove("error")
@@ -1063,10 +1027,24 @@
             this.parentElement.classList.remove("filled", "error")
     })
 
+    $("#depositedAmount input").on("change", function() {
+        const regex = /(?:^[1-9]([0-9]+)?(?:\.[0-9]{1,2})?$)|(?:^(?:0)$)|(\.\d)/
+
+        if (this.value != "") {
+            if (!regex.test(this.value))
+                this.parentElement.classList.add("error")
+            else
+                this.value = toLocalCurrency(this.value.replace(",", ""))
+        } else {
+            this.parentElement.classList.remove("error")
+        }
+    })
+
+
     $("#submitDeposit").on("click", async () => {
         let payload = {}
         let isInvalid = false
-        $("#Submit_deposit input").each(function () {
+        $("#Submit_deposit input").each(function() {
             let value = this.value
 
             if (this.name == "deposited_date") {
@@ -1079,22 +1057,42 @@
                 return;
             }
 
-            payload[this.name] = this.value;
+            payload[this.name] = this.name == "deposited_amount" ? this.value.replace(",", "") : this.value;
         })
-        console.log(payload)
+
         if (isInvalid) return;
 
-        $(".modal button[data-dismiss=modal").each(function () {
-            this.click()
-        })
+        if ($("#Submit_deposit .input-form .error").length) return;
 
-        const res = await fetch("/submit-deposit", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
-        })
-        console.log(await res.json())
+        $("#Submit_deposit").addClass('loading')
+
+        try {
+            const res = await fetch("/submit-deposit", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            }).then(res => res.json())
+
+            if (res.status) {
+                $("#Submit_deposit .message").text("Deposit settlement submitted succesfully.").addClass("success");
+                setTimeout(() => {
+                    $(".modal button[data-dismiss=modal").each(function() {
+                        this.click()
+                    })
+                    $("#Submit_deposit .message").text("").removeClass("success");
+                    $("#Submit_deposit input").val("")
+                    $("#Submit_deposit #dateRange input").val('<?php echo date('Y-m-d'); ?>')
+                    $("#Submit_deposit").removeClass('loading')
+                }, 1500)
+                return
+            }
+            throw (res)
+
+        } catch (e) {
+            $("#Submit_deposit .message").text("An error occured, please try again.").addClass("error");
+            $("#Submit_deposit").removeClass('loading')
+        }
     })
 </script>

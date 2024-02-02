@@ -227,8 +227,23 @@ div.card-body {
 .error > input,
 .error > label,
 .error > span {
-	border-color: #ef5350!important;
-	color: #ef5350!important;
+	border-color: #ef5350 !important;
+	color: #ef5350 !important;
+}
+
+span.message {
+	padding: 2px 5px 2px 5px;
+	color: #fff;
+	border-radius: 5px;
+	text-align: center;
+}
+
+span.message.error {
+	background-color: #ef5350 !important;
+}
+
+span.message.success {
+	background-color: #2fba1f!important;
 }
 
 table {
@@ -237,13 +252,12 @@ table {
 
 table thead th {
 	padding: 0.5rem;
-	background-color: #00507a  !important;
+	background-color: #00507a !important;
 	text-align: left;
 	color: white;
 	font-size: 0.8rem;
 	font-weight: 700;
 }
-
 
 table tr td {
 	padding-top: 0.3rem;
@@ -298,7 +312,7 @@ table tr:nth-child(odd) {
 	margin-left: 0.6rem;
 	padding: 0 5px;
 }
-.modal#Submit_deposit div#dateRange > input {
+.modal#Submit_deposit input[type="date"] {
 	font-size: 14px;
 	width: 10rem;
 	padding-left: 1rem !important;
@@ -327,6 +341,53 @@ table tr:nth-child(odd) {
 .modal#Submit_deposit div#dateOfDeposit span {
 	opacity: 1;
 	margin-top: 0.4rem;
+}
+
+.modal#Submit_deposit.loading input,
+.modal#Submit_deposit.loading button {
+	background-color: #efefef;
+	pointer-events: none;
+	user-select: none;
+}
+
+.modal#Submit_deposit.loading button span {
+	display: none;
+}
+
+.modal#Submit_deposit.loading button span[hidden],
+.modal#Submit_deposit.loading button i[class*="icon-"].spin[hidden] {
+	display: inline-block !important;
+}
+
+.spin {
+	animation: infinite spinner 1s !important;
+}
+
+@keyframes spinner {
+	12.5% {
+		transform: rotate(45deg);
+	}
+	25% {
+		transform: rotate(90deg);
+	}
+	37.5% {
+		transform: rotate(135deg);
+	}
+	50% {
+		transform: rotate(180deg);
+	}
+	62.5% {
+		transform: rotate(225deg);
+	}
+	75% {
+		transform: rotate(270deg);
+	}
+	87.5% {
+		transform: rotate(315deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }
 
 /* .modal#Submit_deposit div#requirements input#referenceNo:focus > span {
