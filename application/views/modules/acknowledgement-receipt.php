@@ -928,7 +928,6 @@
         </div>
     `;
 
-<<<<<<< Updated upstream
         doc.html(content, {
             html2canvas: {
                 scale: .5
@@ -939,74 +938,6 @@
             x: 25,
             y: 10,
         });
-=======
-                if (key == "amount") {
-                    content += `
-            <div class="row d-flex">
-                <div  class="col text-capitalize pl-4">PCAB Fee<div class="float-right pr-2">:</div></div>
-                <div class="col">
-                    ${parseFloat(500).toFixed(2)}
-                </div>
-            </div>
-            <div class="row d-flex">
-                <div  class="col text-capitalize pl-4">Documentary Stamp Fee<div class="float-right pr-2">:</div></div>
-                <div class="col">
-                    ${parseFloat(20).toFixed(2)}
-                </div>
-            </div>
-            <div class="row d-flex">
-                <div  class="col text-capitalize pl-4">Legal Research Fee<div class="float-right pr-2">:</div></div>
-                <div class="col">
-                    ${parseFloat(15).toFixed(2)}
-                </div>
-            </div>`;
-                }
-            }   
-            content += ` </div>
-                </div>
-                    <div class="row mb-4">
-                        <span class="col font-italic font-weight-light">This is a system generated receipt. Signature is not required.</span>
-                    </div>
-                </div>`;
-
-            content += `<div class="row">
-                    <div class="col-1">Note:</div>
-                    <div class="col">
-                        <div>This proforma represents minimum data.</div>
-                        <div>Moreover, the format may vary depending on the system being used</div>
-                    </div>
-                </div></div>
-                `;
-            //     let doc = window.open("", "My Page", "height=700,width=900,titlebar=no,resizable=no")
-            //     doc.document.write(`<html><title>Receipt</title>
-            //  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-            // integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous">
-            // <\/script>
-            // <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-            // integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"><\/link></head><body>`);
-            //     doc.document.write(printContent);
-            //     doc.document.write("</html>")
-            //     doc.document.close();
-            //     doc.document.onkeydown = (key) => alert(key)
-            //     setTimeout(() => { doc.print(); doc.close(); }, 300)
-
-            doc.html(printContent.replace("[content]", content), {
-                html2canvas: {
-                    scale: .5
-                },
-                callback: async function(doc) {
-                    // doc.addPage(
-                    //     { orientation: 'p', unit: 'px' }
-                    // )
-                    await doc.output("dataurlnewwindow", "receipt.pdf");
-                },
-                x: 25,
-                y: 10,
-            })
-        } catch (e) {
-            console.log(e)
-        }
->>>>>>> Stashed changes
     }
 
 
