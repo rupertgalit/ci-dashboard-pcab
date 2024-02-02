@@ -719,7 +719,7 @@ async function printRow(trans_id) {
                 </div>
                 <div class='row pt-4 pb-3'>
                     <div class="col">
-                        <div class="row d-flex">
+                        <div class="row d-flex pl-5">
                             <div class="col text-capitalize ">Agency Name<div class="float-right">  :</div></div>
                             <div class="col">${agencyName}</div>
                         </div>
@@ -727,39 +727,39 @@ async function printRow(trans_id) {
 
     
     content += `
-    <div class="row d-flex">
+    <div class="row d-flex pl-5">
             <div class="col text-capitalize ">Name of Payor<div class="float-right">  :</div></div>
             <div class="col"> ${rowData.name_of_payor}</div>
         </div>
-        <div class="row d-flex">
+        <div class="row d-flex pl-5">
             <div class="col text-capitalize ">Particular<div class="float-right">  :</div></div>
             <div class="col">PCAB fee</div>
         </div>
-        <div class="row d-flex">
+        <div class="row d-flex pl-5">
             <div class="col text-capitalize ">Amount<div class="float-right ">:</div></div>
             <div class="col"> ${Amount.toFixed(2)} </div>
         </div>
-        <div class="row d-flex">
+        <div class="row d-flex pl-5">
         <div class="col text-capitalize pl-4">PCAB Fee<div class="float-right pr-2">:</div></div>
-            <div class="col"> ${rowData.fees_pcab}</div>
+            <div class="col"> (${parseFloat(rowData.fees_pcab).toFixed(2)})</div>
         </div>
-        <div class="row d-flex">
+        <div class="row d-flex pl-5">
             <div class="col text-capitalize pl-4">Legal Research Fee<div class="float-right pr-2">:</div></div>
-            <div class="col"> ${rowData.legal_research_fund}</div>
+            <div class="col"> (${parseFloat(rowData.legal_research_fund).toFixed(2)})</div>
         </div>
-        <div class="row d-flex">
+        <div class="row d-flex pl-5">
             <div class="col text-capitalize pl-4">Documentary Stamp<div class="float-right pr-2">:</div></div>
-            <div class="col"> ${rowData.document_stamp_tax}</div>
+            <div class="col"> (${parseFloat(rowData.document_stamp_tax).toFixed(2)})</div>
         </div>
-        <div class="row d-flex">
+        <div class="row d-flex pl-5">
             <div class="col text-capitalize ">NGSI Conveniece fee<div class="float-right">:</div></div>
-            <div class="col"> ${rowData.ngsi_convenience_fee}</div>
+            <div class="col"> ${parseFloat(rowData.ngsi_convenience_fee).toFixed(2)}</div>
         </div>
-        <div class="row d-flex">
+        <div class="row d-flex pl-5">
             <div class="col text-capitalize ">Total Amount<div class="float-right ">:</div></div>
             <div class="col"> ${totalAmount.toFixed(2)} </div>
         </div>
-        <div class="row d-flex">
+        <div class="row d-flex pl-5">
             <div class="col text-capitalize ">Reference Number<div class="float-right">:</div></div>
             <div class="col"> ${rowData.reference_number}</div>
         </div>
