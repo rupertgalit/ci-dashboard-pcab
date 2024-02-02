@@ -391,6 +391,19 @@ table tr:nth-child(odd) {
 	}
 }
 
+#PDFContent tr{
+	background-color: transparent !important;
+}
+
+#PDFContent tr td:first-child{
+	text-align: left  !important;
+}
+
+#PDFContent table tr td:last-child {
+    padding-right: 1rem !important;
+    display: table-cell !important;
+}
+
 /* .modal#Submit_deposit div#requirements input#referenceNo:focus > span {
 	position: absolute;
     opacity: .6;
