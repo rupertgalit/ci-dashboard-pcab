@@ -100,7 +100,21 @@
     }
 
 
-    .top-btn-container {}
+    .form-group {
+  display: flex;
+  align-items: center; 
+}
+
+.date-label {
+  margin-top: 5px;
+  margin-right: 10px;
+}
+
+.date-input-group {
+  max-width: 170px;
+  margin-right: 20px;
+}
+
 </style>
 <div class="row">
     <div class="col-md-12 grid-margin stretch-card m-0" id="toPrint">
@@ -233,22 +247,23 @@
                 <!-- Button 2 Trigger -->
             </div>
 
-            <div class="overflow-hidden border-top border-bottom border-black">
-                <div class="top-btn-container row mb-1 py-2 px-1">
-                    <div class="col-md-2 mb-2">
-                        <label for="start_date">Start Date:</label>
-                        <input type="date" id="start_date" class="form-control">
-                    </div>
-                    <div class="col-md-2 mb-2">
-                        <label for="end_date">End Date:</label>
-                        <input type="date" id="end_date" class="form-control">
+            <div class="form-group">
+                  <label for="startDate" class="date-label">Start Date:</label>
+                  <div class="input-group date date-input-group" id="startDatePicker">
+                    <input type="text" class="form-control" name="startDate" id="startDate" style="z-index: 2" readonly placeholder="YYYY / MM / DD">
+                    <span class="input-group-addon" id="startDateIcon">
+                      <i class="glyphicon glyphicon-calendar"></i>
+                    </span>
+                  </div>
 
-                    </div>
-                    <div class="col-md-auto mb-2 d-flex align-items-end">
-                        <button class="btn-outline-dark border-0 btn-sm w-100 h-50 px-4 search-btn" style="background:#bde8ff!important; color:black!important;border:1px solid black!important;">Select</button>
-                    </div>
+                  <label for="endDate" class="date-label">End Date:</label>
+                  <div class="input-group date date-input-group" id="endDatePicker">
+                    <input type="text" class="form-control" name="endDate" id="endDate" readonly placeholder="YYYY / MM / DD">
+                    <span class="input-group-addon" id="endDateIcon">
+                      <i class="glyphicon glyphicon-calendar"></i>
+                    </span>
+                  </div>
                 </div>
-            </div>
 
             <div class="scrollable-container" style="padding: 0.5rem;">
 
@@ -256,6 +271,8 @@
                     <!-- Your table headers go here -->
                     <thead>
                         <tr>
+                        <th class="font-weight-bold">Date</th>
+
                             <th class="font-weight-bold">Transaction ID</th>
                             <th class="font-weight-bold">Reference No.</th>
                             <th class="font-weight-bold">Name of Payor</th>
@@ -279,6 +296,8 @@
                             foreach ($data as $row) {
                                 $date = date_create($row['date']);
                                 echo "<tr>";
+                                echo "<td>" . $row["date"] . "</td>";
+
                                 echo "<td>" . $row["trans_id"] . "</td>";
                                 echo "<td>" . $row["reference_number"] . "</td>";
                                 echo "<td>" . $row["name_of_payor"] . "</td>";
@@ -356,8 +375,29 @@
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script>
-    $(document).ready(function() {
+   $(document).ready(function() {
+      function getCurrentDate() {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = (today.getMonth() + 1).toString().padStart(2, '0');
+        const day = today.getDate().toString().padStart(2, '0');
+        return `${year}-${month}-${day}`;
+      }
+
+      // Set default values for start and end date
+      $('#startDate').val(getCurrentDate());
+      $('#endDate').val(getCurrentDate());
+
+      // Initialize datepicker
+      $('#startDate, #endDate').datepicker({
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        todayHighlight: true,
+        clearBtn: true,
+        orientation: 'bottom',
+      });
 
         var table = $('#myTable').DataTable({
             dom: '<"pull-left"b><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
@@ -368,8 +408,33 @@
         $('.search-btn').on('click', function() {
             table.draw();
         });
+        $.fn.dataTable.ext.search.push(
+    function(settings, data, dataIndex) {
+        var startDate = $('#startDate').val();
+        var endDate = $('#endDate').val();
+        var currentDate = data[0]; 
 
+        if ((startDate === '' && endDate === '') ||
+            (startDate === '' && currentDate <= endDate) ||
+            (startDate <= currentDate && endDate === '') ||
+            (startDate <= currentDate && currentDate <= endDate)) {
+            return true;
+        }
+
+        return false;
+    }
+);
+
+
+      // Trigger initial table draw
+      table.draw();
+
+      // Update table on date change
+      $('#startDate, #endDate').on('change', function() {
+        table.draw();
+      });
     });
+    
 
     $(document).ready(function() {
         var today = new Date();
@@ -409,23 +474,10 @@
     function applyDateFilter() {
         var start_date = $('#start_date').val();
         var end_date = $('#end_date').val();
-
+    
     }
 
-    $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
-        var startDate = $('#start_date').val();
-        var endDate = $('#end_date').val();
-        var currentDate = data[2]; // Assuming date is at index 2
-
-        if ((startDate === '' && endDate === '') ||
-            (startDate === '' && currentDate <= endDate) ||
-            (startDate <= currentDate && endDate === '') ||
-            (startDate <= currentDate && currentDate <= endDate)) {
-            return true;
-        }
-
-        return false;
-    });
+   
     // Modal date filter
     $('.preview-btn-modal').on('click', function() {
     var modalStartDate = $('#modal_start_date').val();
