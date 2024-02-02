@@ -19,11 +19,11 @@
         border: 2px solid #000 !important;
     }
 td.day:hover{
-    background: yellow;
+    background: #ffffa2;
 
 }
 td.today.active.day{
-    background: red;
+    background: #ff7373;
     color: #fff;
 }
 th.clear{
