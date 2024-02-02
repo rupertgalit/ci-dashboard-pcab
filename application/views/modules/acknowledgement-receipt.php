@@ -41,6 +41,13 @@
         color: #fff;
 
     }
+    .datepicker td, .datepicker th{
+        cursor: pointer;
+    }
+    span.month:hover{
+        background: #ffffa2;
+
+    }
 
     .custom-button:hover {
         background-color: #45a049;
@@ -56,6 +63,9 @@
         background: #bde8ff !important;
         border: 1px solid black !important;
 
+    }
+    .dataTables_empty{
+        display: table-cell!important;
     }
 
     .modal-header .close {
