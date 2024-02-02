@@ -262,6 +262,7 @@ table tr td:first-child {
 
 table tr td:last-child {
 	padding-right: 1rem;
+	display: inline-grid;
 }
 
 table td {

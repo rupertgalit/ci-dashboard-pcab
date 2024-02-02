@@ -41,6 +41,13 @@
         color: #fff;
 
     }
+    .datepicker td, .datepicker th{
+        cursor: pointer;
+    }
+    span.month:hover{
+        background: #ffffa2;
+
+    }
 
     .custom-button:hover {
         background-color: #45a049;
