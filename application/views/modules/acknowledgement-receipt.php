@@ -271,9 +271,10 @@
                     <!-- Your table headers go here -->
                     <thead>
                         <tr>
-                        <th class="font-weight-bold">Date</th>
+                       
 
                             <th class="font-weight-bold">Transaction ID</th>
+                            <th class="font-weight-bold">Date</th>
                             <th class="font-weight-bold">Reference No.</th>
                             <th class="font-weight-bold">Name of Payor</th>
                             <!-- <th class="font-weight-bold">Mobile No.</th> -->
@@ -296,9 +297,10 @@
                             foreach ($data as $row) {
                                 $date = date_create($row['date']);
                                 echo "<tr>";
-                                echo "<td>" . $row["date"] . "</td>";
+                            
 
                                 echo "<td>" . $row["trans_id"] . "</td>";
+                                echo "<td>" . $row["date"] . "</td>";
                                 echo "<td>" . $row["reference_number"] . "</td>";
                                 echo "<td>" . $row["name_of_payor"] . "</td>";
                                 echo "<td>" . $row["particulars"] . "</td>";
@@ -412,7 +414,7 @@
     function(settings, data, dataIndex) {
         var startDate = $('#startDate').val();
         var endDate = $('#endDate').val();
-        var currentDate = data[0]; 
+        var currentDate = data[1]; 
 
         if ((startDate === '' && endDate === '') ||
             (startDate === '' && currentDate <= endDate) ||
@@ -472,10 +474,12 @@
     const _jsonData = JSON.parse('<?php echo json_encode($data) ?>')
 
     function applyDateFilter() {
-        var start_date = $('#start_date').val();
-        var end_date = $('#end_date').val();
+    var start_date = $('#startDate').val();
+    var end_date = $('#endDate').val();
     
-    }
+    table.draw();
+}
+
 
    
     // Modal date filter
