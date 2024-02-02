@@ -206,8 +206,26 @@
                                     </div>
                                     <div class="modal-footer bg-white border-top-0 d-flex ">
                                         <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded preview-btn-modal">Preview</button>
-                                        <button type="button" onclick="downloadPDF()" class="btn-sm btn-outline-dark mr-3 mb-2 rounded">Download</button>
+                                        <button type="button" onclick="printDailyReport()" class="btn-sm btn-outline-dark mr-3 mb-2 rounded">Download</button>
                                         <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded " data-toggle="modal" data-target="#Submit_deposit" id="submit-deposit" data-backdrop="static" data-keyboard="false">Submit Deposit</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="Submit_deposit" tabindex="-1" role="dialog" aria-labelledby="Submit_depositnModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div id="Submit_depositModal" class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="Submit_depositModalLabel">Submit Deposit</h5>
+                                        <button type="button" class="close text-right pr-4" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    </div>
+                                    <div class="modal-body bg-white pb-3">
+                                        <!-- awdawd -->
+                                    </div>
+                                    <div class="modal-footer bg-white border-top-0">
+
+                                        <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded submit-deposit-btn-modal" id="">Submit</button>
 
                                     </div>
                                 </div>
@@ -319,7 +337,7 @@
                     </span>
                 </div>
             </div>
-
+            
             <div class="scrollable-container" style="padding: 0.5rem;">
 
                 <table id="myTable" class="table table-striped text-center" width="100%">
@@ -696,101 +714,188 @@
 
 
 
-    //     async function printDailyReport(startDate, endDate) {
+    async function printDailyReport(startDate, endDate) {
 
-    //         // Your code to fetch data and generate PDF report goes here
-    //         const filteredData = _jsonData.filter(object => object.date_time >= startDate && object.date_time <= endDate);
+        // Your code to fetch data and generate PDF report goes here
+        const filteredData = _jsonData.filter(object => {
+            console.log(object)
+            if (object.date >= $("#Daily_CollectionModal #modal_start_date").val() && object.date <= $("#Daily_CollectionModal #modal_end_date").val()) return object
+        })
+        let doc = new jspdf.jsPDF({
+            orientation: 'p',
+            unit: 'px'
+        })
 
-    //         let doc = new jspdf.jsPDF({
-    //             orientation: 'p',
-    //             unit: 'px'
-    //         })
+        console.log(filteredData)
 
-    //         let printContent = `
+        let printContent = ``;
+        let i = 0;
+        let rowsPerPage = "";
+        let totalAmount = 0
+        let yOffset = 0; // Track vertical position
 
-    //         `;
-    //         let i = 1;
-    //         let content = "";
-    //         let totalAmount = 0
-    //         let yOffset = 0; // Track vertical position
+        const header = `
+        <div class="mx-auto d-flex flex-column border-dark" style="/*margin-top:50px*/;width:70rem;height:5rem;">
+          <br>
 
-    //         while (i) {
-    //             let dataToPopulate = filteredData;
-    //             // let remainingData = filteredData.length - 10;
-    //             let rows = [];
-    //             // splice(starting index e.g. 0, range of indexes e.g. 10)
-    //             let pivot = i * 10
-    //             console.log(i, filteredData.splice(0, 10))
-    //             console.log(dataToPopulate)
-    //             i++
-    //             if (i >= 10) i = -1;
+        <div class="d-flex align-items-center justify-content-center" style="height: 250px;">
+
+               <div class="row justify-content-center mb-2">
+
+                            <div class="col-md-3">
+                                <img  height="100px" style="margin-left:-1rem;" src="assets/images/ngsi-letterhead.png" alt="logo" class="logo-dark" />
+                            </div>
+                            <div class="col-md-4 mt-3"  style="margin-left:11rem;">
+                                <p class="font-weight-bold" style="font-family: Century Gothic; font-size:16px;" ;>NET GLOBAL SOLUTIONS&nbsp;&nbsp; INC.</p>
+                                <p style="margin-top: -20px;margin-bottom: -5px; font-family: Century Gothic;">Tel. No. 632 82877374</p>
+                                <p style=" line-height: 80%; color:blue;margin-top: 10px;">Support@netglobalsolutions.net</p>
+                            </div>
+                           
+                      
+                </div>
+            
+            
+           </div>
+            <br>
+           <div class="d-flex align-items-center justify-content-center" style="height: 250px;">
+
+             <img width="100%" height="6px" style="margin-top: -10px; margin-left:30px; margin-right:30px;" src="assets/images/NGSI_header.png" alt="logo" class="logo-dark" />
+           
+             </div>
+           
+           <br>
+    
+           <div class="d-flex align-items-center justify-content-center" style="height: 250px;">
+
+           <div class="text-center text-uppercase py-3">
+                    <p class="font-weight-bold" style="color:black;">LIST &nbsp;OF &nbsp;DAILY &nbsp;COLLECTION<p>
+
+                    <p style="color:black;margin-top:-20px;">Agency : &nbsp;CONSTRUCTIONINDUSTRY &nbsp;OF &nbsp;THE &nbsp;PHILIPPINES<p>
+
+                    <p class="text-justify" style="color:black;margin-top:-20px;">Board Phillippines Construction Accreditation board (PCAB)<p>
+
+                    
+                    <p class="text-capitalize" style="color:black;margin-top:-20px;">Date : ______<p>
+
+                    
+                   
+
+                     </div>
+                     
+            </div>
+            <p class="text-right" style="color:black;margin-top:-20px;margin-right:50px;">Report No : ______ <p>
+            
+           
+            <br>
+        </div> `;
+
+         //test
+        let perPage = rows => `
+
+        <div id="PDFContent" class="mx-auto d-flex flex-column border-dark" style="height:78.85rem;padding-top:15rem;border:1px black ;">
+          
+        <div class="mx-auto d-flex flex-column border-dark" style="/*margin-top:60rem*/;width:69rem;height:5rem;">  
+        <table style="margin-left:7px;margin-right:5px;">
+                <thead>
+                    <tr>
+                        <th colspan="8" class="text-center">COLLECTION</th>
+
+                    </tr>
+                    <tr>
+                        <th rowspan="2">Date and Time</th>
+                        <th rowspan="2">AR No.</th>
+                        <th rowspan="2">Name of Payor</th>
+                        <th rowspan="2">Reference No.</th>
+                        <th>CIAP-PCAB</th>
+                        <th>LRF</th>
+                        <th>DST</th>
+                        <th rowspan="2">Total Collection</th>
+                    </tr>
+                    <tr>
+                        <th>Account No.</th>
+                        <th>Account No.</th>
+                        <th>Account No.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${rows}
+                </tbody>
+            </table> 
+            </div>
+            <br>
+            <br>`
+           
+        const content = row => `
+            <tr>
+                <td  style="  border: 1px solid black;">${row?.date ?? "&nbsp;"}</td>
+                <td  style="  border: 1px solid black;">${row?.reference_number ?? ""}</td>
+                <td style="  border: 1px solid black;">${row?.name_of_payor ?? ""}</td>
+                <td style="  border: 1px solid black;" >${row?.referenceNumber ?? ""}</td>
+                <td style="  border: 1px solid black;">${row?.fees_pcab ?? ""}</td>
+                <td style="  border: 1px solid black;">${row?.legal_research_fund ?? ""}</td>
+                <td style="  border: 1px solid black;">${row?.document_stamp_tax ?? ""}</td>
+                <td style="  border: 1px solid black;">${parseFloat(parseFloat(row?.fees_pcab ?? 0)+parseFloat(row?.legal_research_fund ?? 0)+parseFloat(row?.document_stamp_tax ?? 0)).toFixed(2)}</td>
+            <tr>
+            `;
+
+        for (let i = 0; i < filteredData.length; i++)
+            rowsPerPage += content(filteredData[i])
+        
+        const footer = `
+
+        <div class="mx-auto d-flex flex-column border-dark "style=";width:70rem;height:5rem;position:absolute;bottom: 0;">
+           <div class="d-flex align-items-center justify-content-center" style="height: 250px;">
+
+           <div class="text-center text-uppercase py-3">
+           <div class="row mt-4">
+                                    <div class="col pl-5">
+                                        <img style="margin-left:25%; background-position:center; margin-bottom:-15px;z-index:0;position:relative;transform:scale(1.1)"
+                                            width="35%" height="35%" src="assets/images/ma'am_je.png" alt="logo"
+                                            class="logo-dark" />
+                                        <p style="position:relative;left:-11px;margin:0;">Prepared By: </p>
+                                        <p
+                                            style="margin-top: -25px;margin-left: 87px;font-size: 18px; font-family: Arial, Helvetica, sans-serif;z-index:1;position:relative;">
+                                            Jeremie Soliveres </p>
+                                        <p
+                                            style=" margin-top: -24px; margin-left: 106px; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
+                                            Accounting Specialist</p>
+                                    </div>
+                                    <div class="col pl-5">
+                                        <img style="margin-left:13rem; margin-bottom:-15px;" width="35%"
+                                            height="35%" src="assets/images/sir_peter.png" alt="logo"
+                                            class="logo-dark" />
+                                        <p style="position:relative;left:5.7rem;margin:0;">Approved By: </p>
+                                        <p
+                                            style="margin-top: -25px;margin-left: 12rem;font-size: 18px; font-family: Arial, Helvetica, sans-serif;">
+                                            Peter Lingatong</p>
+                                        <p
+                                            style=" margin-top: -24px; margin-left: 13rem; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
+                                            Chairman & CEO</p>
+                                    </div>
+                                </div>       
+                     
+            </div>
+            </div>
+            <br>
+        </div> 
+        `;
 
 
-    //             //             ${i % 2 == 1 ? '<div class="row" style="width: 52vw; border-bottom:1px black solid; border-bottom-style: dashed; margin: 6rem 0 6.18rem 0"></div>' : ''}
-    //             // ${i % 2 == 1 && i != 39 ? "margin-bottom:12rem !important;" : ""}
 
-    //             const content = (row) => `
-    //             <div class="row row-data">
-    //                 <div class="border border-dark border-right-0 border-top-0 col">${row?.date_time ?? "&nbsp;"}</div>
-    //                 <div class="border border-dark border-right-0 border-top-0 col">${row?.ar_number ?? ""}</div>
-    //                 <div class="border border-dark border-right-0 border-top-0 col">${row?.name_of_payor ?? ""}</div>
-    //                 <div class="border border-dark border-right-0 border-top-0 col">${row?.particulars ?? ""}</div>
-    //                 <div class="border border-dark border-right-0 border-top-0 col-2">${row?.reference_number ?? ""}</div>
-    //                 <div class="border border-dark border-right-0 border-top-0 col">${row?.particulars ?? ""}</div>
-    //                 <div class="border border-dark border-right-0 border-top-0 col">${row?.reference_number ?? ""}</div>
-    //                 <div class="border border-dark border-top-0 col text-right">${parseFloat(row?.total_amount ?? 0).toFixed(2)}</div>
-    //             </div>
-    //             `;
-    //             let content = `</div>
-    //         <div class="row t-total-row">
-    //         <div class="border border-dark border-right-0 border-top-0 col"></div>
-    //         <div class="border border-dark border-right-0 border-top-0 col"></div>
-    //         <div class="border border-dark border-right-0 border-top-0 col"></div>
-    //         <div class="border border-dark border-right-0 border-top-0 col text-center">Total Amount</div>
-    //         <div class="border border-dark border-right-0 border-top-0 col-2"></div>
-    //         <div class="border border-dark border-right-0 border-top-0 col"></div>
-    //         <div class="border border-dark border-right-0 border-top-0 col"></div>
-    //         <div class="border border-dark border-top-0 col text-right">P &nbsp; [total-amount]</div>
-    //     </div>
-    // </div>
-    // </div>
-    // <div class="row mt-4" >
-    //                                         <div class="col" style="position:relative; margin-left:6.5rem;  ">
+        //awdperPage(rowsPerPage)
+        doc.html( header + perPage(rowsPerPage) + footer , {
+            html2canvas: {
+                scale: .40
+               
+            },
+            async callback(pdf) {
+                const date = new Date();
+                await pdf.save(`list_of_colletion-${date.toLocaleDateString()}.pdf`);
+            },
+        })
 
-    //                                             <p >Prepared By: </p>
+    }
 
-    //                                         </div>
-    //                                         <div class="col" style="position:relative;left:120px; ">
-
-    //                                             <p >Checked & Certified By: </p>
-
-    //                                         </div>
-    //                                     </div>
-    // <div class="row" style="height:6rem;  margin-bottom:4rem;">
-    //                                         <div class="col" style="position:relative; margin-left:6.5rem;  ">
-    //                                         <img style="margin-left: 5rem;background-position:center;z-index:0;transform:scale(1.1);display:block;position:relative;"  height="70px" src="assets/images/ma'am_je.png" alt="logo" class="logo-dark" />
-    //                                             <p style="margin-top:-20px;margin-left:87px;font-size:18px;font-family:Arial,Helvetica,sans-serif;z-index:1;position:relative;">
-    //                                                    Jeremie Soliveres </p>
-    //                                             <p style="margin-top:-24px;margin-left:90px;font-family:Arial,Helvetica,sans-serif;font-size:12px;z-index:1;position:relative;">
-    //                                                 Accounting Specialist</p>
-    //                                                 <p style="margin-top:-22px;margin-left:90px;font-family:Arial,Helvetica,sans-serif;font-size:12px;z-index:1;position:relative;">
-    //                                                 Netglobal Solution Inc</p>
-    //                                         </div>
-    //                                         <div class="col" style="position:relative;left:120px; margin-top:4.5rem;">
-
-
-    //             doc.html(`<div id="PDFContent" class="mx-auto d-flex flex-column border-dark" style="width:55.8rem;padding-top:6rem;/*border:1px black solid;*/">${content(data)}</div>`, {
-    //                 html2canvas: {
-    //                     scale: .5
-    //                 },
-    //                 async callback(pdf) {
-    //                     const date = new Date();
-    //                     document.querySelector(".card").innerHTML = content(data);
-    //                     // await pdf.save(`receipt-${date.toLocaleDateString()}.pdf`);
-    //                 },
-    //             })
-    //         }
-    //     }
     async function printRow(trans_id) {
         const rowData = _jsonData.find(obj => obj.trans_id == trans_id);
         let doc = new jspdf.jsPDF({
@@ -925,15 +1030,13 @@
 
     $('botton.btn-print-receipt').on('click', (e) => console.log(e))
 
+
+
+
+
     function downloadPDF() {
-        // const doc = new jsPDF();
-        // doc.autoTable({ html: '#myTable' });
-        // doc.save('table.pdf');
 
-        // var pdf = new jsPDF();
-        // pdf.autoTable({html:'#myTable'});
-        // window.open(URL.createObjectURL(pdf.output("blob")))
-
+        const filteredData = _jsonData.filter(object => object.date_time >= startDate && object.date_time <= endDate);
 
         let doc = new jspdf.jsPDF({
             orientation: 'p',
@@ -952,70 +1055,124 @@
         try {
 
             content += `
-                <div class="mx-auto my-5" style="width: 50rem;" id ="BillColHeader">
-                    <div class="container mt-3 justify-content-center mb-4">
-                        <div class="row justify-content-center mb-2">
-                            <div class="col-md-3">
-                                <img  height="100px" style="margin-left:-1rem;" src="assets/images/ngsi-letterhead.png" alt="logo" class="logo-dark" />
+        <div class="mx-auto my-5 d-flex justify-content-center" style="width: 50.5rem; ">
+            <div class="w-75">
+            <div class="container mt-3 justify-content-center mb-4">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-3">
+                                        <img  height="100" style="margin-left:-rem;" src="assets/images/ngsi-letterhead.png" alt="logo" class="logo-dark" />
+                                    </div>
+                                    <div class="col-md-4 mt-3"  style="margin-left:11rem;">
+                                        <p class="font-weight-bold" style="font-family: Century Gothic; font-size:16px;" ;>NET GLOBAL SOLUTIONS&nbsp;&nbsp; INC.</p>
+                                        <p style="margin-top: -20px;margin-bottom: -5px; font-family: Century Gothic;">Tel. No. 632 82877374</p>
+                                        <p style=" line-height: 80%; color:blue;margin-top: 10px;">Support@netglobalsolutions.net</p>
+                                    </div>
+                                </div>
+                                 <img  height="100%" style="margin-top: -10px;" src="assets/images/NGSI_header.png" alt="logo" class="logo-dark" />
                             </div>
-                            <div class="col-md-4 mt-3"  style="margin-left:11rem;">
-                                <p class="font-weight-bold" style="font-family: Century Gothic; font-size:16px;" ;>NET GLOBAL SOLUTIONS&nbsp;&nbsp; INC.</p>
-                                <p style="margin-top: -20px;margin-bottom: -5px; font-family: Century Gothic;">Tel. No. 632 82877374</p>
-                                <p style=" line-height: 80%; color:blue;margin-top:10px;">Support@netglobalsolutions.net</p>
+            <div class="">
+                <div class="text-center text-uppercase py-3">
+                    <u>Certification &nbsp;&nbsp; of Deposit</u>
+                </div>
+                <div class="text-center m-3">
+                    <b>Summary</b>
+                </div>
+                <table class="border-0">
+                <tbody>
+                    <tr>
+                        <td colspan="3">Undeposited Collections per last Report,</td>
+                        <td class="text-right"> ${''}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">(date: ${'mmm/dd/yyyy'})</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">Collections, ${'mmm/dd/yyyy'}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="pl-5 pb-3">Total Number of Transaction</td>
+                        <td colspan="2" class="text-right" style="padding-right:3rem;">${''}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="pl-5">Total Amount of Collection</td>
+                        <td class="text-right" style="padding-right:3rem;">${''}</td>
+                        <td class="text-right">${''}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="pb-3">Deposit / Fund Transfers</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="pl-5">
+                            <div class="w-100 d-flex justify-content-between">
+                                <span>
+                                    Date: <label class="border-bottom border-dark text-center m-0"
+                                        style="width:5rem;display:inline-block"></label>
+                                </span>
+                                <span class="position-relative">${''}</span>
+                            </div>
+                        </td>
+                        <td class="text-right" style="padding-right:3rem;"></td>
+                        <td class="text-right">${''}</td>
+                    </tr>
+                    <tr style="background-color: #FFF!important;vertical-align: top;">
+                        <td colspan="2" class="pl-5 pb-3">Total Amount of Collection</td>
+                        <td class="text-right" style="padding-right:3rem;">${''}</td>
+                        <td class="text-right">${''}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">Undeposited Collections, this Report</td>
+                        <td class="text-right"> ${''}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div style=" text-align: justify;text-justify: inter-word;margin-top: 2rem; font-size: .9rem">
+                    This is to certify the above is true and correct statement. That the amount collected is to deposited intact
+                    to the ${'[bank name]'} bank account of the ${"[agency name]"} with amount number ${'[account number]'}, and duly supported
+                    by attached proof of deposit. Details of collections can be generated from our online reporting facility or
+                    in the attached electronic file of the List if Daily Collection.
+                </div>
+
+                <div class="w-100 mt-5">
+                            <div class="container">
+                                <div class="row mt-4">
+                                    <div class="col pl-5">
+                                        <img style="margin-left:25%; background-position:center; margin-bottom:-15px;z-index:0;position:relative;transform:scale(1.1)"
+                                            width="35%" height="35%" src="assets/images/ma'am_je.png" alt="logo"
+                                            class="logo-dark" />
+                                        <p style="position:relative;left:-11px;margin:0;">Prepared By: </p>
+                                        <p
+                                            style="margin-top: -25px;margin-left: 87px;font-size: 18px; font-family: Arial, Helvetica, sans-serif;z-index:1;position:relative;">
+                                            Jeremie Soliveres </p>
+                                        <p
+                                            style=" margin-top: -24px; margin-left: 106px; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
+                                            Accounting Specialist</p>
+                                    </div>
+                                    <div class="col pl-5">
+                                        <img style="margin-left:13rem; margin-bottom:-15px;" width="35%"
+                                            height="35%" src="assets/images/sir_peter.png" alt="logo"
+                                            class="logo-dark" />
+                                        <p style="position:relative;left:5.7rem;margin:0;">Approved By: </p>
+                                        <p
+                                            style="margin-top: -25px;margin-left: 12rem;font-size: 18px; font-family: Arial, Helvetica, sans-serif;">
+                                            Peter Lingatong</p>
+                                        <p
+                                            style=" margin-top: -24px; margin-left: 13rem; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
+                                            Chairman & CEO</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <img width="100%" height="100%" style="margin-top: -40px;"  src="assets/images/NGSI_header.png" alt="logo" class="logo-dark" />
-                    </div> 
+            </div>
+            </div>
+        </div>
+        <div style="display:block;width:100%;border-bottom:1px #666 dashed;"></div> `;
 
-                    <div class="container" style="display: flex; justify-content: center; align-items: center;margin-top:-15px;">
-                    <p class="font-weight-bold" style="font-family: ; font-size:16px">LIST OF DAILY COLLECTION</p>
-                   
-                    </div>
-
-                    <div class="container" style="display: flex; justify-content: center; align-items: center;margin-top:-15px; ">
-                    <p class="font-weight-bold" style="font-family: ; font-size:16px; ">Agency : CONSTRUCTION INDUSTRY AUTHORITY OF THE PHILIPPINES</p>
-                    </div>
-
-                    <div class="container" style="display: flex; justify-content: center; align-items: center;margin-top:-15px; ">
-                    <p class="font-weight-bold" style="font-family: ; font-size:16px; ">Board : Philippine Construction Accreditation board (PCAB)</p>
-                    </div>
-
-                    <div class="container" style="display: flex; justify-content: center; align-items: center;margin-top:-15px; ">
-                    <p class="font-weight-bold" style="font-family: ; font-size:16px; ">Date : _____</p>
-                    </div>
-
-                    <div class="container" style="display: flex; justify-content: center; align-items: center;margin-top:10px; ">
-                  
-                    </div>
-                 
-            
-                  
-
-                </div>
-               </div> `;
-
-
-
-            //    printContent.replace("[content]", content  ) 
-
-            //     doc.html(printContent.replace("[content]", content  ),{
-            //     html2canvas: {
-            //         scale: .35
-            //     },
-            //     callback: async function (doc) {
-
-
-            //         await doc.output("dataurlnewwindow", "list_of_collection.pdf");
-            //     },
-            // })
-
-            //     var awd = new  jsPDF();
-            //  //   awd.fromHTML(document.getElementById("BillColHeader"))
-            //  awd.html(printContent.replace("[content]", content  ))
-            //    // awd.fromHTML(document.getElementById("modalDataTable"))
-            //     awd.output("dataurlnewwindow", "list_of_collection.pdf");
-
-            doc.html(document.getElementById("#modalDataTable"), {
+           
+            doc.html(content, {
                 html2canvas: {
                     scale: .35
                 },
