@@ -205,6 +205,27 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="modal fade" id="Submit_deposit" tabindex="-1" role="dialog"
+                            aria-labelledby="Submit_depositnModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div id="Submit_depositModal" class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="Submit_depositModalLabel">Submit Deposit</h5>
+                                        <button type="button" class="close text-right pr-4" data-dismiss="modal"
+                                            aria-hidden="true">&times;</button>
+                                    </div>
+                                    <div class="modal-body bg-white pb-3">
+                                        <!-- awdawd -->
+                                    </div>
+                                    <div class="modal-footer bg-white border-top-0">
+                                    
+                                        <button type="button"
+                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded submit-deposit-btn-modal" id="">Submit</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
 
                     </div>
@@ -928,15 +949,110 @@
         // const doc = new jsPDF();
         // doc.autoTable({ html: '#myTable' });
         // doc.save('table.pdf');
-
-        var pdf = new jsPDF();
-        pdf.text(20, 20, "Employee Details");
-        pdf.autoTable({
-            html: '#myTable'
-        });
-        window.open(URL.createObjectURL(pdf.output("blob")))
+        
+            // var pdf = new jsPDF();
+            // pdf.autoTable({html:'#myTable'});
+            // window.open(URL.createObjectURL(pdf.output("blob")))
 
 
+            let doc = new jspdf.jsPDF({
+            orientation: 'p',
+            unit: 'px'
+        })
+            let printContent = `
+            <div class="mx-auto d-flex flex-column border-dark" style="/*margin-top:3rem*/;width:80rem;height:112.75rem;border:1px black solid;">[content]</div>`;
+        let content = ``
+        let ColTable = ``
+
+        let totalCIAPPCAB = 0;
+        let totalLRF = 0;
+        let totalDST = 0;
+        let totalCollection = 0;
+
+        try {
+
+            content += `
+                <div class="mx-auto my-5" style="width: 50rem;" id ="BillColHeader">
+                    <div class="container mt-3 justify-content-center mb-4">
+                        <div class="row justify-content-center mb-2">
+                            <div class="col-md-3">
+                                <img  height="100px" style="margin-left:-1rem;" src="assets/images/ngsi-letterhead.png" alt="logo" class="logo-dark" />
+                            </div>
+                            <div class="col-md-4 mt-3"  style="margin-left:11rem;">
+                                <p class="font-weight-bold" style="font-family: Century Gothic; font-size:16px;" ;>NET GLOBAL SOLUTIONS&nbsp;&nbsp; INC.</p>
+                                <p style="margin-top: -20px;margin-bottom: -5px; font-family: Century Gothic;">Tel. No. 632 82877374</p>
+                                <p style=" line-height: 80%; color:blue;margin-top:10px;">Support@netglobalsolutions.net</p>
+                            </div>
+                        </div>
+                        <img width="100%" height="100%" style="margin-top: -40px;"  src="assets/images/NGSI_header.png" alt="logo" class="logo-dark" />
+                    </div> 
+
+                    <div class="container" style="display: flex; justify-content: center; align-items: center;margin-top:-15px;">
+                    <p class="font-weight-bold" style="font-family: ; font-size:16px">LIST OF DAILY COLLECTION</p>
+                   
+                    </div>
+
+                    <div class="container" style="display: flex; justify-content: center; align-items: center;margin-top:-15px; ">
+                    <p class="font-weight-bold" style="font-family: ; font-size:16px; ">Agency : CONSTRUCTION INDUSTRY AUTHORITY OF THE PHILIPPINES</p>
+                    </div>
+
+                    <div class="container" style="display: flex; justify-content: center; align-items: center;margin-top:-15px; ">
+                    <p class="font-weight-bold" style="font-family: ; font-size:16px; ">Board : Philippine Construction Accreditation board (PCAB)</p>
+                    </div>
+
+                    <div class="container" style="display: flex; justify-content: center; align-items: center;margin-top:-15px; ">
+                    <p class="font-weight-bold" style="font-family: ; font-size:16px; ">Date : _____</p>
+                    </div>
+
+                    <div class="container" style="display: flex; justify-content: center; align-items: center;margin-top:10px; ">
+                  
+                    </div>
+                 
+            
+                  
+
+                </div>
+               </div> `;
+
+            
+
+            //    printContent.replace("[content]", content  ) 
+                
+            //     doc.html(printContent.replace("[content]", content  ),{
+            //     html2canvas: {
+            //         scale: .35
+            //     },
+            //     callback: async function (doc) {
+ 
+
+            //         await doc.output("dataurlnewwindow", "list_of_collection.pdf");
+            //     },
+            // })
+
+        //     var awd = new  jsPDF();
+        //  //   awd.fromHTML(document.getElementById("BillColHeader"))
+        //  awd.html(printContent.replace("[content]", content  ))
+        //    // awd.fromHTML(document.getElementById("modalDataTable"))
+        //     awd.output("dataurlnewwindow", "list_of_collection.pdf");
+
+             doc.html( document.getElementById("#modalDataTable" ) ,
+             {
+                html2canvas: {
+                    scale: .35
+                },
+                callback: async function (doc) {
+ 
+
+                    await doc.output("dataurlnewwindow", "list_of_collection.pdf");
+                },
+            }
+            )
+
+        } catch (e) {
+            console.log(e)
+        }
+
+            
     }
 
     $("#referenceNo input, #dateOfDeposit input, #depositedAmount input").on("input", function () {

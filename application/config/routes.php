@@ -60,6 +60,7 @@ $route['logout']  = 'login/logout';
 
 
 // $route['test']  = 'welcome/test'; 
+
 $route['transaction-table']  = 'welcome/index';
 $route['acknowledgement-receipt']  = 'welcome/index';
 $route['deposit']  = 'welcome/index';
