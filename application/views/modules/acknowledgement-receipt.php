@@ -137,6 +137,20 @@
         max-width: 170px;
         margin-right: 20px;
     }
+
+        .custom-date-input input[type="date"] {
+            appearance: none;
+            -webkit-appearance: none;
+            padding: 0.375rem 0.75rem;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            margin-right: 0.5rem; /* Adjust margin as needed */
+        }
+
+        /* Additional styling to hide the calendar icon */
+        .custom-date-input input[type="date"]::-webkit-calendar-picker-indicator {
+            display: none;
+        }
 </style>
 <div class="row">
     <div class="col-md-12 grid-margin stretch-card m-0" id="toPrint">
@@ -164,14 +178,14 @@
                                     <div class="modal-body bg-white pb-3">
                                         <div class="row mb-2">
                                             <div class="col-12 d-flex flex-row flex-wrap">
-                                                <label for="modal_start_date"
-                                                    class="mr-2 d-flex align-items-center">Start Date:</label>
-                                                <input type="date" id="modal_start_date" class="form-control"
-                                                    style="width: 16rem;">
-                                                <label for="modal_end_date" class="mr-2  d-flex align-items-center">End
-                                                    Date:</label>
-                                                <input type="date" id="modal_end_date" class="form-control"
-                                                    style="width: 16rem;">
+                                            <div class="custom-date-input">
+                                                <label for="modal_start_date" class="mr-2 d-flex align-items-center">Start Date:</label>
+                                                <input type="date" id="modal_start_date" class="form-control" style="width: 16rem;">
+                                            </div>
+                                            <div class="custom-date-input">
+                                                <label for="modal_end_date" class="mr-2  d-flex align-items-center">End Date:</label>
+                                                <input type="date" id="modal_end_date" class="form-control" style="width: 16rem;">
+                                            </div>
                                                 <div id="validationMessage"></div>
                                             </div>
                                         </div>
@@ -527,7 +541,13 @@
     }
 
 
-
+    $('#modal_start_date, #modal_end_date').datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            todayHighlight: true,
+            clearBtn: true,
+            orientation: 'bottom',
+        });
     // Modal date filter
     $('.preview-btn-modal').on('click', function () {
         var modalStartDate = $('#modal_start_date').val();
@@ -566,6 +586,7 @@
 
         var modalBody = document.createElement('div');
         modalBody.classList.add('modal-body-content');
+        
 
         // Create a new table with the matching rows and an id
         var modalTable = document.createElement('table');
