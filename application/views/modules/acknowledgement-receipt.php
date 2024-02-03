@@ -324,7 +324,7 @@
             <div class="form-group">
                 <label for="startDate" class="date-label">Start Date:</label>
                 <div class="input-group date date-input-group" id="startDatePicker">
-                    <input type="text" class="form-control" name="startDate" id="startDate" style="z-index: 2; background:#fff;border:1px solid black; cursor:pointer;" readonly placeholder="YYYY / MM / DD">
+                    <input type="text" class="form-control" name="startDate" id="startDate" style="z-index: 2; background:#fff;border:1px solid black; cursor:pointer;" readonly placeholder="mm /dd /yyyy">
                     <span class="input-group-addon" id="startDateIcon">
                         <i class="glyphicon glyphicon-calendar"></i>
                     </span>
@@ -332,7 +332,7 @@
 
                 <label for="endDate" class="date-label">End Date:</label>
                 <div class="input-group date date-input-group" id="endDatePicker">
-                    <input type="text" class="form-control" name="endDate" id="endDate" style="background:#fff;border:1px solid black;cursor:pointer;" readonly placeholder="YYYY / MM / DD">
+                    <input type="text" class="form-control" name="endDate" id="endDate" style="background:#fff;border:1px solid black;cursor:pointer;" readonly placeholder="mm /dd / yyyy">
                     <span class="input-group-addon" id="endDateIcon">
                         <i class="glyphicon glyphicon-calendar"></i>
                     </span>
