@@ -248,7 +248,10 @@ span.message.success {
 
 table {
 	width: 100%;
-	min-width: 550px;
+	/* min-width: 550px; */
+}
+.datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-left.datepicker-orient-bottom {
+    min-width: 200px!important; /* Adjust the min-width as per your preference */
 }
 
 table thead th {
@@ -285,7 +288,7 @@ table tr td:first-child {
 
 table tr td:last-child {
 	padding-right: 1rem;
-	/* display: inline-block; */
+	display: inline-grid;
 }
 
 table td {

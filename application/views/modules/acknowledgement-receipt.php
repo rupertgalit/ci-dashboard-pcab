@@ -47,6 +47,7 @@
         cursor: pointer;
     }
 
+
     span.month:hover {
         background: #ffffa2;
 
@@ -459,7 +460,7 @@
             const year = today.getFullYear();
             const month = (today.getMonth() + 1).toString().padStart(2, '0');
             const day = today.getDate().toString().padStart(2, '0');
-            return `${year}-${month}-${day}`;
+            return `${month}-${day}-${year}`;
         }
 
         // Set default values for start and end date
@@ -468,7 +469,7 @@
 
         // Initialize datepicker
         $('#startDate, #endDate').datepicker({
-            format: 'yyyy-mm-dd',
+            format: 'mm-dd-yyyy',
             autoclose: true,
             todayHighlight: true,
             clearBtn: true,
@@ -488,18 +489,26 @@
             function(settings, data, dataIndex) {
                 var startDate = $('#startDate').val();
                 var endDate = $('#endDate').val();
-                var currentDate = data[1];
+                var currentDate = new Date(data[1]);
 
-                if ((startDate === '' && endDate === '') ||
-                    (startDate === '' && currentDate <= endDate) ||
-                    (startDate <= currentDate && endDate === '') ||
-                    (startDate <= currentDate && currentDate <= endDate)) {
+                var formattedStartDate = new Date(startDate);
+                var formattedEndDate = new Date(endDate);
+
+                if (
+                    (isNaN(formattedStartDate) || isNaN(formattedEndDate)) ||
+                    (startDate === '' && endDate === '') ||
+                    (startDate === '' && currentDate <= formattedEndDate) ||
+                    (formattedStartDate <= currentDate && endDate === '') ||
+                    (formattedStartDate <= currentDate && currentDate <= formattedEndDate)
+                ) {
                     return true;
                 }
 
                 return false;
             }
         );
+
+
 
 
         // Trigger initial table draw
@@ -534,16 +543,21 @@
             }]
         });
 
-        // Event handler for month filter
         $('#monthFilter').on('change', function() {
             var selectedMonth = $(this).val();
+            var specificDate = '2023-' + selectedMonth.padStart(2, '0'); // Replace '2023' with the appropriate year
 
-            // Use DataTables API to filter by month
-            dataTable.column(0).search(selectedMonth ? `-${selectedMonth.padStart(2, '0')}` : "", true, false).draw();
+            // Use DataTables API to filter by a specific date
+            dataTable.column(0).search(specificDate).draw();
+
+            // Log filtered data
             var filteredData = dataTable.rows({
                 search: 'applied'
             }).data().toArray();
+            console.log("Filtered Data:", filteredData);
         });
+
+
     });
     const _jsonData = JSON.parse('<?php echo json_encode($data) ?>')
 
