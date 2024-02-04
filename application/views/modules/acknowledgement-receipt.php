@@ -208,31 +208,13 @@
                                     <div class="modal-footer bg-white border-top-0 d-flex ">
                                         <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded preview-btn-modal">Preview</button>
                                         <button type="button" onclick="printDailyReport()" class="btn-sm btn-outline-dark mr-3 mb-2 rounded">Download</button>
-                                        <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded " data-toggle="modal" data-target="#Submit_deposit" id="submit-deposit" data-backdrop="static" data-keyboard="false">Submit Deposit</button>
+                                        <?php if ($_SESSION['usertype'] == "SUPERADMIN") echo '<button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded " data-toggle="modal" data-target="#Submit_deposit" id="submit-deposit" data-backdrop="static" data-keyboard="false">Submit Deposit</button>' ?>
+
 
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="modal fade" id="Submit_deposit" tabindex="-1" role="dialog" aria-labelledby="Submit_depositnModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div id="Submit_depositModal" class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="Submit_depositModalLabel">Submit Deposit</h5>
-                                        <button type="button" class="close text-right pr-4" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    </div>
-                                    <div class="modal-body bg-white pb-3">
-                                        <!-- awdawd -->
-                                    </div>
-                                    <div class="modal-footer bg-white border-top-0">
-
-                                        <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded submit-deposit-btn-modal" id="">Submit</button>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
 
                     </div>
                     <div class=" col-mb-3 mr-3 mt-3">
@@ -290,7 +272,8 @@
                                             <tbody>
 
                                                 <?php
-
+                                                $fmt = new NumberFormatter('en-US', NumberFormatter::CURRENCY);
+                                                $fmt->setPattern(str_replace('¤#', "\xC2\xA0#", $fmt->getPattern()));
                                                 foreach ($data as $row) {
                                                     echo "<tr>";
                                                     echo "<td>" .  date_format(date_create($row['date']), "m/d/Y") . "</td>";
@@ -298,10 +281,10 @@
                                                     echo "<td>" . $row["name_of_payor"] . "</td>";
                                                     echo "<td>" . $row["particulars"] . "</td>";
                                                     $total_per_AR = $row["fees_pcab"] + $row["document_stamp_tax"] + $row["legal_research_fund"];
-                                                    echo "<td>" . $total_per_AR . "</td>";
-                                                    echo "<td class='text-right'>" . $row["fees_pcab"] . "</td>";
-                                                    echo "<td class='text-right'>" . $row["document_stamp_tax"] . "</td>";
-                                                    echo "<td class='text-right'> " . $row["legal_research_fund"] . "</td>";
+                                                    echo "<td>" . $fmt->formatCurrency(floatval($total_per_AR), "PHP")  . "</td>";
+                                                    echo "<td class='text-right'>" . $fmt->formatCurrency(floatval($row["fees_pcab"]), "PHP") . "</td>";
+                                                    echo "<td class='text-right'>" . $fmt->formatCurrency(floatval($row["document_stamp_tax"]), "PHP") . "</td>";
+                                                    echo "<td class='text-right'> " . $fmt->formatCurrency(floatval($row["legal_research_fund"]), "PHP") . "</td>";
 
                                                     echo "</tr>";
                                                 }
@@ -347,7 +330,7 @@
                         <tr>
 
 
-                            <th class="font-weight-bold">Transaction ID</th>
+                            <th class="font-weight-bold">Txn. ID</th>
                             <th class="font-weight-bold">Date<i class="m-0">(mm/dd/yyyy)</i></th>
                             <th class="font-weight-bold">Reference No.</th>
                             <th class="font-weight-bold">Name of Payor</th>
@@ -379,12 +362,12 @@
                                 echo "<td>" . $row["name_of_payor"] . "</td>";
                                 echo "<td>" . $row["particulars"] . "</td>";
                                 echo "<td>" . $row["status"] . "</td>";
-                                echo "<td class='text-right'>&#8369; " . $row["fees_pcab"] . "</td>";
-                                echo "<td class='text-right'>&#8369; " . $row["legal_research_fund"] . "</td>";
-                                echo "<td class='text-right'>&#8369; " . $row["document_stamp_tax"] . "</td>";
-                                echo "<td class='text-right'>&#8369; " . $row["ngsi_convenience_fee"] . "</td>";
+                                echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["fees_pcab"]), "PHP") . "</td>";
+                                echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["legal_research_fund"]), "PHP") . "</td>";
+                                echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["document_stamp_tax"]), "PHP") . "</td>";
+                                echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["ngsi_convenience_fee"]), "PHP") . "</td>";
                                 $total_AR = $row["fees_pcab"] + $row["document_stamp_tax"] + $row["legal_research_fund"] + $row["ngsi_convenience_fee"];
-                                echo "<td class='text-right'>&#8369; " . $total_AR . "</td>";
+                                echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($total_AR), "PHP") . "</td>";
                                 $total_per_AR_formatted = number_format($total_per_AR, 2);
                                 echo "<td><button type='button'style='width: 80px; height: 25px; background: #555;' class=' btn-outline-dark border-0 btn-print-receipt' data-receipt-id='" . $row['trans_id'] . "'  onclick='printRow(" . $row['trans_id'] . ")'>Download</button></td>";
                                 echo "</tr>";
@@ -443,7 +426,9 @@
             <div class="modal-footer bg-white border-top-0">
 
                 <button type="button" class="btn-sm border-0 m-0 ml-2 mb-2 rounded close-modal bg-secondary" id="cancelDeposit" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                <button type="button" class="btn-sm border-0 m-0 ml-2 mb-2 rounded submit-deposit-btn-modal bg-info" id="submitDeposit"><i class="icon-settings spin" hidden></i> <span>Submit</span><span hidden>Submitting</span></button>
+                <button type="button" class="btn-sm border-0 m-0 ml-2 mb-2 rounded submit-deposit-btn-modal" id="submitDeposit" onmouseover="this.style.opacity=1" onmouseleave="this.style.opacity=.8" style="background-color:#00507a;opacity:.8;">
+                    <i class="icon-settings spin" hidden></i> <span>Submit</span><span hidden>Submitting</span>
+                </button>
 
             </div>
         </div>
@@ -628,7 +613,7 @@
 
         var modalTableHead = document.createElement('thead');
         modalTableHead.classList.add('thead'); // Added light background for the table head
-        modalTableHead.innerHTML = ' <tr><th colspan="8" class="text-center">Collection</th></tr><tr><th rowspan="2">Date & Time</th><th rowspan="2">AR Number</th><th rowspan="2">Name of Payor</th><th rowspan="2">Reference Number</th><th>CIAP-PCAB</th><th>LRF</th><th>DST</th><th rowspan="2">Total Collection</th></tr><tr><th>Account No.</th><th>Account No.</th><th>Account No.</th></tr>';
+        modalTableHead.innerHTML = ` <tr><th colspan="8" class="text-center">Collection</th></tr><tr><th style="width:${100/9}%;" rowspan="2">Date & Time</th><th style="width:${100/9}%;" rowspan="2">AR Number</th><th style="width:${100/9}%;" rowspan="2">Name of Payor</th><th style="width:${100/9}%;" rowspan="2">Reference Number</th><th style="width:${100/9}%;">CIAP-PCAB</th><th style="width:${100/9}%;">LRF</th><th style="width:${100/9}%;">DST</th><th style="width:${100/9}%;" rowspan="2">Total Collection</th></tr><tr><th>Account No.</th><th>Account No.</th><th>Account No.</th></tr>`;
 
         var modalTableBody = document.createElement('tbody');
 
@@ -655,7 +640,7 @@
             totalCollection += collection;
 
             // Append row to modal table body
-            modalTableBody.innerHTML += `<tr><td>${row.date}</td><td>${row.trans_id}</td><td>${row.name_of_payor}</td><td>${row.reference_number}</td><td>${CIAPPCAB.toFixed(2)}</td><td>${LRF.toFixed(2)}</td><td>${DST.toFixed(2)}</td><td class="text-right">${collection.toFixed(2)}</td></tr>`;
+            modalTableBody.innerHTML += `<tr><td class="text-left" style='width:${100/9}%;padding-left:18px;'>${row.date}</td><td class="text-center" style='width:${100/9}%;padding-left:18px;'>${row.reference_number}</td><td style='width:${100/9}%;padding-left:18px;'>${row.name_of_payor}</td><td style='width:${100/9}%;padding-left:18px;'>${row.reference_number}</td><td class="text-right" style='width:${100/9}%;'>${CIAPPCAB.toFixed(2)}</td><td class="text-right" style='width:${100/9}%;'>${LRF.toFixed(2)}</td><td class="text-right" style='width:${100/9}%;'>${DST.toFixed(2)}</td><td class="text-right">${collection.toFixed(2)}</td></tr>`;
         });
 
         // Append the new table to the modal body
@@ -664,7 +649,8 @@
         modalBody.appendChild(modalTable);
 
         // Append totals row to modal table body
-        modalTableBody.innerHTML += `<tr><td colspan="4">Total:</td><td>${totalCIAPPCAB.toFixed(2)}</td><td>${totalLRF.toFixed(2)}</td><td>${totalDST.toFixed(2)}</td><td class="text-right">${totalCollection.toFixed(2)}</td></tr>`;
+        // if ("<?= $_SESSION['usertype'] ?>" == "SUPERADMIN")
+        modalTableBody.innerHTML += `<tr><td class="text-right" colspan="4">Total:</td><td class="text-right">${totalCIAPPCAB.toFixed(2)}</td><td class="text-right">${totalLRF.toFixed(2)}</td><td class="text-right">${totalDST.toFixed(2)}</td><td class="text-right">${totalCollection.toFixed(2)}</td></tr>`;
 
         // Append the modal body to the modal content
         modalContent.appendChild(modalBody);

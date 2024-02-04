@@ -7,7 +7,7 @@ class Welcome extends CI_Controller
 	{
 		parent::__construct();
 
-		
+
 		$this->load->model('CrudModel', "crud");
 		// $this->class->yourfnc();
 
@@ -42,28 +42,30 @@ class Welcome extends CI_Controller
 
 		curl_close($curl);
 		echo $response;
-
 	}
 
-	public function index()	
+	public function index()
 	{
-		
-		if ($this->is_user_logged_in()) {
-	
-		$result["route"] = $this->uri->segment(1);
-	
-		
-		$data = $this->crud->get_all_data();
-		$result["depositdata"] = $this->crud->all_deposit_data();
 
-		$result["data"]=$data;
-	
-		$this->load->view('index', $result);
-		}
-		else {
+		if ($this->is_user_logged_in()) {
+
+			$result["route"] = $this->uri->segment(1);
+
+			if ($result["route"] == "dashboard") {
+				redirect('/acknowledgement-receipt');
+				return;
+			}
+
+
+			$data = $this->crud->get_all_data();
+			$result["depositdata"] = $this->crud->all_deposit_data();
+
+			$result["data"] = $data;
+
+			$this->load->view('index', $result);
+		} else {
 			redirect('login');
 		}
-		
 	}
 
 
@@ -104,28 +106,27 @@ class Welcome extends CI_Controller
 
 		$query = $this->db->query("SELECT * FROM payment_transaction");
 		echo json_encode($query->result_array());
-
 	}
 
 	public function get_data()
 	{
 
-		
+
 
 		$curl = curl_init();
 
 		curl_setopt_array($curl, array(
-		CURLOPT_URL => 'https://pcab-dev.netglobalsolutions.net/all-transaction-data',
-		CURLOPT_RETURNTRANSFER => true,
-		CURLOPT_ENCODING => '',
-		CURLOPT_MAXREDIRS => 10,
-		CURLOPT_TIMEOUT => 0,
-		CURLOPT_FOLLOWLOCATION => true,
-		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-		CURLOPT_CUSTOMREQUEST => 'GET',
-		CURLOPT_HTTPHEADER => array(
-			'Cookie: ci_session=ra3d7b0eq8qaikr98i31ueqptbpi1vku'
-		),
+			CURLOPT_URL => 'https://pcab-dev.netglobalsolutions.net/all-transaction-data',
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => '',
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_TIMEOUT => 0,
+			CURLOPT_FOLLOWLOCATION => true,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => 'GET',
+			CURLOPT_HTTPHEADER => array(
+				'Cookie: ci_session=ra3d7b0eq8qaikr98i31ueqptbpi1vku'
+			),
 		));
 
 		$response = curl_exec($curl);
@@ -138,9 +139,6 @@ class Welcome extends CI_Controller
 		// print_r( $decodedArray);
 		// echo $decodedArray['status'];
 		echo $response;
-		
-
-
 	}
 
 	private function is_user_logged_in()

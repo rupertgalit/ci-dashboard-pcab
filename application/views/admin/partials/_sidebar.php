@@ -1,11 +1,11 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
   <ul class="nav nav-container">
-    <li class="nav-item">
+    <!-- <li class="nav-item">
       <a class="nav-link" href="dashboard">
         <span class="menu-title text-capitalize">Dashboard</span>
         <i class="icon-screen-desktop menu-icon"></i>
       </a>
-    </li>
+    </li> -->
     <li class="nav-item">
       <a class="nav-link" href="acknowledgement-receipt">
         <span class="menu-title text-capitalize">Transactions</span>

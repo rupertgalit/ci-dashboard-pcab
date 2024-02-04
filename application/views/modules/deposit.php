@@ -57,7 +57,7 @@
                         <?php
 
                         $fmt = new NumberFormatter('en-US', NumberFormatter::CURRENCY);
-                        $fmt->setPattern(str_replace('¤#',"\xC2\xA0#", $fmt->getPattern()));
+                        $fmt->setPattern(str_replace('¤#', "\xC2\xA0#", $fmt->getPattern()));
 
 
                         foreach ($depositdata as $key => $row) {
@@ -136,6 +136,8 @@
 
                 var table = $('#myTable').DataTable({
                     dom: '<"pull-left"b><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
+                    scrollX: '90%',
+                    scrollCollapse: true,
                 });
             });
 
