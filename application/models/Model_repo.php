@@ -45,7 +45,7 @@ class Model_repo extends CI_Model
         $result="SELECT COUNT(*) AS ttl_trnsact, sum(txn_amount) as txn_amt,
         sum(legal_research_fund) as lrfund,
         sum(document_stamp_tax) as ds_tax,
-        sum(fees_pcab) as feespcab,
+        sum(fees_pcab) as feespcab,sum(no_ngsi_fee) as nongsifee,
         sum(ngsi_convenience_fee) as ngsi_convfee
           FROM pcab_db.transactions where status ='SUCCESS' and date BETWEEN 
           '".$request['collection_date_from']."' AND '".$request['collection_date_to']."';";

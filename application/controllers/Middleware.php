@@ -59,8 +59,10 @@ class Middleware extends REST_Controller
         $validate_ref = $this->model->select_refNumber( $transaction[ 'reference_number' ] );
         if ( $validate_ref ) {
             $this->response( [
-                'messege' => 'Failed',
-                'error0' => 'already ' . $validate_ref[ 'status' ]
+                'error' =>true,
+                'messege' => 'Transaction with this client ref '. $transaction[ 'reference_number' ].' already exists.',
+               
+               
             ], Rest_Controller::HTTP_UNAUTHORIZED );
         }
 
@@ -93,6 +95,14 @@ class Middleware extends REST_Controller
             // $totalAmount += $amount;
         }
        
+
+    
+
+foreach ($data[ 'data' ][ 'other_details' ] as $detail) {
+    if ($detail['item'] != 'ngsi_convenience_fee' && isset($detail['amount'])) {
+        $totalAmount += is_numeric($detail['amount']) ? $detail['amount'] : 0;
+    }
+}
         // if ( $txnAmount != $totalAmount ) {
 
         //     $this->response( [
@@ -116,7 +126,7 @@ class Middleware extends REST_Controller
 
         if ( $get_id ) {
             $transaction[ 'callback_uri' ] = $data[ 'data' ][ 'callback_uri' ];
-
+            $transaction[ 'no_ngsi_fee' ] =  $totalAmount;
             $get_transaction_id = $this->model->transaction_log( $transaction );
 
             if ( isset( $data[ 'data' ][ 'callback_uri' ] ) ) {
@@ -140,8 +150,9 @@ class Middleware extends REST_Controller
             $doUpdateApiLog = $this->model->doUpdateApilogs( $update, $get_id );
 
             if ( $doUpdateApiLog ) {
+                // echo $totalAmount;
                 echo json_encode( $data[ 'data' ][ 'callback_uri' ] );
-                echo $response[ 'response' ] . json_encode( $totalAmount );
+                echo $response[ 'response' ] ;
             }
         }
     }
@@ -173,7 +184,7 @@ class Middleware extends REST_Controller
             $this->model->doInsertCallback( $call_back_data );
             $this->response( [
                 'messege' => 'Failed',
-                'error0' => 'already transact'
+                'error' => 'already transact'
             ], Rest_Controller::HTTP_UNAUTHORIZED );
         } else {
 
@@ -205,7 +216,7 @@ class Middleware extends REST_Controller
                         ], Rest_Controller::HTTP_OK );
                     } else {
                         $this->response( [
-                            'messege0' => 'Success',
+                            'messege' => 'Success',
                             'error' => 'true',
                             'data' => $doUpdateApiLog
                         ], Rest_Controller::HTTP_OK );
@@ -309,6 +320,7 @@ class Middleware extends REST_Controller
                 $depositLogs[ 'ngsi_convenience_fee' ] = $getTotalAmount[ 'ngsi_convfee' ];
 
                 $depositLogs[ 'ttl_trnsact' ] = $getTotalAmount[ 'ttl_trnsact' ];
+                $depositLogs[ 'no_ngsi_fee' ] = $getTotalAmount[ 'nongsifee' ];
 
                 $depositLogs[ 'created_at' ] =  date( 'Y-m-d' );
 
