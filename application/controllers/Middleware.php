@@ -282,7 +282,7 @@ class Middleware extends REST_Controller
 
             $getTotalAmount =     $this->model->total_transcation_perday( $postdata ) ;
             $last_data_deposit =     $this->model->last_data_deposit() ;
-
+           $Lupaid_collection= $last_data_deposit? $last_data_deposit[ 'undeposit_collection' ]:0;
             if($last_data_deposit){
                 $depositLogs[ 'last_txn_amont' ] = $last_data_deposit[ 'txn_amount' ];
                 $depositLogs[ 'last_date' ] = $last_data_deposit[ 'created_at' ];
@@ -318,7 +318,7 @@ class Middleware extends REST_Controller
 
                 $depositLogs[ 'date_to' ] = $postdata[ 'collection_date_to' ];
 
-                $depositLogs[ 'undeposit_collection' ] =$last_data_deposit[ 'undeposit_collection' ]+$getTotalAmount[ 'txn_amt' ]- $postdata[ 'deposited_amount' ];
+                $depositLogs[ 'undeposit_collection' ] =$Lupaid_collection+$getTotalAmount[ 'txn_amt' ]- $postdata[ 'deposited_amount' ];
                 $this->model->log_deposit( $depositLogs );
 
             }
