@@ -15,7 +15,7 @@
     <div class="login" style="transform: scale(1.0);">
    
       <div id="loginform">
-        <div id="PCAB"><a href="https://pcabgovph.com/" target="_blank"><img width="200" height="200" src='http://ci-dashboard-pcab.test/assets/images/pcab_logo.png') alt="logo" class="logo-dark" /></a>
+        <div id="PCAB"><a href="https://pcabgovph.com/" target="_blank"><img width="200" height="200" src='<?php echo base_url("assets/images/pcab-logo.svg") ?>'  alt="logo" class="logo-dark" /></a>
         </div>
         <div id="mainlogin">
           <div id="or">
