@@ -60,7 +60,7 @@
                         $fmt->setPattern(str_replace('¤#', "\xC2\xA0#", $fmt->getPattern()));
 
 
-                        foreach ($depositdata as $key => $row) {
+                        foreach ($data as $key => $row) {
                             $undeposited = (float) $row["legal_research_fund"] +
                                 (float) $row["document_stamp_tax"] +
                                 (float) $row["fees_pcab"];

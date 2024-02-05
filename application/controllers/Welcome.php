@@ -56,11 +56,13 @@ class Welcome extends CI_Controller
 				return;
 			}
 
+			if ($result["route"] == "acknowledgement-receipt")
+				$result["data"] = $this->crud->get_all_data();
 
-			$data = $this->crud->get_all_data();
-			$result["depositdata"] = $this->crud->all_deposit_data();
 
-			$result["data"] = $data;
+
+			if ($result["route"] == "deposit")
+				$result["data"] = $this->crud->all_deposit_data();
 
 			$this->load->view('index', $result);
 		} else {
