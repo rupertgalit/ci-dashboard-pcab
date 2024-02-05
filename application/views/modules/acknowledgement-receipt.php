@@ -823,9 +823,14 @@
                 </tbody>
             </table> 
             </div>
+<<<<<<< Updated upstream
             <br>
             <br>`
 
+=======
+          `
+           
+>>>>>>> Stashed changes
         const content = row => `
             <tr>
                 <td  style="  border: 1px solid black;">${row?.date ?? "&nbsp;"}</td>
@@ -843,42 +848,44 @@
             rowsPerPage += content(filteredData[i])
 
         const footer = `
+      
 
         <div class="mx-auto d-flex flex-column border-dark "style=";width:70rem;height:5rem;position:absolute;bottom: 0;">
-           <div class="d-flex align-items-center justify-content-center" style="height: 250px;">
-
-           <div class="text-center text-uppercase py-3">
-           <div class="row mt-4">
-                                    <div class="col pl-5">
-                                        <img style="margin-left:25%; background-position:center; margin-bottom:-15px;z-index:0;position:relative;transform:scale(1.1)"
-                                            width="35%" height="35%" src="assets/images/ma'am_je.png" alt="logo"
+         <div class="d-flex align-items-center justify-content-center" style="height: 250px;">
+              <div class="row mt-4" style="margin:50px">
+            
+                 <div class="col-sm">
+                  <img style="margin-left:25%; background-position:center; margin-bottom:-15px;z-index:0;position:relative;transform:scale(1.1)"width="35%" height="35%" src="assets/images/ma'am_je.png" alt="logo"
                                             class="logo-dark" />
-                                        <p style="position:relative;left:-11px;margin:0;">Prepared By: </p>
-                                        <p
-                                            style="margin-top: -25px;margin-left: 87px;font-size: 18px; font-family: Arial, Helvetica, sans-serif;z-index:1;position:relative;">
+                      <p style="position:relative;left:11px;margin:0;margin-top:-80px;">Prepared By: </p>
+                      <p style="margin-top:60px;margin-left:155px;font-size: 18px; font-family: Arial, Helvetica, sans-serif;z-index:1;position:relative;">
                                             Jeremie Soliveres </p>
-                                        <p
-                                            style=" margin-top: -24px; margin-left: 106px; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
+                        <p style=" margin-top:-20px; margin-left: 170px; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
                                             Accounting Specialist</p>
                                     </div>
-                                    <div class="col pl-5">
-                                        <img style="margin-left:13rem; margin-bottom:-15px;" width="35%"
+
+                <div class="col-sm">
+                 <img style="margin-left:13rem; margin-bottom:-15px;" width="35%"
                                             height="35%" src="assets/images/sir_peter.png" alt="logo"
                                             class="logo-dark" />
-                                        <p style="position:relative;left:5.7rem;margin:0;">Approved By: </p>
-                                        <p
-                                            style="margin-top: -25px;margin-left: 12rem;font-size: 18px; font-family: Arial, Helvetica, sans-serif;">
-                                            Peter Lingatong</p>
-                                        <p
-                                            style=" margin-top: -24px; margin-left: 13rem; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
-                                            Chairman & CEO</p>
-                                    </div>
-                                </div>       
-                     
+                  <p style="position:relative;left:5.7rem;margin:0;margin-top:-80px;">Approved By: </p>
+                   <p style="margin-top:60px;margin-left: 13.5rem;font-size: 18px; font-family: Arial, Helvetica, sans-serif;">
+                   Mischell A. Fernandez</p>
+                     <p style=" margin-top:-20px; margin-left: 218px; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
+                     Admin Officer III/Cashier II CIAP</p>
+                       </div>
+
+
+              </div>       
+             </div>
+             <p style="position:relative;margin-left:10px;">Page : 1</p>
             </div>
-            </div>
-            <br>
-        </div> 
+
+
+ 
+
+       
+     
         `;
 
 
