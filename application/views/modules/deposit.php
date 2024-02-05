@@ -59,28 +59,30 @@
                         $fmt = new NumberFormatter('en-US', NumberFormatter::CURRENCY);
                         $fmt->setPattern(str_replace('¤#', "\xC2\xA0#", $fmt->getPattern()));
 
-
-                        foreach ($data as $key => $row) {
-                            $undeposited = (float) $row["legal_research_fund"] +
-                                (float) $row["document_stamp_tax"] +
-                                (float) $row["fees_pcab"];
-                            echo "<tr>";
-                            echo "<td>" .  date_format(date_create($row["last_date"]), "m/d/Y") . "</td>";
-                            echo "<td class='text-right'>&#8369; " . ($row["last_txn_amont"] != "" ? $fmt->formatCurrency(floatval($row["last_txn_amont"]), false) : "0.00") . "</td>";
-                            echo "<td>" .  date_format(date_create($row["date_from"]), "m/d/Y") . "</td>";
-                            echo "<td>" .  date_format(date_create($row["date_to"]), "m/d/Y") . "</td>";
-                            echo "<td>" . $row["ttl_trnsact"] . "</td>";
-                            echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["legal_research_fund"]), false) . "</td>";
-                            echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["document_stamp_tax"]), false) . "</td>";
-                            echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["fees_pcab"]), false) . "</td>";
-                            echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["txn_amount"]), false) . "</td>";
-                            echo "<td>" .  date_format(date_create($row["deposited_date"]), "m/d/Y") . "</td>";
-                            echo "<td> " .  $row["deposit_reference_no"] . "</td>";
-                            echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["deposited_amount"]), false) . "</td>";
-                            echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["undeposit_collection"]), false) . "</td>";
-                            echo "<td><button class='btn-sm btn-outline-dark border-0 px-3 py-1 rounded download-btn-modal' onclick='downloadDeposit()'>Download</button></td>";
-                            echo "</tr>";
-                        }
+                        if (empty($data)) {
+                            echo "<tr py-5><td colspan='10'>No data available</td></tr>";
+                        } else
+                            foreach ($data as $key => $row) {
+                                $undeposited = (float) $row["legal_research_fund"] +
+                                    (float) $row["document_stamp_tax"] +
+                                    (float) $row["fees_pcab"];
+                                echo "<tr>";
+                                echo "<td>" .  date_format(date_create($row["last_date"]), "m/d/Y") . "</td>";
+                                echo "<td class='text-right'>&#8369; " . ($row["last_txn_amont"] != "" ? $fmt->formatCurrency(floatval($row["last_txn_amont"]), false) : "0.00") . "</td>";
+                                echo "<td>" .  date_format(date_create($row["date_from"]), "m/d/Y") . "</td>";
+                                echo "<td>" .  date_format(date_create($row["date_to"]), "m/d/Y") . "</td>";
+                                echo "<td>" . $row["ttl_trnsact"] . "</td>";
+                                echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["legal_research_fund"]), false) . "</td>";
+                                echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["document_stamp_tax"]), false) . "</td>";
+                                echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["fees_pcab"]), false) . "</td>";
+                                echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["txn_amount"]), false) . "</td>";
+                                echo "<td>" .  date_format(date_create($row["deposited_date"]), "m/d/Y") . "</td>";
+                                echo "<td> " .  $row["deposit_reference_no"] . "</td>";
+                                echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["deposited_amount"]), false) . "</td>";
+                                echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["undeposit_collection"]), false) . "</td>";
+                                echo "<td><button class='btn-sm btn-outline-dark border-0 px-3 py-1 rounded download-btn-modal' onclick='downloadDeposit($key)'>Download</button></td>";
+                                echo "</tr>";
+                            }
                         ?>
 
                     </tbody>
@@ -132,11 +134,13 @@
 
         <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
         <script>
+            const data_collection = JSON.parse('<?= json_encode($data) ?>')
             $(document).ready(function() {
+
 
                 var table = $('#myTable').DataTable({
                     dom: '<"pull-left"b><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
-                    scrollX: '90%',
+                    scrollX: '80%',
                     scrollCollapse: true,
                 });
             });
@@ -176,36 +180,36 @@
                         <table class="border-0">
                             <tbody>
                                 <tr>
-                                    <td colspan="3">Undeposited Collections per last Report,<br>(date: ${data.last_deposit_date})</td>
-                                    <td class="text-right" style="vertical-align:top;">P <div class="w-100 d-inline-block text-right" style="padding-right: .7rem;">${parseToCurrency(data.last_undeposited_amount)}</div></td>
+                                    <td colspan="3">Undeposited Collections per last Report,<br>(date: ${data.last_date})</td>
+                                    <td class="text-right" style="vertical-align:top;">P <div class="w-100 d-inline-block text-right" style="padding-right: .7rem;">${parseToCurrency(data.undepo)}</div></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3">Collections, ${data.collections_date}</td>
+                                    <td colspan="3">Collections, ${data.date_from != data.date_to ? data.date_from + " to " + data.date_to : data.date_from}</td>
                                     <td></td>
                                 </tr>
                                 <tr>
                                     <td class="pl-5 pb-3">Total Number of Transaction</td>
-                                    <td colspan="2" class="text-right" style="padding-right:2.6rem;vertical-align:top;">${data.number_of_transaction}</td>
+                                    <td colspan="2" class="text-right" style="padding-right:2.6rem;vertical-align:top;">${data.ttl_trnsact}</td>
                                     <td></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2" class="pl-5">Total Amount of Collection</td>
-                                    <td class="text-right" style="padding-right:3.2rem;">P <div class="w-100 d-inline-block text-right">${parseToCurrency(data.total_collected)}</div></td>
-                                    <td class="text-right pr-1">${parseToCurrency(data.total_collected)}</td>
+                                    <td class="text-right" style="padding-right:3.2rem;">P <div class="w-100 d-inline-block text-right">${parseToCurrency(data.txn_amount)}</div></td>
+                                    <td class="text-right pr-1">${parseToCurrency(data.txn_amount)}</td>
                                 </tr>
                                 <tr class="p-0">
                                     <td colspan="2" style="padding-left:4.5rem;">CIAP-PCAB</td>
-                                    <td class="text-right" style="padding-right:2.6rem;">(${parseToCurrency(data.fees.pcab)})</td>
+                                    <td class="text-right" style="padding-right:2.6rem;">(${parseToCurrency(data.fees_pcab)})</td>
                                     <td class="text-right"></td>
                                 </tr>
                                 <tr class="p-0">
                                     <td colspan="2" style="padding-left:4.5rem;">DST</td>
-                                    <td class="text-right" style="padding-right:2.6rem;">(${parseToCurrency(data.fees.dst)})</td>
+                                    <td class="text-right" style="padding-right:2.6rem;">(${parseToCurrency(data.document_stamp_tax)})</td>
                                     <td class="text-right"></td>
                                 </tr>
                                 <tr class="p-0">
                                     <td colspan="2" style="padding-left:4.5rem;">LRF</td>
-                                    <td class="text-right" style="padding-right:2.6rem;">(${parseToCurrency(data.fees.lrf)})</td>
+                                    <td class="text-right" style="padding-right:2.6rem;">(${parseToCurrency(data.legal_research_fund)})</td>
                                     <td class="text-right"></td>
                                 </tr>
                                 <tr >
@@ -217,7 +221,7 @@
                                         <div class="w-100 d-flex justify-content-between">
                                             <span>
                                                 Date: <label class="border-bottom border-dark text-center m-0"
-                                                    style="width:5rem;display:inline-block">${data.deposit_date}</label>
+                                                    style="width:5rem;display:inline-block">${data.deposited_date}</label>
                                             </span>
                                             <span class="position-relative"><label class="text-center m-0"
                                                     style="width:5rem;display:inline-block;">P <div class="w-100 d-inline-block text-right pr-1">${parseToCurrency(data.deposited_amount)}</div></label></span>
@@ -227,13 +231,13 @@
                                     <td class="text-right">(${parseToCurrency(data.deposited_amount)})</td>
                                 </tr>
                                 <tr style="vertical-align: top;">
-                                    <td colspan="2" class="pl-5 pb-3">Reference No.:  ${data.ref_no}</td>
+                                    <td colspan="2" class="pl-5 pb-3">Reference No.:  ${data.deposit_reference_no}</td>
                                     <td class="text-right" style="padding-right:3rem;"></td>
                                     <td class="text-right"></td>
                                 </tr>
                                 <tr>
                                     <td colspan="3">Undeposited Collections, this Report</td>
-                                    <td class="text-right">P <div class="w-100 d-inline-block text-right" style="padding-right: .7rem;">${parseToCurrency((data.last_undeposited_amount + data.total_collected) - data.deposited_amount)}</div></td>
+                                    <td class="text-right">P <div class="w-100 d-inline-block text-right" style="padding-right: .7rem;">${parseToCurrency(data.undeposit_collection)}</div></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -274,7 +278,7 @@
                 </div>
                 `;
 
-            function downloadDeposit() {
+            function downloadDeposit(key) {
                 let doc = new jspdf.jsPDF({
                     orientation: 'p',
                     unit: 'px'
@@ -290,21 +294,7 @@
                     })
                 });
 
-                const data = {
-                    last_undeposited_amount: 0.00,
-                    last_deposit_date: `${months[now.getMonth()]}/${(now.getDate()-1).toString().padStart(2, "0")}/${now.getFullYear()}`,
-                    collections_date: `${months[now.getMonth()]}/${(now.getDate()).toString().padStart(2, "0")}/${now.getFullYear()}`,
-                    number_of_transaction: 56,
-                    total_collected: 1000.00,
-                    deposit_date: `${now.getMonth().toString().padStart(2, "0")}/${(now.getDate()-1).toString().padStart(2, "0")}/${now.getFullYear()}`,
-                    ref_no: 10023323399,
-                    deposited_amount: 1000.00,
-                    fees: {
-                        pcab: 958.00,
-                        dst: 30.00,
-                        lrf: 12.00
-                    }
-                }
+                const data = data_collection[key]
                 console.log(data, months)
 
                 doc.html(`<div id="PDFContent" class="mx-auto d-flex flex-column border-dark" style="width:55.8rem;padding-top:5rem;/*border:1px black solid;*/">${content(data)}</div>`, {
@@ -317,144 +307,4 @@
                     },
                 })
             }
-
-            //     document.querySelector(".download-btn-modal").addEventListener("click", () => {
-            //         console.log("click")
-            //         let doc = new jspdf.jsPDF({
-            //             orientation: 'p',
-            //             unit: 'px'
-            //         })
-
-            //         let content = `
-            // <div class="mx-auto my-5 d-flex justify-content-center" style="width: 67.5rem; ">
-            //     <div class="w-75">
-            //     <div class="container mt-3 justify-content-center mb-4">
-            //                         <div class="row justify-content-center">
-            //                             <div class="col-md-3">
-            //                                 <img  height="100" style="margin-left:-rem;" src="assets/images/ngsi-letterhead.png" alt="logo" class="logo-dark" />
-            //                             </div>
-            //                             <div class="col-md-4 mt-3"  style="margin-left:11rem;">
-            //                                 <p class="font-weight-bold" style="font-family: Century Gothic; font-size:16px;" ;>NET GLOBAL SOLUTIONS&nbsp;&nbsp; INC.</p>
-            //                                 <p style="margin-top: -20px;margin-bottom: -5px; font-family: Century Gothic;">Tel. No. 632 82877374</p>
-            //                                 <p style=" line-height: 80%; color:blue;margin-top: 10px;">Support@netglobalsolutions.net</p>
-            //                             </div>
-            //                         </div>
-            //                          <img  height="100%" style="margin-top: -10px;" src="assets/images/NGSI_header.png" alt="logo" class="logo-dark" />
-            //                     </div>
-            //     <div class="">
-            //         <div class="text-center text-uppercase py-3">
-            //             <u>Certification &nbsp;&nbsp; of Deposit</u>
-            //         </div>
-            //         <div class="text-center m-3">
-            //             <b>Summary</b>
-            //         </div>
-            //         <table class="border-0">
-            //         <tbody>
-            //             <tr>
-            //                 <td colspan="3">Undeposited Collections per last Report,</td>
-            //                 <td class="text-right"> ${''}</td>
-            //             </tr>
-            //             <tr>
-            //                 <td colspan="3">(date: ${'mmm/dd/yyyy'})</td>
-            //                 <td></td>
-            //             </tr>
-            //             <tr>
-            //                 <td colspan="3">Collections, ${'mmm/dd/yyyy'}</td>
-            //                 <td></td>
-            //             </tr>
-            //             <tr>
-            //                 <td class="pl-5 pb-3">Total Number of Transaction</td>
-            //                 <td colspan="2" class="text-right" style="padding-right:3rem;">${''}</td>
-            //                 <td></td>
-            //             </tr>
-            //             <tr>
-            //                 <td colspan="2" class="pl-5">Total Amount of Collection</td>
-            //                 <td class="text-right" style="padding-right:3rem;">${''}</td>
-            //                 <td class="text-right">${''}</td>
-            //             </tr>
-            //             <tr>
-            //                 <td colspan="3" class="pb-3">Deposit / Fund Transfers</td>
-            //                 <td></td>
-            //             </tr>
-            //             <tr>
-            //                 <td colspan="2" class="pl-5">
-            //                     <div class="w-100 d-flex justify-content-between">
-            //                         <span>
-            //                             Date: <label class="border-bottom border-dark text-center m-0"
-            //                                 style="width:5rem;display:inline-block"></label>
-            //                         </span>
-            //                         <span class="position-relative">${''}</span>
-            //                     </div>
-            //                 </td>
-            //                 <td class="text-right" style="padding-right:3rem;"></td>
-            //                 <td class="text-right">${''}</td>
-            //             </tr>
-            //             <tr style="background-color: #FFF!important;vertical-align: top;">
-            //                 <td colspan="2" class="pl-5 pb-3">Total Amount of Collection</td>
-            //                 <td class="text-right" style="padding-right:3rem;">${''}</td>
-            //                 <td class="text-right">${''}</td>
-            //             </tr>
-            //             <tr>
-            //                 <td colspan="3">Undeposited Collections, this Report</td>
-            //                 <td class="text-right"> ${''}</td>
-            //             </tr>
-            //             </tbody>
-            //         </table>
-            //         <div style=" text-align: justify;text-justify: inter-word;margin-top: 2rem; font-size: .9rem">
-            //             This is to certify the above is true and correct statement. That the amount collected is to deposited intact
-            //             to the ${'[bank name]'} bank account of the ${"[agency name]"} with amount number ${'[account number]'}, and duly supported
-            //             by attached proof of deposit. Details of collections can be generated from our online reporting facility or
-            //             in the attached electronic file of the List if Daily Collection.
-            //         </div>
-
-            //         <div class="w-100 mt-5">
-            //                     <div class="container">
-            //                         <div class="row mt-4">
-            //                             <div class="col pl-5">
-            //                                 <img style="margin-left:25%; background-position:center; margin-bottom:-15px;z-index:0;position:relative;transform:scale(1.1)"
-            //                                     width="35%" height="35%" src="assets/images/ma'am_je.png" alt="logo"
-            //                                     class="logo-dark" />
-            //                                 <p style="position:relative;left:-11px;margin:0;">Prepared By: </p>
-            //                                 <p
-            //                                     style="margin-top: -25px;margin-left: 87px;font-size: 18px; font-family: Arial, Helvetica, sans-serif;z-index:1;position:relative;">
-            //                                     Jeremie Soliveres </p>
-            //                                 <p
-            //                                     style=" margin-top: -24px; margin-left: 106px; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
-            //                                     Accounting Specialist</p>
-            //                             </div>
-            //                             <div class="col pl-5">
-            //                                 <img style="margin-left:13rem; margin-bottom:-15px;" width="35%"
-            //                                     height="35%" src="assets/images/sir_peter.png" alt="logo"
-            //                                     class="logo-dark" />
-            //                                 <p style="position:relative;left:5.7rem;margin:0;">Approved By: </p>
-            //                                 <p
-            //                                     style="margin-top: -25px;margin-left: 12rem;font-size: 18px; font-family: Arial, Helvetica, sans-serif;">
-            //                                     Peter Lingatong</p>
-            //                                 <p
-            //                                     style=" margin-top: -24px; margin-left: 13rem; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
-            //                                     Chairman & CEO</p>
-            //                             </div>
-            //                         </div>
-            //                     </div>
-            //                 </div>
-            //     </div>
-            //     </div>
-            // </div>
-            // <div style="display:block;width:100%;border-bottom:1px #666 dashed;"></div>`
-
-            //         doc.html(content, {
-            //             html2canvas: {
-            //                 scale: .4,
-            //             },
-            //             callback: async function(doc) {
-            //                 // doc.addPage(
-            //                 //     { orientation: 'p', unit: 'px' }
-            //                 // )
-            //                 // await doc.save(`daily-collection-`)
-            //                 await doc.output("dataurlnewwindow", "receipt-123.pdf");
-            //             },
-            //             x: 7,
-            //             y: 7,
-            //         })
-            //     })
         </script>

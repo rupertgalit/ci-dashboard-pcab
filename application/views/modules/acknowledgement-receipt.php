@@ -276,7 +276,7 @@
                                                 $fmt->setPattern(str_replace('¤#', "\xC2\xA0#", $fmt->getPattern()));
                                                 foreach ($data as $row) {
                                                     echo "<tr>";
-                                                    echo "<td>" .  date_format(date_create($row['date']), "m/d/Y") . "</td>";
+                                                    echo "<td>" .  $row['date'] . "</td>";
                                                     echo "<td>" . $row["mobile_number"] . "</td>";
                                                     echo "<td>" . $row["name_of_payor"] . "</td>";
                                                     echo "<td>" . $row["particulars"] . "</td>";
@@ -349,7 +349,7 @@
                         <?php
                         // Assuming $data is your array of data
                         if (empty($data)) {
-                            echo "<tr><td colspan='10'>No data available</td></tr>";
+                            echo "<tr py-5><td colspan='10'>No data available</td></tr>";
                         } else {
                             foreach ($data as $row) {
                                 $date = date_create($row['date']);
@@ -528,13 +528,14 @@
             }]
         });
 
+        console.log(dataTable.ext)
         $('#monthFilter').on('change', function() {
             var selectedMonth = $(this).val();
             var specificDate = '2023-' + selectedMonth.padStart(2, '0'); // Replace '2023' with the appropriate year
 
             // Use DataTables API to filter by a specific date
-            dataTable.column(0).search(specificDate).draw();
-
+            dataTable.column(0).search(specificDate);
+            dataTable.draw()
             // Log filtered data
             var filteredData = dataTable.rows({
                 search: 'applied'
@@ -1240,9 +1241,11 @@
 
         if (isInvalid) return;
 
-        if (new Date(payload.collection_date_from) >= new Date(payload.collection_date_to))
-            $(".collection_date_from input").parentElement.classList.add("error")
-
+        if (new Date(payload.collection_date_from) > new Date(payload.collection_date_to)) {
+            $("[name=collection_date_from] input").parentElement.classList.add("error");
+            return;
+        }
+        console.log($("[name=collection_date_from] input").parentElement)
         if ($("#Submit_deposit .input-form .error").length) return;
 
         $("#Submit_deposit").addClass('loading')
@@ -1273,6 +1276,7 @@
             throw (res)
 
         } catch (e) {
+            console.log(e)
             $("#Submit_deposit .message").text("An error occured, please try again.").addClass("error");
             $("#Submit_deposit").removeClass('loading')
         }
