@@ -98,11 +98,11 @@ class Middleware extends REST_Controller
 
     
 
-foreach ($data[ 'data' ][ 'other_details' ] as $detail) {
-    if ($detail['item'] != 'ngsi_convenience_fee' && isset($detail['amount'])) {
-        $totalAmount += is_numeric($detail['amount']) ? $detail['amount'] : 0;
-    }
-}
+        foreach ($data[ 'data' ][ 'other_details' ] as $detail) {
+            if ($detail['item'] != 'ngsi_convenience_fee' && isset($detail['amount'])) {
+                $totalAmount += is_numeric($detail['amount']) ? $detail['amount'] : 0;
+            }
+             }
         // if ( $txnAmount != $totalAmount ) {
 
         //     $this->response( [
@@ -290,55 +290,71 @@ foreach ($data[ 'data' ][ 'other_details' ] as $detail) {
 
             ], Rest_Controller::HTTP_UNPROCESSABLE_ENTITY );
         } else {
+             $chkrefno=$this->model->chk_ref_no( $postdata );
 
-            $getTotalAmount =     $this->model->total_transcation_perday( $postdata ) ;
-            $last_data_deposit =     $this->model->last_data_deposit() ;
-           $Lupaid_collection= $last_data_deposit? $last_data_deposit[ 'undeposit_collection' ]:0;
-            if($last_data_deposit){
-                $depositLogs[ 'last_txn_amont' ] = $last_data_deposit[ 'txn_amount' ];
-                $depositLogs[ 'last_date' ] = $last_data_deposit[ 'created_at' ];
-            }else{
-                $depositLogs[ 'date_to' ] = '';
-                $depositLogs[ 'date_to' ] = '';
-            }
-            if ( $getTotalAmount ) {
+   if($chkrefno){
 
-                $depositLogs[ 'deposited_date' ] = $postdata[ 'deposited_date' ];
+    $this->response( [
+        'status' => false,
+        'message' => 'reference already exist'
+     
 
-                $depositLogs[ 'deposited_amount' ] = $postdata[ 'deposited_amount' ];
+    ], Rest_Controller::HTTP_UNPROCESSABLE_ENTITY );
 
-                $depositLogs[ 'deposit_reference_no' ] = $postdata[ 'deposit_reference_no' ];
+   }else{
 
-                $depositLogs[ 'txn_amount' ] = $getTotalAmount[ 'txn_amt' ];
 
-                $depositLogs[ 'document_stamp_tax' ] = $getTotalAmount[ 'ds_tax' ];
+    $getTotalAmount =     $this->model->total_transcation_perday( $postdata ) ;
+    $last_data_deposit =     $this->model->last_data_deposit() ;
+   $Lupaid_collection= $last_data_deposit? $last_data_deposit[ 'undeposit_collection' ]:0;
+    if($last_data_deposit){
+        $depositLogs[ 'last_txn_amont' ] = $last_data_deposit[ 'undeposit_collection' ];
+        $depositLogs[ 'last_date' ] = $last_data_deposit[ 'created_at' ];
+    }else{
+        $depositLogs[ 'date_to' ] = '';
+        $depositLogs[ 'date_to' ] = '';
+    }
+    if ( $getTotalAmount ) {
 
-                $depositLogs[ 'fees_pcab' ] = $getTotalAmount[ 'feespcab' ];
+        $depositLogs[ 'deposited_date' ] = $postdata[ 'deposited_date' ];
 
-                $depositLogs[ 'legal_research_fund' ] = $getTotalAmount[ 'lrfund' ];
+        $depositLogs[ 'deposited_amount' ] = $postdata[ 'deposited_amount' ];
 
-                $depositLogs[ 'ngsi_convenience_fee' ] = $getTotalAmount[ 'ngsi_convfee' ];
+        $depositLogs[ 'deposit_reference_no' ] = $postdata[ 'deposit_reference_no' ];
 
-                $depositLogs[ 'ttl_trnsact' ] = $getTotalAmount[ 'ttl_trnsact' ];
-                $depositLogs[ 'no_ngsi_fee' ] = $getTotalAmount[ 'nongsifee' ];
+        $depositLogs[ 'txn_amount' ] = $getTotalAmount[ 'txn_amt' ];
 
-                $depositLogs[ 'created_at' ] =  date( 'Y-m-d' );
+        $depositLogs[ 'document_stamp_tax' ] = $getTotalAmount[ 'ds_tax' ];
 
-                $depositLogs[ 'date_covered' ] = $postdata[ 'collection_date_from' ].' to' .$postdata[ 'collection_date_to' ];
+        $depositLogs[ 'fees_pcab' ] = $getTotalAmount[ 'feespcab' ];
 
-                $depositLogs[ 'date_from' ] = $postdata[ 'collection_date_from' ];
+        $depositLogs[ 'legal_research_fund' ] = $getTotalAmount[ 'lrfund' ];
 
-                $depositLogs[ 'date_to' ] = $postdata[ 'collection_date_to' ];
+        $depositLogs[ 'ngsi_convenience_fee' ] = $getTotalAmount[ 'ngsi_convfee' ];
 
-                $depositLogs[ 'undeposit_collection' ] =$Lupaid_collection+$getTotalAmount[ 'txn_amt' ]- $postdata[ 'deposited_amount' ];
-                $this->model->log_deposit( $depositLogs );
+        $depositLogs[ 'ttl_trnsact' ] = $getTotalAmount[ 'ttl_trnsact' ];
+        $depositLogs[ 'no_ngsi_fee' ] = $getTotalAmount[ 'nongsifee' ];
 
-            }
+        $depositLogs[ 'created_at' ] =  date( 'Y-m-d' );
 
-            $this->response( [
-                'status' => true,
-                'message' =>   $depositLogs[ 'undeposit_collection' ],
-                'data' =>  $last_data_deposit, ], Rest_Controller::HTTP_OK );
+        $depositLogs[ 'date_covered' ] = $postdata[ 'collection_date_from' ].' to' .$postdata[ 'collection_date_to' ];
+
+        $depositLogs[ 'date_from' ] = $postdata[ 'collection_date_from' ];
+
+        $depositLogs[ 'date_to' ] = $postdata[ 'collection_date_to' ];
+
+        $depositLogs[ 'undeposit_collection' ] =$Lupaid_collection+$getTotalAmount[ 'txn_amt' ]- $postdata[ 'deposited_amount' ];
+        $this->model->log_deposit( $depositLogs );
+
+    }
+
+    $this->response( [
+        'status' => true,
+        'message' =>   $depositLogs[ 'undeposit_collection' ],
+        'data' =>  $last_data_deposit, ], Rest_Controller::HTTP_OK );
+    
+   }
+
 
             }
 

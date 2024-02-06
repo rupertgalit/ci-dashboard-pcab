@@ -12,6 +12,14 @@ class Model_repo extends CI_Model
 
     }
 
+    public function chk_ref_no( $postdata )
+    {
+        $qry = 'select deposit_reference_no from tbl_deposit where deposit_reference_no like ? ';
+        $Q = $this->db->query( $qry, $postdata['deposit_reference_no'] );
+        return $Q->row_array()?$Q->row_array():false;
+
+    }
+
     public function finddata( $data )
     {
         $qry = 'select * from tbl_callback where reference_number like ? ';
