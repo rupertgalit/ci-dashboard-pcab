@@ -72,6 +72,7 @@ $route['get-transactions']  = 'welcome/getTransactions';
 $route['generate-qr'] = 'middleware/generate_qr';
 // $route['all-transaction-data'] = 'api/all_transaction_data';
 
+$route['total-txn-amount'] = 'middleware/total_txnamount_indate';
 $route['submit-deposit'] = 'middleware/deposit_log';
 $route['deposit-logs'] = 'middleware/all_deposit_data';
 $route['all-transaction-data'] = 'middleware/all_transaction_data';

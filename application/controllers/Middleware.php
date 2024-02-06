@@ -13,7 +13,7 @@ class Middleware extends REST_Controller
     public $apiService;
 
     public function __construct()
-    {
+ {
         parent::__construct();
         date_default_timezone_set( 'Asia/Manila' );
         $this->apiService = new ApiService();
@@ -21,32 +21,32 @@ class Middleware extends REST_Controller
     }
 
     public function index_post()
-    {
+ {
 
-        $last_data_deposit =     $this->model->last_data_deposit() ;
+        // $last_data_deposit =     $this->model->last_data_deposit() ;
 
-        echo json_encode( $last_data_deposit);
-        // $this->response( [
-        //     'messege0' => 'FORBIDDEN'
-        // ], Rest_Controller::HTTP_FORBIDDEN );
+        // echo json_encode( $last_data_deposit );
+        $this->response( [
+            'messege' => 'FORBIDDEN'
+        ], Rest_Controller::HTTP_FORBIDDEN );
     }
 
     public function index_get()
-    {
+ {
         $this->response( [
-            'messege0' => 'FORBIDDEN'
+            'messege' => 'FORBIDDEN'
         ], Rest_Controller::HTTP_FORBIDDEN );
     }
 
     private function call_external_api( $data, $get_header )
-    {
+ {
         // RE-WRITE $DATA FOR TESTING PURPOSES
         $response = $this->apiService->call_external_api( $data, $get_header );
         return $response;
     }
 
     public function generate_qr_post()
-    {
+ {
         $this->output->set_content_type( 'application/json' );
 
         $header = apache_request_headers();
@@ -61,8 +61,7 @@ class Middleware extends REST_Controller
             $this->response( [
                 'error' =>true,
                 'messege' => 'Transaction with this client ref '. $transaction[ 'reference_number' ].' already exists.',
-               
-               
+
             ], Rest_Controller::HTTP_UNAUTHORIZED );
         }
 
@@ -94,15 +93,12 @@ class Middleware extends REST_Controller
 
             // $totalAmount += $amount;
         }
-       
 
-    
-
-        foreach ($data[ 'data' ][ 'other_details' ] as $detail) {
-            if ($detail['item'] != 'ngsi_convenience_fee' && isset($detail['amount'])) {
-                $totalAmount += is_numeric($detail['amount']) ? $detail['amount'] : 0;
+        foreach ( $data[ 'data' ][ 'other_details' ] as $detail ) {
+            if ( $detail[ 'item' ] != 'ngsi_convenience_fee' && isset( $detail[ 'amount' ] ) ) {
+                $totalAmount += is_numeric( $detail[ 'amount' ] ) ? $detail[ 'amount' ] : 0;
             }
-             }
+        }
         // if ( $txnAmount != $totalAmount ) {
 
         //     $this->response( [
@@ -158,7 +154,7 @@ class Middleware extends REST_Controller
     }
 
     public function postback_post( $ref_number = 0 )
-    {
+ {
         $ref_number = $_GET[ 'ref' ];
 
         $this->output->set_content_type( 'application/json' );
@@ -210,7 +206,7 @@ class Middleware extends REST_Controller
                     if ( $response[ 'status_code' ] == 200 || $response[ 'status_code' ] == 201 ) {
 
                         $this->response( [
-                            'messege0' => 'Success',
+                            'messege' => 'Success',
                             'error' => 'false',
                             'data' => $doUpdateApiLog
                         ], Rest_Controller::HTTP_OK );
@@ -227,7 +223,7 @@ class Middleware extends REST_Controller
     }
 
     function status_get( $type )
-    {
+ {
         $caffeine = '';
         $map = [
             '1' => 'STARTED ',
@@ -241,15 +237,15 @@ class Middleware extends REST_Controller
     }
 
     public function samplecallback_post()
-    {
+ {
         $this->response( [
-            'messege0' => 'Success',
+            'messege' => 'Success',
             'error0' => 'false'
         ], Rest_Controller::HTTP_OK );
-    }
+ }
 
-     public function deposit_log_post() 
-    {
+    public function deposit_log_post() 
+ {
 
         $this->form_validation->set_rules( 'deposited_date', 'deposited date', 'required' );
         $this->form_validation->set_rules( 'deposited_amount', 'deposited amount', 'required' );
@@ -260,7 +256,7 @@ class Middleware extends REST_Controller
         $this->output->set_content_type( 'application/json' );
 
         switch ( $_SERVER[ 'CONTENT_TYPE' ] ) 
-        {
+       {
             case 'application/json':
 
             $_POST = json_decode( file_get_contents( 'php://input' ), true );
@@ -290,107 +286,158 @@ class Middleware extends REST_Controller
 
             ], Rest_Controller::HTTP_UNPROCESSABLE_ENTITY );
         } else {
-             $chkrefno=$this->model->chk_ref_no( $postdata );
+            $chkrefno = $this->model->chk_ref_no( $postdata );
 
-   if($chkrefno){
+            if ( $chkrefno ) {
 
-    $this->response( [
-        'status' => false,
-        'message' => 'reference already exist'
-     
+                $this->response( [
+                    'status' => false,
+                    'message' => 'reference already exist'
 
-    ], Rest_Controller::HTTP_UNPROCESSABLE_ENTITY );
+                ], Rest_Controller::HTTP_UNPROCESSABLE_ENTITY );
 
-   }else{
+            } else {
 
+                $getTotalAmount =     $this->model->total_transcation_perday( $postdata ) ;
+                $last_data_deposit =     $this->model->last_data_deposit() ;
+                $Lupaid_collection = $last_data_deposit? $last_data_deposit[ 'undeposit_collection' ]:0;
+                if ( $last_data_deposit ) {
+                    $depositLogs[ 'last_txn_amont' ] = $last_data_deposit[ 'undeposit_collection' ];
+                    $depositLogs[ 'last_date' ] = $last_data_deposit[ 'created_at' ];
+                } else {
+                    $depositLogs[ 'date_to' ] = '';
+                    $depositLogs[ 'date_to' ] = '';
+                }
+                if ( $getTotalAmount ) {
 
-    $getTotalAmount =     $this->model->total_transcation_perday( $postdata ) ;
-    $last_data_deposit =     $this->model->last_data_deposit() ;
-   $Lupaid_collection= $last_data_deposit? $last_data_deposit[ 'undeposit_collection' ]:0;
-    if($last_data_deposit){
-        $depositLogs[ 'last_txn_amont' ] = $last_data_deposit[ 'undeposit_collection' ];
-        $depositLogs[ 'last_date' ] = $last_data_deposit[ 'created_at' ];
-    }else{
-        $depositLogs[ 'date_to' ] = '';
-        $depositLogs[ 'date_to' ] = '';
-    }
-    if ( $getTotalAmount ) {
+                    $depositLogs[ 'deposited_date' ] = $postdata[ 'deposited_date' ];
 
-        $depositLogs[ 'deposited_date' ] = $postdata[ 'deposited_date' ];
+                    $depositLogs[ 'deposited_amount' ] = $postdata[ 'deposited_amount' ];
 
-        $depositLogs[ 'deposited_amount' ] = $postdata[ 'deposited_amount' ];
+                    $depositLogs[ 'deposit_reference_no' ] = $postdata[ 'deposit_reference_no' ];
 
-        $depositLogs[ 'deposit_reference_no' ] = $postdata[ 'deposit_reference_no' ];
+                    $depositLogs[ 'txn_amount' ] = $getTotalAmount[ 'txn_amt' ];
 
-        $depositLogs[ 'txn_amount' ] = $getTotalAmount[ 'txn_amt' ];
+                    $depositLogs[ 'document_stamp_tax' ] = $getTotalAmount[ 'ds_tax' ];
 
-        $depositLogs[ 'document_stamp_tax' ] = $getTotalAmount[ 'ds_tax' ];
+                    $depositLogs[ 'fees_pcab' ] = $getTotalAmount[ 'feespcab' ];
 
-        $depositLogs[ 'fees_pcab' ] = $getTotalAmount[ 'feespcab' ];
+                    $depositLogs[ 'legal_research_fund' ] = $getTotalAmount[ 'lrfund' ];
 
-        $depositLogs[ 'legal_research_fund' ] = $getTotalAmount[ 'lrfund' ];
+                    $depositLogs[ 'ngsi_convenience_fee' ] = $getTotalAmount[ 'ngsi_convfee' ];
 
-        $depositLogs[ 'ngsi_convenience_fee' ] = $getTotalAmount[ 'ngsi_convfee' ];
+                    $depositLogs[ 'ttl_trnsact' ] = $getTotalAmount[ 'ttl_trnsact' ];
+                    $depositLogs[ 'no_ngsi_fee' ] = $getTotalAmount[ 'nongsifee' ];
 
-        $depositLogs[ 'ttl_trnsact' ] = $getTotalAmount[ 'ttl_trnsact' ];
-        $depositLogs[ 'no_ngsi_fee' ] = $getTotalAmount[ 'nongsifee' ];
+                    $depositLogs[ 'created_at' ] =  date( 'Y-m-d' );
 
-        $depositLogs[ 'created_at' ] =  date( 'Y-m-d' );
+                    $depositLogs[ 'date_covered' ] = $postdata[ 'collection_date_from' ].' to' .$postdata[ 'collection_date_to' ];
 
-        $depositLogs[ 'date_covered' ] = $postdata[ 'collection_date_from' ].' to' .$postdata[ 'collection_date_to' ];
+                    $depositLogs[ 'date_from' ] = $postdata[ 'collection_date_from' ];
 
-        $depositLogs[ 'date_from' ] = $postdata[ 'collection_date_from' ];
+                    $depositLogs[ 'date_to' ] = $postdata[ 'collection_date_to' ];
 
-        $depositLogs[ 'date_to' ] = $postdata[ 'collection_date_to' ];
+                    $depositLogs[ 'undeposit_collection' ] = $Lupaid_collection+$getTotalAmount[ 'txn_amt' ]- $postdata[ 'deposited_amount' ];
+                    $this->model->log_deposit( $depositLogs );
 
-        $depositLogs[ 'undeposit_collection' ] =$Lupaid_collection+$getTotalAmount[ 'txn_amt' ]- $postdata[ 'deposited_amount' ];
-        $this->model->log_deposit( $depositLogs );
-
-    }
-
-    $this->response( [
-        'status' => true,
-        'message' =>   $depositLogs[ 'undeposit_collection' ],
-        'data' =>  $last_data_deposit, ], Rest_Controller::HTTP_OK );
-    
-   }
-
-
-            }
-
-    }
-
-    public function all_deposit_data_get()
-    {
-     $deposiitData =  $this->model->allDepositData(); 
-         
-            if($deposiitData)
-            {
-                $result=$deposiitData;
-            }else{
-                $result=array();
-            }
-
-       $this->response( [
-        'status' => true,
-        'message' => 'succes',
-        'data' =>  $deposiitData, ], Rest_Controller::HTTP_OK );
-    }
-
-    public function all_transaction_data_get()
-    {
-        $deposiitData =  $this->model->transaction_data(); 
-
-                if($deposiitData){
-
-                    $result=$deposiitData;
-                }else{
-                    $result=array();
                 }
 
+                $this->response( [
+                    'status' => true,
+                    'message' =>   $depositLogs[ 'undeposit_collection' ],
+                    'data' =>  $last_data_deposit, ], Rest_Controller::HTTP_OK );
+
+                }
+
+            }
+
+ }
+
+        public function all_deposit_data_get()
+ {
+            $deposiitData =  $this->model->allDepositData();
+
+            if ( $deposiitData )
+ {
+                $result = $deposiitData;
+            } else {
+                $result = array();
+            }
+
+            $this->response( [
+                'status' => true,
+                'message' => 'succes',
+                'data' =>  $deposiitData, ], Rest_Controller::HTTP_OK );
+            }
+
+            public function all_transaction_data_get()
+{
+                $deposiitData =  $this->model->transaction_data();
+
+                if ( $deposiitData ) {
+
+                    $result = $deposiitData;
+                } else {
+                    $result = array();
+                }
+
+                $this->response( [
+                    'status' => true,
+                    'message' => 'succes',
+                    'data' =>  $deposiitData, ], Rest_Controller::HTTP_OK );
+}
+
+public function total_txnamount_indate_post()
+{
+    
+ 
+    $this->form_validation->set_rules( 'collection_date_from', 'collection dater', 'required' );
+    $this->form_validation->set_rules( 'collection_date_to', 'collection dater', 'required' );
+
+    $this->output->set_content_type( 'application/json' );
+
+    switch ( $_SERVER[ 'CONTENT_TYPE' ] ) 
+   {
+        case 'application/json':
+
+        $_POST = json_decode( file_get_contents( 'php://input' ), true );
+        $postdata = $_POST;
+
+        break;
+        default:
+
+        $postdata = array(
+            
+            'collection_date_from' => $this->input->post( 'collection_date_from' ),
+            'collection_date_to' => $this->input->post( 'collection_date_to' ),
+
+        );
+    }
+
+    if ( $this->form_validation->run() == FALSE ) {
+
+        $errors = str_replace( '\n', '', strip_tags( validation_errors() ) );
+
         $this->response( [
-         'status' => true,
-         'message' => 'succes',
-         'data' =>  $deposiitData, ], Rest_Controller::HTTP_OK );
+            'status' => false,
+            'message' => 'Validation error',
+            'data' =>  $errors,
+
+        ], Rest_Controller::HTTP_UNPROCESSABLE_ENTITY );
+    } else {
+
+        $amountData =  $this->model->total_txn_amount($postdata);
+
+
+        $this->response( [
+            'status' => false,
+            'message' => 'Success.',
+            'data' =>  $amountData,
+
+        ], Rest_Controller::HTTP_OK);
+
+
     }
-    }
+}
+
+ }

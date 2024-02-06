@@ -61,6 +61,17 @@ class Model_repo extends CI_Model
           return $data->row_array() ? $data->row_array() : false;
     }
 
+   public function total_txn_amount($request)
+   {
+    $result="SELECT sum(txn_amount) as txn_amt
+    
+      FROM pcab_db.transactions where status ='SUCCESS' and date BETWEEN 
+      '".$request['collection_date_from']."' AND '".$request['collection_date_to']."';";
+      $data = $this->db->query($result);
+      return $data->row_array() ? $data->row_array() : false;
+   }
+
+
    public function last_data_deposit(){
     $result ="SELECT *
     FROM pcab_db.tbl_deposit
