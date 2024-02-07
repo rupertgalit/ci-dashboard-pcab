@@ -1,3 +1,4 @@
+<?= "<script>console.log(" . time() . ")</script>" ?>
 <style>
     .custom-button {
         background-color: #4CAF50;
@@ -208,7 +209,8 @@
                                     <div class="modal-footer bg-white border-top-0 d-flex ">
                                         <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded preview-btn-modal">Preview</button>
                                         <button type="button" onclick="printDailyReport()" class="btn-sm btn-outline-dark mr-3 mb-2 rounded">Download</button>
-                                        <?php if ($_SESSION['usertype'] == "SUPERADMIN") echo '<button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded " data-toggle="modal" data-target="#Submit_deposit" id="submit-deposit" data-backdrop="static" data-keyboard="false">Submit Deposit</button>' ?>
+                                        <?php if ($_SESSION['usertype'] == "SUPERADMIN")
+                                            echo '<button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded " data-toggle="modal" data-target="#Submit_deposit" id="submit-deposit" data-backdrop="static" data-keyboard="false">Submit Deposit</button>' ?>
 
 
                                     </div>
@@ -276,12 +278,12 @@
                                                 $fmt->setPattern(str_replace('¤#', "\xC2\xA0#", $fmt->getPattern()));
                                                 foreach ($data as $row) {
                                                     echo "<tr>";
-                                                    echo "<td>" .  $row['date'] . "</td>";
+                                                    echo "<td>" . date_format(date_create($row['date']), "m/d/Y") . "</td>";
                                                     echo "<td>" . $row["mobile_number"] . "</td>";
                                                     echo "<td>" . $row["name_of_payor"] . "</td>";
                                                     echo "<td>" . $row["particulars"] . "</td>";
                                                     $total_per_AR = $row["fees_pcab"] + $row["document_stamp_tax"] + $row["legal_research_fund"];
-                                                    echo "<td>" . $fmt->formatCurrency(floatval($total_per_AR), "PHP")  . "</td>";
+                                                    echo "<td>" . $fmt->formatCurrency(floatval($total_per_AR), "PHP") . "</td>";
                                                     echo "<td class='text-right'>" . $fmt->formatCurrency(floatval($row["fees_pcab"]), "PHP") . "</td>";
                                                     echo "<td class='text-right'>" . $fmt->formatCurrency(floatval($row["document_stamp_tax"]), "PHP") . "</td>";
                                                     echo "<td class='text-right'> " . $fmt->formatCurrency(floatval($row["legal_research_fund"]), "PHP") . "</td>";
@@ -387,7 +389,7 @@
     </div>
 </div>
 <div class="modal fade" id="Submit_deposit" tabindex="-1" role="dialog" aria-labelledby="Submit_depositnModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg d-flex justify-content-center" role="document">
+    <div class="modal-dialog modal-lg d-flex justify-content-center mt-5" role="document">
         <div id="Submit_depositModal" class="modal-content" style="width: 24rem;">
             <div class="modal-header">
                 <h5 class="modal-title" id="Submit_depositModalLabel">Collection(s) Settlement</h5>
@@ -398,28 +400,59 @@
                 <div class="d-flex flex-column input-form">
                     <span class="message" style="position:relative; bottom: 1rem"></span>
                     <label class="pb-1">Day(s) of Collection</label>
-                    <div class="d-flex flex-row justify-content-between mt-3">
+                    <div class="d-flex flex-row justify-content-between mt-3 mb-4 border-bottom-1">
                         <div id="dateRange">
-                            <span>From *</span>
-                            <input type="date" name="collection_date_from" class="p-2 border rounded" value="<?php echo date('Y-m-d'); ?>">
+                            <input type="date" name="collection_date_from" class="p-2 border rounded" value="">
 
                         </div>
                         <div id="dateRange">
-                            <span>To *</span>
-                            <input type="date" name="collection_date_to" class="p-2 border border-black rounded" value="<?php echo date('Y-m-d'); ?>">
+                            <input type="date" name="collection_date_to" class="p-2 border border-black rounded" value="">
                         </div>
                     </div>
-                    <div id="referenceNo">
+                    <!-- <div id="referenceNo">
                         <span>Reference No. *</span>
                         <input type="text" name="deposit_reference_no" class="p-2 pl-3 border border-black mt-3 rounded w-100">
-                    </div>
-                    <div id="dateOfDeposit">
-                        <span>Date of Deposit *</span>
-                        <input type="date" name="deposited_date" class="p-2 pl-3 border border-black mt-3 rounded w-100">
-                    </div>
-                    <div id="depositedAmount">
-                        <span>Deposited Amount ( &#8369; ) *</span>
-                        <input type="text" name="deposited_amount" class="p-2 pl-3 border border-black mt-3 rounded w-100 text-right">
+                    </div> -->
+                    <div id="settlements">
+                        <div id="dateOfDeposit">
+                            <input type="date" name="deposited_date" class="p-2 pl-3 mb-2 rounded w-100 border">
+                        </div>
+                        <label class="pb-1">CIAP-PCAB</label>
+                        <div id="pcab_fee" class="d-flex flex-row justify-content-between border-bottom">
+                            <div id="referenceNo">
+                                <span>Reference No. *</span>
+                                <input type="text" name="reference_no" class="p-2 pl-3 border border-black mb-2 w-100 rounded">
+                            </div>
+                            <div style="width:10px;"></div>
+                            <div id="amount">
+                                <span>Amount ( &#8369; ) *</span>
+                                <input type="text" name="amount" class="p-2 pl-3 border border-black mb-2 w-100 rounded text-right">
+                            </div>
+                        </div>
+                        <label class="pb-1">Documentary Stamp Fee</label>
+                        <div id="pcab_fee" class="d-flex flex-row justify-content-between border-bottom">
+                            <div id="referenceNo">
+                                <span>Reference No. *</span>
+                                <input type="text" name="reference_no" class="p-2 pl-3 border border-black mb-2 w-100 rounded">
+                            </div>
+                            <div style="width:10px;"></div>
+                            <div id="amount">
+                                <span>Amount ( &#8369; ) *</span>
+                                <input type="text" name="amount" class="p-2 pl-3 mb-2 w-100  border rounded text-right">
+                            </div>
+                        </div>
+                        <label class="pb-1">Legal Research Fund</label>
+                        <div id="pcab_fee" class="d-flex flex-row justify-content-between">
+                            <div id="referenceNo">
+                                <span>Reference No. *</span>
+                                <input type="text" name="reference_no" class="p-2 pl-3 mb-2 w-100 border rounded">
+                            </div>
+                            <div style="width:10px;"></div>
+                            <div id="amount">
+                                <span>Amount ( &#8369; ) *</span>
+                                <input type="text" name="amount" class="p-2 pl-3 mb-2 w-100 border rounded text-right">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -476,6 +509,7 @@
                 var endDate = $('#endDate').val();
                 var currentDate = new Date(data[1]);
 
+<<<<<<< Updated upstream
                 var formattedStartDate = new Date(startDate);
                 var formattedEndDate = new Date(endDate);
 
@@ -490,6 +524,12 @@
                 }
 
                 return false;
+=======
+        // Modify the start and end date filtering to only apply to the specific DataTable
+        $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+            if (settings.nTable.id !== 'myTable') {
+                return true;
+>>>>>>> Stashed changes
             }
         );
 
@@ -543,7 +583,19 @@
             console.log("Filtered Data:", filteredData);
         });
 
-
+        // Modify the month filtering to only apply to the specific DataTable
+        $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+            if (settings.nTable.id !== 'EcollectTable') {
+                return true;
+            }
+            var selectedMonth = $('#monthFilter').val();
+            if (selectedMonth == 0) {
+                return true;
+            }
+            var dateParts = data[0].split('/');
+            var rowMonth = parseInt(dateParts[0]);
+            return rowMonth == selectedMonth;
+        });
     });
     const _jsonData = JSON.parse('<?php echo json_encode($data) ?>')
 
@@ -1034,165 +1086,7 @@
 
 
 
-
-
-    function downloadPDF() {
-
-        const filteredData = _jsonData.filter(object => object.date_time >= startDate && object.date_time <= endDate);
-
-        let doc = new jspdf.jsPDF({
-            orientation: 'p',
-            unit: 'px'
-        })
-        let printContent = `
-            <div class="mx-auto d-flex flex-column border-dark" style="/*margin-top:3rem*/;width:80rem;height:112.75rem;border:1px black solid;">[content]</div>`;
-        let content = ``
-        let ColTable = ``
-
-        let totalCIAPPCAB = 0;
-        let totalLRF = 0;
-        let totalDST = 0;
-        let totalCollection = 0;
-
-        try {
-
-            content += `
-        <div class="mx-auto my-5 d-flex justify-content-center" style="width: 50.5rem; ">
-            <div class="w-75">
-            <div class="container mt-3 justify-content-center mb-4">
-                                <div class="row justify-content-center">
-                                    <div class="col-md-3">
-                                        <img  height="100" style="margin-left:-rem;" src="assets/images/ngsi-letterhead.png" alt="logo" class="logo-dark" />
-                                    </div>
-                                    <div class="col-md-4 mt-3"  style="margin-left:11rem;">
-                                        <p class="font-weight-bold" style="font-family: Century Gothic; font-size:16px;" ;>NET GLOBAL SOLUTIONS&nbsp;&nbsp; INC.</p>
-                                        <p style="margin-top: -20px;margin-bottom: -5px; font-family: Century Gothic;">Tel. No. 632 82877374</p>
-                                        <p style=" line-height: 80%; color:blue;margin-top: 10px;">Support@netglobalsolutions.net</p>
-                                    </div>
-                                </div>
-                                 <img  height="100%" style="margin-top: -10px;" src="assets/images/NGSI_header.png" alt="logo" class="logo-dark" />
-                            </div>
-            <div class="">
-                <div class="text-center text-uppercase py-3">
-                    <u>Certification &nbsp;&nbsp; of Deposit</u>
-                </div>
-                <div class="text-center m-3">
-                    <b>Summary</b>
-                </div>
-                <table class="border-0">
-                <tbody>
-                    <tr>
-                        <td colspan="3">Undeposited Collections per last Report,</td>
-                        <td class="text-right"> ${''}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">(date: ${'mmm/dd/yyyy'})</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">Collections, ${'mmm/dd/yyyy'}</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="pl-5 pb-3">Total Number of Transaction</td>
-                        <td colspan="2" class="text-right" style="padding-right:3rem;">${''}</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="pl-5">Total Amount of Collection</td>
-                        <td class="text-right" style="padding-right:3rem;">${''}</td>
-                        <td class="text-right">${''}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="3" class="pb-3">Deposit / Fund Transfers</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="pl-5">
-                            <div class="w-100 d-flex justify-content-between">
-                                <span>
-                                    Date: <label class="border-bottom border-dark text-center m-0"
-                                        style="width:5rem;display:inline-block"></label>
-                                </span>
-                                <span class="position-relative">${''}</span>
-                            </div>
-                        </td>
-                        <td class="text-right" style="padding-right:3rem;"></td>
-                        <td class="text-right">${''}</td>
-                    </tr>
-                    <tr style="background-color: #FFF!important;vertical-align: top;">
-                        <td colspan="2" class="pl-5 pb-3">Total Amount of Collection</td>
-                        <td class="text-right" style="padding-right:3rem;">${''}</td>
-                        <td class="text-right">${''}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">Undeposited Collections, this Report</td>
-                        <td class="text-right"> ${''}</td>
-                    </tr>
-                    </tbody>
-                </table>
-                <div style=" text-align: justify;text-justify: inter-word;margin-top: 2rem; font-size: .9rem">
-                    This is to certify the above is true and correct statement. That the amount collected is to deposited intact
-                    to the ${'[bank name]'} bank account of the ${"[agency name]"} with amount number ${'[account number]'}, and duly supported
-                    by attached proof of deposit. Details of collections can be generated from our online reporting facility or
-                    in the attached electronic file of the List if Daily Collection.
-                </div>
-
-                <div class="w-100 mt-5">
-                            <div class="container">
-                                <div class="row mt-4">
-                                    <div class="col pl-5">
-                                        <img style="margin-left:25%; background-position:center; margin-bottom:-15px;z-index:0;position:relative;transform:scale(1.1)"
-                                            width="35%" height="35%" src="assets/images/ma'am_je.png" alt="logo"
-                                            class="logo-dark" />
-                                        <p style="position:relative;left:-11px;margin:0;">Prepared By: </p>
-                                        <p
-                                            style="margin-top: -25px;margin-left: 87px;font-size: 18px; font-family: Arial, Helvetica, sans-serif;z-index:1;position:relative;">
-                                            Jeremie Soliveres </p>
-                                        <p
-                                            style=" margin-top: -24px; margin-left: 106px; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
-                                            Accounting Specialist</p>
-                                    </div>
-                                    <div class="col pl-5">
-                                        <img style="margin-left:13rem; margin-bottom:-15px;" width="35%"
-                                            height="35%" src="assets/images/sir_peter.png" alt="logo"
-                                            class="logo-dark" />
-                                        <p style="position:relative;left:5.7rem;margin:0;">Approved By: </p>
-                                        <p
-                                            style="margin-top: -25px;margin-left: 12rem;font-size: 18px; font-family: Arial, Helvetica, sans-serif;">
-                                            Peter Lingatong</p>
-                                        <p
-                                            style=" margin-top: -24px; margin-left: 13rem; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
-                                            Chairman & CEO</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-            </div>
-            </div>
-        </div>
-        <div style="display:block;width:100%;border-bottom:1px #666 dashed;"></div> `;
-
-
-            doc.html(content, {
-                html2canvas: {
-                    scale: .35
-                },
-                callback: async function(doc) {
-
-
-                    await doc.output("dataurlnewwindow", "list_of_collection.pdf");
-                },
-            })
-
-        } catch (e) {
-            console.log(e)
-        }
-
-
-    }
-
-    $("#referenceNo input, #dateOfDeposit input, #depositedAmount input").on("input", function() {
+    $("#referenceNo input, #dateOfDeposit input, #amount input").on("input", function() {
         if (this.value != "") {
             this.parentElement.classList.add("filled")
             this.parentElement.classList.remove("error")
@@ -1200,7 +1094,7 @@
             this.parentElement.classList.remove("filled", "error")
     })
 
-    $("#depositedAmount input").on("change", function() {
+    $("#amount input").on("blur", function() {
         const regex = /(?:^[1-9]([0-9]+)?(?:\.[0-9]{1,2})?$)|(?:^(?:0)$)|(\.\d)/
 
         if (this.value != "") {
@@ -1211,6 +1105,9 @@
         } else {
             this.parentElement.classList.remove("error")
         }
+    })
+    $("#amount input").on("focus", function() {
+        this.value = this.value.replace(',', '')
     })
 
     $("#cancelDeposit").on("click", async () => {

@@ -59,9 +59,7 @@
                         $fmt = new NumberFormatter('en-US', NumberFormatter::CURRENCY);
                         $fmt->setPattern(str_replace('¤#', "\xC2\xA0#", $fmt->getPattern()));
 
-                        if (empty($data)) {
-                            echo "<tr py-5><td colspan='10'>No data available</td></tr>";
-                        } else
+                        if (!empty($data))
                             foreach ($data as $key => $row) {
                                 $undeposited = (float) $row["legal_research_fund"] +
                                     (float) $row["document_stamp_tax"] +
@@ -134,6 +132,22 @@
 
         <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
         <script>
+            const sMonths = Array.from({
+                length: 12
+            }, (item, i) => {
+                return new Date(0, i).toLocaleString('en-US', {
+                    month: 'short'
+                })
+            });
+            const shortDateFormat = (date) => {
+                if (!date) return "<i>none<i>";
+                return new Intl.DateTimeFormat('en-US', {
+                    year: "numeric",
+                    month: "numeric",
+                    day: "numeric"
+                }).format(new Date(date))
+            }
+
             const data_collection = JSON.parse('<?= json_encode($data) ?>')
             $(document).ready(function() {
 
@@ -145,10 +159,13 @@
                 });
             });
 
-            const parseToCurrency = val => parseFloat(val).toLocaleString('en-US', {
-                maximumFractionDigits: 2,
-                minimumFractionDigits: 2
-            })
+            const parseToCurrency = val => {
+                if(!val) return "0.00"
+                return parseFloat(val).toLocaleString('en-US', {
+                    maximumFractionDigits: 2,
+                    minimumFractionDigits: 2
+                })
+            }
 
             const content = (data) => `
         <div class="mx-auto" style="[mb];width: 50rem;">
@@ -180,11 +197,11 @@
                         <table class="border-0">
                             <tbody>
                                 <tr>
-                                    <td colspan="3">Undeposited Collections per last Report,<br>(date: ${data.last_date})</td>
-                                    <td class="text-right" style="vertical-align:top;">P <div class="w-100 d-inline-block text-right" style="padding-right: .7rem;">${parseToCurrency(data.undepo)}</div></td>
+                                    <td colspan="3">Undeposited Collections per last Report,<br>(date: ${shortDateFormat(data.last_date)})</td>
+                                    <td class="text-right" style="vertical-align:top;">P <div class="w-100 d-inline-block text-right" style="padding-right: .7rem;">${parseToCurrency(data.last_txn_amont ?? "0.00")}</div></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3">Collections, ${data.date_from != data.date_to ? data.date_from + " to " + data.date_to : data.date_from}</td>
+                                    <td colspan="3">Collections, ${data.date_from != data.date_to ? shortDateFormat(data.date_from) + " to " + shortDateFormat(data.date_to) : shortDateFormat(data.date_from)}</td>
                                     <td></td>
                                 </tr>
                                 <tr>
@@ -221,7 +238,7 @@
                                         <div class="w-100 d-flex justify-content-between">
                                             <span>
                                                 Date: <label class="border-bottom border-dark text-center m-0"
-                                                    style="width:5rem;display:inline-block">${data.deposited_date}</label>
+                                                    style="width:5rem;display:inline-block">${shortDateFormat(data.deposited_date)}</label>
                                             </span>
                                             <span class="position-relative"><label class="text-center m-0"
                                                     style="width:5rem;display:inline-block;">P <div class="w-100 d-inline-block text-right pr-1">${parseToCurrency(data.deposited_amount)}</div></label></span>
@@ -237,7 +254,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="3">Undeposited Collections, this Report</td>
-                                    <td class="text-right">P <div class="w-100 d-inline-block text-right" style="padding-right: .7rem;">${parseToCurrency(data.undeposit_collection)}</div></td>
+                                    <td class="text-right">P <div class="w-100 d-inline-block text-right" style="padding-right: .7rem;">${parseFloat(data.undeposit_collection)}</div></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -286,16 +303,8 @@
 
                 const now = new Date()
 
-                const months = Array.from({
-                    length: 12
-                }, (item, i) => {
-                    return new Date(0, i).toLocaleString('en-US', {
-                        month: 'short'
-                    })
-                });
-
                 const data = data_collection[key]
-                console.log(data, months)
+                console.log(data)
 
                 doc.html(`<div id="PDFContent" class="mx-auto d-flex flex-column border-dark" style="width:55.8rem;padding-top:5rem;/*border:1px black solid;*/">${content(data)}</div>`, {
                     html2canvas: {

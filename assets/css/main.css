@@ -243,7 +243,7 @@ span.message.error {
 }
 
 span.message.success {
-	background-color: #2fba1f!important;
+	background-color: #2fba1f !important;
 }
 
 table {
@@ -251,7 +251,7 @@ table {
 	/* min-width: 550px; */
 }
 .datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-left.datepicker-orient-bottom {
-    min-width: 200px!important; /* Adjust the min-width as per your preference */
+	min-width: 200px !important; /* Adjust the min-width as per your preference */
 }
 
 table thead th {
@@ -265,17 +265,17 @@ table thead th {
 
 table thead th i {
 	font-weight: 200;
-    font-size: 10px;
-    display: block;
-    /* position: absolute; */
-    margin-top: -2px;
+	font-size: 10px;
+	display: block;
+	/* position: absolute; */
+	margin-top: -2px;
 }
 
 table tr td {
 	padding-top: 0.3rem;
 	padding-bottom: 0.3rem;
 	font-size: 0.8rem;
-	width: -webkit-fill-available!important;
+	width: -webkit-fill-available !important;
 }
 
 table tbody tr:last-child,
@@ -318,48 +318,69 @@ table tr:nth-child(odd) {
 	margin: 1rem;
 }
 
-.modal#Submit_deposit div#dateRange > span {
+.modal#Submit_deposit div#dateOfDeposit input::before,
+.modal#Submit_deposit div#dateRange input::before {
 	position: absolute;
 	background-color: #fff;
 	font-size: 13px;
-	margin-top: -0.6rem;
-	margin-left: 0.6rem;
+	margin-top: -2.8rem;
+	margin-left: -0.2rem;
 	padding: 0 5px;
 }
-.modal#Submit_deposit input[type="date"] {
-	font-size: 14px;
-	width: 10rem;
-	padding-left: 1rem !important;
-}
-.modal#Submit_deposit div#referenceNo span,
-.modal#Submit_deposit div#dateOfDeposit span,
-.modal#Submit_deposit div#depositedAmount span {
+
+.modal#Submit_deposit div#settlements span  {
 	position: absolute;
 	opacity: 0.5;
 	background-color: #fff;
 	font-size: 13px;
-	margin-top: 1.7rem;
+	margin-top: .7rem;
 	margin-left: 0.6rem;
 	padding: 0 5px;
 	pointer-events: none;
 	transition: all 200ms;
 }
 
+.modal#Submit_deposit div#dateRange input[name="collection_date_from"]::before {
+	content: "From *";
+}
+
+.modal#Submit_deposit div#dateRange input[name="collection_date_to"]::before {
+	content: "To *";
+}
+
+.modal#Submit_deposit div#dateOfDeposit input[name=deposited_date]::before {
+	content: "Date of Deposit *" !important;
+}
+
+.modal#Submit_deposit input[type="date"] {
+	font-size: 14px;
+	width: 10rem;
+	padding-left: 1rem !important;
+}
+
+
 .modal#Submit_deposit div#referenceNo.filled span,
 .modal#Submit_deposit div#dateOfDeposit.filled span,
-.modal#Submit_deposit div#depositedAmount.filled span {
+.modal#Submit_deposit div#settlements #pcab_fee .filled span,
+.modal#Submit_deposit div#settlements #lrf_fee .filled span,
+.modal#Submit_deposit div#settlements #dsf_fee .filled span {
 	opacity: 1;
-	margin-top: 0.4rem;
+	margin-top: -0.64rem;
 }
 
-.modal#Submit_deposit div#dateOfDeposit span {
+/* .modal#Submit_deposit div#dateOfDeposit span {
 	opacity: 1;
 	margin-top: 0.4rem;
-}
+} */
 
-.modal#Submit_deposit.loading input,
-.modal#Submit_deposit.loading button {
+.modal#Submit_deposit.loading input {
 	background-color: #efefef;
+	
+}
+
+
+.modal#Submit_deposit.loading button{
+	opacity: .7;
 	pointer-events: none;
 	user-select: none;
 }
@@ -404,17 +425,17 @@ table tr:nth-child(odd) {
 	}
 }
 
-#PDFContent tr{
+#PDFContent tr {
 	background-color: transparent !important;
 }
 
-#PDFContent tr td:first-child{
-	text-align: left  !important;
+#PDFContent tr td:first-child {
+	text-align: left !important;
 }
 
 #PDFContent table tr td:last-child {
-    padding-right: 1rem !important;
-    display: table-cell !important;
+	padding-right: 1rem !important;
+	display: table-cell !important;
 }
 
 /* .modal#Submit_deposit div#requirements input#referenceNo:focus > span {
