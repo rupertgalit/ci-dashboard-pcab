@@ -471,7 +471,7 @@ public function total_txnamount_indate_post()
 
 
         $this->response( [
-            'status' => false,
+            'status' => true,
             'message' => 'Success.                                                                                                                                                  ',
             'data' =>  $amountData,
 

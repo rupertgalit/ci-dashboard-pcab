@@ -66,7 +66,7 @@ class Model_repo extends CI_Model
 
    public function total_txn_amount($request)
    {
-    $result="SELECT sum(txn_amount) as txn_amt
+    $result="SELECT sum(no_ngsi_fee) as total_collection, sum(document_stamp_tax) as total_dst, sum(legal_research_fund) as total_lrf, sum(fees_pcab) as total_pcab_fee
     
       FROM pcab_db.transactions where status ='SUCCESS' and date BETWEEN 
       '".$request['collection_date_from']."' AND '".$request['collection_date_to']."';";

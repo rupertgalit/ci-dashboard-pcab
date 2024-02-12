@@ -330,13 +330,25 @@ table tr:nth-child(odd) {
 
 .modal#Submit_deposit div#settlements span  {
 	position: absolute;
+	margin-top: .7rem;
+	margin-left: 0.6rem;
+}
+
+.modal#Submit_deposit span {
 	opacity: 0.5;
 	background-color: #fff;
 	font-size: 13px;
-	margin-top: .7rem;
-	margin-left: 0.6rem;
 	padding: 0 5px;
 	pointer-events: none;
+	transition: all 200ms;
+}
+
+.modal#Submit_deposit button span {
+	opacity: 1;
+	background-color: transparent;
+	font-size: 14px;
+	padding: 0 5px;
+	pointer-events: auto;
 	transition: all 200ms;
 }
 
@@ -361,9 +373,9 @@ table tr:nth-child(odd) {
 
 .modal#Submit_deposit div#referenceNo.filled span,
 .modal#Submit_deposit div#dateOfDeposit.filled span,
-.modal#Submit_deposit div#settlements #pcab_fee .filled span,
-.modal#Submit_deposit div#settlements #lrf_fee .filled span,
-.modal#Submit_deposit div#settlements #dsf_fee .filled span {
+.modal#Submit_deposit div#settlements #fees_pcab .filled span,
+.modal#Submit_deposit div#settlements #legal_research_fund .filled span,
+.modal#Submit_deposit div#settlements #document_stamp_tax .filled span {
 	opacity: 1;
 	margin-top: -0.64rem;
 }
