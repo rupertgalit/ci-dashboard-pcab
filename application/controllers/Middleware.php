@@ -425,6 +425,17 @@ public function total_txnamount_indate_post()
         );
     }
 
+
+    $params = json_encode( $postdata );
+
+    $ins_data[ 'params' ] = $params;
+
+    $ins_data[ 'request_at' ] = date( 'Y-m-d H:i:s' );
+
+    $ins_data[ 'method' ] = $_SERVER[ 'REQUEST_METHOD' ];
+
+    $get_id = $this->model->insertApiLogs( $ins_data );
+
     if ( $this->form_validation->run() == FALSE ) {
 
         $errors = str_replace( '\n', '', strip_tags( validation_errors() ) );
@@ -442,7 +453,7 @@ public function total_txnamount_indate_post()
 
         $this->response( [
             'status' => false,
-            'message' => 'Success.',
+            'message' => 'Success.                                                                                                                                                  ',
             'data' =>  $amountData,
 
         ], Rest_Controller::HTTP_OK);
