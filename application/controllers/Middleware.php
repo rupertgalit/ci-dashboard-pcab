@@ -248,8 +248,8 @@ class Middleware extends REST_Controller
     {
 
         $this->form_validation->set_rules( 'deposited_date', 'deposited date', 'required' );
-        $this->form_validation->set_rules( 'deposited_amount', 'deposited amount', 'required' );
-        $this->form_validation->set_rules( 'deposit_reference_no', 'deposit reference number', 'required' );
+        // $this->form_validation->set_rules( 'deposited_amount', 'deposited amount', 'required' );
+        // $this->form_validation->set_rules( 'deposit_reference_no', 'deposit reference number', 'required' );
         $this->form_validation->set_rules( 'collection_date_from', 'collection dater', 'required' );
         $this->form_validation->set_rules( 'collection_date_to', 'collection dater', 'required' );
 
@@ -267,8 +267,8 @@ class Middleware extends REST_Controller
 
             $postdata = array(
                 'deposited_date' => $this->input->post( 'deposited_date' ),
-                'deposited_amount' => $this->input->post( 'deposited_amount' ),
-                'deposit_reference_no' => $this->input->post( 'deposit_reference_no' ),
+                // 'deposited_amount' => $this->input->post( 'deposited_amount' ),
+                // 'deposit_reference_no' => $this->input->post( 'deposit_reference_no' ),
                 'collection_date_from' => $this->input->post( 'collection_date_from' ),
                 'collection_date_to' => $this->input->post( 'collection_date_to' ),
 
@@ -298,17 +298,30 @@ class Middleware extends REST_Controller
 
             ], Rest_Controller::HTTP_UNPROCESSABLE_ENTITY );
         } else {
-            $chkrefno = $this->model->chk_ref_no( $postdata );
+            // $chkrefno = $this->model->chk_ref_no( $postdata );
 
-            if ( $chkrefno ) {
+            // if ( $chkrefno ) {
 
-                $this->response( [
-                    'status' => false,
-                    'message' => 'reference already exist'
+            //     $this->response( [
+            //         'status' => false,
+            //         'message' => 'reference already exist'
 
-                ], Rest_Controller::HTTP_UNPROCESSABLE_ENTITY );
+            //     ], Rest_Controller::HTTP_UNPROCESSABLE_ENTITY );
 
-            } else {
+            // } else {
+
+                 $deposit_transation['document_stamp_tax'] = $postdata['document_stamp_tax']['amount'];
+
+                 $deposit_transation['dst_ref_no'] = $postdata['document_stamp_tax']['reference_no'];
+                
+                 $deposit_transation['fees_pcab']  = $postdata['fees_pcab']['amount'];
+
+                 $deposit_transation['pcab_ref_no']  = $postdata['fees_pcab']['reference_no'];
+                
+                 $deposit_transation['legal_research_fund'] = $postdata['legal_research_fund']['amount'];
+
+                 $deposit_transation['lrf_ref_no']  = $postdata['legal_research_fund']['reference_no'];
+
 
                 $getTotalAmount =     $this->model->total_transcation_perday( $postdata ) ;
                 $last_data_deposit =     $this->model->last_data_deposit() ;
@@ -324,9 +337,9 @@ class Middleware extends REST_Controller
 
                     $depositLogs[ 'deposited_date' ] = $postdata[ 'deposited_date' ];
 
-                    $depositLogs[ 'deposited_amount' ] = $postdata[ 'deposited_amount' ];
+                    $depositLogs[ 'deposited_amount' ] = $deposit_transation['document_stamp_tax']+ $deposit_transation['fees_pcab']+ $deposit_transation['legal_research_fund'];
 
-                    $depositLogs[ 'deposit_reference_no' ] = $postdata[ 'deposit_reference_no' ];
+                    // $depositLogs[ 'deposit_reference_no' ] = $postdata[ 'deposit_reference_no' ];
 
                     $depositLogs[ 'txn_amount' ] = $getTotalAmount[ 'txn_amt' ];
 
@@ -339,6 +352,7 @@ class Middleware extends REST_Controller
                     $depositLogs[ 'ngsi_convenience_fee' ] = $getTotalAmount[ 'ngsi_convfee' ];
 
                     $depositLogs[ 'ttl_trnsact' ] = $getTotalAmount[ 'ttl_trnsact' ];
+
                     $depositLogs[ 'no_ngsi_fee' ] = $getTotalAmount[ 'nongsifee' ];
 
                     $depositLogs[ 'created_at' ] =  date( 'Y-m-d' );
@@ -349,17 +363,22 @@ class Middleware extends REST_Controller
 
                     $depositLogs[ 'date_to' ] = $postdata[ 'collection_date_to' ];
 
-                    $depositLogs[ 'undeposit_collection' ] = $Lupaid_collection+$getTotalAmount[ 'txn_amt' ]- $postdata[ 'deposited_amount' ];
-                    $this->model->log_deposit( $depositLogs );
+                    $depositLogs[ 'undeposit_collection' ] = $Lupaid_collection+$getTotalAmount[ 'txn_amt' ]-  $depositLogs[ 'deposited_amount' ];
+                   
 
+                    $lastid=      $this->model->log_deposit( $depositLogs );
+                    if( $lastid ){
+                        $deposit_transation['depost_id']=$lastid;
+                        $this->model->depositTransaction( $deposit_transation );
+                    }
                 }
 
                 $this->response( [
                     'status' => true,
-                    'message' =>   $depositLogs[ 'undeposit_collection' ],
-                    'data' =>  $last_data_deposit, ], Rest_Controller::HTTP_OK );
+                    'message' =>  'Success',
+                    'data' =>   array() ], Rest_Controller::HTTP_OK );
 
-                }
+                // }
 
             }
 

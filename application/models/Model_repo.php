@@ -44,10 +44,13 @@ class Model_repo extends CI_Model
     
     public function  log_deposit($data) 
     {
-       
-        return $this->db->insert( 'tbl_deposit', $data );
+        return  $this->db->insert_id( $this->db->insert( 'tbl_deposit', $data ) );
     }
-
+    public function depositTransaction( $data )
+    {
+        return    $this->db->insert( 'tbl_depost_transaction', $data ) ;
+         
+    }
     public function  total_transcation_perday($request) 
     {
         $result="SELECT COUNT(*) AS ttl_trnsact, sum(txn_amount) as txn_amt,
