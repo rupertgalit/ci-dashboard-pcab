@@ -8,12 +8,12 @@ require APPPATH . 'libraries/Format.php';
 require_once ( APPPATH . 'services/ApiService.php' );
 
 class Middleware extends REST_Controller
- {
+{
 
     public $apiService;
 
     public function __construct()
- {
+    {
         parent::__construct();
         date_default_timezone_set( 'Asia/Manila' );
         $this->apiService = new ApiService();
@@ -21,7 +21,7 @@ class Middleware extends REST_Controller
     }
 
     public function index_post()
- {
+    {
 
         // $last_data_deposit =     $this->model->last_data_deposit() ;
 
@@ -32,21 +32,21 @@ class Middleware extends REST_Controller
     }
 
     public function index_get()
- {
+    {
         $this->response( [
             'messege' => 'FORBIDDEN'
         ], Rest_Controller::HTTP_FORBIDDEN );
     }
 
     private function call_external_api( $data, $get_header )
- {
+    {
         // RE-WRITE $DATA FOR TESTING PURPOSES
         $response = $this->apiService->call_external_api( $data, $get_header );
         return $response;
     }
 
     public function generate_qr_post()
- {
+    {
         $this->output->set_content_type( 'application/json' );
 
         $header = apache_request_headers();
@@ -154,76 +154,76 @@ class Middleware extends REST_Controller
     }
 
     public function postback_post( $ref_number = 0 )
- {
-        $ref_number = $_GET[ 'ref' ];
+    {
+                $ref_number = $_GET[ 'ref' ];
 
-        $this->output->set_content_type( 'application/json' );
+                $this->output->set_content_type( 'application/json' );
 
-        $data = json_decode( file_get_contents( 'php://input' ), true );
+                $data = json_decode( file_get_contents( 'php://input' ), true );
 
-        $data_exist = $this->model->finddata( $ref_number );
+                $data_exist = $this->model->finddata( $ref_number );
 
-        $call_back_data[ 'reference_number' ] = $ref_number;
+                $call_back_data[ 'reference_number' ] = $ref_number;
 
-        $call_back_data[ 'callback_data' ] = json_encode( $data );
+                $call_back_data[ 'callback_data' ] = json_encode( $data );
 
-        $call_back_data[ 'tbl_date' ] = date( 'Y-m-d H:i:s' );
+                $call_back_data[ 'tbl_date' ] = date( 'Y-m-d H:i:s' );
 
-        $call_back_data[ 'TxId' ] = $data[ 'TxId' ];
+                $call_back_data[ 'TxId' ] = $data[ 'TxId' ];
 
-        $call_back_data[ 'referenceNumber' ] = $data[ 'referenceNumber' ];
+                $call_back_data[ 'referenceNumber' ] = $data[ 'referenceNumber' ];
 
-        $call_back_data[ 'callback_status' ] = $data[ 'status' ];
+                $call_back_data[ 'callback_status' ] = $data[ 'status' ];
 
-        if ( $data_exist != false ) {
+                if ( $data_exist != false ) {
 
-            $this->model->doInsertCallback( $call_back_data );
-            $this->response( [
-                'messege' => 'Failed',
-                'error' => 'already transact'
-            ], Rest_Controller::HTTP_UNAUTHORIZED );
-        } else {
+                    $this->model->doInsertCallback( $call_back_data );
+                    $this->response( [
+                        'messege' => 'Failed',
+                        'error' => 'already transact'
+                    ], Rest_Controller::HTTP_UNAUTHORIZED );
+                } else {
 
-            // / insert data to tbl_callback
-            $do_cback_data = $this->model->doInsertCallback( $call_back_data );
+                    // / insert data to tbl_callback
+                    $do_cback_data = $this->model->doInsertCallback( $call_back_data );
 
-            if ( $do_cback_data ) {
-                $TransData = $this->model->select_refNumber( $ref_number );
-                // this client response
-                $response = $this->apiService->call_back( $data, $TransData[ 'callback_uri' ] );
-                $transData[ 'status' ] = $this->status_get( $data[ 'status' ] );
-                $transData[ 'TxId' ] = $call_back_data[ 'TxId' ];
-                $transData[ 'referenceNumber' ] = $call_back_data[ 'referenceNumber' ];
+                    if ( $do_cback_data ) {
+                        $TransData = $this->model->select_refNumber( $ref_number );
+                        // this client response
+                        $response = $this->apiService->call_back( $data, $TransData[ 'callback_uri' ] );
+                        $transData[ 'status' ] = $this->status_get( $data[ 'status' ] );
+                        $transData[ 'TxId' ] = $call_back_data[ 'TxId' ];
+                        $transData[ 'referenceNumber' ] = $call_back_data[ 'referenceNumber' ];
 
-                $transData[ 'last_modified' ] = date( 'Y-m-d H:i:s' );
-                $trans_updated = $this->model->updateTransaction( $transData, $ref_number );
+                        $transData[ 'last_modified' ] = date( 'Y-m-d H:i:s' );
+                        $trans_updated = $this->model->updateTransaction( $transData, $ref_number );
 
-                if ( $trans_updated ) {
+                        if ( $trans_updated ) {
 
-                    $cback_update[ 'client_data_resp' ] = json_encode( $response );
-                    $doUpdateApiLog = $this->model->updateCallBack( $cback_update, $do_cback_data );
+                            $cback_update[ 'client_data_resp' ] = json_encode( $response );
+                            $doUpdateApiLog = $this->model->updateCallBack( $cback_update, $do_cback_data );
 
-                    if ( $response[ 'status_code' ] == 200 || $response[ 'status_code' ] == 201 ) {
+                            if ( $response[ 'status_code' ] == 200 || $response[ 'status_code' ] == 201 ) {
 
-                        $this->response( [
-                            'messege' => 'Success',
-                            'error' => 'false',
-                            'data' => $doUpdateApiLog
-                        ], Rest_Controller::HTTP_OK );
-                    } else {
-                        $this->response( [
-                            'messege' => 'Success',
-                            'error' => 'true',
-                            'data' => $doUpdateApiLog
-                        ], Rest_Controller::HTTP_OK );
+                                $this->response( [
+                                    'messege' => 'Success',
+                                    'error' => 'false',
+                                    'data' => $doUpdateApiLog
+                                ], Rest_Controller::HTTP_OK );
+                            } else {
+                                $this->response( [
+                                    'messege' => 'Success',
+                                    'error' => 'true',
+                                    'data' => $doUpdateApiLog
+                                ], Rest_Controller::HTTP_OK );
+                            }
+                        }
                     }
                 }
-            }
-        }
     }
 
     function status_get( $type )
- {
+    {
         $caffeine = '';
         $map = [
             '1' => 'STARTED ',
@@ -237,15 +237,15 @@ class Middleware extends REST_Controller
     }
 
     public function samplecallback_post()
- {
+    {
         $this->response( [
             'messege' => 'Success',
             'error0' => 'false'
         ], Rest_Controller::HTTP_OK );
- }
+    }
 
     public function deposit_log_post() 
- {
+    {
 
         $this->form_validation->set_rules( 'deposited_date', 'deposited date', 'required' );
         $this->form_validation->set_rules( 'deposited_amount', 'deposited amount', 'required' );
@@ -274,6 +274,18 @@ class Middleware extends REST_Controller
 
             );
         }
+
+        $params = json_encode( $postdata );
+
+        $ins_data[ 'params' ] = $params;
+
+        $ins_data[ 'request_at' ] = date( 'Y-m-d H:i:s' );
+
+        $ins_data[ 'method' ] = $_SERVER[ 'REQUEST_METHOD' ];
+
+        $get_id = $this->model->insertApiLogs( $ins_data );
+
+
 
         if ( $this->form_validation->run() == FALSE ) {
 
@@ -351,14 +363,13 @@ class Middleware extends REST_Controller
 
             }
 
- }
+    }
 
-        public function all_deposit_data_get()
- {
+    public function all_deposit_data_get()
+    {
             $deposiitData =  $this->model->allDepositData();
 
-            if ( $deposiitData )
- {
+            if ( $deposiitData ){
                 $result = $deposiitData;
             } else {
                 $result = array();
@@ -368,24 +379,24 @@ class Middleware extends REST_Controller
                 'status' => true,
                 'message' => 'succes',
                 'data' =>  $deposiitData, ], Rest_Controller::HTTP_OK );
-            }
+    }
 
-            public function all_transaction_data_get()
-{
-                $deposiitData =  $this->model->transaction_data();
+    public function all_transaction_data_get()
+    {
+                        $deposiitData =  $this->model->transaction_data();
 
-                if ( $deposiitData ) {
+                        if ( $deposiitData ) {
 
-                    $result = $deposiitData;
-                } else {
-                    $result = array();
-                }
+                            $result = $deposiitData;
+                        } else {
+                            $result = array();
+                        }
 
-                $this->response( [
-                    'status' => true,
-                    'message' => 'succes',
-                    'data' =>  $deposiitData, ], Rest_Controller::HTTP_OK );
-}
+                        $this->response( [
+                            'status' => true,
+                            'message' => 'succes',
+                            'data' =>  $deposiitData, ], Rest_Controller::HTTP_OK );
+    }
 
 public function total_txnamount_indate_post()
 {
