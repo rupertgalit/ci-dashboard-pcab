@@ -128,4 +128,10 @@ class Model_repo extends CI_Model
         $Q = $this->db->query($sql);
         return $Q->row_array() ? $Q->result_array() : false;
     }
+    public function get_deposit_transactions($id)
+    {
+        $sql = 'SELECT * FROM tbl_depost_transaction Where deposit_id = ?';
+        $Q = $this->db->query($sql, $id);
+        return $Q->row_array() ? $Q->result_array() : false;
+    }
 }

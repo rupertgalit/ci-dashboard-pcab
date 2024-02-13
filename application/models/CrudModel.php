@@ -41,7 +41,7 @@ class CrudModel extends CI_Model
     }
     public function get_deposit_transactions($id)
     {
-        $sql = 'SELECT * FROM tbl_depost_transaction Where depost_id = ?';
+        $sql = 'SELECT * FROM tbl_depost_transaction Where deposit_id = ?';
         $Q = $this->db->query($sql, $id);
         return $Q->row_array() ? $Q->result_array() : false;
     }
