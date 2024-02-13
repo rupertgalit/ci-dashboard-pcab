@@ -55,7 +55,6 @@
                     <tbody class="w-100">
 
                         <?php
-
                         $fmt = new NumberFormatter('en-US', NumberFormatter::CURRENCY);
                         $fmt->setPattern(str_replace('¤#', "\xC2\xA0#", $fmt->getPattern()));
 
@@ -73,7 +72,7 @@
                                 echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["legal_research_fund"]), false) . "</td>";
                                 echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["document_stamp_tax"]), false) . "</td>";
                                 echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["fees_pcab"]), false) . "</td>";
-                                echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["txn_amount"]), false) . "</td>";
+                                echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["no_ngsi_fee"]), false) . "</td>";
                                 echo "<td>" .  date_format(date_create($row["deposited_date"]), "m/d/Y") . "</td>";
                                 echo "<td> " .  $row["deposit_reference_no"] . "</td>";
                                 echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["deposited_amount"]), false) . "</td>";
@@ -160,7 +159,7 @@
             });
 
             const parseToCurrency = val => {
-                if(!val) return "0.00"
+                if (!val) return "0.00"
                 return parseFloat(val).toLocaleString('en-US', {
                     maximumFractionDigits: 2,
                     minimumFractionDigits: 2
@@ -254,7 +253,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="3">Undeposited Collections, this Report</td>
-                                    <td class="text-right">P <div class="w-100 d-inline-block text-right" style="padding-right: .7rem;">${parseFloat(data.undeposit_collection)}</div></td>
+                                    <td class="text-right">P <div class="w-100 d-inline-block text-right" style="padding-right: .7rem;">${parseToCurrency(data.undeposit_collection)}</div></td>
                                 </tr>
                             </tbody>
                         </table>

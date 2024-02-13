@@ -61,9 +61,15 @@ class Welcome extends CI_Controller
 
 
 
-			if ($result["route"] == "deposit")
-				$result["data"] = $this->crud->all_deposit_data();
-
+			if ($result["route"] == "deposit") {
+				$deposit_logs = $this->crud->all_deposit_data();
+				$deposit_transations_added = array_map(function ($data) {
+					$transactions = $this->crud->get_deposit_transactions($data["dep_id"]);
+					$data["transactions"] = $transactions;
+					return $data;
+				}, $deposit_logs);
+				$result["data"] = $deposit_transations_added;
+			}
 			$this->load->view('index', $result);
 		} else {
 			redirect('login');

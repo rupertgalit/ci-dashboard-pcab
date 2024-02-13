@@ -1165,7 +1165,11 @@
     })
 
     $("#submitDeposit").on("click", async () => {
-        let payload = {}
+        let payload = {
+            document_stamp_tax: {},
+            fees_pcab: {},
+            legal_research_fund: {}
+        }
         let isInvalid = false
         $("#Submit_deposit input").each(function() {
             let value = this.value
@@ -1181,17 +1185,11 @@
             }
             if (this.name == "amount" || this.name == "reference_no") {
                 const mainParent = this.parentElement.parentElement;
-                if (!payload.hasOwnProperty(mainParent.id)) {
-                    payload[mainParent.id] = {};
-                    payload[mainParent.id][this.name] = this.value;
-                    return;
-                }
-                else {
-                    payload[mainParent.id][this.name] = parseFloat(this.value);
-                    return;
-                }
+                payload[mainParent.id][this.name] = this.name == "amount" ? this.value.replaceAll(",", "") : this.value;
+                return;
+
             }
-            payload[this.name] = this.name == "deposited_amount" ? this.value.replace(",", "") : this.value;
+            payload[this.name] = this.value;
         })
         if (isInvalid) return;
 
@@ -1201,7 +1199,7 @@
         }
 
         if ($("#Submit_deposit .settlements .error").length) return;
-
+        console.log(payload)
         $("#Submit_deposit").addClass('loading')
 
         try {
