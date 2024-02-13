@@ -65,7 +65,7 @@ class Welcome extends CI_Controller
 				$deposit_logs = $this->crud->all_deposit_data();
 				$deposit_transations_added = array_map(function ($data) {
 					$transactions = $this->crud->get_deposit_transactions($data["dep_id"]);
-					$data["transactions"] = $transactions;
+					$data["transactions"] = $transactions[0];
 					return $data;
 				}, $deposit_logs);
 				$result["data"] = $deposit_transations_added;
