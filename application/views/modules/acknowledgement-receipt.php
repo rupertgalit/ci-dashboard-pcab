@@ -463,10 +463,33 @@
             <div class="modal-footer bg-white border-top py-2 px-3">
 
                 <button type="button" class="btn-sm border-0 m-0 ml-2 mb-2 rounded close-modal bg-secondary" id="cancelDeposit" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                <!-- <button type="button" class="btn-sm border-0 m-0 ml-2 mb-2 rounded close-modal bg-secondary" id="confirmDeposit" data-toggle="modal" data-target="#DepositConfirmationModal" data-backdrop="static" data-keyboard="false">confirm</button> -->
                 <button type="button" class="btn-sm border-0 m-0 ml-2 mb-2 rounded submit-deposit-btn-modal" id="submitDeposit" onmouseover="this.style.opacity=1" onmouseleave="this.style.opacity=.8" style="background-color:#00507a;opacity:.8;">
                     <i class="icon-settings spin" hidden></i> <span>Submit</span><span hidden>Submitting</span>
                 </button>
 
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="DepositConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="Confirmation_depositnModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg d-flex justify-content-center" role="document">
+        <div class="modal-content" style="width: auto;">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmation Modal</h5>
+                <button type="button" class="close text-right pr-4 text-dark" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body bg-white pb-3 " style="width: auto; padding: 1rem 2rem;">
+                You are about to submit a deposit, are you sure ?
+                <table>
+                    <thead>
+                        <th></th>
+                        <th>Collections</th>
+                        <th>To Deposit</th>
+                        <th>Undeposited</th>
+                    </thead>
+                    <tbody></tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -1089,6 +1112,11 @@
     }
 
     let dbTotalCollection = 0;
+    let data;
+
+    $("#dateOfDeposit input, #dateRange input").on("click", function() {
+        this.showPicker();
+    })
 
     $("#dateRange input").on("input", async function() {
         $("#Submit_deposit .message").text("").removeClass("error", "success");
@@ -1098,8 +1126,7 @@
         }
         updateToDepositAmount({}, true)
         let toPopulate = false;
-        let data;
-
+        data = null;
         if (body.collection_date_from && body.collection_date_to)
             try {
                 const res = await fetch("/total-txn-amount", {
@@ -1162,6 +1189,63 @@
         $("#Submit_deposit input").val("")
         $("#Submit_deposit #dateRange input").val("")
         $("#Submit_deposit").removeClass('loading')
+    })
+
+
+    $("#confirmDeposit").on("click", function() {
+        let payload = {
+            document_stamp_tax: {},
+            fees_pcab: {},
+            legal_research_fund: {}
+        }
+        let isInvalid = false
+        $("#Submit_deposit input").each(function() {
+            let value = this.value
+
+            if (this.name == "deposited_date") {
+                value = new Date(this.value) <= new Date() ? this.value : ""
+            }
+
+            if (value == "") {
+                this.parentElement.classList.add("error")
+                isInvalid = true;
+                return;
+            }
+            if (this.name == "amount" || this.name == "reference_no") {
+                const mainParent = this.parentElement.parentElement;
+                payload[mainParent.id][this.name] = this.name == "amount" ? this.value.replaceAll(",", "") : this.value;
+                return;
+
+            }
+            payload[this.name] = this.value;
+        })
+        if (isInvalid) return;
+
+        if (new Date(payload.collection_date_from) > new Date(payload.collection_date_to)) {
+            $("[name=collection_date_from]").parent().addClass("error");
+            return;
+        }
+
+        if ($("#Submit_deposit .settlements .error").length) return;
+        let toAppend = ""
+        let totalAmount = {
+            collection: 0,
+            deposit: 0,
+            undeposited: 0
+        }
+        const totalProps = {
+            fees_pcab: "total_pcab_fee",
+            document_stamp_tax: "total_dst",
+            legal_research_fund: "total_lrf"
+        }
+        for (prop of ["fees_pcab", "document_stamp_tax", "legal_research_fund"]) {
+            totalAmount.collection += parseFloat(data[totalProps[prop]])
+            totalAmount.deposit += parseFloat(payload[prop].amount)
+            totalAmount.undeposited += parseFloat(data[totalProps[prop]]) - parseFloat(payload[prop].amount)
+            toAppend += `<tr><td class="text-capitalize">${prop.replaceAll("_"," ")}</td><td class="text-right">${toLocalCurrency(data[totalProps[prop]])}</td><td class="text-right">${toLocalCurrency(payload[prop].amount)}</td><td class="text-right">${toLocalCurrency(data[totalProps[prop]] - payload[prop].amount)}</td></tr>`
+        }
+        $("#DepositConfirmationModal table tbody").html(toAppend + `<tr><td class="text-capitalize">Total</td><td class="text-right">${toLocalCurrency(totalAmount.collection)}</td><td class="text-right">${toLocalCurrency(totalAmount.deposit)}</td><td class="text-right">${toLocalCurrency(totalAmount.undeposited)}</td></tr>`)
+        console.log(payload, totalAmount)
     })
 
     $("#submitDeposit").on("click", async () => {
