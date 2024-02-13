@@ -365,7 +365,11 @@ class Middleware extends REST_Controller
                 $depositLogs['date_to'] = $postdata['collection_date_to'];
 
                 $depositLogs['undeposit_collection'] = $Lupaid_collection + $getTotalAmount['nongsifee'] -  $depositLogs['deposited_amount'];
+              
+                $last_deposit_trans=$this->model->last_deposit_trnasaction();
 
+
+                $depositLogs['last_deposit_trans_id'] = $last_deposit_trans ? $last_deposit_trans['tbl_id'] : 0;
 
                 $lastid =      $this->model->log_deposit($depositLogs);
                 if ($lastid) {
@@ -377,7 +381,7 @@ class Middleware extends REST_Controller
             $this->response([
                 'status' => true,
                 'message' =>  'Success',
-                'data' =>   array()
+                'data' => $lastid
             ], Rest_Controller::HTTP_OK);
 
             // }
