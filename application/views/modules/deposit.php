@@ -174,7 +174,7 @@
             }
 
             const content = (data) => `
-            <div class="mx-auto d-flex flex-column border-dark" style="/*margin-top:50px*/;width:70rem;height:5rem;">
+        <div class="mx-auto" style="[mb];width: 50rem;">
                     <div class="container justify-content-center mb-1">
                         <div class="row d-flex flex-row justify-content-center">
                             <div class="col-md-3">
@@ -190,11 +190,10 @@
                                     Support@netglobalsolutions.net</p>
                             </div>
                         </div>
-                        <img width="100%" height="100%" style="margin-top: -10px;"
+                        <img width="100%" height="5px" style="margin-top: -10px;"
                             src="assets/images/NGSI_header.png" alt="logo" class="logo-dark" />
                     </div>
-                    
-                    <div class="mt-5">
+                    <div class="mt-3">
                         <div class="text-center text-uppercase py-3">
                             <b><u>Certification&nbsp; of Deposit</u></b>
                         </div>
@@ -204,36 +203,41 @@
                         <table class="border-0">
                             <tbody>
                                 <tr>
-                                    <td colspan="3">Undeposited Collections per last Report,<br>(date: ${shortDateFormat(data.last_date)})</td>
-                                    <td class="text-right" style="vertical-align:top;">P <div class="w-100 d-inline-block text-right" style="padding-right: .7rem;">${parseToCurrency(data.last_txn_amont ?? "0.00")}</div></td>
-                                </tr>
+                                    <td colspan="3">Undeposited Collections per last Report,<br>(Date: ${shortDateFormat(data.last_date)})
+                                    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CIAP&nbsp;-&nbsp;PCAB<p style="vertical-align:center;position:absolute;margin-top:-20px;margin-left:500px;font-size: 12px;"> (P ${parseToCurrency(data.last_txn_amont ?? "0.00")})</p>
+                                    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DST&nbsp;&nbsp;&nbsp<p style="vertical-align:center;position:absolute;margin-top:-20px;margin-left:500px;font-size: 12px;"> (P ${parseToCurrency(data.last_txn_amont ?? "0.00")})</p>
+                                    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LRF&nbsp;&nbsp;<p style="vertical-align:center;position:absolute;margin-top:-20px;margin-left:500px;font-size: 12px;"> (P ${parseToCurrency(data.last_txn_amont ?? "0.00")})</p>
+                                    </td>
+                                    <td class="text-right" style="vertical-align:top;"><div class="w-100 d-inline-block text-right" style="padding-right: .7rem;">P ${parseToCurrency(data.last_txn_amont ?? "0.00")}</div></td>
+                              </tr>
                                 <tr>
                                     <td colspan="3">Collections, ${data.date_from != data.date_to ? shortDateFormat(data.date_from) + " to " + shortDateFormat(data.date_to) : shortDateFormat(data.date_from)}</td>
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td class="pl-5 pb-3">Total Number of Transaction</td>
-                                    <td colspan="2" class="text-right" style="padding-right:2.6rem;vertical-align:top;">${data.ttl_trnsact}</td>
-                                    <td></td>
+                                    <td class="pl-3 pb-3">Total Number of Transaction <p style="vertical-align:center;position:absolute;margin-top:-20px;margin-left:490px;font-size: 12px;"> ${(data.ttl_trnsact ?? "0")}</p></td>
+                                   
                                 </tr>
                                 <tr>
-                                    <td colspan="2" class="pl-5">Total Amount of Collection</td>
-                                    <td class="text-right" style="padding-right:3.2rem;">P <div class="w-100 d-inline-block text-right">${parseToCurrency(data.txn_amount)}</div></td>
-                                    <td class="text-right pr-1">${parseToCurrency(data.txn_amount)}</td>
-                                </tr>
-                                <tr class="p-0">
-                                    <td colspan="2" style="padding-left:4.5rem;">CIAP-PCAB</td>
-                                    <td class="text-right" style="padding-right:2.6rem;">(${parseToCurrency(data.fees_pcab)})</td>
+                                    <td colspan="2" class="pl-3" style="margin-top:-10px;position:absolute;margin-left:-1px;">Total Amount of Collection <p style="vertical-align:center;position:absolute;margin-top:-20px;margin-left:490px;font-size: 12px;">P ${parseToCurrency(data.txn_amount)}</p></td>
+                                    <td></td>
+                                    </tr>
+
+                                <tr>
+                               
+                                    <td colspan="2" style="padding-left:4.5rem;">CIAP - PCAB</td>
+                                    <td class="text-right" style="padding-right:2.6rem;">(
+                                        P ${parseToCurrency(data.fees_pcab)})</td>
                                     <td class="text-right"></td>
                                 </tr>
-                                <tr class="p-0">
+                                <tr>
                                     <td colspan="2" style="padding-left:4.5rem;">DST</td>
-                                    <td class="text-right" style="padding-right:2.6rem;">(${parseToCurrency(data.document_stamp_tax)})</td>
+                                    <td class="text-right" style="padding-right:2.6rem;">(P  ${parseToCurrency(data.document_stamp_tax)})</td>
                                     <td class="text-right"></td>
                                 </tr>
-                                <tr class="p-0">
+                                <tr>
                                     <td colspan="2" style="padding-left:4.5rem;">LRF</td>
-                                    <td class="text-right" style="padding-right:2.6rem;">(${parseToCurrency(data.legal_research_fund)})</td>
+                                    <td class="text-right" style="padding-right:2.6rem;">(P ${parseToCurrency(data.legal_research_fund)})</td>
                                     <td class="text-right"></td>
                                 </tr>
                                 <tr >
@@ -265,16 +269,19 @@
                                 </tr>
                             </tbody>
                         </table>
+
                         <div
                             style="text-align: justify;text-justify: inter-word;margin-top: 2rem; font-size: .9rem; line-height:32px;">
                             This is to certify the above is true and correct statement. That the amount collected is
                             to deposited intact
-                            to the ${'[bank name]'} bank account of the ${"[agency name]"} with amount number
-                            ${'[account number]'}, and duly supported
+                            to the ${(data.deposited_date)} bank account of the ${(data.last_date)} with amount number
+                            ${(data.deposited_amount)}, and duly supported
                             by attached proof of deposit. Details of collections can be generated from our online
                             reporting facility or
                             in the attached electronic file of the List if Daily Collection.
                         </div>
+
+                        
 
                         <div class="w-100" style="margin-top: 6rem;">
                                 <div class="">
