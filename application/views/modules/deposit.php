@@ -58,7 +58,7 @@
                         $fmt = new NumberFormatter('en-US', NumberFormatter::CURRENCY);
                         $fmt->setPattern(str_replace('¤#', "\xC2\xA0#", $fmt->getPattern()));
 
-                        if (!empty($data))
+                        if ($data != false){
                             foreach ($data as $key => $row) {
                                 $undeposited = (float) $row["legal_research_fund"] +
                                     (float) $row["document_stamp_tax"] +
@@ -80,6 +80,13 @@
                                 echo "<td><button class='btn-sm btn-outline-dark border-0 px-3 py-1 rounded download-btn-modal' onclick='downloadDeposit($key)'>Download</button></td>";
                                 echo "</tr>";
                             }
+                        }
+                            else  {
+                                echo "<tr py-5><td colspan='10'>No data available</td></tr>";
+                            }
+                                
+                           
+                           
                         ?>
 
                     </tbody>
