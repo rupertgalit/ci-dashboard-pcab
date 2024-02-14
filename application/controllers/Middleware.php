@@ -323,6 +323,7 @@ class Middleware extends REST_Controller
 
             $deposit_transation['lrf_ref_no']  = $postdata['legal_research_fund']['reference_no'];
 
+     
 
             $getTotalAmount =     $this->model->total_transcation_perday($postdata);
             $last_data_deposit =     $this->model->last_data_deposit();
@@ -368,6 +369,11 @@ class Middleware extends REST_Controller
               
                 $last_deposit_trans=$this->model->last_deposit_trnasaction();
 
+                $deposit_transation['balance_fees_pcab']  =  $getTotalAmount['feespcab']-$postdata['fees_pcab']['amount'];
+
+                $deposit_transation['balnace_legal_research_fund']  =  $getTotalAmount['lrfund']-$postdata['legal_research_fund']['amount'];
+
+                $deposit_transation['balance_document_stamp_tax']  = $getTotalAmount['ds_tax']-$postdata['document_stamp_tax']['amount'];
 
                 $depositLogs['last_deposit_trans_id'] = $last_deposit_trans ? $last_deposit_trans['tbl_id'] : 0;
 
