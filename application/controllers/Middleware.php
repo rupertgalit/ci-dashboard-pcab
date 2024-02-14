@@ -332,8 +332,8 @@ class Middleware extends REST_Controller
                 $depositLogs['last_txn_amont'] = $last_data_deposit['undeposit_collection'];
                 $depositLogs['last_date'] = $last_data_deposit['created_at'];
             } else {
-                $depositLogs['date_to'] = '';
-                $depositLogs['date_to'] = '';
+                $depositLogs['last_txn_amont'] = '';
+                $depositLogs['last_date'] = '';
             }
             if ($getTotalAmount) {
 
