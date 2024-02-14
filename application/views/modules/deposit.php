@@ -167,7 +167,7 @@
             }
 
             const content = (data) => `
-        <div class="mx-auto" style="[mb];width: 50rem;">
+            <div class="mx-auto d-flex flex-column border-dark" style="/*margin-top:50px*/;width:70rem;height:5rem;">
                     <div class="container justify-content-center mb-1">
                         <div class="row d-flex flex-row justify-content-center">
                             <div class="col-md-3">
@@ -186,6 +186,7 @@
                         <img width="100%" height="100%" style="margin-top: -10px;"
                             src="assets/images/NGSI_header.png" alt="logo" class="logo-dark" />
                     </div>
+                    
                     <div class="mt-5">
                         <div class="text-center text-uppercase py-3">
                             <b><u>Certification&nbsp; of Deposit</u></b>

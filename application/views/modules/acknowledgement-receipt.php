@@ -1084,7 +1084,10 @@
                 scale: .5
             },
             callback: async function(doc) {
-                await doc.output("dataurlnewwindow", "receipt.pdf");
+                const date = new Date();
+                await doc.save(`acknowledge-reciept-${date.toLocaleDateString()}.pdf`);
+
+
             },
             x: 25,
             y: 10,
