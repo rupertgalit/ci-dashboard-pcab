@@ -25,6 +25,7 @@
 
                     <!-- <button style="margin-top: -20px;" type="button"
                         class="btn-sm btn-outline-dark border-0 mr-3 mb-2 rounded download-btn-modal">Deposit</button> -->
+                    <a tabindex="0" class="btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover">Dismissible popover</a>
                 </div>
 
 
@@ -74,7 +75,9 @@
                                 echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["fees_pcab"]), false) . "</td>";
                                 echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["no_ngsi_fee"]), false) . "</td>";
                                 echo "<td>" .  date_format(date_create($row["deposited_date"]), "m/d/Y") . "</td>";
-                                echo "<td> " .  $row["deposit_reference_no"] . "</td>";
+                                echo "<td>
+                                    <a tabindex='0' class='btn-lg btn-danger' role='button' data-toggle='popover' data-trigger='focus' title='Dismissible popover' data-content='" . json_encode($row) . "'>Dismissible popover</a>
+                                </td>";
                                 echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["deposited_amount"]), false) . "</td>";
                                 echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["undeposit_collection"]), false) . "</td>";
                                 echo "<td><button class='btn-sm btn-outline-dark border-0 px-3 py-1 rounded download-btn-modal' onclick='downloadDeposit($key)'>Download</button></td>";
@@ -163,6 +166,36 @@
                     scrollX: '80%',
                     scrollCollapse: true,
                 });
+
+                $('[data-toggle="popover"]').popover({
+                    content: function() {
+                        const data = JSON.parse($(this).attr('data-content'))
+                        console.log(data)
+
+                        return `
+                        <b>PCAB Fees</b>
+                        <p class="pl-2 mb-1">Deposited: ${data.transactions.fees_pcab}</p>
+                        <p class="pl-2 mb-1">Undeposited: ${data.last_deposit_transactions?.fees_pcab ?? 0}</p>
+                        <b>DST</b>
+                        <p class="pl-2 mb-1">Deposited: ${data.transactions.document_stamp_tax}</p>
+                        <p class="pl-2 mb-1">Undeposited: ${data.last_deposit_transactions?.document_stamp_tax ?? 0}</p>
+                        <b>LRF</b>
+                        <p class="pl-2 mb-1">Deposited: ${data.transactions.legal_research_fund}</p>
+                        <p class="pl-2 mb-1">Undeposited: ${data.last_deposit_transactions?.legal_research_fund ?? 0}</p>
+                `
+                    },
+                    container: 'body',
+                    html: true
+                });
+                $(document).on("click", ({
+                    target
+                }) => {
+                    $('.popover').removeClass("show")
+                    $('.popover').remove()
+                    if (target.dataset["toggle"] == "popover")
+                        return
+
+                })
             });
 
             const parseToCurrency = val => {
