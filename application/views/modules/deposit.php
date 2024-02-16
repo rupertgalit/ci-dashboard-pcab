@@ -59,7 +59,7 @@
                         $fmt = new NumberFormatter('en-US', NumberFormatter::CURRENCY);
                         $fmt->setPattern(str_replace('¤#', "\xC2\xA0#", $fmt->getPattern()));
 
-                        if ($data != false){
+                        if (!empty($data))
                             foreach ($data as $key => $row) {
                                 $undeposited = (float) $row["legal_research_fund"] +
                                     (float) $row["document_stamp_tax"] +
@@ -83,13 +83,6 @@
                                 echo "<td><button class='btn-sm btn-outline-dark border-0 px-3 py-1 rounded download-btn-modal' onclick='downloadDeposit($key)'>Download</button></td>";
                                 echo "</tr>";
                             }
-                        }
-                            else  {
-                                echo "<tr py-5><td colspan='10'>No data available</td></tr>";
-                            }
-                                
-                           
-                           
                         ?>
 
                     </tbody>
@@ -252,9 +245,9 @@
                                    
                                 </tr>
                                 <tr>
-                                    <td colspan="2" class="pl-3" style="margin-top:-10px;position:absolute;margin-left:-1px;">Total Amount of Collection <p style="vertical-align:center;position:absolute;margin-top:-20px;margin-left:490px;font-size: 12px;">P ${parseToCurrency(data.txn_amount)}</p></td>
+                                    <td colspan="2" class="pl-3" style="margin-top:-10px;position:absolute;margin-left:.5px;">Total Amount of Collection <p style="vertical-align:center;position:absolute;margin-top:-20px;margin-left:675px;font-size: 12px;">P ${parseToCurrency(data.txn_amount)}</p></td>
                                     <td></td>
-                                    </tr>
+                                </tr>
 
                                 <tr>
                                
@@ -274,32 +267,68 @@
                                     <td class="text-right"></td>
                                 </tr>
                                 <tr >
-                                    <td colspan="3" class="pb-3">Deposit / Fund Transfers</td>
+                                    <td colspan="3" class="pb-3">Deposit / Fund Transfers <p style="vertical-align:center;position:absolute;margin-top:-20px;margin-left:682px;font-size: 12px;">P ${parseToCurrency(data.deposited_amount)}</p></td>
                                     <td></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2" class="pl-5">
-                                        <div class="w-100 d-flex justify-content-between">
+                                
                                             <span>
-                                                Date: <label class="border-bottom border-dark text-center m-0"
-                                                    style="width:5rem;display:inline-block">${shortDateFormat(data.deposited_date)}</label>
+                                                (Date: ${shortDateFormat(data.deposited_date)})
                                             </span>
-                                            <span class="position-relative"><label class="text-center m-0"
-                                                    style="width:5rem;display:inline-block;">P <div class="w-100 d-inline-block text-right pr-1">${parseToCurrency(data.deposited_amount)}</div></label></span>
-                                        </div>
+                                        
                                     </td>
-                                    <td class="text-left" style="padding-right:3rem;"></td>
-                                    <td class="text-right">(${parseToCurrency(data.deposited_amount)})</td>
+                                    <td class="text-left" style="padding-right:2rem;"></td>
+                                    <td class="text-right"></td>
+                                    <td></td>
                                 </tr>
-                                <tr style="vertical-align: top;">
-                                    <td colspan="2" class="pl-5 pb-3">Reference No.:  ${data.deposit_reference_no}</td>
-                                    <td class="text-right" style="padding-right:3rem;"></td>
+
+                                <tr>
+                                    <td colspan="2" class="pl-3" style="margin-top:-10px;position:absolute;margin-left:.5px;">Total Amount of Collection <p style="vertical-align:center;position:absolute;margin-top:-20px;margin-left:675px;font-size: 12px;">P ${parseToCurrency(data.txn_amount)}</p></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                               
+                               <td colspan="2" style="padding-left:4.5rem;">CIAP - PCAB &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ref No.:  ${data.deposit_reference_no}</td>
+                               <td class="text-right" style="padding-right:2.6rem;"> (
+                                   P ${parseToCurrency(data.fees_pcab)})</td>
+                               <td class="text-right"></td>
+                           </tr>
+                           <tr>
+                               <td colspan="2" style="padding-left:4.5rem;">DST &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ref No.:  ${data.deposit_reference_no}</td>
+                               <td class="text-right" style="padding-right:2.6rem;">(P  ${parseToCurrency(data.document_stamp_tax)})</td>
+                               <td class="text-right"></td>
+                           </tr>
+                           <tr>
+                               <td colspan="2" style="padding-left:4.5rem;">LRF &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ref No.:  ${data.deposit_reference_no}</td>
+                               <td class="text-right" style="padding-right:2.6rem;">(P ${parseToCurrency(data.legal_research_fund)})</td>
+                               <td class="text-right"></td>
+                           </tr>
+
+                               
+                                <tr>
+                                    <td colspan="3">Undeposited Collections, this Report</td>
+                                    <td class="text-right">&nbsp;<div class="w-100 d-inline-block text-right" style="padding-right: .9rem;"> P ${parseToCurrency(data.undeposit_collection)}</div></td>
+                                </tr>
+
+                                <tr>
+                               
+                                    <td colspan="2" style="padding-left:4.5rem;">CIAP - PCAB</td>
+                                    <td class="text-right" style="padding-right:2.6rem;">(
+                                        P ${parseToCurrency(data.fees_pcab)})</td>
                                     <td class="text-right"></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3">Undeposited Collections, this Report</td>
-                                    <td class="text-right">P <div class="w-100 d-inline-block text-right" style="padding-right: .7rem;">${parseToCurrency(data.undeposit_collection)}</div></td>
+                                    <td colspan="2" style="padding-left:4.5rem;">DST</td>
+                                    <td class="text-right" style="padding-right:2.6rem;">(P  ${parseToCurrency(data.document_stamp_tax)})</td>
+                                    <td class="text-right"></td>
                                 </tr>
+                                <tr>
+                                    <td colspan="2" style="padding-left:4.5rem;">LRF</td>
+                                    <td class="text-right" style="padding-right:2.6rem;">(P ${parseToCurrency(data.legal_research_fund)})</td>
+                                    <td class="text-right"></td>
+                                </tr>
+
                             </tbody>
                         </table>
 
@@ -314,7 +343,7 @@
                             in the attached electronic file of the List if Daily Collection.
                         </div>
 
-                        
+    
 
                         <div class="w-100" style="margin-top: 6rem;">
                                 <div class="">
