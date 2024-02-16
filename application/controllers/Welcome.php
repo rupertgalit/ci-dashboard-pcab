@@ -56,8 +56,12 @@ class Welcome extends CI_Controller
 				return;
 			}
 
-			if ($result["route"] == "acknowledgement-receipt")
+			if ($result["route"] == "acknowledgement-receipt") {
+				$latest_deposit = $this->crud->last_data_deposit();
 				$result["data"] = $this->crud->get_all_data();
+				$result["last_deposit"] = $latest_deposit ? $this->crud->get_deposit_transactions([$latest_deposit["dep_id"]])[0] : null;
+				$result["last_deposit_date"] = $latest_deposit ? $latest_deposit["deposited_date"] : null;
+			}
 
 
 

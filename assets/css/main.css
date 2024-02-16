@@ -394,6 +394,10 @@ table tr:nth-child(odd) {
 	user-select: none;
 }
 
+.modal#Submit_deposit #settlements label {
+	padding-bottom: 1.5rem;
+}
+
 .modal#Submit_deposit.loading button span {
 	display: none;
 }
@@ -401,6 +405,8 @@ table tr:nth-child(odd) {
 .modal#Submit_deposit.loading button span[hidden],
 .modal#Submit_deposit.loading button i[class*="icon-"].spin[hidden] {
 	display: inline-block !important;
+	padding: 0 !important;
+	margin: 0 !important;
 }
 
 .spin {

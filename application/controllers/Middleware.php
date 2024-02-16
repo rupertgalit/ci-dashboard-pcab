@@ -365,7 +365,7 @@ class Middleware extends REST_Controller
                 if($val_trancation !=false){
                     $this->response([
                         'status' => false,
-                        'message' =>  'Please check your deposit trancation date',
+                        'message' =>  'The date of collection was pre-deposited..',
                       
                     ], Rest_Controller::HTTP_UNPROCESSABLE_ENTITY);
 
@@ -394,7 +394,7 @@ class Middleware extends REST_Controller
                      if($this->validateBalance($deposit_transation)==false){
                         $this->response([
                             'status' => false,
-                            'message' =>  'Please check your inmput amount',
+                            'message' =>  'Total amount exceed the expected amount.',
                             'data1'=>$deposit_transation,'data2'=>$last_deposit_trans,'getTotalAmount'=>$getTotalAmount
                         ], Rest_Controller::HTTP_UNPROCESSABLE_ENTITY);
                      };

@@ -25,7 +25,6 @@
 
                     <!-- <button style="margin-top: -20px;" type="button"
                         class="btn-sm btn-outline-dark border-0 mr-3 mb-2 rounded download-btn-modal">Deposit</button> -->
-                    <a tabindex="0" class="btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover">Dismissible popover</a>
                 </div>
 
 
@@ -142,7 +141,7 @@
                 })
             });
             const shortDateFormat = (date) => {
-                if (!date) return "<i>none<i>";
+                if (!date) return "<i>N/A<i>";
                 return new Intl.DateTimeFormat('en-US', {
                     year: "numeric",
                     month: "numeric",
@@ -183,10 +182,12 @@
                 $(document).on("click", ({
                     target
                 }) => {
-                    if (target.dataset["toggle"] == "popover" || target.parentElement.classList.contains("popover") || target.parentElement.classList.contains("popover-body"))
+                    if (target.parentElement.classList.contains("popover") || target.parentElement.classList.contains("popover-body"))
                         return
+
                     $('.popover').removeClass("show")
                     $('.popover').remove()
+
 
                 })
             });
