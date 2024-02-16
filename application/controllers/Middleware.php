@@ -359,8 +359,17 @@ class Middleware extends REST_Controller
 
                 $depositLogs['created_at'] =  date('Y-m-d');
 
-                $depositLogs['date_covered'] = $postdata['collection_date_from'] . ' to' . $postdata['collection_date_to'];
+                $depositLogs['date_covered'] =  str_replace(array( '-'), '', $postdata['collection_date_from']) . str_replace(array( '-'), '', $postdata['collection_date_to']) ;
+                  
+                $val_trancation  =    $this->model->validateDepositTransaction($depositLogs);
+                if($val_trancation !=false){
+                    $this->response([
+                        'status' => false,
+                        'message' =>  'Please check your deposit trancation date',
+                      
+                    ], Rest_Controller::HTTP_UNPROCESSABLE_ENTITY);
 
+                }
                 $depositLogs['date_from'] = $postdata['collection_date_from'];
 
                 $depositLogs['date_to'] = $postdata['collection_date_to'];
@@ -369,13 +378,27 @@ class Middleware extends REST_Controller
               
                 $last_deposit_trans=$this->model->last_deposit_trnasaction();
 
-                $deposit_transation['balance_fees_pcab']  =  $getTotalAmount['feespcab']-$postdata['fees_pcab']['amount'];
+                $deposit_trans_fees_pcab = $last_deposit_trans ? $last_deposit_trans['balance_fees_pcab'] : 0;
+                $deposit_trans_dstax = $last_deposit_trans ? $last_deposit_trans['balance_document_stamp_tax'] : 0;
+                $deposit_trans_lrf = $last_deposit_trans ? $last_deposit_trans['balnace_legal_research_fund'] : 0;
+ 
+                $deposit_transation['balance_fees_pcab']  =  $getTotalAmount['feespcab'] + $deposit_trans_fees_pcab - $postdata['fees_pcab']['amount'];
 
-                $deposit_transation['balnace_legal_research_fund']  =  $getTotalAmount['lrfund']-$postdata['legal_research_fund']['amount'];
+                $deposit_transation['balnace_legal_research_fund']  =  $getTotalAmount['lrfund'] +$deposit_trans_lrf - $postdata['legal_research_fund']['amount'];
 
-                $deposit_transation['balance_document_stamp_tax']  = $getTotalAmount['ds_tax']-$postdata['document_stamp_tax']['amount'];
+                $deposit_transation['balance_document_stamp_tax']  = $getTotalAmount['ds_tax'] + $deposit_trans_dstax - $postdata['document_stamp_tax']['amount'];
 
                 $depositLogs['last_deposit_trans_id'] = $last_deposit_trans ? $last_deposit_trans['tbl_id'] : 0;
+
+                //balidate balane
+                     if($this->validateBalance($deposit_transation)==false){
+                        $this->response([
+                            'status' => false,
+                            'message' =>  'Please check your inmput amount',
+                            'data1'=>$deposit_transation,'data2'=>$last_deposit_trans,'getTotalAmount'=>$getTotalAmount
+                        ], Rest_Controller::HTTP_UNPROCESSABLE_ENTITY);
+                     };
+
 
                 $lastid =      $this->model->log_deposit($depositLogs);
                 if ($lastid) {
@@ -393,6 +416,22 @@ class Middleware extends REST_Controller
             // }
 
         }
+    }
+
+    public function validateBalance($data)
+    {
+        if($data['balance_fees_pcab']<0){
+              $result=false;
+        } else if (  $data['balnace_legal_research_fund']  <0){
+            $result=false;
+        }else if (  $data['balance_document_stamp_tax']  <0){
+            $result=false;
+        }else{
+            $result=true;
+        }
+ 
+       return  $result;
+        
     }
 
     public function all_deposit_data_get()
