@@ -49,7 +49,7 @@
                             <th>PCAB Fee</th>
                             <th>Total Amt. of Collection</th>
                             <th>Date <i class="m-0">(mm/dd/yyyy)</i></th>
-                            <th>Ref. No.</th>
+                            <th>Transactions</th>
                             <th>Deposited Amount</th>
                         </tr>
                     </thead>
@@ -59,7 +59,7 @@
                         $fmt = new NumberFormatter('en-US', NumberFormatter::CURRENCY);
                         $fmt->setPattern(str_replace('¤#', "\xC2\xA0#", $fmt->getPattern()));
 
-                        if (!empty($data))
+                        if ($data != false)
                             foreach ($data as $key => $row) {
                                 $undeposited = (float) $row["legal_research_fund"] +
                                     (float) $row["document_stamp_tax"] +
@@ -76,7 +76,7 @@
                                 echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["no_ngsi_fee"]), false) . "</td>";
                                 echo "<td>" .  date_format(date_create($row["deposited_date"]), "m/d/Y") . "</td>";
                                 echo "<td>
-                                    <a tabindex='0' class='btn-lg btn-danger' role='button' data-toggle='popover' data-trigger='focus' title='Dismissible popover' data-content='" . json_encode($row) . "'>Dismissible popover</a>
+                                    <a tabindex='0' class='btn-sm' role='button' data-toggle='popover' data-trigger='focus' title='Deposit of " . date_format(date_create($row["deposited_date"]), "m/d/Y") . "' data-content='" . json_encode($row) . "'>View</a>
                                 </td>";
                                 echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["deposited_amount"]), false) . "</td>";
                                 echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["undeposit_collection"]), false) . "</td>";
@@ -167,14 +167,14 @@
 
                         return `
                         <b>PCAB Fees</b>
-                        <p class="pl-2 mb-1">Deposited: ${data.transactions.fees_pcab}</p>
-                        <p class="pl-2 mb-1">Undeposited: ${data.last_deposit_transactions?.fees_pcab ?? 0}</p>
+                        <p class="pl-2 mb-1">Deposited: ${parseToCurrency(data.transactions.fees_pcab)}</p>
+                        <p class="pl-2 mb-1">Undeposited: ${parseToCurrency(Math.abs(parseFloat(data.transactions?.balance_fees_pcab) ?? 0))}</p>
                         <b>DST</b>
-                        <p class="pl-2 mb-1">Deposited: ${data.transactions.document_stamp_tax}</p>
-                        <p class="pl-2 mb-1">Undeposited: ${data.last_deposit_transactions?.document_stamp_tax ?? 0}</p>
+                        <p class="pl-2 mb-1">Deposited: ${parseToCurrency(data.transactions.document_stamp_tax)}</p>
+                        <p class="pl-2 mb-1">Undeposited: ${parseToCurrency(Math.abs(parseFloat(data.transactions.balance_document_stamp_tax) ?? 0))}</p>
                         <b>LRF</b>
-                        <p class="pl-2 mb-1">Deposited: ${data.transactions.legal_research_fund}</p>
-                        <p class="pl-2 mb-1">Undeposited: ${data.last_deposit_transactions?.legal_research_fund ?? 0}</p>
+                        <p class="pl-2 mb-1">Deposited: ${parseToCurrency(data.transactions.legal_research_fund)}</p>
+                        <p class="pl-2 mb-1">Undeposited: ${parseToCurrency(Math.abs(parseFloat(data.transactions?.balnace_legal_research_fund) ?? 0))}</p>
                 `
                     },
                     container: 'body',
@@ -183,10 +183,10 @@
                 $(document).on("click", ({
                     target
                 }) => {
+                    if (target.dataset["toggle"] == "popover" || target.parentElement.classList.contains("popover") || target.parentElement.classList.contains("popover-body"))
+                        return
                     $('.popover').removeClass("show")
                     $('.popover').remove()
-                    if (target.dataset["toggle"] == "popover")
-                        return
 
                 })
             });
