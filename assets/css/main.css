@@ -328,9 +328,9 @@ table tr:nth-child(odd) {
 	padding: 0 5px;
 }
 
-.modal#Submit_deposit div#settlements span  {
+.modal#Submit_deposit div#settlements span {
 	position: absolute;
-	margin-top: .7rem;
+	margin-top: 0.7rem;
 	margin-left: 0.6rem;
 }
 
@@ -360,7 +360,7 @@ table tr:nth-child(odd) {
 	content: "To *";
 }
 
-.modal#Submit_deposit div#dateOfDeposit input[name=deposited_date]::before {
+.modal#Submit_deposit div#dateOfDeposit input[name="deposited_date"]::before {
 	content: "Date of Deposit *" !important;
 }
 
@@ -369,7 +369,6 @@ table tr:nth-child(odd) {
 	width: 10rem;
 	padding-left: 1rem !important;
 }
-
 
 .modal#Submit_deposit div#referenceNo.filled span,
 .modal#Submit_deposit div#dateOfDeposit.filled span,
@@ -387,14 +386,16 @@ table tr:nth-child(odd) {
 
 .modal#Submit_deposit.loading input {
 	background-color: #efefef;
-	
 }
 
-
-.modal#Submit_deposit.loading button{
-	opacity: .7;
+.modal#Submit_deposit.loading button {
+	opacity: 0.7;
 	pointer-events: none;
 	user-select: none;
+}
+
+.modal#Submit_deposit #settlements label {
+	padding-bottom: 1.5rem;
 }
 
 .modal#Submit_deposit.loading button span {
@@ -404,6 +405,8 @@ table tr:nth-child(odd) {
 .modal#Submit_deposit.loading button span[hidden],
 .modal#Submit_deposit.loading button i[class*="icon-"].spin[hidden] {
 	display: inline-block !important;
+	padding: 0 !important;
+	margin: 0 !important;
 }
 
 .spin {
@@ -448,6 +451,41 @@ table tr:nth-child(odd) {
 #PDFContent table tr td:last-child {
 	padding-right: 1rem !important;
 	display: table-cell !important;
+}
+
+[popover] {
+	position: relative;
+	/* inset: 30%; */
+	top: 18% !important;
+	left: 26% !important;
+}
+
+.popover.bs-popover-auto {
+	width: 30rem !important;
+	max-width: 40rem;
+}
+.popover span.col {
+	text-align: right;
+}
+
+.popover p span {
+	font-size: 10px;
+	color: #908e8e;
+	position: relative;
+	bottom: 9px;
+}
+
+.popover span.collection-label {
+	float: right;
+	text-wrap: nowrap;
+	font-weight: 600;
+	opacity: 0.6;
+	font-size: 9px;
+}
+
+.popover p b {
+	font-size: 14px;
+	/* color: #908e8e; */
 }
 
 /* .modal#Submit_deposit div#requirements input#referenceNo:focus > span {

@@ -8,13 +8,13 @@
     </li> -->
     <li class="nav-item">
       <a class="nav-link" href="acknowledgement-receipt">
-        <span class="menu-title text-capitalize">Transactions</span>
+        <span class="menu-title text-capitalize">Acknowledgements</span>
         <i class="icon-grid  menu-icon"></i>
       </a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="deposit">
-        <span class="menu-title text-capitalize">Deposit</span>
+        <span class="menu-title text-capitalize">Deposits</span>
         <i class="icon-grid  menu-icon"></i>
       </a>
     </li>

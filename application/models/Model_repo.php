@@ -32,6 +32,12 @@ class Model_repo extends CI_Model
         return $Q->row_array() ? $Q->result_array() : false;
     }
 
+    public function validateDepositTransaction($postdata)
+    {
+        $qry = 'select date_covered from tbl_deposit where date_covered like ? ';
+        $Q = $this->db->query($qry, $postdata['date_covered']);
+        return $Q->row_array() ? $Q->row_array() : false;
+    }
     public function insertApiLogs($data)
     {
         $lastId = $this->db->insert_id($this->db->insert('api_logs', $data));

@@ -56,33 +56,31 @@ class Welcome extends CI_Controller
 				return;
 			}
 
-			if ($result["route"] == "acknowledgement-receipt")
+			if ($result["route"] == "acknowledgement-receipt") {
+				$latest_deposit = $this->crud->last_data_deposit();
 				$result["data"] = $this->crud->get_all_data();
+				$result["last_deposit"] = $latest_deposit ? $this->crud->get_deposit_transactions([$latest_deposit["dep_id"]])[0] : null;
+				$result["last_deposit_date"] = $latest_deposit ? $latest_deposit["deposited_date"] : null;
+			}
 
 
 
 			if ($result["route"] == "deposit") {
 
 				$deposits = $this->crud->all_deposit_data();
-				if($deposits){
+				if ($deposits) {
 
 					$deposit_transations_added = array_map(function ($data) {
 						$transactions = $this->crud->get_deposit_transactions($data["dep_id"]);
 						$last_transactions = $this->crud->get_deposit_transactions($data["last_deposit_trans_id"]);
-						$data["transactions"] = $last_transactions? $transactions[0]:0;
+						$data["transactions"] = $transactions[0];
 						$data["last_deposit_transactions"] = $last_transactions[0] ?? null;
 						return $data;
-					}, $deposits);
-	
+					}, $deposits ? $deposits : []);
 					$result["data"] = $deposit_transations_added;
-
-				}
-				else {
+				} else {
 					$result["data"] = false;
 				}
-
-
-				
 			}
 			$this->load->view('index', $result);
 		} else {

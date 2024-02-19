@@ -22,12 +22,18 @@ class CrudModel extends CI_Model
         // return $query();
     }
 
+    public function last_data_deposit()
+    {
+        $result = "SELECT * FROM pcab_db.tbl_deposit ORDER BY dep_id DESC LIMIT 1";
 
+        $data = $this->db->query($result);
+        return $data->row_array() ? $data->row_array() : false;
+    }
 
     public function get_all_data()
     {
 
-        $sql = 'SELECT * FROM transactions where status = "SUCCESS";';
+        $sql = 'SELECT * FROM transactions where status = "SUCCESS" ORDER BY trans_id DESC';
         $Q = $this->db->query($sql);
         return $Q->row_array() ? $Q->result_array() : false;
     }
@@ -35,7 +41,7 @@ class CrudModel extends CI_Model
     public function all_deposit_data()
     {
 
-        $sql = 'SELECT * FROM tbl_deposit';
+        $sql = 'SELECT * FROM tbl_deposit   ORDER BY dep_id DESC';
         $Q = $this->db->query($sql);
         return $Q->row_array() ? $Q->result_array() : false;
     }

@@ -48,7 +48,7 @@
                             <th>PCAB Fee</th>
                             <th>Total Amt. of Collection</th>
                             <th>Date <i class="m-0">(mm/dd/yyyy)</i></th>
-                            <th>Ref. No.</th>
+                            <th>Transactions</th>
                             <th>Deposited Amount</th>
                         </tr>
                     </thead>
@@ -58,7 +58,7 @@
                         $fmt = new NumberFormatter('en-US', NumberFormatter::CURRENCY);
                         $fmt->setPattern(str_replace('¤#', "\xC2\xA0#", $fmt->getPattern()));
 
-                        if ($data != false){
+                        if ($data != false)
                             foreach ($data as $key => $row) {
                                 $undeposited = (float) $row["legal_research_fund"] +
                                     (float) $row["document_stamp_tax"] +
@@ -74,19 +74,14 @@
                                 echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["fees_pcab"]), false) . "</td>";
                                 echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["no_ngsi_fee"]), false) . "</td>";
                                 echo "<td>" .  date_format(date_create($row["deposited_date"]), "m/d/Y") . "</td>";
-                                echo "<td> " .  $row["deposit_reference_no"] . "</td>";
+                                echo "<td>
+                                    <a tabindex='0' class='btn-sm' role='button' data-toggle='popover' data-placement='bottom' data-trigger='focus' title='Deposit of " . date_format(date_create($row["deposited_date"]), "m/d/Y") . "' data-content='" . json_encode($row) . "'>View</a>
+                                </td>";
                                 echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["deposited_amount"]), false) . "</td>";
                                 echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["undeposit_collection"]), false) . "</td>";
                                 echo "<td><button class='btn-sm btn-outline-dark border-0 px-3 py-1 rounded download-btn-modal' onclick='downloadDeposit($key)'>Download</button></td>";
                                 echo "</tr>";
                             }
-                        }
-                            else  {
-                                echo "<tr py-5><td colspan='10'>No data available</td></tr>";
-                            }
-                                
-                           
-                           
                         ?>
 
                     </tbody>
@@ -146,7 +141,7 @@
                 })
             });
             const shortDateFormat = (date) => {
-                if (!date) return "<i>none<i>";
+                if (!date) return "<i>N/A<i>";
                 return new Intl.DateTimeFormat('en-US', {
                     year: "numeric",
                     month: "numeric",
@@ -163,6 +158,67 @@
                     scrollX: '80%',
                     scrollCollapse: true,
                 });
+
+                $('[data-toggle="tooltip"]').tooltip({
+                    boundary: 'window'
+                })
+                $('[data-toggle="popover"]').popover({
+                    content: function() {
+                        const data = JSON.parse($(this).attr('data-content'))
+                        const totalUndeposited = Math.abs(parseFloat(data.transactions?.balance_fees_pcab ?? 0)) + Math.abs(parseFloat(data.transactions?.balance_document_stamp_tax ?? 0)) + Math.abs(parseFloat(data.transactions?.balnace_legal_research_fund ?? 0))
+                        const totalDeposited = Math.abs(parseFloat(data.transactions.fees_pcab)) + Math.abs(parseFloat(data.transactions.document_stamp_tax)) + Math.abs(parseFloat(data.transactions.legal_research_fund))
+                        const totalCollection = Math.abs(
+                            parseFloat(data.fees_pcab) +
+                            parseFloat(data.document_stamp_tax) +
+                            parseFloat(data.legal_research_fund) +
+                            parseFloat(data.last_deposit_transactions?.balance_fees_pcab ?? 0) +
+                            parseFloat(data.last_deposit_transactions?.balance_document_stamp_tax ?? 0) +
+                            parseFloat(data.last_deposit_transactions?.balnace_legal_research_fund ?? 0)
+                        )
+                        console.log(data)
+                        return `
+                        <div class="mb-2 d-flex flex-row po-content"><span class="col-2 p-0 text-nowrap po-content"></span><span class="pr-0 font-weight-bold col po-content">(&#8369;) Collections<span class="collection-label">(+ Balance from last report)</span></span><span class="pr-0 font-weight-bold col">(&#8369;) Deposited</span><span class="pr-0 font-weight-bold col po-content">(&#8369;) Undeposited<span class="collection-label">(This Report)</span></span></div>
+                        <div class="mb-0 d-flex flex-row po-content"><span class="col-2 p-0 text-nowrap po-content"><p class="d-inline text-center po-content"><b class="px-auto">PCAB Fees</b><br/><span>(0052-1684-30)</span></p></span><span class="p-0 col po-content ">${parseToCurrency(Math.abs(parseFloat(data.last_deposit_transactions?.balance_fees_pcab ?? 0)) + parseFloat(data.fees_pcab))}<br><span class="collection-label">(+ ${parseToCurrency(Math.abs(parseFloat(data.last_deposit_transactions?.balance_fees_pcab ?? 0)))})</span></span><span class="p-0 col">${parseToCurrency(data.transactions.fees_pcab)}</span><span class="p-0 col">${parseToCurrency(Math.abs(parseFloat(data.transactions?.balance_fees_pcab ?? 0)))}</span></div>
+                        <div class="mb-0 d-flex flex-row po-content"><span class="col-2 p-0 text-nowrap po-content"><p class="d-inline text-center po-content"><b class="px-auto">DST</b><br/><span>(3402-2866-00)</span></p></span><span class="p-0 col po-content ">${parseToCurrency(Math.abs(parseFloat(data.last_deposit_transactions?.balance_document_stamp_tax ?? 0)) + parseFloat(data.document_stamp_tax))}<br><span class="collection-label">(+ ${parseToCurrency(Math.abs(parseFloat(data.last_deposit_transactions?.balance_document_stamp_tax ?? 0)))})</span></span><span class="p-0 col">${parseToCurrency(data.transactions.document_stamp_tax)}</span><span class="p-0 col">${parseToCurrency(Math.abs(parseFloat(data.transactions?.balance_document_stamp_tax ?? 0)))}</span></div>
+                        <div class="mb-0 d-flex flex-row po-content"><span class="col-2 p-0 text-nowrap po-content"><p class="d-inline text-center po-content"><b class="px-auto">LRF</b><br/><span>(3402-2866-00)</span></p></span></span><span class="p-0 col po-content ">${parseToCurrency(Math.abs(parseFloat(data.last_deposit_transactions?.balnace_legal_research_fund ?? 0)) + parseFloat(data.legal_research_fund))}<br><span class="collection-label">(+ ${parseToCurrency(Math.abs(parseFloat(data.last_deposit_transactions?.balnace_legal_research_fund ?? 0)))})</span></span><span class="p-0 col">${parseToCurrency(data.transactions.legal_research_fund)}</span><span class="p-0 col">${parseToCurrency(Math.abs(parseFloat(data.transactions?.balnace_legal_research_fund ?? 0)))}</span></div>
+                        <div class="mb-0 d-flex flex-row po-content"><span class="col-2 p-0 text-nowrap po-content"><p class="d-inline text-center po-content"><b class="px-auto">Total</b></p></span><span class="p-0 col">${parseToCurrency(totalCollection)}</span><span class="p-0 col">${parseToCurrency(totalDeposited)}</span><span class="p-0 col">${parseToCurrency(totalUndeposited)}</span></div>
+                        `
+                        // <p class="d-inline text-center"><b class="px-auto">PCAB Fees</b><br/><span>(0052-1684-30)</span></p>
+                        // <p class="d-inline text-center"><b class="px-auto">DST</b><br/><span>(3402-2866-00)</span></p>
+                        // <p class="d-inline text-center"><b class="px-auto">LRF</b><br/><span>(3402-2866-00)</span></p>
+                        // <b>PCAB Fees (0052-1684-30)</b>
+                        // <p class="pl-2 mb-0">Deposited: </p>
+                        // <p class="pl-2 mb-0 text-right">${parseToCurrency(data.transactions.fees_pcab)}</p>
+                        // <p class="pl-2 mb-0">Undeposited: </p>
+                        // <p class="pl-2 mb-0 text-center">${parseToCurrency(Math.abs(parseFloat(data.transactions?.balance_fees_pcab) ?? 0))}</p>
+                        // <b>DST (3402-2866-00)</b>
+                        //  <p class="pl-2 mb-0">Deposited:</p>
+                        // <p class="pl-2 mb-0 text-right">${parseToCurrency(data.transactions.document_stamp_tax)}</p>
+                        // <p class="pl-2 mb-0">Undeposited: </p>
+                        // <p class="pl-2 mb-0 text-center">${parseToCurrency(Math.abs(parseFloat(data.transactions?.balance_document_stamp_tax) ?? 0))}</p>
+                        // <b>LRF (3402-2866-00)</b>
+                        //  <p class="pl-2 mb-0">Deposited:</p>
+                        // <p class="pl-2 mb-0 text-right">${parseToCurrency(data.transactions.legal_research_fund)}</p>
+                        // <p class="pl-2 mb-0">Undeposited: </p>
+                        // <p class="pl-2 mb-0 text-center">${parseToCurrency(Math.abs(parseFloat(data.transactions?.balance_legal_research_fund) ?? 0))}</p>
+                    },
+                    container: 'body',
+                    fallbackPlacement: ["top", "bottom"],
+                    html: true,
+                    boundary: 'viewport',
+                });
+                $(document).on("click", ({
+                    target
+                }) => {
+                    console.log(target.parentElement)
+                    if (target.parentElement.classList.contains("popover") || target.parentElement.classList.contains("popover-body") || target.parentElement.classList.contains("po-content") || target.parentElement.type == "span")
+                        return
+
+                    $('.popover').removeClass("show")
+                    $('.popover').remove()
+
+
+                })
             });
 
             const parseToCurrency = val => {
@@ -219,9 +275,9 @@
                                    
                                 </tr>
                                 <tr>
-                                    <td colspan="2" class="pl-3" style="margin-top:-10px;position:absolute;margin-left:-1px;">Total Amount of Collection <p style="vertical-align:center;position:absolute;margin-top:-20px;margin-left:490px;font-size: 12px;">P ${parseToCurrency(data.txn_amount)}</p></td>
+                                    <td colspan="2" class="pl-3" style="margin-top:-10px;position:absolute;margin-left:.5px;">Total Amount of Collection <p style="vertical-align:center;position:absolute;margin-top:-20px;margin-left:675px;font-size: 12px;">P ${parseToCurrency(data.txn_amount)}</p></td>
                                     <td></td>
-                                    </tr>
+                                </tr>
 
                                 <tr>
                                
@@ -241,32 +297,68 @@
                                     <td class="text-right"></td>
                                 </tr>
                                 <tr >
-                                    <td colspan="3" class="pb-3">Deposit / Fund Transfers</td>
+                                    <td colspan="3" class="pb-3">Deposit / Fund Transfers <p style="vertical-align:center;position:absolute;margin-top:-20px;margin-left:682px;font-size: 12px;">P ${parseToCurrency(data.deposited_amount)}</p></td>
                                     <td></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2" class="pl-5">
-                                        <div class="w-100 d-flex justify-content-between">
+                                
                                             <span>
-                                                Date: <label class="border-bottom border-dark text-center m-0"
-                                                    style="width:5rem;display:inline-block">${shortDateFormat(data.deposited_date)}</label>
+                                                (Date: ${shortDateFormat(data.deposited_date)})
                                             </span>
-                                            <span class="position-relative"><label class="text-center m-0"
-                                                    style="width:5rem;display:inline-block;">P <div class="w-100 d-inline-block text-right pr-1">${parseToCurrency(data.deposited_amount)}</div></label></span>
-                                        </div>
+                                        
                                     </td>
-                                    <td class="text-left" style="padding-right:3rem;"></td>
-                                    <td class="text-right">(${parseToCurrency(data.deposited_amount)})</td>
+                                    <td class="text-left" style="padding-right:2rem;"></td>
+                                    <td class="text-right"></td>
+                                    <td></td>
                                 </tr>
-                                <tr style="vertical-align: top;">
-                                    <td colspan="2" class="pl-5 pb-3">Reference No.:  ${data.deposit_reference_no}</td>
-                                    <td class="text-right" style="padding-right:3rem;"></td>
+
+                                <tr>
+                                    <td colspan="2" class="pl-3" style="margin-top:-10px;position:absolute;margin-left:.5px;">Total Amount of Collection <p style="vertical-align:center;position:absolute;margin-top:-20px;margin-left:675px;font-size: 12px;">P ${parseToCurrency(data.txn_amount)}</p></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                               
+                               <td colspan="2" style="padding-left:4.5rem;">CIAP - PCAB &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ref No.:  ${data.deposit_reference_no}</td>
+                               <td class="text-right" style="padding-right:2.6rem;"> (
+                                   P ${parseToCurrency(data.fees_pcab)})</td>
+                               <td class="text-right"></td>
+                           </tr>
+                           <tr>
+                               <td colspan="2" style="padding-left:4.5rem;">DST &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ref No.:  ${data.deposit_reference_no}</td>
+                               <td class="text-right" style="padding-right:2.6rem;">(P  ${parseToCurrency(data.document_stamp_tax)})</td>
+                               <td class="text-right"></td>
+                           </tr>
+                           <tr>
+                               <td colspan="2" style="padding-left:4.5rem;">LRF &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ref No.:  ${data.deposit_reference_no}</td>
+                               <td class="text-right" style="padding-right:2.6rem;">(P ${parseToCurrency(data.legal_research_fund)})</td>
+                               <td class="text-right"></td>
+                           </tr>
+
+                               
+                                <tr>
+                                    <td colspan="3">Undeposited Collections, this Report</td>
+                                    <td class="text-right">&nbsp;<div class="w-100 d-inline-block text-right" style="padding-right: .9rem;"> P ${parseToCurrency(data.undeposit_collection)}</div></td>
+                                </tr>
+
+                                <tr>
+                               
+                                    <td colspan="2" style="padding-left:4.5rem;">CIAP - PCAB</td>
+                                    <td class="text-right" style="padding-right:2.6rem;">(
+                                        P ${parseToCurrency(data.fees_pcab)})</td>
                                     <td class="text-right"></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3">Undeposited Collections, this Report</td>
-                                    <td class="text-right">P <div class="w-100 d-inline-block text-right" style="padding-right: .7rem;">${parseToCurrency(data.undeposit_collection)}</div></td>
+                                    <td colspan="2" style="padding-left:4.5rem;">DST</td>
+                                    <td class="text-right" style="padding-right:2.6rem;">(P  ${parseToCurrency(data.document_stamp_tax)})</td>
+                                    <td class="text-right"></td>
                                 </tr>
+                                <tr>
+                                    <td colspan="2" style="padding-left:4.5rem;">LRF</td>
+                                    <td class="text-right" style="padding-right:2.6rem;">(P ${parseToCurrency(data.legal_research_fund)})</td>
+                                    <td class="text-right"></td>
+                                </tr>
+
                             </tbody>
                         </table>
 
@@ -281,7 +373,7 @@
                             in the attached electronic file of the List if Daily Collection.
                         </div>
 
-                        
+    
 
                         <div class="w-100" style="margin-top: 6rem;">
                                 <div class="">
