@@ -342,7 +342,7 @@ class Middleware extends REST_Controller
             // $deposit_transation['deposited_date'] = $postdata['deposited_date'];
 
 
-              $valdate= $this->validateDate($data);
+            //   $valdate= $this->validateDate($data);
 
             $deposit_transation['document_stamp_tax'] = $postdata['document_stamp_tax']['amount'];
 
