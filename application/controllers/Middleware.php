@@ -148,7 +148,7 @@ class Middleware extends REST_Controller
 
             if ($doUpdateApiLog) {
                 // echo $totalAmount;
-                echo json_encode($data['data']['callback_uri']);
+                // echo json_encode($data['data']['callback_uri']);
                 echo $response['response'];
             }
         }
