@@ -75,7 +75,7 @@
                                 echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["no_ngsi_fee"]), false) . "</td>";
                                 echo "<td>" .  date_format(date_create($row["deposited_date"]), "m/d/Y") . "</td>";
                                 echo "<td>
-                                    <a tabindex='0' class='btn-sm' role='button' data-toggle='popover' data-trigger='focus' title='Deposit of " . date_format(date_create($row["deposited_date"]), "m/d/Y") . "' data-content='" . json_encode($row) . "'>View</a>
+                                    <a tabindex='0' class='btn-sm' role='button' data-toggle='popover' data-placement='bottom' data-trigger='focus' title='Deposit of " . date_format(date_create($row["deposited_date"]), "m/d/Y") . "' data-content='" . json_encode($row) . "'>View</a>
                                 </td>";
                                 echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["deposited_amount"]), false) . "</td>";
                                 echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["undeposit_collection"]), false) . "</td>";
@@ -159,30 +159,59 @@
                     scrollCollapse: true,
                 });
 
+                $('[data-toggle="tooltip"]').tooltip({
+                    boundary: 'window'
+                })
                 $('[data-toggle="popover"]').popover({
                     content: function() {
                         const data = JSON.parse($(this).attr('data-content'))
+                        const totalUndeposited = Math.abs(parseFloat(data.transactions?.balance_fees_pcab ?? 0)) + Math.abs(parseFloat(data.transactions?.balance_document_stamp_tax ?? 0)) + Math.abs(parseFloat(data.transactions?.balnace_legal_research_fund ?? 0))
+                        const totalDeposited = Math.abs(parseFloat(data.transactions.fees_pcab)) + Math.abs(parseFloat(data.transactions.document_stamp_tax)) + Math.abs(parseFloat(data.transactions.legal_research_fund))
+                        const totalCollection = Math.abs(
+                            parseFloat(data.fees_pcab) +
+                            parseFloat(data.document_stamp_tax) +
+                            parseFloat(data.legal_research_fund) +
+                            parseFloat(data.last_deposit_transactions?.balance_fees_pcab ?? 0) +
+                            parseFloat(data.last_deposit_transactions?.balance_document_stamp_tax ?? 0) +
+                            parseFloat(data.last_deposit_transactions?.balnace_legal_research_fund ?? 0)
+                        )
                         console.log(data)
-
                         return `
-                        <b>PCAB Fees</b>
-                        <p class="pl-2 mb-1">Deposited: ${parseToCurrency(data.transactions.fees_pcab)}</p>
-                        <p class="pl-2 mb-1">Undeposited: ${parseToCurrency(Math.abs(parseFloat(data.transactions?.balance_fees_pcab) ?? 0))}</p>
-                        <b>DST</b>
-                        <p class="pl-2 mb-1">Deposited: ${parseToCurrency(data.transactions.document_stamp_tax)}</p>
-                        <p class="pl-2 mb-1">Undeposited: ${parseToCurrency(Math.abs(parseFloat(data.transactions.balance_document_stamp_tax) ?? 0))}</p>
-                        <b>LRF</b>
-                        <p class="pl-2 mb-1">Deposited: ${parseToCurrency(data.transactions.legal_research_fund)}</p>
-                        <p class="pl-2 mb-1">Undeposited: ${parseToCurrency(Math.abs(parseFloat(data.transactions?.balnace_legal_research_fund) ?? 0))}</p>
-                `
+                        <div class="mb-2 d-flex flex-row po-content"><span class="col-2 p-0 text-nowrap po-content"></span><span class="pr-0 font-weight-bold col po-content">(&#8369;) Collections<span class="collection-label">(+ Balance from last report)</span></span><span class="pr-0 font-weight-bold col">(&#8369;) Deposited</span><span class="pr-0 font-weight-bold col po-content">(&#8369;) Undeposited<span class="collection-label">(This Report)</span></span></div>
+                        <div class="mb-0 d-flex flex-row po-content"><span class="col-2 p-0 text-nowrap po-content"><p class="d-inline text-center po-content"><b class="px-auto">PCAB Fees</b><br/><span>(0052-1684-30)</span></p></span><span class="p-0 col po-content ">${parseToCurrency(Math.abs(parseFloat(data.last_deposit_transactions?.balance_fees_pcab ?? 0)) + parseFloat(data.fees_pcab))}<br><span class="collection-label">(+ ${parseToCurrency(Math.abs(parseFloat(data.last_deposit_transactions?.balance_fees_pcab ?? 0)))})</span></span><span class="p-0 col">${parseToCurrency(data.transactions.fees_pcab)}</span><span class="p-0 col">${parseToCurrency(Math.abs(parseFloat(data.transactions?.balance_fees_pcab ?? 0)))}</span></div>
+                        <div class="mb-0 d-flex flex-row po-content"><span class="col-2 p-0 text-nowrap po-content"><p class="d-inline text-center po-content"><b class="px-auto">DST</b><br/><span>(3402-2866-00)</span></p></span><span class="p-0 col po-content ">${parseToCurrency(Math.abs(parseFloat(data.last_deposit_transactions?.balance_document_stamp_tax ?? 0)) + parseFloat(data.document_stamp_tax))}<br><span class="collection-label">(+ ${parseToCurrency(Math.abs(parseFloat(data.last_deposit_transactions?.balance_document_stamp_tax ?? 0)))})</span></span><span class="p-0 col">${parseToCurrency(data.transactions.document_stamp_tax)}</span><span class="p-0 col">${parseToCurrency(Math.abs(parseFloat(data.transactions?.balance_document_stamp_tax ?? 0)))}</span></div>
+                        <div class="mb-0 d-flex flex-row po-content"><span class="col-2 p-0 text-nowrap po-content"><p class="d-inline text-center po-content"><b class="px-auto">LRF</b><br/><span>(3402-2866-00)</span></p></span></span><span class="p-0 col po-content ">${parseToCurrency(Math.abs(parseFloat(data.last_deposit_transactions?.balnace_legal_research_fund ?? 0)) + parseFloat(data.legal_research_fund))}<br><span class="collection-label">(+ ${parseToCurrency(Math.abs(parseFloat(data.last_deposit_transactions?.balnace_legal_research_fund ?? 0)))})</span></span><span class="p-0 col">${parseToCurrency(data.transactions.legal_research_fund)}</span><span class="p-0 col">${parseToCurrency(Math.abs(parseFloat(data.transactions?.balnace_legal_research_fund ?? 0)))}</span></div>
+                        <div class="mb-0 d-flex flex-row po-content"><span class="col-2 p-0 text-nowrap po-content"><p class="d-inline text-center po-content"><b class="px-auto">Total</b></p></span><span class="p-0 col">${parseToCurrency(totalCollection)}</span><span class="p-0 col">${parseToCurrency(totalDeposited)}</span><span class="p-0 col">${parseToCurrency(totalUndeposited)}</span></div>
+                        `
+                        // <p class="d-inline text-center"><b class="px-auto">PCAB Fees</b><br/><span>(0052-1684-30)</span></p>
+                        // <p class="d-inline text-center"><b class="px-auto">DST</b><br/><span>(3402-2866-00)</span></p>
+                        // <p class="d-inline text-center"><b class="px-auto">LRF</b><br/><span>(3402-2866-00)</span></p>
+                        // <b>PCAB Fees (0052-1684-30)</b>
+                        // <p class="pl-2 mb-0">Deposited: </p>
+                        // <p class="pl-2 mb-0 text-right">${parseToCurrency(data.transactions.fees_pcab)}</p>
+                        // <p class="pl-2 mb-0">Undeposited: </p>
+                        // <p class="pl-2 mb-0 text-center">${parseToCurrency(Math.abs(parseFloat(data.transactions?.balance_fees_pcab) ?? 0))}</p>
+                        // <b>DST (3402-2866-00)</b>
+                        //  <p class="pl-2 mb-0">Deposited:</p>
+                        // <p class="pl-2 mb-0 text-right">${parseToCurrency(data.transactions.document_stamp_tax)}</p>
+                        // <p class="pl-2 mb-0">Undeposited: </p>
+                        // <p class="pl-2 mb-0 text-center">${parseToCurrency(Math.abs(parseFloat(data.transactions?.balance_document_stamp_tax) ?? 0))}</p>
+                        // <b>LRF (3402-2866-00)</b>
+                        //  <p class="pl-2 mb-0">Deposited:</p>
+                        // <p class="pl-2 mb-0 text-right">${parseToCurrency(data.transactions.legal_research_fund)}</p>
+                        // <p class="pl-2 mb-0">Undeposited: </p>
+                        // <p class="pl-2 mb-0 text-center">${parseToCurrency(Math.abs(parseFloat(data.transactions?.balance_legal_research_fund) ?? 0))}</p>
                     },
                     container: 'body',
-                    html: true
+                    fallbackPlacement: ["top", "bottom"],
+                    html: true,
+                    boundary: 'viewport',
                 });
                 $(document).on("click", ({
                     target
                 }) => {
-                    if (target.parentElement.classList.contains("popover") || target.parentElement.classList.contains("popover-body"))
+                    console.log(target.parentElement)
+                    if (target.parentElement.classList.contains("popover") || target.parentElement.classList.contains("popover-body") || target.parentElement.classList.contains("po-content") || target.parentElement.type == "span")
                         return
 
                     $('.popover').removeClass("show")

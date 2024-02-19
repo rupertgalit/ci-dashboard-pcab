@@ -455,9 +455,37 @@ table tr:nth-child(odd) {
 
 [popover] {
 	position: relative;
-    /* inset: 30%; */
-    top: 18% !important;
-    left: 26% !important;
+	/* inset: 30%; */
+	top: 18% !important;
+	left: 26% !important;
+}
+
+.popover.bs-popover-auto {
+	width: 30rem !important;
+	max-width: 40rem;
+}
+.popover span.col {
+	text-align: right;
+}
+
+.popover p span {
+	font-size: 10px;
+	color: #908e8e;
+	position: relative;
+	bottom: 9px;
+}
+
+.popover span.collection-label {
+	float: right;
+	text-wrap: nowrap;
+	font-weight: 600;
+	opacity: 0.6;
+	font-size: 9px;
+}
+
+.popover p b {
+	font-size: 14px;
+	/* color: #908e8e; */
 }
 
 /* .modal#Submit_deposit div#requirements input#referenceNo:focus > span {
