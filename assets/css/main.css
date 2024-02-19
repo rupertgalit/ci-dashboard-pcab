@@ -461,8 +461,8 @@ table tr:nth-child(odd) {
 }
 
 .popover.bs-popover-auto {
-	width: 30rem !important;
-	max-width: 40rem;
+	/* width: 30rem !important;
+	max-width: 40rem; */
 }
 .popover span.col {
 	text-align: right;
