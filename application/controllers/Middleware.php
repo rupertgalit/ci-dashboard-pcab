@@ -245,6 +245,36 @@ class Middleware extends REST_Controller
         ], Rest_Controller::HTTP_OK);
     }
 
+    function validateDate( $data)
+    {
+
+        $dateTime2 = new DateTime($dateString2);
+        $dayOfWeek1 = $dateTime->format('l');
+        $dayOfWeek2 = $dateTime2->format('l');
+        
+        
+        
+                    if($dayOfWeek1 !=$dayOfWeek2){
+        
+        
+                        if ($dayOfWeek1 == 'Friday' && $dayOfWeek2 == 'Sunday') {
+        
+                            $return=true;
+                          
+                        } else {
+                            $return=false;
+                           
+                        }
+                       
+                    }else{
+                    
+                        $return=true;
+                      
+                    }
+        
+                      return  $return;
+
+    }
     public function deposit_log_post()
     {
 
@@ -310,6 +340,9 @@ class Middleware extends REST_Controller
             // } else {
 
             // $deposit_transation['deposited_date'] = $postdata['deposited_date'];
+
+
+              $valdate= $this->validateDate($data);
 
             $deposit_transation['document_stamp_tax'] = $postdata['document_stamp_tax']['amount'];
 
@@ -380,11 +413,11 @@ class Middleware extends REST_Controller
 
                 $deposit_trans_fees_pcab = $last_deposit_trans ? $last_deposit_trans['balance_fees_pcab'] : 0;
                 $deposit_trans_dstax = $last_deposit_trans ? $last_deposit_trans['balance_document_stamp_tax'] : 0;
-                $deposit_trans_lrf = $last_deposit_trans ? $last_deposit_trans['balnace_legal_research_fund'] : 0;
+                $deposit_trans_lrf = $last_deposit_trans ? $last_deposit_trans['balance_legal_research_fund'] : 0;
  
                 $deposit_transation['balance_fees_pcab']  =  $getTotalAmount['feespcab'] + $deposit_trans_fees_pcab - $postdata['fees_pcab']['amount'];
 
-                $deposit_transation['balnace_legal_research_fund']  =  $getTotalAmount['lrfund'] +$deposit_trans_lrf - $postdata['legal_research_fund']['amount'];
+                $deposit_transation['balance_legal_research_fund']  =  $getTotalAmount['lrfund'] +$deposit_trans_lrf - $postdata['legal_research_fund']['amount'];
 
                 $deposit_transation['balance_document_stamp_tax']  = $getTotalAmount['ds_tax'] + $deposit_trans_dstax - $postdata['document_stamp_tax']['amount'];
 
@@ -422,7 +455,7 @@ class Middleware extends REST_Controller
     {
         if($data['balance_fees_pcab']<0){
               $result=false;
-        } else if (  $data['balnace_legal_research_fund']  <0){
+        } else if (  $data['balance_legal_research_fund']  <0){
             $result=false;
         }else if (  $data['balance_document_stamp_tax']  <0){
             $result=false;
