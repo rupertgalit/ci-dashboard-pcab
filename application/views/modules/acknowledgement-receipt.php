@@ -444,7 +444,7 @@
                                 <input type="text" name="amount" class="p-2 pl-3 mb-2 w-100  border rounded text-right">
                             </div>
                         </div>
-                        <label class="">Legal Research Fund <span class="d-inline p-0 m-0 pl-2" style="pointer-events:auto;margin-top:3px!important;" tabindex="0" data-toggle="tooltip" title="Undeposited LRF of <?= $last_deposit_date ? date_format(date_create($last_deposit_date), "m/d/Y") : "N/A" ?>">(&#8369;<?= $fmt->formatCurrency(floatval($last_deposit ? $last_deposit["balnace_legal_research_fund"] : 0), "PHP") ?> <i class="icon-info bg-dark text-white rounded-circle"></i>)</span>
+                        <label class="">Legal Research Fund <span class="d-inline p-0 m-0 pl-2" style="pointer-events:auto;margin-top:3px!important;" tabindex="0" data-toggle="tooltip" title="Undeposited LRF of <?= $last_deposit_date ? date_format(date_create($last_deposit_date), "m/d/Y") : "N/A" ?>">(&#8369;<?= $fmt->formatCurrency(floatval($last_deposit ? $last_deposit["balance_legal_research_fund"] : 0), "PHP") ?> <i class="icon-info bg-dark text-white rounded-circle"></i>)</span>
                             <span class="m-0 p-0 pl-3 d-block lrf" style="margin-top:3px!important;">Total: &#8369; 0.00</span></label>
                         <div id="legal_research_fund" class="d-flex flex-row justify-content-between">
                             <div id="referenceNo">
@@ -1108,7 +1108,7 @@
     }, resetToZero = false) => {
         const fee = latest_deposit_data ? parseFloat(latest_deposit_data.balance_fees_pcab) : 0
         const dst = latest_deposit_data ? parseFloat(latest_deposit_data.balance_document_stamp_tax) : 0
-        const lrf = latest_deposit_data ? parseFloat(latest_deposit_data.balnace_legal_research_fund) : 0
+        const lrf = latest_deposit_data ? parseFloat(latest_deposit_data.balance_legal_research_fund) : 0
         const total_collection_bal = fee + dst + lrf
         $("#Submit_deposit span.total-collection").text(`Total: ₱ ${toLocalCurrency((resetToZero ? 0 : parseFloat(total_collection)) + total_collection_bal)}`)
         $("#Submit_deposit span.pcab-fee").text(`Total: ₱ ${toLocalCurrency((resetToZero ? 0 : parseFloat(total_pcab_fee)) + fee)}`)
