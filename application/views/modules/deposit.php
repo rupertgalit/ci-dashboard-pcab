@@ -370,7 +370,7 @@
                             style="text-align: justify;text-justify: inter-word;margin-top: 2rem; font-size: .9rem; line-height:32px;">
                             This is to certify the above is true and correct statement. That the amount collected is
                             to deposited intact
-                            to the Landbank of the Philippines (LANDBANK) bank accouns with account number
+                            to the Landbank of the Philippines (LANDBANK) bank accounts with account number
                             <b>CIAP - PCAB</b> (0052-1684-30), <b>BTr-CIAP-NGSI-DST</b> (3402-2866-00)m ,<b>BTr-CIAP-NGSI-
                             LRF</b> (3402-2866-19) and dully supported by attached proof of deposit. Details of collections can be generated from our online
                             reporting facility or
