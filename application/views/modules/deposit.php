@@ -246,124 +246,94 @@
                         <table class="border-0">
                             <tbody>
                                 <tr>
-                                    <td colspan="3">Undeposited Collections per last Report,<br>(Date: ${data.last_date ? shortDateFormat(data.last_date): "N/A"})
-                                    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CIAP&nbsp;-&nbsp;PCAB<p style="vertical-align:center;position:absolute;margin-top:-20px;margin-left:500px;font-size: 12px;"> (P ${parseToCurrency(data.last_deposit_transactions?.balance_fees_pcab ?? "0.00")})</p>
-                                    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DST&nbsp;&nbsp;&nbsp<p style="vertical-align:center;position:absolute;margin-top:-20px;margin-left:500px;font-size: 12px;"> (P ${parseToCurrency(data.last_deposit_transactions?.balance_document_stamp_tax ?? "0.00")})</p>
-                                    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LRF&nbsp;&nbsp;<p style="vertical-align:center;position:absolute;margin-top:-20px;margin-left:500px;font-size: 12px;"> (P ${parseToCurrency(data.last_deposit_transactions?.balance_legal_research_fund ?? "0.00")})</p>
-                                    <td colspan="3">Undeposited Collections per last Report,<br>(Date: ${data.last_date ? shortDateFormat(data.last_date): "N/A"})
-                                    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CIAP&nbsp;-&nbsp;PCAB<p style="vertical-align:center;position:absolute;margin-top:-20px;margin-left:500px;font-size: 12px;"> (P ${parseToCurrency(data.last_deposit_transactions?.balance_fees_pcab ?? "0.00")})</p>
-                                    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DST&nbsp;&nbsp;&nbsp<p style="vertical-align:center;position:absolute;margin-top:-20px;margin-left:500px;font-size: 12px;"> (P ${parseToCurrency(data.last_deposit_transactions?.balance_document_stamp_tax ?? "0.00")})</p>
-                                    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LRF&nbsp;&nbsp;<p style="vertical-align:center;position:absolute;margin-top:-20px;margin-left:500px;font-size: 12px;"> (P ${parseToCurrency(data.last_deposit_transactions?.balance_legal_research_fund ?? "0.00")})</p>
+                                    <td colspan="2">Undeposited Collections per last Report,<br>(Date: ${data.last_date ? shortDateFormat(data.last_date): "N/A"})<br>
+                                        <p class="m-0" style="font-size: 12px;padding-left:4rem;">CIAP&nbsp;-&nbsp;PCAB</p>
+                                        <p class="m-0" style="font-size: 12px;padding-left:4rem;">DST&nbsp;&nbsp;&nbsp</p>
+                                        <p class="m-0" style="font-size: 12px;padding-left:4rem;">LRF&nbsp;&nbsp;</p>
+                                    </td>
+                                    <td style="vertical-align:bottom;">
+                                        <span class="m-0 mb-1 text-right d-block" style="font-size: 12px;">P ${parseToCurrency(data.last_deposit_transactions?.balance_fees_pcab ?? "0.00")}</span>
+                                        <span class="m-0 mb-1 text-right d-block" style="font-size: 12px;">P ${parseToCurrency(data.last_deposit_transactions?.balance_document_stamp_tax ?? "0.00")}</span>
+                                        <span class="m-0 mb-0 text-right d-block" style="font-size: 12px;">P ${parseToCurrency(data.last_deposit_transactions?.balance_legal_research_fund ?? "0.00")}</span>
                                     </td>
                                     <td class="text-right" style="vertical-align:top;"><div class="w-100 d-inline-block text-right" style="padding-right: .7rem;">P ${parseToCurrency(data.last_txn_amont ?? "0.00")}</div></td>
                               </tr>
-                                <tr>
+                              <tr>
                                     <td colspan="3">Collections, ${data.date_from != data.date_to ? shortDateFormat(data.date_from) + " to " + shortDateFormat(data.date_to) : shortDateFormat(data.date_from)}</td>
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td class="pl-3 pb-3">Total Number of Transaction <p style="vertical-align:center;position:absolute;margin-top:-20px;margin-left:490px;font-size: 12px;"> ${(data.ttl_trnsact ?? "0")}</p></td>
-                                   
+                                    <td colspan="2" class="pl-3 pb-3">Total Number of Transaction</td>
+                                    <td > <p style="font-size: 12px;text-align:right;padding-right: .25rem;margin: 0;vertical-align: middle;"> <span class="pb-1 border-dark border-bottom">${(data.ttl_trnsact ?? "0")}</span></p></td>
+                                   <td></td>
                                 </tr>
-                                <tr>
-                                    <td colspan="2" class="pl-3" style="margin-top:-10px;position:absolute;margin-left:.5px;">Total Amount of Collection <p style="vertical-align:center;position:absolute;margin-top:-20px;margin-left:675px;font-size: 12px;">P ${parseToCurrency(Math.abs(
-                            parseFloat(data.no_ngsi_fee) 
-                           
-                        ))}</p></td>
-                                    <td colspan="2" class="pl-3" style="margin-top:-10px;position:absolute;margin-left:.5px;">Total Amount of Collection <p style="vertical-align:center;position:absolute;margin-top:-20px;margin-left:675px;font-size: 12px;">P ${parseToCurrency(Math.abs(
-                            parseFloat(data.no_ngsi_fee) 
-                           
-                        ))}</p></td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                               
-                                    <td colspan="2" style="padding-left:4.5rem;">CIAP - PCAB</td>
-                                    <td class="text-right" style="padding-right:2.6rem;">(
-                                        P ${parseToCurrency(data.fees_pcab)})</td>
-                                    <td class="text-right"></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" style="padding-left:4.5rem;">DST</td>
-                                    <td class="text-right" style="padding-right:2.6rem;">(P  ${parseToCurrency(data.document_stamp_tax)})</td>
-                                    <td class="text-right"></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" style="padding-left:4.5rem;">LRF</td>
-                                    <td class="text-right" style="padding-right:2.6rem;">(P ${parseToCurrency(data.legal_research_fund)})</td>
-                                    <td class="text-right"></td>
+                              <tr>
+                                    <td class="pl-3" colspan="2">Total Amount of Collection<br>
+                                        <p class="mb-0" style="font-size: 12px;padding-left:3.5rem;">CIAP&nbsp;-&nbsp;PCAB</p>
+                                        <p class="mb-0" style="font-size: 12px;padding-left:3.5rem;">DST&nbsp;&nbsp;&nbsp</p>
+                                        <p class="mb-0" style="font-size: 12px;padding-left:3.5rem;">LRF&nbsp;&nbsp;</p>
+                                    </td>
+                                    <td style="vertical-align:bottom;">
+                                        <span class="m-0 mb-1 text-right d-block" style="font-size: 12px;padding-left:3.5rem;">P ${parseToCurrency(data.fees_pcab ?? "0.00")}</span>
+                                        <span class="m-0 mb-1 text-right d-block" style="font-size: 12px;padding-left:3.5rem;">P ${parseToCurrency(data.document_stamp_tax ?? "0.00")}</span>
+                                        <span class="m-0 mb-0 text-right d-block" style="font-size: 12px;padding-left:3.5rem;">P ${parseToCurrency(data.legal_research_fund ?? "0.00")}</span>
+                                    </td>
+                                    <td class="text-right" style="vertical-align:top;"><div class="w-100 d-inline-block text-right" style="padding-right: .7rem;">P ${parseToCurrency(data.no_ngsi_fee ?? "0.00")}</div></td>
                                 </tr>
                                 <tr >
-                                    <td colspan="3" class="pb-3">Deposit / Fund Transfers </td>
-                                    <td colspan="3" class="pb-3">Deposit / Fund Transfers </td>
+                                    <td colspan="4" class="">Deposit / Fund Transfers </td>
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2" class="pl-5">
+                                    <td colspan="4" class="">
                                 
                                             <span>
                                                 (Date: ${shortDateFormat(data.deposited_date)})
                                             </span>
-                                        
                                     </td>
-                                    <td class="text-left" style="padding-right:2rem;"></td>
-                                    <td class="text-right"></td>
-                                    <td></td>
                                 </tr>
 
                                 <tr>
-                                    <td colspan="2" class="pl-3" style="margin-top:-10px;position:absolute;margin-left:.5px;">Total Amount of Collection <p style="vertical-align:center;position:absolute;margin-top:-20px;margin-left:675px;font-size: 12px;">P ${parseToCurrency(data.deposited_amount)}</p></td>
-                                    <td colspan="2" class="pl-3" style="margin-top:-10px;position:absolute;margin-left:.5px;">Total Amount of Collection <p style="vertical-align:center;position:absolute;margin-top:-20px;margin-left:675px;font-size: 12px;">P ${parseToCurrency(data.deposited_amount)}</p></td>
-                                    <td></td>
+                                    <td colspan="3" class="pl-3">Total Amount of Collection </td>
+                                    <td><p style="text-align:right;font-size: 12px;padding-right: .7rem;">P ${parseToCurrency(data.deposited_amount)}</p></td>
                                 </tr>
                                 <tr>
                                
-                               <td colspan="2" style="padding-left:4.5rem;">CIAP - PCAB &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ref No.:  ${data.transactions?.pcab_ref_no ?? "N/A"}</td>
-                               <td colspan="2" style="padding-left:4.5rem;">CIAP - PCAB &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ref No.:  ${data.transactions?.pcab_ref_no ?? "N/A"}</td>
-                               <td class="text-right" style="padding-right:2.6rem;"> (
-                                   P ${parseToCurrency(data.transactions?.fees_pcab)})</td>
+                               <td colspan="2" style="padding: 0; padding-left:4.5rem;">CIAP - PCAB &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ref No.:  ${data.transactions?.pcab_ref_no ?? "N/A"}</td>
+                               <td class="text-right" style="padding: 0;"> P ${parseToCurrency(data.transactions?.fees_pcab)}</td>
                                <td class="text-right"></td>
                            </tr>
                            <tr>
-                               <td colspan="2" style="padding-left:4.5rem;">DST &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ref No.:  ${data.transactions?.dst_ref_no ?? "N/A"}</td>
-                               <td class="text-right" style="padding-right:2.6rem;">(P  ${parseToCurrency(data.transactions?.document_stamp_tax)})</td>
-                               <td colspan="2" style="padding-left:4.5rem;">DST &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ref No.:  ${data.transactions?.dst_ref_no ?? "N/A"}</td>
-                               <td class="text-right" style="padding-right:2.6rem;">(P  ${parseToCurrency(data.transactions?.document_stamp_tax)})</td>
+                               <td colspan="2" style="padding: 0; padding-left:4.5rem;">DST &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ref No.:  ${data.transactions?.dst_ref_no ?? "N/A"}</td>
+                               <td class="text-right" style="padding: 0;">P ${parseToCurrency(data.transactions?.document_stamp_tax)}</td>
                                <td class="text-right"></td>
                            </tr>
                            <tr>
-                               <td colspan="2" style="padding-left:4.5rem;">LRF &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ref No.:  ${data.transactions?.lrf_ref_no ?? "N/A"}</td>
-                               <td class="text-right" style="padding-right:2.6rem;">(P ${parseToCurrency(data.transactions?.legal_research_fund)})</td>
-                               <td colspan="2" style="padding-left:4.5rem;">LRF &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ref No.:  ${data.transactions?.lrf_ref_no ?? "N/A"}</td>
-                               <td class="text-right" style="padding-right:2.6rem;">(P ${parseToCurrency(data.transactions?.legal_research_fund)})</td>
+                               <td colspan="2" style="padding: 0; padding-left:4.5rem;">LRF &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ref No.:  ${data.transactions?.lrf_ref_no ?? "N/A"}</td>
+                               <td class="text-right" style="padding: 0;">P ${parseToCurrency(data.transactions?.legal_research_fund)}</td>
                                <td class="text-right"></td>
                            </tr>
 
                                
-                                <tr>
+                                <tr style="vertical-align:middle;">
                                     <td colspan="3">Undeposited Collections, this Report</td>
-                                    <td class="text-right">&nbsp;<div class="w-100 d-inline-block text-right" style="padding-right: .9rem;"> P ${parseToCurrency(data.undeposit_collection)}</div></td>
+                                    <td>&nbsp;<div class="text-right" style="padding-right: .7rem;"> P ${parseToCurrency(data.undeposit_collection)}</div></td>
                                 </tr>
 
                                 <tr>
                                
-                                    <td colspan="2" style="padding-left:4.5rem;">CIAP - PCAB</td>
-                                    <td class="text-right" style="padding-right:2.6rem;">(
-                                        P ${parseToCurrency(data.transactions?.balance_fees_pcab)})</td>
-                                        P ${parseToCurrency(data.transactions?.balance_fees_pcab)})</td>
+                                    <td colspan="2" style="padding:0; padding-left:4.5rem;">CIAP - PCAB</td>
+                                    <td class="text-right" style="padding:0;">P ${parseToCurrency(data.transactions?.balance_fees_pcab)}</td>
                                     <td class="text-right"></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2" style="padding-left:4.5rem;">DST</td>
-                                    <td class="text-right" style="padding-right:2.6rem;">(P  ${parseToCurrency(data.transactions?.balance_document_stamp_tax)})</td>
-                                    <td class="text-right" style="padding-right:2.6rem;">(P  ${parseToCurrency(data.transactions?.balance_document_stamp_tax)})</td>
+                                    <td colspan="2" style="padding:0; padding-left:4.5rem;">DST</td>
+                                    <td class="text-right" style="padding:0;">P  ${parseToCurrency(data.transactions?.balance_document_stamp_tax)}</td>
                                     <td class="text-right"></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2" style="padding-left:4.5rem;">LRF</td>
-                                    <td class="text-right" style="padding-right:2.6rem;">(P ${parseToCurrency(data.transactions?.balance_legal_research_fund)})</td>
-                                    <td class="text-right" style="padding-right:2.6rem;">(P ${parseToCurrency(data.transactions?.balance_legal_research_fund)})</td>
+                                    <td colspan="2" style="padding:0; padding-left:4.5rem;">LRF</td>
+                                    <td class="text-right" style="padding:0;">P ${parseToCurrency(data.transactions?.balance_legal_research_fund)}</td>
                                     <td class="text-right"></td>
                                 </tr>
 
