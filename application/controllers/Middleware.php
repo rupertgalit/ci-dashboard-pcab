@@ -109,7 +109,7 @@ class Middleware extends REST_Controller
         // ], Rest_Controller::HTTP_UNAUTHORIZED );
         // }
 
-        $get_header = $header['Authorization'];
+        $get_header = $header['Authorization'] ?? '';
 
         $params = json_encode($data['data']);
 
@@ -149,7 +149,9 @@ class Middleware extends REST_Controller
             if ($doUpdateApiLog) {
                 // echo $totalAmount;
                 // echo json_encode($data['data']['callback_uri']);
-                echo $response['response'];
+                // echo $response['response'];
+
+                $this->response(json_decode($response['response'],true), $response['status_code']);
             }
         }
     }
