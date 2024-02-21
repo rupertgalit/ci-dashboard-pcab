@@ -478,8 +478,7 @@
     <div class="modal-dialog modal-lg d-flex justify-content-center" role="document">
         <div class="modal-content" style="width: auto;">
             <div class="modal-header">
-                <h5 class="modal-title">Confirmation Modal</h5>
-                <button type="button" class="close text-right pr-4 text-dark" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h5 class="modal-title">Deposit Confirmation</h5>
             </div>
             <div class="modal-body bg-white pb-3 " style="width: auto; padding: 1rem 2rem;">
                 You are about to submit a deposit, are you sure you to proceed?
