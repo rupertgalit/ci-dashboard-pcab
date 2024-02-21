@@ -396,7 +396,7 @@
             <div class="modal-body bg-white py-3">
                 <!-- awdawd -->
                 <div class="d-flex flex-column input-form">
-                    <span class="message" style="position:relative; bottom: 1rem"></span>
+                    <span class="message" style="position:relative; bottom: .5rem"></span>
                     <div>
                         <label class="pb-1">Day(s) of Collection</label>
                         <span class="m-0 p-0 ml-1 total-collection" style="margin-top:3px!important;">Total: &#8369; 0.00</span>
