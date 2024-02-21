@@ -418,8 +418,8 @@
                         <div id="dateOfDeposit">
                             <input type="date" name="deposited_date" class="p-2 pl-3 mb-2 rounded w-100 border">
                         </div>
-                        <label class="">CIAP-PCAB <span class="d-inline p-0 m-0 pl-2" style="pointer-events:auto;margin-top:3px!important;" tabindex="0" data-toggle="tooltip" title="Undeposited Fee of <?= $last_deposit_date ? date_format(date_create($last_deposit_date), "m/d/Y") : "N/A" ?>">(&#8369;<?= $fmt->formatCurrency(floatval($last_deposit ? $last_deposit["balance_fees_pcab"] ?? 0 : 0), "PHP")   ?> <i class="icon-info bg-dark text-white rounded-circle"></i>)</span>
-                            <span class="m-0 p-0 pl-3 d-block pcab-fee" style="margin-top:3px!important;">Total: &#8369; 0.00</span></label>
+                        <label class="">CIAP-PCAB <span class="d-inline p-0 m-0 pl-2" style="pointer-events:auto;margin-top:3px!important;" tabindex="0" data-toggle="tooltip" title="Undeposited Fee of <?= $last_deposit_date ? date_format(date_create($last_deposit_date), "m/d/Y") : "N/A" ?>">(&#8369;<?= $fmt->formatCurrency(floatval($last_deposit ? $last_deposit["balance_fees_pcab"] : 0), "PHP")   ?> <i class="icon-info bg-dark text-white rounded-circle"></i>)</span>
+                            <span class="m-0 p-0 pl-3 d-block pcab-fee" style="margin-top:3px!important;">Total Amount: &#8369; 0.00</span></label>
                         <div id="fees_pcab" class="d-flex flex-row justify-content-between border-bottom">
                             <div id="referenceNo">
                                 <span>Reference No. *</span>
@@ -431,8 +431,8 @@
                                 <input type="text" name="amount" class="p-2 pl-3 border border-black mb-2 w-100 rounded text-right">
                             </div>
                         </div>
-                        <label class="">Documentary Stamp Tax <span class="d-inline p-0 m-0 pl-2" style="pointer-events:auto;margin-top:3px!important;" tabindex="0" data-toggle="tooltip" title="Undeposited DST of <?= $last_deposit_date ? date_format(date_create($last_deposit_date), "m/d/Y") : "N/A" ?>">(&#8369;<?= $fmt->formatCurrency(floatval($last_deposit ? $last_deposit["balance_document_stamp_tax"] ?? 0 : 0), "PHP") ?> <i class="icon-info bg-dark text-white rounded-circle"></i>)</span>
-                            <span class="m-0 p-0 pl-3 d-block dst" style="margin-top:3px!important;">Total: &#8369; 0.00</span></label>
+                        <label class="">Documentary Stamp Tax <span class="d-inline p-0 m-0 pl-2" style="pointer-events:auto;margin-top:3px!important;" tabindex="0" data-toggle="tooltip" title="Undeposited DST of <?= $last_deposit_date ? date_format(date_create($last_deposit_date), "m/d/Y") : "N/A" ?>">(&#8369;<?= $fmt->formatCurrency(floatval($last_deposit ? $last_deposit["balance_document_stamp_tax"] : 0), "PHP") ?> <i class="icon-info bg-dark text-white rounded-circle"></i>)</span>
+                            <span class="m-0 p-0 pl-3 d-block dst" style="margin-top:3px!important;">Total Amount: &#8369; 0.00</span></label>
                         <div id="document_stamp_tax" class="d-flex flex-row justify-content-between border-bottom">
                             <div id="referenceNo">
                                 <span>Reference No. *</span>
@@ -444,8 +444,8 @@
                                 <input type="text" name="amount" class="p-2 pl-3 mb-2 w-100  border rounded text-right">
                             </div>
                         </div>
-                        <label class="">Legal Research Fund <span class="d-inline p-0 m-0 pl-2" style="pointer-events:auto;margin-top:3px!important;" tabindex="0" data-toggle="tooltip" title="Undeposited LRF of <?= $last_deposit_date ? date_format(date_create($last_deposit_date), "m/d/Y") : "N/A" ?>">(&#8369;<?= $fmt->formatCurrency(floatval($last_deposit ? $last_deposit["balance_legal_research_fund"] ?? 0 : 0), "PHP") ?> <i class="icon-info bg-dark text-white rounded-circle"></i>)</span>
-                            <span class="m-0 p-0 pl-3 d-block lrf" style="margin-top:3px!important;">Total: &#8369; 0.00</span></label>
+                        <label class="">Legal Research Fund <span class="d-inline p-0 m-0 pl-2" style="pointer-events:auto;margin-top:3px!important;" tabindex="0" data-toggle="tooltip" title="Undeposited LRF of <?= $last_deposit_date ? date_format(date_create($last_deposit_date), "m/d/Y") : "N/A" ?>">(&#8369;<?= $fmt->formatCurrency(floatval($last_deposit ? $last_deposit["balnace_legal_research_fund"] : 0), "PHP") ?> <i class="icon-info bg-dark text-white rounded-circle"></i>)</span>
+                            <span class="m-0 p-0 pl-3 d-block lrf" style="margin-top:3px!important;">Total Amount: &#8369; 0.00</span></label>
                         <div id="legal_research_fund" class="d-flex flex-row justify-content-between">
                             <div id="referenceNo">
                                 <span>Reference No. *</span>
@@ -466,7 +466,7 @@
 
                 <button type="button" class="btn-sm border-0 m-0 ml-2 rounded close-modal bg-secondary" id="cancelDeposit" data-dismiss="modal" aria-hidden="true">Cancel</button>
                 <!-- <button type="button" class="btn-sm border-0 m-0 ml-2 rounded close-modal bg-secondary" id="confirmDeposit" data-toggle="modal" data-target="#DepositConfirmationModal" data-backdrop="static" data-keyboard="false">confirm</button> -->
-                <button type="button" class="btn-sm border-0 m-0 ml-2 rounded submit-deposit-btn-modal" id="submitDeposit" onmouseover="this.style.opacity=1" onmouseleave="this.style.opacity=.8" style="background-color:#00507a;opacity:.8;">
+                <button type="button" class="btn-sm border-0 m-0 ml-2 rounded submit-deposit-btn-modal" id="submitDeposit" data-toggle="modal" data-target="#DepositConfirmationModal" id="submit-deposit" data-backdrop="static" data-keyboard="false" onmouseover="this.style.opacity=1" onmouseleave="this.style.opacity=.8" style="background-color:#00507a;opacity:.8;">
                     <i class="icon-settings spin" hidden></i> <span>Submit</span><span hidden>Submitting</span>
                 </button>
 
@@ -474,7 +474,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="DepositConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="Confirmation_depositnModal" aria-hidden="true">
+<div class="modal fade show" id="DepositConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="Confirmation_depositnModal" aria-hidden="true">
     <div class="modal-dialog modal-lg d-flex justify-content-center" role="document">
         <div class="modal-content" style="width: auto;">
             <div class="modal-header">
@@ -482,16 +482,16 @@
                 <button type="button" class="close text-right pr-4 text-dark" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body bg-white pb-3 " style="width: auto; padding: 1rem 2rem;">
-                You are about to submit a deposit, are you sure ?
-                <table>
-                    <thead>
-                        <th></th>
-                        <th>Collections</th>
-                        <th>To Deposit</th>
-                        <th>Undeposited</th>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+                You are about to submit a deposit, are you sure you to proceed?
+            </div>
+            <div class="modal-footer bg-white border-top py-2 px-3">
+
+                <button type="button" class="btn-sm border-0 m-0 ml-2 rounded close-modal bg-secondary" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                <!-- <button type="button" class="btn-sm border-0 m-0 ml-2 rounded close-modal bg-secondary" id="confirmDeposit" data-toggle="modal" data-target="#DepositConfirmationModal" data-backdrop="static" data-keyboard="false">confirm</button> -->
+                <button type="button" class="btn-sm border-0 m-0 ml-2 rounded proceed-confirmation-btn" data-dismiss="modal" aria-hidden="true" onmouseover="this.style.opacity=1" onmouseleave="this.style.opacity=.8" style="background-color:#00507a;opacity:.8;">
+                    Proceed
+                </button>
+
             </div>
         </div>
     </div>
@@ -1141,7 +1141,7 @@
         updateToDepositAmount({}, true)
         if (new Date(this.value) > new Date((new Date()).getTime() - 86400000)) {
             const _this = this;
-            $("#Submit_deposit .message").text(`Date '${this.name.split("_")[2].toUpperCase()}' should not today of further.`).addClass("error");
+            $("#Submit_deposit .message").text(`Date '${this.name.split("_")[2].toUpperCase()}' should not today or further.`).addClass("error");
             setTimeout(function() {
                 return _this.parentElement.classList.add("error")
             }, 10);
@@ -1153,6 +1153,16 @@
             updateToDepositAmount({}, true)
             return;
         }
+
+        // if ((new Date()).getDay() != 1) {
+        //     if (this.name == "collection_date_to")
+        //         $("input[name='collection_date_from'").val(this.val())
+        //     if (this.name == "collection_date_from")
+        //         $("input[name='collection_date_to'").val(this.val())
+        // } else {
+        //     if (new Date(this.value) > new Date((new Date()).getTime() - (86400000 * 3)))
+        // }
+
         let toPopulate = false;
         data = null;
         if (body.collection_date_from && body.collection_date_to)
@@ -1209,7 +1219,7 @@
 
     $("#cancelDeposit").on("click", async () => {
         $("#Submit_deposit .message").text("").removeClass("success");
-        $("#Submit_deposit .filled").removeClass("filled");
+        $("#Submit_deposit .filled").removeClass("filled").removeClass("error");
         $("#Submit_deposit input").val("")
         $("#Submit_deposit #dateRange input").val("")
         $("#Submit_deposit").removeClass('loading')
@@ -1217,12 +1227,13 @@
     })
 
 
-    $("#confirmDeposit").on("click", function() {
-        let payload = {
-            document_stamp_tax: {},
-            fees_pcab: {},
-            legal_research_fund: {}
-        }
+    let payload = {
+        document_stamp_tax: {},
+        fees_pcab: {},
+        legal_research_fund: {}
+    }
+
+    $("#Submit_deposit").on("click", (e) => {
         let isInvalid = false
         $("#Submit_deposit input").each(function() {
             let value = this.value
@@ -1234,80 +1245,38 @@
             if (value == "") {
                 this.parentElement.classList.add("error")
                 isInvalid = true;
+                e.preventDefault();
+                e.stopPropagation()
                 return;
             }
             if (this.name == "amount" || this.name == "reference_no") {
                 const mainParent = this.parentElement.parentElement;
                 payload[mainParent.id][this.name] = this.name == "amount" ? this.value.replaceAll(",", "") : this.value;
                 return;
-
             }
             payload[this.name] = this.value;
         })
-        if (isInvalid) return;
-
-        if (new Date(payload.collection_date_from) > new Date(payload.collection_date_to)) {
-            $("[name=collection_date_from]").parent().addClass("error");
+        if (isInvalid) {
+            e.preventDefault();
+            e.stopPropagation()
             return;
         }
 
-        if ($("#Submit_deposit .settlements .error").length) return;
-        let toAppend = ""
-        let totalAmount = {
-            collection: 0,
-            deposit: 0,
-            undeposited: 0
+        if (new Date(payload.collection_date_from) > new Date(payload.collection_date_to)) {
+            $("[name=collection_date_from]").parent().addClass("error");
+            e.preventDefault();
+            e.stopPropagation()
+            return;
         }
-        const totalProps = {
-            fees_pcab: "total_pcab_fee",
-            document_stamp_tax: "total_dst",
-            legal_research_fund: "total_lrf"
+
+        if ($("#Submit_deposit .settlements .error").length) {
+            e.preventDefault();
+            e.stopPropagation()
+            return;
         }
-        for (prop of ["fees_pcab", "document_stamp_tax", "legal_research_fund"]) {
-            totalAmount.collection += parseFloat(data[totalProps[prop]])
-            totalAmount.deposit += parseFloat(payload[prop].amount)
-            totalAmount.undeposited += parseFloat(data[totalProps[prop]]) - parseFloat(payload[prop].amount)
-            toAppend += `<tr><td class="text-capitalize">${prop.replaceAll("_"," ")}</td><td class="text-right">${toLocalCurrency(data[totalProps[prop]])}</td><td class="text-right">${toLocalCurrency(payload[prop].amount)}</td><td class="text-right">${toLocalCurrency(data[totalProps[prop]] - payload[prop].amount)}</td></tr>`
-        }
-        $("#DepositConfirmationModal table tbody").html(toAppend + `<tr><td class="text-capitalize">Total</td><td class="text-right">${toLocalCurrency(totalAmount.collection)}</td><td class="text-right">${toLocalCurrency(totalAmount.deposit)}</td><td class="text-right">${toLocalCurrency(totalAmount.undeposited)}</td></tr>`)
     })
 
-    $("#submitDeposit").on("click", async () => {
-        let payload = {
-            document_stamp_tax: {},
-            fees_pcab: {},
-            legal_research_fund: {}
-        }
-        let isInvalid = false
-        $("#Submit_deposit input").each(function() {
-            let value = this.value
-
-            if (this.name == "deposited_date") {
-                value = new Date(this.value) <= new Date() ? this.value : ""
-            }
-
-            if (value == "") {
-                this.parentElement.classList.add("error")
-                isInvalid = true;
-                return;
-            }
-            if (this.name == "amount" || this.name == "reference_no") {
-                const mainParent = this.parentElement.parentElement;
-                payload[mainParent.id][this.name] = this.name == "amount" ? this.value.replaceAll(",", "") : this.value;
-                return;
-
-            }
-            payload[this.name] = this.value;
-        })
-        if (isInvalid) return;
-
-        if (new Date(payload.collection_date_from) > new Date(payload.collection_date_to)) {
-            $("[name=collection_date_from]").parent().addClass("error");
-            return;
-        }
-
-        if ($("#Submit_deposit .settlements .error").length) return;
-
+    $(".proceed-confirmation-btn").on("click", async () => {
         $("#Submit_deposit").addClass('loading')
 
         try {
