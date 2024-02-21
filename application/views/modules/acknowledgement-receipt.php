@@ -389,7 +389,7 @@
 <div class="modal fade" id="Submit_deposit" tabindex="-1" role="dialog" aria-labelledby="Submit_depositnModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg d-flex justify-content-center mt-3" role="document">
         <div id="Submit_depositModal" class="modal-content" style="width: 24rem;">
-            <div class="modal-header">
+            <div class="modal-header py-2">
                 <h5 class="modal-title" id="Submit_depositModalLabel">Collection(s) Settlement</h5>
                 <button type="button" class="close text-right pr-4 text-dark" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
@@ -420,7 +420,7 @@
                         </div>
                         <label class="">CIAP-PCAB <span class="d-inline p-0 m-0 pl-2" style="pointer-events:auto;margin-top:3px!important;" tabindex="0" data-toggle="tooltip" title="Undeposited Fee of <?= $last_deposit_date ? date_format(date_create($last_deposit_date), "m/d/Y") : "N/A" ?>">(&#8369;<?= $fmt->formatCurrency(floatval($last_deposit ? $last_deposit["balance_fees_pcab"] : 0), "PHP")   ?> <i class="icon-info bg-dark text-white rounded-circle"></i>)</span>
                             <span class="m-0 p-0 pl-3 d-block pcab-fee" style="margin-top:3px!important;">Total Amount: &#8369; 0.00</span></label>
-                        <div id="fees_pcab" class="d-flex flex-row justify-content-between border-bottom">
+                        <div id="fees_pcab" class="d-flex flex-row justify-content-between">
                             <div id="referenceNo">
                                 <span>Reference No. *</span>
                                 <input type="text" name="reference_no" class="p-2 pl-3 border border-black mb-2 w-100 rounded">
@@ -433,7 +433,7 @@
                         </div>
                         <label class="">Documentary Stamp Tax <span class="d-inline p-0 m-0 pl-2" style="pointer-events:auto;margin-top:3px!important;" tabindex="0" data-toggle="tooltip" title="Undeposited DST of <?= $last_deposit_date ? date_format(date_create($last_deposit_date), "m/d/Y") : "N/A" ?>">(&#8369;<?= $fmt->formatCurrency(floatval($last_deposit ? $last_deposit["balance_document_stamp_tax"] : 0), "PHP") ?> <i class="icon-info bg-dark text-white rounded-circle"></i>)</span>
                             <span class="m-0 p-0 pl-3 d-block dst" style="margin-top:3px!important;">Total Amount: &#8369; 0.00</span></label>
-                        <div id="document_stamp_tax" class="d-flex flex-row justify-content-between border-bottom">
+                        <div id="document_stamp_tax" class="d-flex flex-row justify-content-between">
                             <div id="referenceNo">
                                 <span>Reference No. *</span>
                                 <input type="text" name="reference_no" class="p-2 pl-3 border border-black mb-2 w-100 rounded">
@@ -444,7 +444,7 @@
                                 <input type="text" name="amount" class="p-2 pl-3 mb-2 w-100  border rounded text-right">
                             </div>
                         </div>
-                        <label class="">Legal Research Fund <span class="d-inline p-0 m-0 pl-2" style="pointer-events:auto;margin-top:3px!important;" tabindex="0" data-toggle="tooltip" title="Undeposited LRF of <?= $last_deposit_date ? date_format(date_create($last_deposit_date), "m/d/Y") : "N/A" ?>">(&#8369;<?= $fmt->formatCurrency(floatval($last_deposit ? $last_deposit["balnace_legal_research_fund"] : 0), "PHP") ?> <i class="icon-info bg-dark text-white rounded-circle"></i>)</span>
+                        <label class="">Legal Research Fund <span class="d-inline p-0 m-0 pl-2" style="pointer-events:auto;margin-top:3px!important;" tabindex="0" data-toggle="tooltip" title="Undeposited LRF of <?= $last_deposit_date ? date_format(date_create($last_deposit_date), "m/d/Y") : "N/A" ?>">(&#8369;<?= $fmt->formatCurrency(floatval($last_deposit ? $last_deposit["balance_legal_research_fund"] : 0), "PHP") ?> <i class="icon-info bg-dark text-white rounded-circle"></i>)</span>
                             <span class="m-0 p-0 pl-3 d-block lrf" style="margin-top:3px!important;">Total Amount: &#8369; 0.00</span></label>
                         <div id="legal_research_fund" class="d-flex flex-row justify-content-between">
                             <div id="referenceNo">
@@ -1124,7 +1124,31 @@
         $("#Submit_deposit .sum-of-deposit p").text(toLocalCurrency(total))
     }
 
-    const latest_deposit_data = JSON.parse('<?= json_encode($last_deposit) ?>')
+    const shortDateFormat = (date) => {
+        if (!date) return "<i>N/A<i>";
+        return new Intl.DateTimeFormat('en-US', {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit"
+        }).format(new Date(date))
+    }
+
+    const updateUndepositedTooltip = (data) => {
+        const list = {
+            "balance_fees_pcab": "Fee",
+            "balance_document_stamp_tax": "DST",
+            "balance_legal_research_fund": "LRF"
+        }
+        $("#Submit_deposit label").each(function(key) {
+            if (!key) return;
+            const prop = Object.keys(list)[key - 1]
+            this.children[0].dataset.mdbOriginalTitle = `Undeposited ${list[prop]} of ${shortDateFormat(data.last_deposit_date)}`;
+            this.children[0].innerHTML = `(&#8369; ${toLocalCurrency(data[prop])} <i class="icon-info bg-dark text-white rounded-circle"></i>)`;
+
+
+        })
+    }
+    let latest_deposit_data = JSON.parse('<?= json_encode($last_deposit) ?>')
     let dbTotalCollection = 0;
     let data;
 
@@ -1219,7 +1243,8 @@
 
     $("#cancelDeposit").on("click", async () => {
         $("#Submit_deposit .message").text("").removeClass("success");
-        $("#Submit_deposit .filled").removeClass("filled").removeClass("error");
+        $("#Submit_deposit .filled").removeClass("filled");
+        $("#Submit_deposit .error").removeClass("error");
         $("#Submit_deposit input").val("")
         $("#Submit_deposit #dateRange input").val("")
         $("#Submit_deposit").removeClass('loading')
@@ -1233,7 +1258,7 @@
         legal_research_fund: {}
     }
 
-    $("#Submit_deposit").on("click", (e) => {
+    $("#submitDeposit").on("click", (e) => {
         let isInvalid = false
         $("#Submit_deposit input").each(function() {
             let value = this.value
@@ -1292,6 +1317,7 @@
                 $("#Submit_deposit .message").text("Deposit settlement submitted succesfully.").addClass("success");
                 setTimeout(() => {
                     $(".modal button[data-dismiss=modal").each(function() {
+                        if (this.classList.contains("proceed-confirmation-btn")) return;
                         this.click()
                     })
                     $("#Submit_deposit .message").text("").removeClass("success");
@@ -1300,8 +1326,10 @@
                     $("#Submit_deposit #dateRange input").val("")
                     $("#Submit_deposit").removeClass('loading')
                     updateToDepositAmount({}, true)
+                    updateUndepositedTooltip({...res.data, last_deposit_date: payload["deposited_date"]})
                 }, 1500)
-                return
+                latest_deposit_data = res.data;
+                return;
             }
             throw (res)
 

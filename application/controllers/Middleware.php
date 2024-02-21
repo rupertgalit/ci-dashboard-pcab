@@ -441,11 +441,10 @@ class Middleware extends REST_Controller
                     $this->model->depositTransaction($deposit_transation);
                 }
             }
-
             $this->response([
                 'status' => true,
                 'message' =>  'Success',
-                'data' => $lastid
+                'data' => $deposit_transation
             ], Rest_Controller::HTTP_OK);
 
             // }
