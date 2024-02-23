@@ -274,7 +274,7 @@
 
                                                 <?php
                                                 $fmt = new NumberFormatter('en-US', NumberFormatter::CURRENCY);
-                                                $fmt->setPattern(str_replace('¤#', "\xC2\xA0#", $fmt->getPattern()));
+                                                $fmt->setPattern(str_replace('¤#', "", $fmt->getPattern()));
                                                 foreach ($data as $row) {
                                                     echo "<tr>";
                                                     echo "<td>" . date_format(date_create($row['date']), "m/d/Y") . "</td>";
@@ -285,7 +285,7 @@
                                                     echo "<td>" . $fmt->formatCurrency(floatval($total_per_AR), "PHP") . "</td>";
                                                     echo "<td class='text-right'>" . $fmt->formatCurrency(floatval($row["fees_pcab"]), "PHP") . "</td>";
                                                     echo "<td class='text-right'>" . $fmt->formatCurrency(floatval($row["document_stamp_tax"]), "PHP") . "</td>";
-                                                    echo "<td class='text-right'> " . $fmt->formatCurrency(floatval($row["legal_research_fund"]), "PHP") . "</td>";
+                                                    echo "<td class='text-right'>" . $fmt->formatCurrency(floatval($row["legal_research_fund"]), "PHP") . "</td>";
                                                     echo "</tr>";
                                                 }
                                                 ?>
@@ -362,12 +362,12 @@
                                 echo "<td>" . $row["name_of_payor"] . "</td>";
                                 echo "<td>" . $row["particulars"] . "</td>";
                                 echo "<td>" . $row["status"] . "</td>";
-                                echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["fees_pcab"]), "PHP") . "</td>";
-                                echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["legal_research_fund"]), "PHP") . "</td>";
-                                echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["document_stamp_tax"]), "PHP") . "</td>";
-                                echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["ngsi_convenience_fee"]), "PHP") . "</td>";
+                                echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["fees_pcab"]), "") . "</td>";
+                                echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["legal_research_fund"]), "") . "</td>";
+                                echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["document_stamp_tax"]), "") . "</td>";
+                                echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["ngsi_convenience_fee"]), "") . "</td>";
                                 $total_AR = $row["fees_pcab"] + $row["document_stamp_tax"] + $row["legal_research_fund"] + $row["ngsi_convenience_fee"];
-                                echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($total_AR), "PHP") . "</td>";
+                                echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($total_AR), "") . "</td>";
                                 $total_per_AR_formatted = number_format($total_per_AR, 2);
                                 echo "<td><button type='button'style='width: 80px; height: 25px; background: #555;' class=' btn-outline-dark border-0 btn-print-receipt' data-receipt-id='" . $row['trans_id'] . "'  onclick='printRow(" . $row['trans_id'] . ")'>Download</button></td>";
                                 echo "</tr>";
@@ -576,17 +576,38 @@
         var dataTable = $('#EcollectTable').DataTable({
             dom: 'Bfrtip',
             buttons: [{
-                extend: 'csv',
+                extend: 'excelHtml5',
                 text: 'Export',
                 filename: filename,
+                autoWidth: true,
+                header: true,
                 className: 'export-btn', // Add class name for styling
-                customize: function(csv) {
+                // customize: function(xlsx) {
+                //     console.log(xlsx)
+
+                //     var sheet = xlsx.xl.worksheets['sheet1.xml'];
+                //     $('row:first c', sheet).attr('s', '45').attr("t", "centerStr");
+                //     // $('sheetData', sheet).innerHTML = 
+                //     $('row', sheet).splice(0, 0, $('row', sheet)[0])
+                //     $('row:first', sheet).after($('row', sheet)[0])
+                //     console.log($('row', sheet),$('row', sheet)[0], sheet)
+                // },
+                customize(csv, btn, g) {
                     // Modify the header row according to the provided <thead> structure
-                    var header = 'Electronic Acknowledgement Receipt, ,, , Amount\n';
-                    var header1 = ',, ,, , Breakdown Collection\n';
-                    csv = header + header1 + csv;
-                    return csv;
-                }
+
+                    // var header = 'Electronic Acknowledgement Receipt, ,, , Amount\n';
+                    // var header1 = ',, ,, , Breakdown Collection\n';
+                    // console.log(header + header1 + csv)
+                    // return header + header1 + csv
+                },
+                // exportOptions: {
+                //     format: {
+                //         header(data, index) {
+                //             return data;
+                //         }
+                //     }
+                // }
+                // exportData()
             }]
         });
 
@@ -896,7 +917,7 @@
 
         const content = row => `
             <tr>
-                <td  style="  border: 1px solid black;">${row?.date ?? "&nbsp;"}</td>
+                <td  style="  border: 1px solid black;">${row?.date ?? ""}</td>
                 <td  style="  border: 1px solid black;">${row?.reference_number ?? ""}</td>
                 <td style="  border: 1px solid black;">${row?.name_of_payor ?? ""}</td>
                 <td style="  border: 1px solid black;" >${row?.referenceNumber ?? ""}</td>
@@ -1325,7 +1346,10 @@
                     $("#Submit_deposit #dateRange input").val("")
                     $("#Submit_deposit").removeClass('loading')
                     updateToDepositAmount({}, true)
-                    updateUndepositedTooltip({...res.data, last_deposit_date: payload["deposited_date"]})
+                    updateUndepositedTooltip({
+                        ...res.data,
+                        last_deposit_date: payload["deposited_date"]
+                    })
                 }, 1500)
                 latest_deposit_data = res.data;
                 return;
