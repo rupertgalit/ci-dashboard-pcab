@@ -840,9 +840,9 @@
            <div class="text-center text-uppercase py-3">
                     <p class="font-weight-bold" style="color:black;">LIST &nbsp;OF &nbsp;DAILY &nbsp;COLLECTION<p>
 
-                    <p style="color:black;margin-top:-20px;">Agency : &nbsp;CONSTRUCTIONINDUSTRY &nbsp;OF &nbsp;THE &nbsp;PHILIPPINES<p>
+                    <p style="color:black;margin-top:-20px;">Agency : &nbsp;CONSTRUCTION &nbsp INDUSTRY &nbsp; OF &nbsp; THE &nbsp;PHILIPPINES<p>
 
-                    <p class="text-justify" style="color:black;margin-top:-20px;">Board Phillippines Construction Accreditation board (PCAB)<p>
+                    <p class="text-justify" style="color:black;margin-top:-20px;">Board Phillippines &nbsp; Construction &nbsp; Accreditation &nbsp; board (PCAB)<p>
 
                     
                     <p class="text-capitalize" style="color:black;margin-top:-20px;">Date : ______<p>
