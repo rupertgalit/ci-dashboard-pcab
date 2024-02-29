@@ -581,33 +581,90 @@
                 filename: filename,
                 autoWidth: true,
                 header: true,
-                className: 'export-btn', // Add class name for styling
-                // customize: function(xlsx) {
-                //     console.log(xlsx)
+                title: "Electronic Collection",
+                className: 'export-btn',
+                customize: function(xlsx) {
+                    console.log(xlsx);
+                    let sheet = xlsx.xl.worksheets['sheet1.xml'];
+                    let downrows = 2;
+                    let clRow = $('row', sheet);
+                    const cToMerge = [{
+                        start: "A2",
+                        to: "B2"
+                    }, {
+                        start: "E2",
+                        to: "H2"
+                    }, {
+                        start: "F3",
+                        to: "H3"
+                    }
+                ];
 
-                //     var sheet = xlsx.xl.worksheets['sheet1.xml'];
-                //     $('row:first c', sheet).attr('s', '45').attr("t", "centerStr");
-                //     // $('sheetData', sheet).innerHTML = 
-                //     $('row', sheet).splice(0, 0, $('row', sheet)[0])
-                //     $('row:first', sheet).after($('row', sheet)[0])
-                //     console.log($('row', sheet),$('row', sheet)[0], sheet)
-                // },
-                customize(csv, btn, g) {
-                    // Modify the header row according to the provided <thead> structure
+                    clRow.each(function() {
+                        let attr = $(this).attr('r');
+                        if (attr == 1) return;
+                        let ind = parseInt(attr);
+                        ind = ind + downrows;
+                        $(this).attr("r", ind);
+                    });
 
-                    // var header = 'Electronic Acknowledgement Receipt, ,, , Amount\n';
-                    // var header1 = ',, ,, , Breakdown Collection\n';
-                    // console.log(header + header1 + csv)
-                    // return header + header1 + csv
-                },
-                // exportOptions: {
-                //     format: {
-                //         header(data, index) {
-                //             return data;
-                //         }
-                //     }
-                // }
-                // exportData()
+
+                    $('row c ', sheet).each(function() {
+                        let attr = $(this).attr('r');
+                        if (attr == "A1") return;
+                        let pre = attr.substring(0, 1);
+                        let ind = parseInt(attr.substring(1, attr.length));
+                        ind = ind + downrows;
+                        $(this).attr("r", pre + ind);
+                    });
+
+                    function Addrow(index, data) {
+                        msg = '<row r="' + index + '">'
+                        for (i = 0; i < data.length; i++) {
+                            let {
+                                k,
+                                v
+                            } = data[i]
+                            msg += '<c t="inlineStr" r="' + k + index + '" s="2">';
+                            msg += '<is>';
+                            msg += '<t>' + v + '</t>';
+                            msg += '</is>';
+                            msg += '</c>';
+                        }
+                        return msg;
+                    }
+
+                    function mergeCells(data) {
+                        let i = 0
+                        for (; i < data.length; i++) {
+                            let mc = sheet.createElement("mergeCell")
+                            mc.setAttribute("ref", `${data[i].start}:${data[i].to}`)
+                            sheet.childNodes[0].childNodes[2].appendChild(mc)
+                        }
+                        sheet.childNodes[0].childNodes[2].setAttribute("count", ++data.length)
+
+                    }
+
+                    mergeCells(cToMerge)
+
+                    let r1 = Addrow(2, [{
+                        k: 'A',
+                        v: 'Electronic Acknowledgement Receipt'
+                    }, {
+                        k: 'E',
+                        v: 'Amount'
+                    }]);
+                    let r2 = Addrow(3, [{
+                        k: 'F',
+                        v: 'Collection Breakdown'
+                    }]);
+
+                    let nodeArray = sheet.childNodes[0].childNodes[1].innerHTML.split("</row>")
+                    nodeArray.splice(1, 0, r1, r2)
+                    let strNode = nodeArray.join("</row>\n")
+                    sheet.childNodes[0].childNodes[1].innerHTML = strNode;
+                    console.log(sheet)
+                }
             }]
         });
 
