@@ -345,7 +345,7 @@
                             This is to certify the above is true and correct statement. That the amount collected is
                             to deposited intact
                             to the Landbank of the Philippines (LANDBANK) bank accounts with account number
-                            <b>CIAP - PCAB</b> (0052-1684-30), <b>BTr-CIAP-NGSI-DST</b> (3402-2866-00)m ,<b>BTr-CIAP-NGSI-
+                            <b>CIAP - PCAB</b> (0052-1684-30), <b>BTr-CIAP-NGSI-DST</b> (3402-2866-00) ,<b>BTr-CIAP-NGSI-
                             LRF</b> (3402-2866-19) and dully supported by attached proof of deposit. Details of collections can be generated from our online
                             reporting facility or
                             in the attached electronic file of the List if Daily Collection.
@@ -368,7 +368,7 @@
                                             <img style="margin-left: 14rem;margin-bottom:-15px;background-position:center;margin-bottom:-15px;z-index:0;transform: scale(1.1);display:block;position:relative;top:-7px;height:3rem;left: -26px;" width="35%" height="35%" src="assets/images/sir_peter.png" alt="logo" class="logo-dark">
                                             <p style="position:relative;left: 7.7rem;margin:0;width: 100px;bottom: 61px;">Approved By: </p>
                                             <p style="margin-top:-25px;margin-left:12rem;font-size: 15px;z-index: 1;position: relative;text-transform: uppercase;font-weight: 700;">
-                                                Peter Lingatong</p>
+                                                Peter &nbsp; Lingatong</p>
                                             <p style="margin-top: -20px;margin-left: 13.5rem;font-family:Arial,Helvetica,sans-serif;font-size:12px;z-index:1;position:relative;">
                                                 Chairman &amp; CEO</p>
                                         <p style="margin-top: -20px;margin-left: 200px;font-family:Arial,Helvetica,sans-serif;font-size:12px;z-index:1;position:relative;">Netglobal Solutions, Inc.</p></div>
