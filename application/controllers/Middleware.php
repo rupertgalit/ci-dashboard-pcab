@@ -58,13 +58,13 @@ class Middleware extends REST_Controller
         $transaction['reference_number'] = $data['data']['reference_number'];
 
         $validate_ref = $this->model->select_refNumber($transaction['reference_number']);
-        if ($validate_ref) {
-            $this->response([
-                'error' => true,
-                'messege' => 'Transaction with this client ref ' . $transaction['reference_number'] . ' already exists.',
+        // if ($validate_ref) {
+        //     $this->response([
+        //         'error' => true,
+        //         'messege' => 'Transaction with this client ref ' . $transaction['reference_number'] . ' already exists.',
 
-            ], Rest_Controller::HTTP_UNAUTHORIZED);
-        }
+        //     ], Rest_Controller::HTTP_UNAUTHORIZED);
+        // }
 
         $txnAmount = $data['data']['merchant_details']['txn_amount'];
 
@@ -78,7 +78,7 @@ class Middleware extends REST_Controller
 
         $transaction['txn_amount'] = $txnAmount;
         $transaction['date_created'] = date('Y-m-d H:i:s');
-        $transaction['date'] = date('Y/m/d');
+        $transaction['date'] = date('Y-m-d');
         $transaction['status'] = 'STARTED';
 
         $totalAmount = 0;
@@ -109,6 +109,38 @@ class Middleware extends REST_Controller
         // ], Rest_Controller::HTTP_UNAUTHORIZED );
         // }
 
+        $report_no=date('Y').'-001';
+          $chk_report_no=       $this->model->select_report_no($report_no);
+          if($chk_report_no == false ){
+               $report_no_data= $report_no;
+          }else{
+
+            //this part is for log sa report number
+            if($chk_report_no['date'] != $transaction['date']){
+              
+
+
+                $parts = explode("-",$chk_report_no['report_no']);
+
+
+                $year = $parts[0];
+                $number = (int)$parts[1]; 
+
+                $number += 1;
+                $numberString = str_pad($number, 3, "0", STR_PAD_LEFT);
+                $report_no_data = $year . "-" . $numberString;
+
+
+
+            }else{
+                $report_no_data=  $chk_report_no['report_no'];
+            }
+            
+
+          }
+
+
+
         $get_header = $header['Authorization'] ?? '';
 
         $params = json_encode($data['data']);
@@ -124,6 +156,7 @@ class Middleware extends REST_Controller
         if ($get_id) {
             $transaction['callback_uri'] = $data['data']['callback_uri'];
             $transaction['no_ngsi_fee'] =  $totalAmount;
+            $transaction['report_no'] =  $report_no_data;
             $get_transaction_id = $this->model->transaction_log($transaction);
 
             if (isset($data['data']['callback_uri'])) {
@@ -150,7 +183,7 @@ class Middleware extends REST_Controller
                 // echo $totalAmount;
                 // echo json_encode($data['data']['callback_uri']);
                 // echo $response['response'];
-
+ var_dump($transaction['date']);
                 $this->response(json_decode($response['response'],true), $response['status_code']);
             }
         }

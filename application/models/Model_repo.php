@@ -10,6 +10,13 @@ class Model_repo extends CI_Model
         $Q = $this->db->query($qry, $data);
         return $Q->row_array() ? $Q->row_array() : false;
     }
+    public function select_report_no($data)
+    {
+        $result = "SELECT * FROM transactions  ORDER BY report_no DESC LIMIT 1";
+
+        $data = $this->db->query($result);
+        return $data->row_array() ? $data->row_array() : false;
+    }
 
     public function chk_ref_no($postdata)
     {
