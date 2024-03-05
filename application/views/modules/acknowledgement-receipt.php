@@ -875,7 +875,9 @@
             orientation: 'p',
             unit: 'px'
         })
-
+       console.log( filteredData[0].report_no);
+    
+       let report_number = filteredData[0].report_no;
         let printContent = ``;
         let i = 0;
         let rowsPerPage = "";
@@ -931,7 +933,7 @@
                      </div>
                      
             </div>
-            <p class="text-right" style="color:black;margin-top:-20px;margin-right:50px;">Report No : ______ <p>
+            <p class="text-right" style="color:black;margin-top:-20px;margin-right:50px;">Report No :${report_number}<p>
             
            
             <br>
