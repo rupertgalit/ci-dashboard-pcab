@@ -875,14 +875,24 @@
             orientation: 'p',
             unit: 'px'
         })
-       console.log( filteredData[0].report_no);
+       
     
-       let report_number = filteredData[0].report_no;
+        let report_number = filteredData[0].report_no;
+        let pdf_date = filteredData[0].date;
         let printContent = ``;
         let i = 0;
         let rowsPerPage = "";
-        let totalAmount = 0
         let yOffset = 0; // Track vertical position
+
+        const totalAmount = parseFloat(filteredData.fees_pcab) +
+            parseFloat(filteredData.legal_research_fund) +
+            parseFloat(filteredData.document_stamp_tax) +
+            parseFloat(filteredData.ngsi_convenience_fee);
+
+        const Amount = parseFloat(filteredData.fees_pcab) +
+            parseFloat(filteredData.legal_research_fund) +
+            parseFloat(filteredData.document_stamp_tax);
+
 
         const header = `
         <div class="mx-auto d-flex flex-column border-dark" style="/*margin-top:50px*/;width:70rem;height:5rem;">
@@ -925,7 +935,7 @@
                     <p class="text-justify" style="color:black;margin-top:-20px;">Board Phillippines &nbsp; Construction &nbsp; Accreditation &nbsp; board (PCAB)<p>
 
                     
-                    <p class="text-capitalize" style="color:black;margin-top:-20px;">Date : ______<p>
+                    <p class="text-capitalize" style="color:black;margin-top:-20px;">Date : ${pdf_date}<p>
 
                     
                    
@@ -970,6 +980,19 @@
                 <tbody>
                     ${rows}
                 </tbody>
+
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="border: 1px solid black;">Total :</td>
+                        <td style="border: 1px solid black;">0.00</td>
+                        <td style="border: 1px solid black;">0.00</td>
+                        <td style="border: 1px solid black;">0.00</td>
+                        <td style="border: 1px solid black;">0.00</td>
+                    </tr>
+                </tfoot>
             </table> 
             </div>
           `
@@ -978,7 +1001,7 @@
             <tr>
                 <td  style="  border: 1px solid black;">${row?.date ?? ""}</td>
                 <td  style="  border: 1px solid black;">${row?.reference_number ?? ""}</td>
-                <td style="  border: 1px solid black;">${row?.name_of_payor ?? ""}</td>
+                <td  style="  border: 1px solid black;">${row?.name_of_payor ?? ""}</td>
                 <td style="  border: 1px solid black;" >${row?.referenceNumber ?? ""}</td>
                 <td style="  border: 1px solid black;">${row?.fees_pcab ?? ""}</td>
                 <td style="  border: 1px solid black;">${row?.legal_research_fund ?? ""}</td>
@@ -1104,8 +1127,7 @@
                         <div class="row d-flex pl-5">
                             <div class="col text-capitalize ">Agency Name<div class="float-right">  :</div></div>
                             <div class="col">${agencyName}</div>
-                        </div>
-    `;
+                        </div>`;
 
 
         content += `
