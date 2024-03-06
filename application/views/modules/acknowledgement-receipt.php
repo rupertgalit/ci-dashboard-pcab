@@ -884,14 +884,33 @@
         let rowsPerPage = "";
         let yOffset = 0; // Track vertical position
 
-        const totalAmount = parseFloat(filteredData.fees_pcab) +
-            parseFloat(filteredData.legal_research_fund) +
-            parseFloat(filteredData.document_stamp_tax) +
-            parseFloat(filteredData.ngsi_convenience_fee);
+       
+             // Initialize variables to hold the total amounts
+        let totalCIAPPCAB = 0;
+        let totalLRF = 0;
+        let totalDST = 0;
+        let totalCollection = 0;
 
-        const Amount = parseFloat(filteredData.fees_pcab) +
-            parseFloat(filteredData.legal_research_fund) +
-            parseFloat(filteredData.document_stamp_tax);
+        // Iterate through filtered data to calculate totals
+        filteredData.forEach((data) => {
+            // Parse amounts to numbers
+            const CIAPPCAB = parseFloat(data.fees_pcab);
+            const LRF = parseFloat(data.legal_research_fund);
+            const DST = parseFloat(data.document_stamp_tax);
+
+            // Sum of fees_pcab, legal_research_fund, and document_stamp_tax
+            const collection = CIAPPCAB + LRF + DST;
+
+            // Add to total amounts
+            totalCIAPPCAB += CIAPPCAB;
+            totalLRF += LRF;
+            totalDST += DST;
+            totalCollection += collection;
+
+            // Append row to modal table body
+          });
+
+
 
 
         const header = `
@@ -983,14 +1002,14 @@
 
                 <tfoot>
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td style="border: 1px solid black;"></td>
+                        <td style="border: 1px solid black;"></td>
+                        <td style="border: 1px solid black;"></td>
                         <td style="border: 1px solid black;">Total :</td>
-                        <td style="border: 1px solid black;">0.00</td>
-                        <td style="border: 1px solid black;">0.00</td>
-                        <td style="border: 1px solid black;">0.00</td>
-                        <td style="border: 1px solid black;">0.00</td>
+                        <td style="border: 1px solid black;">${totalCIAPPCAB.toFixed(2) ?? 0.00}</td>
+                        <td style="border: 1px solid black;">${totalLRF.toFixed(2) ?? 0.00}</td>
+                        <td style="border: 1px solid black;">${totalDST.toFixed(2) ?? 0.00}</td>
+                        <td style="border: 1px solid black;">${totalCollection.toFixed(2) ?? 0.00}</td>
                     </tr>
                 </tfoot>
             </table> 
