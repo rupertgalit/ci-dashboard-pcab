@@ -19,6 +19,10 @@ class Middleware extends REST_Controller
         date_default_timezone_set('Asia/Manila');
         $this->apiService = new ApiService();
         $this->load->model('Model_repo', 'model');
+
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+        header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
     }
 
     public function index_post()
