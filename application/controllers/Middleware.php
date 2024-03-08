@@ -35,7 +35,28 @@ class Middleware extends REST_Controller
             'messege' => 'FORBIDDEN'
         ], Rest_Controller::HTTP_FORBIDDEN);
     }
-
+    private function getHeaders()
+    {
+        
+        $arh = array();
+        $rx_http = '/\AHTTP_/';
+        foreach($_SERVER as $key => $val) {
+            if( preg_match($rx_http, $key) ) {
+                $arh_key = preg_replace($rx_http, '', $key);
+                $rx_matches = array();
+                // do some nasty string manipulations to restore the original letter case
+                // this should work in most cases
+                $rx_matches = explode('_', $arh_key);
+                if( count($rx_matches) > 0 and strlen($arh_key) > 2 ) {
+                    foreach($rx_matches as $ak_key => $ak_val) $rx_matches[$ak_key] = ucfirst($ak_val);
+                    $arh_key = implode('-', $rx_matches);
+                }
+                $arh[$arh_key] = $val;
+            }
+        }
+        return( $arh );
+        
+    }
     public function index_get()
     {
         $this->response([
@@ -52,6 +73,9 @@ class Middleware extends REST_Controller
 
     public function generate_qr_post()
     {
+       
+        
+
         $this->output->set_content_type('application/json');
 
         $header = apache_request_headers();
@@ -187,7 +211,7 @@ class Middleware extends REST_Controller
                 // echo $totalAmount;
                 // echo json_encode($data['data']['callback_uri']);
                 // echo $response['response'];
- var_dump($transaction['date']);
+
                 $this->response(json_decode($response['response'],true), $response['status_code']);
             }
         }
