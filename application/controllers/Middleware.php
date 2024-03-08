@@ -13,7 +13,7 @@ class Middleware extends REST_Controller
 
     public $apiService;
 
-    public function __construct()
+    public function __construct($config = 'rest')
     {
         parent::__construct();
         date_default_timezone_set('Asia/Manila');

@@ -17,6 +17,11 @@ class Welcome extends CI_Controller
 
 
 
+	public function genqr(){
+
+		$this->load->view('test.php');
+	}
+
 	public function getTransactions()
 	{
 		$curl = curl_init();
