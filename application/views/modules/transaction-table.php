@@ -180,9 +180,7 @@
                     <div class="form-group">
                         <label for="startDate" class="date-label">Start Date:</label>
                         <div class="input-group date date-input-group" id="startDatePicker">
-                            <input type="text" class="form-control" name="startDate" id="startDate"
-                                style="z-index: 2; background:#fff;border:1px solid black; cursor:pointer;" readonly
-                                placeholder="mm /dd /yyyy">
+                            <input type="text" class="form-control" name="startDate" id="startDate" style="z-index: 2; background:#fff;border:1px solid black; cursor:pointer;" readonly placeholder="mm /dd /yyyy">
                             <span class="input-group-addon" id="startDateIcon">
                                 <i class="glyphicon glyphicon-calendar"></i>
                             </span>
@@ -190,9 +188,7 @@
 
                         <label for="endDate" class="date-label">End Date:</label>
                         <div class="input-group date date-input-group" id="endDatePicker">
-                            <input type="text" class="form-control" name="endDate" id="endDate"
-                                style="background:#fff;border:1px solid black;cursor:pointer;" readonly
-                                placeholder="mm /dd / yyyy">
+                            <input type="text" class="form-control" name="endDate" id="endDate" style="background:#fff;border:1px solid black;cursor:pointer;" readonly placeholder="mm /dd / yyyy">
                             <span class="input-group-addon" id="endDateIcon">
                                 <i class="glyphicon glyphicon-calendar"></i>
                             </span>
@@ -221,10 +217,12 @@
                 </thead>
                 <tbody>
                     <?php
+
+                    $fmt = new NumberFormatter('en-US', NumberFormatter::CURRENCY);
+                    $fmt->setPattern(str_replace('¤#', "", $fmt->getPattern()));
                     if (empty($data)) {
                         // echo "<tr><td colspan='11'>No data available</td></tr>";
-                    } 
-                    else {
+                    } else {
                         foreach ($data as $row) {
                             $date = date_create($row['date']);
                             echo "<tr>";
@@ -256,7 +254,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         function getCurrentDate() {
             const today = new Date();
             const year = today.getFullYear();
@@ -282,11 +280,11 @@
             scrollCollapse: true,
         });
 
-        $('#startDate, #endDate').on('change', function () {
+        $('#startDate, #endDate').on('change', function() {
             table.draw();
         });
 
-        $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+        $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
             var startDate = $('#startDate').val();
             var endDate = $('#endDate').val();
             var currentDate = new Date(data[1]);
@@ -307,9 +305,8 @@
             return false;
         });
 
-        $('.search-btn').on('click', function () {
+        $('.search-btn').on('click', function() {
             table.draw();
         });
     });
-
 </script>

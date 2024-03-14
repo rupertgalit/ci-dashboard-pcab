@@ -87,6 +87,16 @@ class Welcome extends CI_Controller
 					$result["data"] = false;
 				}
 			}
+
+
+			if ($result["route"] == "transaction-table") {
+
+				$result['data'] = $this->crud->get_all_transaction_data();
+				
+
+			}
+
+
 			$this->load->view('index', $result);
 		} else {
 			redirect('login');
@@ -170,5 +180,10 @@ class Welcome extends CI_Controller
 	{
 		// Check if the 'logged_in' session variable exists and is set to TRUE
 		return $this->session->userdata('logged_in') === TRUE;
+	}
+
+	public function test_data(){
+		$result['data'] = $this->crud->get_all_transaction_data();
+		echo json_encode($result);
 	}
 }
