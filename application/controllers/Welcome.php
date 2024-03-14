@@ -57,7 +57,7 @@ class Welcome extends CI_Controller
 			$result["route"] = $this->uri->segment(1);
 
 			if ($result["route"] == "dashboard") {
-				redirect('/acknowledgement-receipt');
+				redirect('/transaction-table');
 				return;
 			}
 
