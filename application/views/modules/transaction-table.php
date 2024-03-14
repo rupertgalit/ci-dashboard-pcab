@@ -180,7 +180,9 @@
                     <div class="form-group">
                         <label for="startDate" class="date-label">Start Date:</label>
                         <div class="input-group date date-input-group" id="startDatePicker">
-                            <input type="text" class="form-control" name="startDate" id="startDate" style="z-index: 2; background:#fff;border:1px solid black; cursor:pointer;" readonly placeholder="mm /dd /yyyy">
+                            <input type="text" class="form-control" name="startDate" id="startDate"
+                                style="z-index: 2; background:#fff;border:1px solid black; cursor:pointer;" readonly
+                                placeholder="mm /dd /yyyy">
                             <span class="input-group-addon" id="startDateIcon">
                                 <i class="glyphicon glyphicon-calendar"></i>
                             </span>
@@ -188,7 +190,9 @@
 
                         <label for="endDate" class="date-label">End Date:</label>
                         <div class="input-group date date-input-group" id="endDatePicker">
-                            <input type="text" class="form-control" name="endDate" id="endDate" style="background:#fff;border:1px solid black;cursor:pointer;" readonly placeholder="mm /dd / yyyy">
+                            <input type="text" class="form-control" name="endDate" id="endDate"
+                                style="background:#fff;border:1px solid black;cursor:pointer;" readonly
+                                placeholder="mm /dd / yyyy">
                             <span class="input-group-addon" id="endDateIcon">
                                 <i class="glyphicon glyphicon-calendar"></i>
                             </span>
@@ -199,64 +203,60 @@
                 </div>
             </div>
 
-          
-                <table id="myTable" class="table table-striped text-center" width="100%">
-                    <thead>
-                        <tr>
-                            <th class="font-weight-bold">Txn. ID</th>
-                            <th class="font-weight-bold">Date<i class="m-0">(mm/dd/yyyy)</i></th>
-                            <th class="font-weight-bold">Reference No.</th>
-                            <th class="font-weight-bold">Name of Payor</th>
-                            <th class="font-weight-bold">Particular</th>
-                            <th class="font-weight-bold">Status</th>
-                            <th class="font-weight-bold">PCAB Fee</th>
-                            <th class="font-weight-bold">Legal Research Fund</th>
-                            <th class="font-weight-bold">Documentary Stamp</th>
-                            <th class="font-weight-bold">NGSI Convenience Fee</th>
-                            <th class="font-weight-bold">Total Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        if (empty($data)) {
-                            echo "<tr py-5><td colspan='10'>No data available</td></tr>";
-                        } else {
-                            foreach ($data as $row) {
-                                $date = date_create($row['date']);
-                                echo "<tr>";
-                                echo "<td>" . $row["trans_id"] . "</td>";
-                                echo "<td>" . date_format(date_create($row['date']), "m/d/Y") . "</td>";
-                                echo "<td>" . $row["reference_number"] . "</td>";
-                                echo "<td>" . $row["name_of_payor"] . "</td>";
-                                echo "<td>" . $row["particulars"] . "</td>";
-                                echo "<td>" . $row["status"] . "</td>";
-                                echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["fees_pcab"]), "") . "</td>";
-                                echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["legal_research_fund"]), "") . "</td>";
-                                echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["document_stamp_tax"]), "") . "</td>";
-                                echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["ngsi_convenience_fee"]), "") . "</td>";
-                                $total_AR = $row["fees_pcab"] + $row["document_stamp_tax"] + $row["legal_research_fund"] + $row["ngsi_convenience_fee"];
-                                echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($total_AR), "") . "</td>";
-                                echo "</tr>";
-                            }
+            <table id="myTable" class="table table-striped text-center" width="100%">
+                <thead>
+                    <tr>
+                        <th class="font-weight-bold">Txn. ID</th>
+                        <th class="font-weight-bold">Date<i class="m-0">(mm/dd/yyyy)</i></th>
+                        <th class="font-weight-bold">Reference No.</th>
+                        <th class="font-weight-bold">Name of Payor</th>
+                        <th class="font-weight-bold">Particular</th>
+                        <th class="font-weight-bold">Status</th>
+                        <th class="font-weight-bold">PCAB Fee</th>
+                        <th class="font-weight-bold">Legal Research Fund</th>
+                        <th class="font-weight-bold">Documentary Stamp</th>
+                        <th class="font-weight-bold">NGSI Convenience Fee</th>
+                        <th class="font-weight-bold">Total Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    if (empty($data)) {
+                        // echo "<tr><td colspan='11'>No data available</td></tr>";
+                    } 
+                    else {
+                        foreach ($data as $row) {
+                            $date = date_create($row['date']);
+                            echo "<tr>";
+                            echo "<td>" . $row["trans_id"] . "</td>";
+                            echo "<td>" . date_format(date_create($row['date']), "m/d/Y") . "</td>";
+                            echo "<td>" . $row["reference_number"] . "</td>";
+                            echo "<td>" . $row["name_of_payor"] . "</td>";
+                            echo "<td>" . $row["particulars"] . "</td>";
+                            echo "<td>" . $row["status"] . "</td>";
+                            echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["fees_pcab"]), "") . "</td>";
+                            echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["legal_research_fund"]), "") . "</td>";
+                            echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["document_stamp_tax"]), "") . "</td>";
+                            echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["ngsi_convenience_fee"]), "") . "</td>";
+                            $total_AR = $row["fees_pcab"] + $row["document_stamp_tax"] + $row["legal_research_fund"] + $row["ngsi_convenience_fee"];
+                            echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($total_AR), "") . "</td>";
+                            echo "</tr>";
                         }
-                        ?>
-                    </tbody>
-                </table>
-            </div>
-       
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+
 
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $(function() {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
-
+    $(document).ready(function () {
         function getCurrentDate() {
             const today = new Date();
             const year = today.getFullYear();
@@ -282,14 +282,11 @@
             scrollCollapse: true,
         });
 
-        $('.search-btn').on('click', function() {
+        $('#startDate, #endDate').on('change', function () {
             table.draw();
         });
 
-        $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
-            if (settings.nTable.id !== 'myTable') {
-                return true;
-            }
+        $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
             var startDate = $('#startDate').val();
             var endDate = $('#endDate').val();
             var currentDate = new Date(data[1]);
@@ -298,7 +295,7 @@
             var formattedEndDate = new Date(endDate);
 
             if (
-                (isNaN(formattedStartDate) || isNaN(formattedEndDate)) ||
+                (isNaN(formattedStartDate) && isNaN(formattedEndDate)) ||
                 (startDate === '' && endDate === '') ||
                 (startDate === '' && currentDate <= formattedEndDate) ||
                 (formattedStartDate <= currentDate && endDate === '') ||
@@ -306,11 +303,11 @@
             ) {
                 return true;
             }
+
+            return false;
         });
 
-        table.draw();
-
-        $('#startDate, #endDate').on('change', function() {
+        $('.search-btn').on('click', function () {
             table.draw();
         });
     });
