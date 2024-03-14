@@ -13,7 +13,7 @@ class Middleware extends REST_Controller
 
     public $apiService;
 
-    public function __construct($config = 'rest')
+    public function __construct()
     {
         parent::__construct();
         date_default_timezone_set('Asia/Manila');
@@ -102,7 +102,7 @@ class Middleware extends REST_Controller
 
         $transaction['mobile_number'] = $data['data']['merchant_details']['scanner_mobile_number'];
 
-        // $transaction[ 'city' ] = $data[ 'data' ][ 'merchant_details' ][ 'city' ];
+        // $transaction[ 'city' ] = $data[ 'data' ][ 'merchant_details' ][ 'city' ]; 
 
         $transaction['txn_amount'] = $txnAmount;
         $transaction['date_created'] = date('Y-m-d H:i:s');
@@ -112,7 +112,12 @@ class Middleware extends REST_Controller
         $totalAmount = 0;
 
         foreach ($data['data']['other_details'] as $item) {
-
+            if ($item['item'] === "documentary_stamp_tax") {
+                $item['item'] = "document_stamp_tax";
+            }
+            if ($item['item'] === "pcab_fees") {
+                $item['item'] = "fees_pcab";
+            }
             $itemName = $item['item'];
             $amount = $item['amount'];
             // Sanitize and validate column name ( replace non-alphanumeric characters )
@@ -120,7 +125,7 @@ class Middleware extends REST_Controller
 
             $transaction[$columnName] = $amount;
 
-            // $totalAmount += $amount;
+            // $totalAmount += $amount; pcab_fees
         }
 
         foreach ($data['data']['other_details'] as $detail) {
