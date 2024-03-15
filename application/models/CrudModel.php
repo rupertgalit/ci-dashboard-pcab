@@ -38,6 +38,14 @@ class CrudModel extends CI_Model
         return $Q->row_array() ? $Q->result_array() : false;
     }
 
+    public function get_all_transaction_data()
+    {
+
+        $sql = 'SELECT * FROM transactions ORDER BY trans_id DESC ';
+        $Q = $this->db->query($sql);
+        return $Q->row_array() ? $Q->result_array() : false;
+    }
+
     public function all_deposit_data()
     {
 
