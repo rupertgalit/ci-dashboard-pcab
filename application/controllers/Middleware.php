@@ -86,13 +86,13 @@ class Middleware extends REST_Controller
         $transaction['reference_number'] = $data['data']['reference_number'];
 
         $validate_ref = $this->model->select_refNumber($transaction['reference_number']);
-        // if ($validate_ref) {
-        //     $this->response([
-        //         'error' => true,
-        //         'messege' => 'Transaction with this client ref ' . $transaction['reference_number'] . ' already exists.',
+        if ($validate_ref) {
+            $this->response([
+                'error' => true,
+                'messege' => 'Transaction with this client ref ' . $transaction['reference_number'] . ' already exists.',
 
-        //     ], Rest_Controller::HTTP_UNAUTHORIZED);
-        // }
+            ], Rest_Controller::HTTP_UNAUTHORIZED);
+        }
 
         $txnAmount = $data['data']['merchant_details']['txn_amount'];
 
@@ -283,7 +283,7 @@ class Middleware extends REST_Controller
                         $this->response([
                             'messege' => 'Success',
                             'error' => 'true',
-                            'data' => $doUpdateApiLog
+                            'data' => $TransData['callback_uri']
                         ], Rest_Controller::HTTP_OK);
                     }
                 }
@@ -309,7 +309,7 @@ class Middleware extends REST_Controller
     {
         $this->response([
             'messege' => 'Success',
-            'error0' => 'false'
+            'error' => 'false'
         ], Rest_Controller::HTTP_OK);
     }
 
