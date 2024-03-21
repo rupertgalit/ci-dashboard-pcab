@@ -1203,7 +1203,7 @@
                     <div class="col">
                         <div class="row d-flex">
                             <div class="col">AR Number: </div>
-                            <div class="col">${rowData.trans_id}</div>
+                            <div class="col">${rowData.ar_no}</div>
                         </div>
                         <div class="row d-flex">
                             <div class="col">Date and Time: </div>
