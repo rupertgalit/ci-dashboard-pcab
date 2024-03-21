@@ -143,9 +143,10 @@ class Middleware extends REST_Controller
         // }
 
         $report_no=date('Y').'-001';
-          $chk_report_no=       $this->model->select_report_no($report_no);
+          $chk_report_no=       $this->model->select_report_no();
           if($chk_report_no == false ){
                $report_no_data= $report_no;
+               $ar_no= '1';
           }else{
 
             //this part is for log sa report number
@@ -163,9 +164,10 @@ class Middleware extends REST_Controller
                 $numberString = str_pad($number, 3, "0", STR_PAD_LEFT);
                 $report_no_data = $year . "-" . $numberString;
 
-
+                $ar_no=(int) $chk_report_no['trans_id']+1;
 
             }else{
+                $ar_no= (int)$chk_report_no['trans_id']+1;
                 $report_no_data=  $chk_report_no['report_no'];
             }
             
@@ -190,6 +192,12 @@ class Middleware extends REST_Controller
             $transaction['callback_uri'] = $data['data']['callback_uri'];
             $transaction['no_ngsi_fee'] =  $totalAmount;
             $transaction['report_no'] =  $report_no_data;
+            $AR ='00000000'; 
+         
+            $length = strlen($ar_no); 
+            $newString = substr_replace($AR, '',-$length, $length); 
+            
+            $transaction['ar_no'] =  $newString.$ar_no;
             $get_transaction_id = $this->model->transaction_log($transaction);
 
             if (isset($data['data']['callback_uri'])) {
@@ -210,6 +218,8 @@ class Middleware extends REST_Controller
 
             $update['api_response'] = $response['response'] . $data['data']['callback_uri'];
 
+
+        
             $doUpdateApiLog = $this->model->doUpdateApilogs($update, $get_id);
 
             if ($doUpdateApiLog) {

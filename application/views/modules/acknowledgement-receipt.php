@@ -180,24 +180,31 @@
 
 
                     <div class=" col-mb-3 mr-3 mt-3">
-                        <button class="btn-lg btn-outline-dark rounded border-0" data-toggle="modal" data-target="#Daily_CollectionModal">Daily Collection</button>
-                        <div class="modal fade" id="Daily_CollectionModal" tabindex="-1" role="dialog" aria-labelledby="Daily_CollectionModalLabel" aria-hidden="true">
+                        <button class="btn-lg btn-outline-dark rounded border-0" data-toggle="modal"
+                            data-target="#Daily_CollectionModal">Daily Collection</button>
+                        <div class="modal fade" id="Daily_CollectionModal" tabindex="-1" role="dialog"
+                            aria-labelledby="Daily_CollectionModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-sm" role="document">
                                 <div id="DailyCollectModal" class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="Daily_CollectionModalLabel">Daily Collection</h5>
-                                        <button type="button" class="close text-right pr-4" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <button type="button" class="close text-right pr-4" data-dismiss="modal"
+                                            aria-hidden="true">&times;</button>
                                     </div>
                                     <div class="modal-body bg-white pb-3">
                                         <div class="row mb-2">
                                             <div class="col-12 d-flex flex-row flex-wrap">
                                                 <div class="custom-date-input">
-                                                    <label for="modal_start_date" class="mr-2 d-flex align-items-center">Start Date:</label>
-                                                    <input type="date" id="modal_start_date" class="form-control" style="width: 16rem;">
+                                                    <label for="modal_start_date"
+                                                        class="mr-2 d-flex align-items-center">Start Date:</label>
+                                                    <input type="date" id="modal_start_date" class="form-control"
+                                                        style="width: 16rem;">
                                                 </div>
                                                 <div class="custom-date-input">
-                                                    <label for="modal_end_date" class="mr-2  d-flex align-items-center">End Date:</label>
-                                                    <input type="date" id="modal_end_date" class="form-control" style="width: 16rem;">
+                                                    <label for="modal_end_date"
+                                                        class="mr-2  d-flex align-items-center">End Date:</label>
+                                                    <input type="date" id="modal_end_date" class="form-control"
+                                                        style="width: 16rem;">
                                                 </div>
                                                 <div id="validationMessage"></div>
                                             </div>
@@ -206,89 +213,93 @@
                                         <div id="modalDataTableContainer" class="overflow-auto"></div>
                                     </div>
                                     <div class="modal-footer bg-white border-top-0 d-flex ">
-                                        <button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded preview-btn-modal">Preview</button>
-                                        <button type="button" onclick="printDailyReport()" class="btn-sm btn-outline-dark mr-3 mb-2 rounded">Download</button>
+                                        <button type="button"
+                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded preview-btn-modal">Preview</button>
+                                        <button type="button" onclick="printDailyReport()"
+                                            class="btn-sm btn-outline-dark mr-3 mb-2 rounded">Download</button>
                                         <?php if ($_SESSION['usertype'] == "SUPERADMIN")
                                             echo '<button type="button" class="btn-sm btn-outline-dark mr-3 mb-2 rounded " data-toggle="modal" data-target="#Submit_deposit" id="submit-deposit" data-backdrop="static" data-keyboard="false">Submit Deposit</button>' ?>
 
 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
+                        <div class=" col-mb-3 mr-3 mt-3">
+                            <button class="btn-lg btn-outline-dark rounded border-0 w-50" data-toggle="modal"
+                                data-target="#exportModal">E-Collection</button>
+                            <div class="modal fade" id="exportModal" tabindex="-1" role="dialog"
+                                aria-labelledby="exportModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exportModalLabel">E-Collection </h5>
+                                            <button type="button" class="close text-right pr-3" data-dismiss="modal"
+                                                aria-hidden="true">&times;</button>
+                                        </div>
+                                        <div class="modal-body  bg-white pb-3">
+                                            <label for="monthFilter">Select Month: </label>
+                                            <select id="monthFilter">
+                                                <option value="0">All Months</option>
+                                                <option value="1">January</option>
+                                                <option value="2">February</option>
+                                                <option value="3">March</option>
+                                                <option value="4">April</option>
+                                                <option value="5">May</option>
+                                                <option value="6">June</option>
+                                                <option value="7">July</option>
+                                                <option value="8">August</option>
+                                                <option value="9">September</option>
+                                                <option value="10">October</option>
+                                                <option value="11">November</option>
+                                                <option value="12">December</option>
+                                            </select>
+                                            <table id="EcollectTable" class="table table-striped text-center" width="100%">
+                                                <thead>
+                                                    <tr>
 
-                    </div>
-                    <div class=" col-mb-3 mr-3 mt-3">
-                        <button class="btn-lg btn-outline-dark rounded border-0 w-50" data-toggle="modal" data-target="#exportModal">E-Collection</button>
-                        <div class="modal fade" id="exportModal" tabindex="-1" role="dialog" aria-labelledby="exportModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exportModalLabel">E-Collection </h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body  bg-white pb-3">
-                                        <label for="monthFilter">Select Month: </label>
-                                        <select id="monthFilter">
-                                            <option value="0">All Months</option>
-                                            <option value="1">January</option>
-                                            <option value="2">February</option>
-                                            <option value="3">March</option>
-                                            <option value="4">April</option>
-                                            <option value="5">May</option>
-                                            <option value="6">June</option>
-                                            <option value="7">July</option>
-                                            <option value="8">August</option>
-                                            <option value="9">September</option>
-                                            <option value="10">October</option>
-                                            <option value="11">November</option>
-                                            <option value="12">December</option>
-                                        </select>
-                                        <table id="EcollectTable" class="table table-striped text-center" width="100%">
-                                            <thead>
-                                                <tr>
+                                                        <th colspan="2" class="text-center">Electronic Acknowledgement
+                                                            Receipt</th>
 
-                                                    <th colspan="2" class="text-center">Electronic Acknowledgement
-                                                        Receipt</th>
+                                                        <th rowspan="3" class="text-center">Payor</th>
+                                                        <th rowspan="3" class="text-center">Particulars</th>
 
-                                                    <th rowspan="3" class="text-center">Payor</th>
-                                                    <th rowspan="3" class="text-center">Particulars</th>
+                                                        <th colspan="4" class="text-center">Amount</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th rowspan="2" class="text-center">Date<i
+                                                                class="m-0">(mm/dd/yyyy)</i></th>
+                                                        <th rowspan="2" class="text-center">Number</th>
+                                                        <th rowspan="2" class="text-center">Total per AR</th>
+                                                        <th colspan="3" class="text-center">Breakdown Collection</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="text-center">CIAP-PCAB</th>
+                                                        <th colspan="1" class="text-center">DST</th>
+                                                        <th colspan="1" class="text-center">LRF</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
 
-                                                    <th colspan="4" class="text-center">Amount</th>
-                                                </tr>
-                                                <tr>
-                                                    <th rowspan="2" class="text-center">Date<i class="m-0">(mm/dd/yyyy)</i></th>
-                                                    <th rowspan="2" class="text-center">Number</th>
-                                                    <th rowspan="2" class="text-center">Total per AR</th>
-                                                    <th colspan="3" class="text-center">Breakdown Collection</th>
-                                                </tr>
-                                                <tr>
-                                                    <th class="text-center">CIAP-PCAB</th>
-                                                    <th colspan="1" class="text-center">DST</th>
-                                                    <th colspan="1" class="text-center">LRF</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-
-                                                <?php
-                                                $fmt = new NumberFormatter('en-US', NumberFormatter::CURRENCY);
-                                                $fmt->setPattern(str_replace('¤#', "", $fmt->getPattern()));
-                                                foreach ($data as $row) {
-                                                    echo "<tr>";
-                                                    echo "<td>" . date_format(date_create($row['date']), "m/d/Y") . "</td>";
-                                                    echo "<td>" . $row["mobile_number"] . "</td>";
-                                                    echo "<td>" . $row["name_of_payor"] . "</td>";
-                                                    echo "<td>" . $row["particulars"] . "</td>";
-                                                    $total_per_AR = $row["fees_pcab"] + $row["document_stamp_tax"] + $row["legal_research_fund"];
-                                                    echo "<td>" . $fmt->formatCurrency(floatval($total_per_AR), "PHP") . "</td>";
-                                                    echo "<td class='text-right'>" . $fmt->formatCurrency(floatval($row["fees_pcab"]), "PHP") . "</td>";
-                                                    echo "<td class='text-right'>" . $fmt->formatCurrency(floatval($row["document_stamp_tax"]), "PHP") . "</td>";
-                                                    echo "<td class='text-right'>" . $fmt->formatCurrency(floatval($row["legal_research_fund"]), "PHP") . "</td>";
-                                                    echo "</tr>";
-                                                }
-                                                ?>
+                                                    <?php
+                                        $fmt = new NumberFormatter('en-US', NumberFormatter::CURRENCY);
+                                        $fmt->setPattern(str_replace('¤#', "", $fmt->getPattern()));
+                                        foreach ($data as $row) {
+                                            echo "<tr>";
+                                            echo "<td>" . date_format(date_create($row['date']), "m/d/Y") . "</td>";
+                                            echo "<td>" . $row["mobile_number"] . "</td>";
+                                            echo "<td>" . $row["name_of_payor"] . "</td>";
+                                            echo "<td>" . $row["particulars"] . "</td>";
+                                            $total_per_AR = $row["fees_pcab"] + $row["document_stamp_tax"] + $row["legal_research_fund"];
+                                            echo "<td>" . $fmt->formatCurrency(floatval($total_per_AR), "PHP") . "</td>";
+                                            echo "<td class='text-right'>" . $fmt->formatCurrency(floatval($row["fees_pcab"]), "PHP") . "</td>";
+                                            echo "<td class='text-right'>" . $fmt->formatCurrency(floatval($row["document_stamp_tax"]), "PHP") . "</td>";
+                                            echo "<td class='text-right'>" . $fmt->formatCurrency(floatval($row["legal_research_fund"]), "PHP") . "</td>";
+                                            echo "</tr>";
+                                        }
+                                        ?>
 
                                             </tbody>
                                         </table>
@@ -307,7 +318,9 @@
             <div class="form-group">
                 <label for="startDate" class="date-label">Start Date:</label>
                 <div class="input-group date date-input-group" id="startDatePicker">
-                    <input type="text" class="form-control" name="startDate" id="startDate" style="z-index: 2; background:#fff;border:1px solid black; cursor:pointer;" readonly placeholder="mm /dd /yyyy">
+                    <input type="text" class="form-control" name="startDate" id="startDate"
+                        style="z-index: 2; background:#fff;border:1px solid black; cursor:pointer;" readonly
+                        placeholder="mm /dd /yyyy">
                     <span class="input-group-addon" id="startDateIcon">
                         <i class="glyphicon glyphicon-calendar"></i>
                     </span>
@@ -315,7 +328,9 @@
 
                 <label for="endDate" class="date-label">End Date:</label>
                 <div class="input-group date date-input-group" id="endDatePicker">
-                    <input type="text" class="form-control" name="endDate" id="endDate" style="background:#fff;border:1px solid black;cursor:pointer;" readonly placeholder="mm /dd / yyyy">
+                    <input type="text" class="form-control" name="endDate" id="endDate"
+                        style="background:#fff;border:1px solid black;cursor:pointer;" readonly
+                        placeholder="mm /dd / yyyy">
                     <span class="input-group-addon" id="endDateIcon">
                         <i class="glyphicon glyphicon-calendar"></i>
                     </span>
@@ -386,12 +401,14 @@
 
     </div>
 </div>
-<div class="modal fade" id="Submit_deposit" tabindex="-1" role="dialog" aria-labelledby="Submit_depositnModalLabel" aria-hidden="true">
+<div class="modal fade" id="Submit_deposit" tabindex="-1" role="dialog" aria-labelledby="Submit_depositnModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg d-flex justify-content-center mt-3" role="document">
         <div id="Submit_depositModal" class="modal-content" style="width: 24rem;">
             <div class="modal-header py-2">
                 <h5 class="modal-title" id="Submit_depositModalLabel">Collection(s) Settlement</h5>
-                <button type="button" class="close text-right pr-4 text-dark" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <button type="button" class="close text-right pr-4 text-dark" data-dismiss="modal"
+                    aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body bg-white py-3">
                 <!-- awdawd -->
@@ -399,7 +416,8 @@
                     <span class="message" style="position:relative; bottom: .5rem"></span>
                     <div>
                         <label class="pb-1">Day(s) of Collection</label>
-                        <span class="m-0 p-0 ml-1 total-collection" style="margin-top:3px!important;">Total: &#8369; 0.00</span>
+                        <span class="m-0 p-0 ml-1 total-collection" style="margin-top:3px!important;">Total: &#8369;
+                            0.00</span>
                     </div>
                     <div class="d-flex flex-row justify-content-between mt-3 mb-4 border-bottom-1">
                         <div id="dateRange">
@@ -407,7 +425,8 @@
 
                         </div>
                         <div id="dateRange">
-                            <input type="date" name="collection_date_to" class="p-2 border border-black rounded" value="">
+                            <input type="date" name="collection_date_to" class="p-2 border border-black rounded"
+                                value="">
                         </div>
                     </div>
                     <!-- <div id="referenceNo">
@@ -418,25 +437,40 @@
                         <div id="dateOfDeposit">
                             <input type="date" name="deposited_date" class="p-2 pl-3 mb-2 rounded w-100 border">
                         </div>
-                        <label class="">CIAP-PCAB <span class="d-inline p-0 m-0 pl-2" style="pointer-events:auto;margin-top:3px!important;" tabindex="0" data-toggle="tooltip" title="Undeposited Fee of <?= $last_deposit_date ? date_format(date_create($last_deposit_date), "m/d/Y") : "N/A" ?>">(&#8369;<?= $fmt->formatCurrency(floatval($last_deposit ? $last_deposit["balance_fees_pcab"] : 0), "PHP")   ?> <i class="icon-info bg-dark text-white rounded-circle"></i>)</span>
-                            <span class="m-0 p-0 pl-3 d-block pcab-fee" style="margin-top:3px!important;">Total Amount: &#8369; 0.00</span></label>
+                        <label class="">CIAP-PCAB <span class="d-inline p-0 m-0 pl-2"
+                                style="pointer-events:auto;margin-top:3px!important;" tabindex="0" data-toggle="tooltip"
+                                title="Undeposited Fee of <?= $last_deposit_date ? date_format(date_create($last_deposit_date), "m/d/Y") : "N/A" ?>">(&#8369;
+                                <?= $fmt->formatCurrency(floatval($last_deposit ? $last_deposit["balance_fees_pcab"] : 0), "PHP") ?>
+                                <i class="icon-info bg-dark text-white rounded-circle"></i>)
+                            </span>
+                            <span class="m-0 p-0 pl-3 d-block pcab-fee" style="margin-top:3px!important;">Total Amount:
+                                &#8369; 0.00</span></label>
                         <div id="fees_pcab" class="d-flex flex-row justify-content-between">
                             <div id="referenceNo">
                                 <span>Reference No. *</span>
-                                <input type="text" name="reference_no" class="p-2 pl-3 border border-black mb-2 w-100 rounded">
+                                <input type="text" name="reference_no"
+                                    class="p-2 pl-3 border border-black mb-2 w-100 rounded">
                             </div>
                             <div style="width:10px;"></div>
                             <div id="amount">
                                 <span>Amount ( &#8369; ) *</span>
-                                <input type="text" name="amount" class="p-2 pl-3 border border-black mb-2 w-100 rounded text-right">
+                                <input type="text" name="amount"
+                                    class="p-2 pl-3 border border-black mb-2 w-100 rounded text-right">
                             </div>
                         </div>
-                        <label class="">Documentary Stamp Tax <span class="d-inline p-0 m-0 pl-2" style="pointer-events:auto;margin-top:3px!important;" tabindex="0" data-toggle="tooltip" title="Undeposited DST of <?= $last_deposit_date ? date_format(date_create($last_deposit_date), "m/d/Y") : "N/A" ?>">(&#8369;<?= $fmt->formatCurrency(floatval($last_deposit ? $last_deposit["balance_document_stamp_tax"] : 0), "PHP") ?> <i class="icon-info bg-dark text-white rounded-circle"></i>)</span>
-                            <span class="m-0 p-0 pl-3 d-block dst" style="margin-top:3px!important;">Total Amount: &#8369; 0.00</span></label>
+                        <label class="">Documentary Stamp Tax <span class="d-inline p-0 m-0 pl-2"
+                                style="pointer-events:auto;margin-top:3px!important;" tabindex="0" data-toggle="tooltip"
+                                title="Undeposited DST of <?= $last_deposit_date ? date_format(date_create($last_deposit_date), "m/d/Y") : "N/A" ?>">(&#8369;
+                                <?= $fmt->formatCurrency(floatval($last_deposit ? $last_deposit["balance_document_stamp_tax"] : 0), "PHP") ?>
+                                <i class="icon-info bg-dark text-white rounded-circle"></i>)
+                            </span>
+                            <span class="m-0 p-0 pl-3 d-block dst" style="margin-top:3px!important;">Total Amount:
+                                &#8369; 0.00</span></label>
                         <div id="document_stamp_tax" class="d-flex flex-row justify-content-between">
                             <div id="referenceNo">
                                 <span>Reference No. *</span>
-                                <input type="text" name="reference_no" class="p-2 pl-3 border border-black mb-2 w-100 rounded">
+                                <input type="text" name="reference_no"
+                                    class="p-2 pl-3 border border-black mb-2 w-100 rounded">
                             </div>
                             <div style="width:10px;"></div>
                             <div id="amount">
@@ -444,8 +478,14 @@
                                 <input type="text" name="amount" class="p-2 pl-3 mb-2 w-100  border rounded text-right">
                             </div>
                         </div>
-                        <label class="">Legal Research Fund <span class="d-inline p-0 m-0 pl-2" style="pointer-events:auto;margin-top:3px!important;" tabindex="0" data-toggle="tooltip" title="Undeposited LRF of <?= $last_deposit_date ? date_format(date_create($last_deposit_date), "m/d/Y") : "N/A" ?>">(&#8369;<?= $fmt->formatCurrency(floatval($last_deposit ? $last_deposit["balance_legal_research_fund"] : 0), "PHP") ?> <i class="icon-info bg-dark text-white rounded-circle"></i>)</span>
-                            <span class="m-0 p-0 pl-3 d-block lrf" style="margin-top:3px!important;">Total Amount: &#8369; 0.00</span></label>
+                        <label class="">Legal Research Fund <span class="d-inline p-0 m-0 pl-2"
+                                style="pointer-events:auto;margin-top:3px!important;" tabindex="0" data-toggle="tooltip"
+                                title="Undeposited LRF of <?= $last_deposit_date ? date_format(date_create($last_deposit_date), "m/d/Y") : "N/A" ?>">(&#8369;
+                                <?= $fmt->formatCurrency(floatval($last_deposit ? $last_deposit["balance_legal_research_fund"] : 0), "PHP") ?>
+                                <i class="icon-info bg-dark text-white rounded-circle"></i>)
+                            </span>
+                            <span class="m-0 p-0 pl-3 d-block lrf" style="margin-top:3px!important;">Total Amount:
+                                &#8369; 0.00</span></label>
                         <div id="legal_research_fund" class="d-flex flex-row justify-content-between">
                             <div id="referenceNo">
                                 <span>Reference No. *</span>
@@ -457,16 +497,21 @@
                                 <input type="text" name="amount" class="p-2 pl-3 mb-2 w-100 border rounded text-right">
                             </div>
                         </div>
-                        <div class="text-right sum-of-deposit">Total Deposit <br /> &#8369; <p class="p-0 m-0 px-2 d-inline border-bottom border-dark">0.00</p>
+                        <div class="text-right sum-of-deposit">Total Deposit <br /> &#8369; <p
+                                class="p-0 m-0 px-2 d-inline border-bottom border-dark">0.00</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer bg-white border-top py-2 px-3">
 
-                <button type="button" class="btn-sm border-0 m-0 ml-2 rounded close-modal bg-secondary" id="cancelDeposit" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                <button type="button" class="btn-sm border-0 m-0 ml-2 rounded close-modal bg-secondary"
+                    id="cancelDeposit" data-dismiss="modal" aria-hidden="true">Cancel</button>
                 <!-- <button type="button" class="btn-sm border-0 m-0 ml-2 rounded close-modal bg-secondary" id="confirmDeposit" data-toggle="modal" data-target="#DepositConfirmationModal" data-backdrop="static" data-keyboard="false">confirm</button> -->
-                <button type="button" class="btn-sm border-0 m-0 ml-2 rounded submit-deposit-btn-modal" id="submitDeposit" data-toggle="modal" data-target="#DepositConfirmationModal" id="submit-deposit" data-backdrop="static" data-keyboard="false" onmouseover="this.style.opacity=1" onmouseleave="this.style.opacity=.8" style="background-color:#00507a;opacity:.8;">
+                <button type="button" class="btn-sm border-0 m-0 ml-2 rounded submit-deposit-btn-modal"
+                    id="submitDeposit" data-toggle="modal" data-target="#DepositConfirmationModal" id="submit-deposit"
+                    data-backdrop="static" data-keyboard="false" onmouseover="this.style.opacity=1"
+                    onmouseleave="this.style.opacity=.8" style="background-color:#00507a;opacity:.8;">
                     <i class="icon-settings spin" hidden></i> <span>Submit</span><span hidden>Submitting</span>
                 </button>
 
@@ -474,7 +519,8 @@
         </div>
     </div>
 </div>
-<div class="modal fade show" id="DepositConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="Confirmation_depositnModal" aria-hidden="true">
+<div class="modal fade show" id="DepositConfirmationModal" tabindex="-1" role="dialog"
+    aria-labelledby="Confirmation_depositnModal" aria-hidden="true">
     <div class="modal-dialog modal-lg d-flex justify-content-center" role="document">
         <div class="modal-content" style="width: auto;">
             <div class="modal-header">
@@ -485,9 +531,12 @@
             </div>
             <div class="modal-footer bg-white border-top py-2 px-3">
 
-                <button type="button" class="btn-sm border-0 m-0 ml-2 rounded close-modal bg-secondary" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                <button type="button" class="btn-sm border-0 m-0 ml-2 rounded close-modal bg-secondary"
+                    data-dismiss="modal" aria-hidden="true">Cancel</button>
                 <!-- <button type="button" class="btn-sm border-0 m-0 ml-2 rounded close-modal bg-secondary" id="confirmDeposit" data-toggle="modal" data-target="#DepositConfirmationModal" data-backdrop="static" data-keyboard="false">confirm</button> -->
-                <button type="button" class="btn-sm border-0 m-0 ml-2 rounded proceed-confirmation-btn" data-dismiss="modal" aria-hidden="true" onmouseover="this.style.opacity=1" onmouseleave="this.style.opacity=.8" style="background-color:#00507a;opacity:.8;">
+                <button type="button" class="btn-sm border-0 m-0 ml-2 rounded proceed-confirmation-btn"
+                    data-dismiss="modal" aria-hidden="true" onmouseover="this.style.opacity=1"
+                    onmouseleave="this.style.opacity=.8" style="background-color:#00507a;opacity:.8;">
                     Proceed
                 </button>
 
@@ -500,8 +549,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $(function() {
+    $(document).ready(function () {
+        $(function () {
             $('[data-toggle="tooltip"]').tooltip()
         })
 
@@ -532,12 +581,12 @@
             scrollCollapse: true,
         });
 
-        $('.search-btn').on('click', function() {
+        $('.search-btn').on('click', function () {
             table.draw();
         });
 
         // Modify the start and end date filtering to only apply to the specific DataTable
-        $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+        $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
             if (settings.nTable.id !== 'myTable') {
                 return true;
             }
@@ -563,12 +612,12 @@
         table.draw();
 
         // Update table on date change
-        $('#startDate, #endDate').on('change', function() {
+        $('#startDate, #endDate').on('change', function () {
             table.draw();
         });
     });
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         var today = new Date();
         var dateString = today.getFullYear() + '-' + (today.getMonth() + 1).toString().padStart(2, '0') + '-' + today.getDate().toString().padStart(2, '0');
         var filename = 'NGSI_E-Collection_' + dateString;
@@ -583,7 +632,7 @@
                 header: true,
                 title: "Electronic Collection",
                 className: 'export-btn',
-                customize: function(xlsx) {
+                customize: function (xlsx) {
                     console.log(xlsx);
                     let sheet = xlsx.xl.worksheets['sheet1.xml'];
                     let downrows = 2;
@@ -598,9 +647,9 @@
                         start: "F3",
                         to: "H3"
                     }
-                ];
+                    ];
 
-                    clRow.each(function() {
+                    clRow.each(function () {
                         let attr = $(this).attr('r');
                         if (attr == 1) return;
                         let ind = parseInt(attr);
@@ -609,7 +658,7 @@
                     });
 
 
-                    $('row c ', sheet).each(function() {
+                    $('row c ', sheet).each(function () {
                         let attr = $(this).attr('r');
                         if (attr == "A1") return;
                         let pre = attr.substring(0, 1);
@@ -668,7 +717,7 @@
             }]
         });
 
-        $('#monthFilter').on('change', function() {
+        $('#monthFilter').on('change', function () {
             var selectedMonth = $(this).val();
             if (selectedMonth === "0") {
                 // Clear the filter completely if "All Months" is selected
@@ -682,7 +731,7 @@
         });
 
         // Modify the month filtering to only apply to the specific DataTable
-        $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+        $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
             if (settings.nTable.id !== 'EcollectTable') {
                 return true;
             }
@@ -720,7 +769,7 @@
         orientation: 'bottom',
     });
     // Modal date filter
-    $('.preview-btn-modal').on('click', function() {
+    $('.preview-btn-modal').on('click', function () {
         var modalStartDate = $('#modal_start_date').val();
         var modalEndDate = $('#modal_end_date').val();
 
@@ -791,7 +840,23 @@
             totalCollection += collection;
 
             // Append row to modal table body
-            modalTableBody.innerHTML += `<tr><td class="text-left" style='width:${100 / 9}%;padding-left:18px;'>${row.date}</td><td class="text-center" style='width:${100 / 9}%;padding-left:18px;'>${row.reference_number}</td><td style='width:${100 / 9}%;padding-left:18px;'>${row.name_of_payor}</td><td style='width:${100 / 9}%;padding-left:18px;'>${row.reference_number}</td><td class="text-right" style='width:${100 / 9}%;'>${CIAPPCAB.toFixed(2)}</td><td class="text-right" style='width:${100 / 9}%;'>${LRF.toFixed(2)}</td><td class="text-right" style='width:${100 / 9}%;'>${DST.toFixed(2)}</td><td class="text-right">${collection.toFixed(2)}</td></tr>`;
+            // Create number formatter instance
+            const formatter = new Intl.NumberFormat('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+            });
+
+            modalTableBody.innerHTML += `<tr>
+            <td class="text-left" style='width:${100 / 9}%;padding-left:18px;'>${row.date}</td>
+            <td class="text-center" style='width:${100 / 9}%;padding-left:18px;'>${row.reference_number}</td>
+            <td style='width:${100 / 9}%;padding-left:18px;'>${row.name_of_payor}</td>
+            <td style='width:${100 / 9}%;padding-left:18px;'>${row.reference_number}</td>
+            <td class="text-right" style='width:${100 / 9}%;'>${formatter.format(CIAPPCAB)}</td>
+            <td class="text-right" style='width:${100 / 9}%;'>${formatter.format(LRF)}</td>
+            <td class="text-right" style='width:${100 / 9}%;'>${formatter.format(DST)}</td>
+            <td class="text-right">${formatter.format(collection)}</td>
+        </tr>`;
+
         });
 
         // Append the new table to the modal body
@@ -801,8 +866,13 @@
 
         // Append totals row to modal table body
         // if ("<?= $_SESSION['usertype'] ?>" == "SUPERADMIN")
-        modalTableBody.innerHTML += `<tr><td class="text-right" colspan="4">Total:</td><td class="text-right">${totalCIAPPCAB.toFixed(2)}</td><td class="text-right">${totalLRF.toFixed(2)}</td><td class="text-right">${totalDST.toFixed(2)}</td><td class="text-right">${totalCollection.toFixed(2)}</td></tr>`;
+        const totalFormatter = new Intl.NumberFormat('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        });
 
+        // Append totals row to modal table body with formatted totals
+        modalTableBody.innerHTML += `<tr><td class="text-right" colspan="4">Total:</td><td class="text-right">${totalFormatter.format(totalCIAPPCAB)}</td><td class="text-right">${totalFormatter.format(totalLRF)}</td><td class="text-right">${totalFormatter.format(totalDST)}</td><td class="text-right">${totalFormatter.format(totalCollection)}</td></tr>`;
         // Append the modal body to the modal content
         modalContent.appendChild(modalBody);
 
@@ -813,7 +883,7 @@
         var modalDialog = $('#Daily_CollectionModal .modal-dialog');
 
         // Remove table content when modal is closed
-        $('#Daily_CollectionModal').on('hidden.bs.modal', function(e) {
+        $('#Daily_CollectionModal').on('hidden.bs.modal', function (e) {
             // Reset form fields
             $('#modal_start_date').val('');
             $('#modal_end_date').val('');
@@ -838,11 +908,11 @@
         });
     });
 
-    $('#modal_start_date, #modal_end_date').on("change", function() {
+    $('#modal_start_date, #modal_end_date').on("change", function () {
         $('#validationMessage').empty();
     });
 
-    $('.download-btn-modal').on('click', function() {
+    $('.download-btn-modal').on('click', function () {
         var modalStartDate = $('#modal_start_date').val();
         var modalEndDate = $('#modal_end_date').val();
 
@@ -858,7 +928,7 @@
     });
 
     // Remove table content when modal is closed
-    $('#Daily_CollectionModal').on('hidden.bs.modal', function(e) {
+    $('#Daily_CollectionModal').on('hidden.bs.modal', function (e) {
         $('#modalDataTableContainer').empty();
 
     });
@@ -875,8 +945,8 @@
             orientation: 'p',
             unit: 'px'
         })
-       
-    
+
+
         let report_number = filteredData[0].report_no;
         let pdf_date = filteredData[0].date;
         let printContent = ``;
@@ -884,8 +954,8 @@
         let rowsPerPage = "";
         let yOffset = 0; // Track vertical position
 
-       
-             // Initialize variables to hold the total amounts
+
+        // Initialize variables to hold the total amounts
         let totalCIAPPCAB = 0;
         let totalLRF = 0;
         let totalDST = 0;
@@ -908,7 +978,7 @@
             totalCollection += collection;
 
             // Append row to modal table body
-          });
+        });
 
 
 
@@ -1159,29 +1229,30 @@
             <div class="col">PCAB fee</div>
         </div>
         <div class="row d-flex pl-5">
-            <div class="col text-capitalize ">Amount<div class="float-right ">:</div></div>
-            <div class="col"> ${Amount.toFixed(2)} </div>
-        </div>
-        <div class="row d-flex pl-5">
-        <div class="col text-capitalize pl-4">PCAB Fee<div class="float-right pr-2">:</div></div>
-            <div class="col"> (${parseFloat(rowData.fees_pcab).toFixed(2)})</div>
-        </div>
-        <div class="row d-flex pl-5">
-            <div class="col text-capitalize pl-4">Legal Research Fee<div class="float-right pr-2">:</div></div>
-            <div class="col"> (${parseFloat(rowData.legal_research_fund).toFixed(2)})</div>
-        </div>
-        <div class="row d-flex pl-5">
-            <div class="col text-capitalize pl-4">Documentary Stamp<div class="float-right pr-2">:</div></div>
-            <div class="col"> (${parseFloat(rowData.document_stamp_tax).toFixed(2)})</div>
-        </div>
-        <div class="row d-flex pl-5">
-            <div class="col text-capitalize ">NGSI Conveniece fee<div class="float-right">:</div></div>
-            <div class="col"> ${parseFloat(rowData.ngsi_convenience_fee).toFixed(2)}</div>
-        </div>
-        <div class="row d-flex pl-5">
-            <div class="col text-capitalize ">Total Amount<div class="float-right ">:</div></div>
-            <div class="col"> ${totalAmount.toFixed(2)} </div>
-        </div>
+    <div class="col text-capitalize ">Amount<div class="float-right ">:</div></div>
+    <div class="col"> ${Amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} </div>
+</div>
+<div class="row d-flex pl-5">
+    <div class="col text-capitalize pl-4">PCAB Fee<div class="float-right pr-2">:</div></div>
+    <div class="col"> (${parseFloat(rowData.fees_pcab).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })})</div>
+</div>
+<div class="row d-flex pl-5">
+    <div class="col text-capitalize pl-4">Legal Research Fee<div class="float-right pr-2">:</div></div>
+    <div class="col"> (${parseFloat(rowData.legal_research_fund).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })})</div>
+</div>
+<div class="row d-flex pl-5">
+    <div class="col text-capitalize pl-4">Documentary Stamp<div class="float-right pr-2">:</div></div>
+    <div class="col"> (${parseFloat(rowData.document_stamp_tax).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })})</div>
+</div>
+<div class="row d-flex pl-5">
+    <div class="col text-capitalize ">NGSI Conveniece fee<div class="float-right">:</div></div>
+    <div class="col"> ${parseFloat(rowData.ngsi_convenience_fee).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+</div>
+<div class="row d-flex pl-5">
+    <div class="col text-capitalize ">Total Amount<div class="float-right ">:</div></div>
+    <div class="col"> ${totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} </div>
+</div>
+
         <div class="row d-flex pl-5">
             <div class="col text-capitalize ">Reference Number<div class="float-right">:</div></div>
             <div class="col"> ${rowData.reference_number}</div>
@@ -1209,7 +1280,7 @@
             html2canvas: {
                 scale: .5
             },
-            callback: async function(doc) {
+            callback: async function (doc) {
                 const date = new Date();
                 await doc.save(`acknowledge-reciept-${date.toLocaleDateString()}.pdf`);
 
@@ -1238,7 +1309,7 @@
 
     const depositTotal = () => {
         let total = 0
-        $("#Submit_deposit #amount input").each(function() {
+        $("#Submit_deposit #amount input").each(function () {
             total += parseFloat(this.value ? this.value.replace(",", "") : 0)
         })
         $("#Submit_deposit .sum-of-deposit p").text(toLocalCurrency(total))
@@ -1259,7 +1330,7 @@
             "balance_document_stamp_tax": "DST",
             "balance_legal_research_fund": "LRF"
         }
-        $("#Submit_deposit label").each(function(key) {
+        $("#Submit_deposit label").each(function (key) {
             if (!key) return;
             const prop = Object.keys(list)[key - 1]
             this.children[0].dataset.mdbOriginalTitle = `Undeposited ${list[prop]} of ${shortDateFormat(data.last_deposit_date)}`;
@@ -1272,11 +1343,11 @@
     let dbTotalCollection = 0;
     let data;
 
-    $("#dateOfDeposit input, #dateRange input").on("click", function() {
+    $("#dateOfDeposit input, #dateRange input").on("click", function () {
         this.showPicker();
     })
 
-    $("#dateRange input").on("input", async function() {
+    $("#dateRange input").on("input", async function () {
         $("#Submit_deposit .message").text("").removeClass("error", "success");
         const body = {
             collection_date_to: $("input[name='collection_date_to'").val(),
@@ -1286,7 +1357,7 @@
         if (new Date(this.value) > new Date((new Date()).getTime() - 86400000)) {
             const _this = this;
             $("#Submit_deposit .message").text(`Date '${this.name.split("_")[2].toUpperCase()}' should not today or further.`).addClass("error");
-            setTimeout(function() {
+            setTimeout(function () {
                 return _this.parentElement.classList.add("error")
             }, 10);
             updateToDepositAmount({}, true)
@@ -1336,7 +1407,7 @@
 
     })
 
-    $("#dateRange input, #referenceNo input, #dateOfDeposit input, #amount input").on("input", function() {
+    $("#dateRange input, #referenceNo input, #dateOfDeposit input, #amount input").on("input", function () {
         if (this.value != "") {
             this.parentElement.classList.add("filled")
             this.parentElement.classList.remove("error")
@@ -1344,7 +1415,7 @@
             this.parentElement.classList.remove("filled", "error")
     })
 
-    $("#amount input").on("blur", function() {
+    $("#amount input").on("blur", function () {
         const regex = /(?:^[1-9]([0-9]+)?(?:\.[0-9]{1,2})?$)|(?:^(?:0)$)|(\.\d)/
         if (this.value != "") {
             if (!regex.test(this.value))
@@ -1357,7 +1428,7 @@
             this.parentElement.classList.remove("error")
         }
     })
-    $("#amount input").on("focus", function() {
+    $("#amount input").on("focus", function () {
         this.value = this.value.replace(',', '')
     })
 
@@ -1380,7 +1451,7 @@
 
     $("#submitDeposit").on("click", (e) => {
         let isInvalid = false
-        $("#Submit_deposit input").each(function() {
+        $("#Submit_deposit input").each(function () {
             let value = this.value
 
             if (this.name == "deposited_date") {
@@ -1436,7 +1507,7 @@
             if (res.status) {
                 $("#Submit_deposit .message").text("Deposit settlement submitted succesfully.").addClass("success");
                 setTimeout(() => {
-                    $(".modal button[data-dismiss=modal").each(function() {
+                    $(".modal button[data-dismiss=modal").each(function () {
                         if (this.classList.contains("proceed-confirmation-btn")) return;
                         this.click()
                     })
