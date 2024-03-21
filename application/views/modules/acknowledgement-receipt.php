@@ -1021,7 +1021,7 @@
 
                     <p style="color:black;margin-top:-20px;">Agency : &nbsp;CONSTRUCTION &nbsp INDUSTRY &nbsp; OF &nbsp; THE &nbsp;PHILIPPINES<p>
 
-                    <p class="text-justify" style="color:black;margin-top:-20px;">Board Phillippines &nbsp; Construction &nbsp; Accreditation &nbsp; board (PCAB)<p>
+                    <p class="text-justify" style="color:black;margin-top:-20px;">Phillippines &nbsp; Construction &nbsp; Accreditation &nbsp; board (PCAB)<p>
 
                     
                     <p class="text-capitalize" style="color:black;margin-top:-20px;">Date : ${pdf_date}<p>
@@ -1076,10 +1076,10 @@
                         <td style="border: 1px solid black;"></td>
                         <td style="border: 1px solid black;"></td>
                         <td style="border: 1px solid black;">Total :</td>
-                        <td style="border: 1px solid black;">${totalCIAPPCAB.toFixed(2) ?? 0.00}</td>
-                        <td style="border: 1px solid black;">${totalLRF.toFixed(2) ?? 0.00}</td>
-                        <td style="border: 1px solid black;">${totalDST.toFixed(2) ?? 0.00}</td>
-                        <td style="border: 1px solid black;">${totalCollection.toFixed(2) ?? 0.00}</td>
+                        <td style="border: 1px solid black;">${totalCIAPPCAB.toLocaleString()}</td>
+                        <td style="border: 1px solid black;">${totalLRF.toLocaleString()}</td>
+                        <td style="border: 1px solid black;">${totalDST.toLocaleString()}</td>
+                        <td style="border: 1px solid black;">${totalCollection.toLocaleString()}</td>
                     </tr>
                 </tfoot>
             </table> 
@@ -1115,19 +1115,23 @@
                       <p style="position:relative;left:11px;margin:0;margin-top:-80px;">Prepared By: </p>
                       <p style="margin-top:60px;margin-left:155px;font-size: 18px; font-family: Arial, Helvetica, sans-serif;z-index:1;position:relative;">
                                             Jeremie Soliveres </p>
-                        <p style=" margin-top:-20px; margin-left: 170px; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
+                      <p style=" margin-top:-20px; margin-left: 170px; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
                                             Accounting Specialist</p>
+                        <p style=" margin-top:-20px; margin-left: 165px; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
+                                            Netglobal Solutions, Inc.</p>
                                     </div>
 
                 <div class="col-sm">
                  <img style="margin-left:13rem; margin-bottom:-15px;" width="35%"
-                                            height="35%" src="assets/images/sir_peter.png" alt="logo"
+                                            height="35%" src="assets/images/sir_peter1.png" alt="logo"
                                             class="logo-dark" />
                   <p style="position:relative;left:5.7rem;margin:0;margin-top:-80px;">Approved By: </p>
                    <p style="margin-top:60px;margin-left: 13.5rem;font-size: 18px; font-family: Arial, Helvetica, sans-serif;">
                    Mischell A. Fernandez</p>
+                     <p style=" margin-top:-20px; margin-left: 280px; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
+                     CIAP</p>
                      <p style=" margin-top:-20px; margin-left: 218px; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
-                     Admin Officer III/Cashier II CIAP</p>
+                     Admin Officer III /Cashier II</p>
                        </div>
 
 
