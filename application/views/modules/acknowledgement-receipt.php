@@ -236,9 +236,8 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="exportModalLabel">E-Collection </h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
+                                            <button type="button" class="close text-right pr-3" data-dismiss="modal"
+                                                aria-hidden="true">&times;</button>
                                         </div>
                                         <div class="modal-body  bg-white pb-3">
                                             <label for="monthFilter">Select Month: </label>
@@ -868,12 +867,12 @@
         // Append totals row to modal table body
         // if ("<?= $_SESSION['usertype'] ?>" == "SUPERADMIN")
         const totalFormatter = new Intl.NumberFormat('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-});
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        });
 
-// Append totals row to modal table body with formatted totals
-modalTableBody.innerHTML += `<tr><td class="text-right" colspan="4">Total:</td><td class="text-right">${totalFormatter.format(totalCIAPPCAB)}</td><td class="text-right">${totalFormatter.format(totalLRF)}</td><td class="text-right">${totalFormatter.format(totalDST)}</td><td class="text-right">${totalFormatter.format(totalCollection)}</td></tr>`;
+        // Append totals row to modal table body with formatted totals
+        modalTableBody.innerHTML += `<tr><td class="text-right" colspan="4">Total:</td><td class="text-right">${totalFormatter.format(totalCIAPPCAB)}</td><td class="text-right">${totalFormatter.format(totalLRF)}</td><td class="text-right">${totalFormatter.format(totalDST)}</td><td class="text-right">${totalFormatter.format(totalCollection)}</td></tr>`;
         // Append the modal body to the modal content
         modalContent.appendChild(modalBody);
 
