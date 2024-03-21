@@ -1128,10 +1128,10 @@
                   <p style="position:relative;left:5.7rem;margin:0;margin-top:-80px;">Approved By: </p>
                    <p style="margin-top:60px;margin-left: 13.5rem;font-size: 18px; font-family: Arial, Helvetica, sans-serif;">
                    Mischell A. Fernandez</p>
-                     <p style=" margin-top:-20px; margin-left: 280px; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
-                     CIAP</p>
-                     <p style=" margin-top:-20px; margin-left: 218px; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
+                     <p style=" margin-top:-20px; margin-left: 233px; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
                      Admin Officer III /Cashier II</p>
+                     <p style=" margin-top:-20px; margin-left: 260px; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
+                     CIAP - PCAB</p>
                        </div>
 
 
