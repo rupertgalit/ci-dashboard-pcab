@@ -1020,8 +1020,7 @@
                     <p class="font-weight-bold" style="color:black;">LIST &nbsp;OF &nbsp;DAILY &nbsp;COLLECTION<p>
 
                     <p style="color:black;margin-top:-20px;">Agency : &nbsp;CONSTRUCTION &nbsp INDUSTRY &nbsp; OF &nbsp; THE &nbsp;PHILIPPINES<p>
-
-                    <p class="text-justify" style="color:black;margin-top:-20px;">Phillippines &nbsp; Construction &nbsp; Accreditation &nbsp; board (PCAB)<p>
+                    <p class="text-justify" style="color:black;margin-top:-20px;">Philippine &nbsp; Contractors &nbsp;&nbsp; Accreditation &nbsp; Board (PCAB)<p>
 
                     
                     <p class="text-capitalize" style="color:black;margin-top:-20px;">Date : ${pdf_date}<p>
