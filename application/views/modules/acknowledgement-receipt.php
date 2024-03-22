@@ -1040,7 +1040,7 @@
                     <p class="font-weight-bold" style="color:black;">LIST &nbsp;OF &nbsp;DAILY &nbsp;COLLECTION<p>
 
                     <p style="color:black;margin-top:-20px;">Agency : &nbsp;CONSTRUCTION &nbsp INDUSTRY &nbsp; OF &nbsp; THE &nbsp;PHILIPPINES<p>
-                    <p class="text-justify" style="color:black;margin-top:-20px;">Philippine &nbsp; Contractors &nbsp;&nbsp; Accreditation &nbsp; Board (PCAB)<p>
+                    <p class="text-justify" style="color:black;margin-top:-20px;">Philippine &nbsp; Contractors &nbsp;&nbsp; Accreditation &nbsp; Board &nbsp;( PCAB )<p>
 
                     
                     <p class="text-capitalize" style="color:black;margin-top:-20px;">Date : ${pdf_date}<p>
@@ -1094,10 +1094,22 @@
                         <td style="border: 1px solid black;"></td>
                         <td style="border: 1px solid black;"></td>
                         <td style="border: 1px solid black;">Total :</td>
-                        <td style="border: 1px solid black;">${totalCIAPPCAB.toLocaleString()}</td>
-                        <td style="border: 1px solid black;">${totalLRF.toLocaleString()}</td>
-                        <td style="border: 1px solid black;">${totalDST.toLocaleString()}</td>
-                        <td style="border: 1px solid black;">${totalCollection.toLocaleString()}</td>
+                        <td style="border: 1px solid black;">${totalCIAPPCAB.toLocaleString(undefined, {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+})}</td>
+                        <td style="border: 1px solid black;">${totalLRF.toLocaleString(undefined, {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+})}</td>
+                        <td style="border: 1px solid black;">${totalDST.toLocaleString(undefined, {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+})}</td>
+                        <td style="border: 1px solid black;">${totalCollection.toLocaleString(undefined, {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+})}</td>
                     </tr>
                 </tfoot>
             </table> 
@@ -1110,10 +1122,23 @@
                 <td  style="  border: 1px solid black;">${row?.reference_number ?? ""}</td>
                 <td  style="  border: 1px solid black;">${row?.name_of_payor ?? ""}</td>
                 <td style="  border: 1px solid black;" >${row?.referenceNumber ?? ""}</td>
-                <td style="  border: 1px solid black;">${row?.fees_pcab ?? ""}</td>
-                <td style="  border: 1px solid black;">${row?.legal_research_fund ?? ""}</td>
-                <td style="  border: 1px solid black;">${row?.document_stamp_tax ?? ""}</td>
-                <td style="  border: 1px solid black;">${parseFloat(parseFloat(row?.fees_pcab ?? 0) + parseFloat(row?.legal_research_fund ?? 0) + parseFloat(row?.document_stamp_tax ?? 0)).toFixed(2)}</td>
+                
+                <td style="  border: 1px solid black;">${parseFloat(parseFloat(row?.fees_pcab ?? 0)).toLocaleString(undefined, {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+})}</td>
+                <td style="  border: 1px solid black;">${parseFloat(parseFloat(row?.legal_research_fund  ?? 0)).toLocaleString(undefined, {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+})}</td>
+                <td style="  border: 1px solid black;">${parseFloat(parseFloat(row?.document_stamp_tax ?? 0)).toLocaleString(undefined, {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+})}</td>
+                <td style="  border: 1px solid black;">${parseFloat(parseFloat(row?.fees_pcab ?? 0) + parseFloat(row?.legal_research_fund ?? 0) + parseFloat(row?.document_stamp_tax ?? 0)).toLocaleString(undefined, {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+})}</td>
             <tr>
             `;
 
