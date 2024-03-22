@@ -1079,10 +1079,9 @@
                         <th>DST</th>
                         <th rowspan="2">Total Collection</th>
                     </tr>
-                    <tr>
-                        <th>Account No.</th>
-                        <th>Account No.</th>
-                        <th>Account No.</th>
+                        <th>Account No.<br/>(0052-1684-30)</th>
+                        <th>Account No.<br/>(3402-2866-00)</th>
+                        <th>Account No.<br/>(3402-2866-19)</th>
                     </tr>
                 </thead>
                 <tbody>
