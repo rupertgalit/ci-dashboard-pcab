@@ -294,18 +294,6 @@
                                                 ?>
 
                                             </tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td style="padding: 8px 10px">Total:</td>
-                                                    <td class='text-right' style="padding: 8px 10px"><?= $fmt->formatCurrency(floatval($total["totalAR"]), "PHP") ?></td>
-                                                    <td class='text-right' style="padding: 8px 10px"><?= $fmt->formatCurrency(floatval($total["totalFee"]), "PHP") ?></td>
-                                                    <td class='text-right' style="padding: 8px 10px"><?= $fmt->formatCurrency(floatval($total["totalDST"]), "PHP") ?></td>
-                                                    <td class='text-right' style="padding: 8px 10px"><?= $fmt->formatCurrency(floatval($total["totalLRF"]), "PHP") ?></td>
-                                                </tr>
-                                            </tfoot>
                                         </table>
                                     </div>
                                     <div class="modal-footer bg-white border-top-0">
@@ -614,9 +602,9 @@
                 className: 'export-btn',
                 exportOptions: {
                     format: {
-                        customizeData(a, b, c) {
-                            console.log(a, b, c)
-                        },
+                        // customizeData(a, b, c) {
+                        //     console.log(a, b, c)
+                        // },
                         // footer(a, b, c) {
                         //     if (b > 3) {
                         //         console.log(b, c, toLocalCurrency(a.replaceAll(",", "")))
@@ -630,6 +618,12 @@
                     let sheet = xlsx.xl.worksheets['sheet1.xml'];
                     let downrows = 2;
                     let clRow = $('row', sheet);
+                    let total = {
+                        ar_total: 0,
+                        pcab: 0,
+                        dst: 0,
+                        lrf: 0
+                    }
                     const cToMerge = [{
                         start: "A2",
                         to: "B2"
@@ -658,6 +652,17 @@
                         ind = ind + downrows;
                         $(this).attr("r", pre + ind);
                     });
+
+                    function collectTotal(total_prop) {
+                        const props = Object.keys(total);
+                        const rows = $("row", sheet.childNodes[0].childNodes[1])
+                        for (let i = 0; i < rows.length; i++) {
+                            const data = $("c v", rows[i])
+                            if (!data.length) continue;
+                            total[total_prop] += parseFloat(data[props.indexOf(total_prop)].textContent)
+                        }
+                        return total[total_prop]
+                    }
 
                     function Addrow(index, data) {
                         msg = '<row r="' + index + '">'
@@ -711,27 +716,27 @@
                         v: 'Total:'
                     }, {
                         k: 'E',
-                        v: toLocalCurrency(100),
+                        v: collectTotal("ar_total"),
                         currency: true
                     }, {
                         k: 'F',
-                        v: toLocalCurrency(100),
+                        v: collectTotal("pcab"),
                         currency: true
                     }, {
                         k: 'G',
-                        v: toLocalCurrency(100),
+                        v: collectTotal("dst"),
                         currency: true
                     }, {
                         k: 'H',
-                        v: toLocalCurrency(100),
+                        v: collectTotal("lrf"),
                         currency: true
                     }]);
 
                     let nodeArray = sheet.childNodes[0].childNodes[1].innerHTML.split("</row>")
                     nodeArray.splice(1, 0, r1, r2)
                     let strNode = nodeArray.join("</row>\n")
-                    sheet.childNodes[0].childNodes[1].innerHTML = strNode;
-                    $("row:last-child c[s=2], row c[s=66]", sheet.childNodes[0].childNodes[1]).attr("s", "62");
+                    sheet.childNodes[0].childNodes[1].innerHTML = strNode + footer.concat("</row>");
+                    $("row:last-child c[s=2], row c[s=66], row c[s=64]", sheet.childNodes[0].childNodes[1]).attr("s", "62");
                 }
             }]
         });
@@ -865,7 +870,6 @@
                 maximumFractionDigits: 2,
             });
 
-            console.log(row)
             modalTableBody.innerHTML += `<tr>
             <td class="text-left" style='width:${100 / 9}%;padding-left:18px;'>${row.date}</td>
             <td class="text-center" style='width:${100 / 9}%;padding-left:18px;'>${row.ar_no}</td>
