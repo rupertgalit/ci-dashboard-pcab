@@ -122,7 +122,6 @@
     }
 
 
-
     #EcollectTable tr th {
         border-width: 1px 0 1px 1px;
     }
@@ -181,7 +180,7 @@
 
                     <div class=" col-mb-3 mr-3 mt-3">
                         <button class="btn-lg btn-outline-dark rounded border-0" data-toggle="modal" data-target="#Daily_CollectionModal">Daily Collection</button>
-                        <div class="modal fade" id="Daily_CollectionModal" tabindex="-1" role="dialog" aria-labelledby="Daily_CollectionModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="Daily_CollectionModal" tabindex="-1" aria-labelledby="Daily_CollectionModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-sm" role="document">
                                 <div id="DailyCollectModal" class="modal-content">
                                     <div class="modal-header">
@@ -591,6 +590,8 @@
 
         var dataTable = $('#EcollectTable').DataTable({
             dom: 'Bfrtip',
+            // scrollX: '100%',
+            scrollCollapse: true,
             buttons: [{
                 extend: 'excelHtml5',
                 text: 'Export',
@@ -678,7 +679,7 @@
                             }
 
 
-                            msg += `<c t="inlineStr" r="` + (k + index) + `" s="2">`;
+                            msg += `<c t="inlineStr" r="` + (k + index) + `" s='${data[i]['text-right'] ? "52":"2"}'>`;
                             msg += '<is>';
                             msg += '<t>' + v + '</t>';
                             msg += '</is>';
@@ -713,7 +714,8 @@
                     }]);
                     const footer = Addrow(sheet.childNodes[0].childNodes[1].childElementCount + 3, [{
                         k: 'D',
-                        v: 'Total:'
+                        v: 'Total:',
+                        'text-right': true
                     }, {
                         k: 'E',
                         v: collectTotal("ar_total"),
@@ -740,6 +742,7 @@
                 }
             }]
         });
+
 
         $('#monthFilter').on('change', function() {
             var selectedMonth = $(this).val();
@@ -906,17 +909,6 @@
         // Change the modal dialog size with a transition
         var modalDialog = $('#Daily_CollectionModal .modal-dialog');
 
-        // Remove table content when modal is closed
-        $('#Daily_CollectionModal').on('hidden.bs.modal', function(e) {
-            // Reset form fields
-            $('#modal_start_date').val('');
-            $('#modal_end_date').val('');
-            // Clear any validation messages
-            $('#validationMessage').empty();
-            // Clear table content
-            $('#modalDataTableContainer').empty();
-        });
-
         // Ensure that it stays in modal-lg size
         if (!modalDialog.hasClass('modal-lg')) {
             modalDialog.removeClass('modal-sm');
@@ -930,6 +922,19 @@
             scrollX: '90%',
             scrollCollapse: true,
         });
+    });
+
+    // Remove table content when modal is closed
+    $('#Daily_CollectionModal').on('hidden.bs.modal', function(e) {
+        // Reset form fields
+        $('#modal_start_date').val('');
+        $('#modal_end_date').val('');
+        // Clear any validation messages
+        $('#validationMessage').empty();
+        // Clear table content
+        $('#modalDataTableContainer').empty();
+        $(this).attr("role", "dialog")
+        $(".modal-dialog", this).removeClass("modal-lg").addClass("modal-sm")
     });
 
     $('#modal_start_date, #modal_end_date').on("change", function() {
@@ -950,13 +955,6 @@
 
         printDailyReport(modalStartDate, modalEndDate);
     });
-
-    // Remove table content when modal is closed
-    $('#Daily_CollectionModal').on('hidden.bs.modal', function(e) {
-        $('#modalDataTableContainer').empty();
-
-    });
-
 
 
     async function printDailyReport(startDate, endDate) {
@@ -1393,6 +1391,10 @@
     let latest_deposit_data = JSON.parse('<?= json_encode($last_deposit) ?>')
     let dbTotalCollection = 0;
     let data;
+
+    $('#Submit_deposit').on("show.bs.modal", function() {
+        $('#Daily_CollectionModal .close[data-dismiss=modal').click()
+    })
 
     $("#dateOfDeposit input, #dateRange input").on("click", function() {
         this.showPicker();
