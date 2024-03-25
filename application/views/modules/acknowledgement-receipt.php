@@ -580,10 +580,22 @@
         });
 
         var table = $('#myTable').DataTable({
-            dom: '<"pull-left"><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
-            scrollX: '90%',
+            dom: 'Bfrtip',
+            scrollX: '100%',
             scrollCollapse: true,
-            ordering: false // Disable sorting
+            ordering: false,
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    text: 'Export',
+                    filename: 'ACKNOWLEDGEMENT-RECEIPT_Table', // Provide a valid filename here
+                    autoWidth: false, // Set to true or false based on your requirement
+                    header: true, // Set to true or false based on your requirement
+                    footer: true, // Set to true or false based on your requirement
+                    title: "Electronic Collection",
+                    className: 'export-btn',
+                }
+            ],
         });
 
         $('.search-btn').on('click', function () {
@@ -718,7 +730,7 @@
                             }
 
 
-                            msg += `<c t="inlineStr" r="` + (k + index) + `" s='${data[i]['text-right'] ? "52":"2"}'>`;
+                            msg += `<c t="inlineStr" r="` + (k + index) + `" s='${data[i]['text-right'] ? "52" : "2"}'>`;
                             msg += '<is>';
                             msg += '<t>' + v + '</t>';
                             msg += '</is>';
@@ -949,7 +961,7 @@
         var modalDialog = $('#Daily_CollectionModal .modal-dialog');
 
         // Remove table content when modal is closed
-        $('#Daily_CollectionModal').on('hidden.bs.modal', function(e) {
+        $('#Daily_CollectionModal').on('hidden.bs.modal', function (e) {
             // Reset form fields
             $('#modal_start_date').val('');
             $('#modal_end_date').val('');
@@ -975,7 +987,7 @@
     });
 
     // Remove table content when modal is closed
-    $('#Daily_CollectionModal').on('hidden.bs.modal', function(e) {
+    $('#Daily_CollectionModal').on('hidden.bs.modal', function (e) {
         // Reset form fields
         $('#modal_start_date').val('');
         $('#modal_end_date').val('');
@@ -1007,7 +1019,7 @@
     });
 
     // Remove table content when modal is closed
-    $('#Daily_CollectionModal').on('hidden.bs.modal', function(e) {
+    $('#Daily_CollectionModal').on('hidden.bs.modal', function (e) {
         $('#modalDataTableContainer').empty();
 
     });
@@ -1449,7 +1461,7 @@
     let dbTotalCollection = 0;
     let data;
 
-    $('#Submit_deposit').on("show.bs.modal", function() {
+    $('#Submit_deposit').on("show.bs.modal", function () {
         $('#Daily_CollectionModal .close[data-dismiss=modal').click()
     })
 
