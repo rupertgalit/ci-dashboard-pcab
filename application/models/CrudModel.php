@@ -49,7 +49,7 @@ class CrudModel extends CI_Model
     public function all_deposit_data()
     {
 
-        $sql = 'SELECT * FROM tbl_deposit   ORDER BY dep_id DESC';
+        $sql = 'SELECT * FROM tbl_deposit   ORDER BY deposited_date DESC';
         $Q = $this->db->query($sql);
         return $Q->row_array() ? $Q->result_array() : false;
     }
