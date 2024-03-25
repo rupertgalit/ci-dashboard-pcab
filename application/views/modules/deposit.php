@@ -157,6 +157,7 @@
                     dom: '<"pull-left"b><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
                     scrollX: '80%',
                     scrollCollapse: true,
+                    ordering: false
                 });
 
                 $('[data-toggle="tooltip"]').tooltip({
