@@ -259,7 +259,7 @@
                                                 <thead>
                                                     <tr>
 
-                                                        <th colspan="2" class="text-center">Electronic Acknowledgement
+                                                        <th colspan="3" class="text-center">Electronic Acknowledgement
                                                             Receipt</th>
 
                                                         <th rowspan="3" class="text-center">Payor</th>
@@ -268,8 +268,7 @@
                                                         <th colspan="4" class="text-center">Amount</th>
                                                     </tr>
                                                     <tr>
-                                                        <th rowspan="2" class="text-center">Date<i
-                                                                class="m-0">(mm/dd/yyyy)</i></th>
+                                                        <th rowspan="2" class="text-center">Date & Time</th>
                                                         <th rowspan="2" class="text-center">AR Number</th>
                                                         <th rowspan="2" class="text-center">Total per AR</th>
                                                         <th colspan="3" class="text-center">Breakdown Collection</th>
@@ -288,7 +287,7 @@
                                         $total = ["totalAR" => 0, "totalFee" => 0, "totalDST" => 0, "totalLRF" => 0];
                                         foreach ($data as $row) {
                                             echo "<tr>";
-                                            echo "<td>" . date_format(date_create($row['date']), "m/d/Y") . "</td>";
+                                            echo "<td>" . date_format(date_create($row['date_created']), "m/d/Y H:i:s") . "</td>";
                                             echo "<td>" . $row["ar_no"] . "</td>";
                                             echo "<td>" . $row["name_of_payor"] . "</td>";
                                             echo "<td>" . $row["particulars"] . "</td>";
@@ -350,10 +349,9 @@
 
 
                             <th class="font-weight-bold">Txn. ID</th>
-                            <th class="font-weight-bold">Date<i class="m-0">(mm/dd/yyyy)</i></th>
+                            <th class="font-weight-bold">Date & Time</th>
                             <th class="font-weight-bold">Reference No.</th>
                             <th class="font-weight-bold">Name of Payor</th>
-                            <!-- <th class="font-weight-bold">Mobile No.</th> -->
                             <th class="font-weight-bold">Particular</th>
                             <th class="font-weight-bold">Status</th>
                             <th class="font-weight-bold">PCAB Fee</th>
@@ -376,7 +374,7 @@
 
 
                                 echo "<td>" . $row["trans_id"] . "</td>";
-                                echo "<td>" . date_format(date_create($row['date']), "m/d/Y") . "</td>";
+                                echo "<td>" . date_format(date_create($row['date_created']), "m/d/Y H:i:s") . "</td>";
                                 echo "<td>" . $row["reference_number"] . "</td>";
                                 echo "<td>" . $row["name_of_payor"] . "</td>";
                                 echo "<td>" . $row["particulars"] . "</td>";
@@ -563,7 +561,7 @@
             const year = today.getFullYear();
             const month = (today.getMonth() + 1).toString().padStart(2, '0');
             const day = today.getDate().toString().padStart(2, '0');
-            return `${month}-${day}-${year}`;
+            return `${month}/${day}/${year}`;
         }
 
         // Set default values for start and end date
@@ -594,9 +592,13 @@
                     footer: true, // Set to true or false based on your requirement
                     title: "Electronic Collection",
                     className: 'export-btn',
+                    exportOptions: {
+                        columns: ':not(:last-child)' // Exclude the last column (Action)
+                    }
                 }
             ],
         });
+
 
         $('.search-btn').on('click', function () {
             table.draw();
@@ -925,7 +927,7 @@
             });
 
             modalTableBody.innerHTML += `<tr>
-            <td class="text-left" style='width:${100 / 9}%;padding-left:18px;'>${row.date}</td>
+            <td class="text-left" style='width:${100 / 9}%;padding-left:18px;'>${formatDate(row.date_created)}</td>
             <td class="text-center" style='width:${100 / 9}%;padding-left:18px;'>${row.ar_no}</td>
             <td style='width:${100 / 9}%;padding-left:18px;'>${row.name_of_payor}</td>
             <td style='width:${100 / 9}%;padding-left:18px;'>${row.reference_number}</td>
@@ -934,6 +936,16 @@
             <td class="text-right" style='width:${100 / 9}%;'>${formatter.format(DST)}</td>
             <td class="text-right">${formatter.format(collection)}</td>
         </tr>`;
+
+            function formatDate(dateString) {
+                const date = new Date(dateString);
+                const formattedDate = `${padZero(date.getMonth() + 1)}/${padZero(date.getDate())}/${date.getFullYear()} ${padZero(date.getHours())}:${padZero(date.getMinutes())}:${padZero(date.getSeconds())}`;
+                return formattedDate;
+            }
+
+            function padZero(num) {
+                return (num < 10 ? '0' : '') + num;
+            }
 
         });
 
@@ -1189,7 +1201,7 @@
 
         const content = row => `
             <tr>
-                <td  style="  border: 1px solid black;">${row?.date ?? ""}</td>
+                <td  style="  border: 1px solid black;">${row?.date_created ?? ""}</td>
                 <td  style="  border: 1px solid black;">${row?.reference_number ?? ""}</td>
                 <td  style="  border: 1px solid black;">${row?.name_of_payor ?? ""}</td>
                 <td style="  border: 1px solid black;" >${row?.referenceNumber ?? ""}</td>
@@ -1325,7 +1337,7 @@
                         </div>
                         <div class="row d-flex">
                             <div class="col">Date and Time: </div>
-                            <div class="col">${rowData.date}</div>
+                            <div class="col">${rowData.date_created}</div>
                         </div>
                     </div>
                 </div>

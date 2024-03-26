@@ -206,7 +206,7 @@
                 <thead>
                     <tr>
                         <th class="font-weight-bold">Txn. ID</th>
-                        <th class="font-weight-bold">Date<i class="m-0">(mm/dd/yyyy)</i></th>
+                        <th class="font-weight-bold">Date & Time</th>
                         <th class="font-weight-bold">Reference No.</th>
                         <th class="font-weight-bold">Name of Payor</th>
                         <th class="font-weight-bold">Particular</th>
@@ -230,7 +230,7 @@
                             $date = date_create($row['date']);
                             echo "<tr>";
                             echo "<td>" . $row["trans_id"] . "</td>";
-                            echo "<td>" . date_format(date_create($row['date']), "m/d/Y") . "</td>";
+                            echo "<td>" . date_format(date_create($row['date_created']), "m/d/Y H:i:s") . "</td>";
                             echo "<td>" . $row["reference_number"] . "</td>";
                             echo "<td>" . $row["name_of_payor"] . "</td>";
                             echo "<td>" . $row["particulars"] . "</td>";
