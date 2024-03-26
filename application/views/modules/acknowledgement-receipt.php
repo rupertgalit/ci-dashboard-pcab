@@ -259,7 +259,7 @@
                                                 <thead>
                                                     <tr>
 
-                                                        <th colspan="2" class="text-center">Electronic Acknowledgement
+                                                        <th colspan="3" class="text-center">Electronic Acknowledgement
                                                             Receipt</th>
 
                                                         <th rowspan="3" class="text-center">Payor</th>
@@ -268,8 +268,7 @@
                                                         <th colspan="4" class="text-center">Amount</th>
                                                     </tr>
                                                     <tr>
-                                                        <th rowspan="2" class="text-center">Date<i
-                                                                class="m-0">(mm/dd/yyyy)</i></th>
+                                                        <th rowspan="2" class="text-center">Date & Time</th>
                                                         <th rowspan="2" class="text-center">AR Number</th>
                                                         <th rowspan="2" class="text-center">Total per AR</th>
                                                         <th colspan="3" class="text-center">Breakdown Collection</th>
@@ -288,7 +287,7 @@
                                         $total = ["totalAR" => 0, "totalFee" => 0, "totalDST" => 0, "totalLRF" => 0];
                                         foreach ($data as $row) {
                                             echo "<tr>";
-                                            echo "<td>" . date_format(date_create($row['date']), "m/d/Y") . "</td>";
+                                            echo "<td>" . date_format(date_create($row['date_created']), "m/d/Y H:i:s") . "</td>";
                                             echo "<td>" . $row["ar_no"] . "</td>";
                                             echo "<td>" . $row["name_of_payor"] . "</td>";
                                             echo "<td>" . $row["particulars"] . "</td>";
@@ -350,10 +349,9 @@
 
 
                             <th class="font-weight-bold">Txn. ID</th>
-                            <th class="font-weight-bold">Date<i class="m-0">(mm/dd/yyyy)</i></th>
+                            <th class="font-weight-bold">Date & Time</th>
                             <th class="font-weight-bold">Reference No.</th>
                             <th class="font-weight-bold">Name of Payor</th>
-                            <!-- <th class="font-weight-bold">Mobile No.</th> -->
                             <th class="font-weight-bold">Particular</th>
                             <th class="font-weight-bold">Status</th>
                             <th class="font-weight-bold">PCAB Fee</th>
@@ -376,7 +374,7 @@
 
 
                                 echo "<td>" . $row["trans_id"] . "</td>";
-                                echo "<td>" . date_format(date_create($row['date']), "m/d/Y") . "</td>";
+                                echo "<td>" . date_format(date_create($row['date_created']), "m/d/Y H:i:s") . "</td>";
                                 echo "<td>" . $row["reference_number"] . "</td>";
                                 echo "<td>" . $row["name_of_payor"] . "</td>";
                                 echo "<td>" . $row["particulars"] . "</td>";
@@ -563,7 +561,7 @@
             const year = today.getFullYear();
             const month = (today.getMonth() + 1).toString().padStart(2, '0');
             const day = today.getDate().toString().padStart(2, '0');
-            return `${month}-${day}-${year}`;
+            return `${month}/${day}/${year}`;
         }
 
         // Set default values for start and end date
@@ -580,11 +578,27 @@
         });
 
         var table = $('#myTable').DataTable({
-            dom: '<"pull-left"><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
-            scrollX: '90%',
+            dom: 'Bfrtip',
+            scrollX: '100%',
             scrollCollapse: true,
-            ordering: false // Disable sorting
+            ordering: false,
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    text: 'Export',
+                    filename: 'ACKNOWLEDGEMENT-RECEIPT_Table', // Provide a valid filename here
+                    autoWidth: false, // Set to true or false based on your requirement
+                    header: true, // Set to true or false based on your requirement
+                    footer: true, // Set to true or false based on your requirement
+                    title: "Electronic Collection",
+                    className: 'export-btn',
+                    exportOptions: {
+                        columns: ':not(:last-child)' // Exclude the last column (Action)
+                    }
+                }
+            ],
         });
+
 
         $('.search-btn').on('click', function () {
             table.draw();
@@ -718,7 +732,7 @@
                             }
 
 
-                            msg += `<c t="inlineStr" r="` + (k + index) + `" s='${data[i]['text-right'] ? "52":"2"}'>`;
+                            msg += `<c t="inlineStr" r="` + (k + index) + `" s='${data[i]['text-right'] ? "52" : "2"}'>`;
                             msg += '<is>';
                             msg += '<t>' + v + '</t>';
                             msg += '</is>';
@@ -913,7 +927,7 @@
             });
 
             modalTableBody.innerHTML += `<tr>
-            <td class="text-left" style='width:${100 / 9}%;padding-left:18px;'>${row.date}</td>
+            <td class="text-left" style='width:${100 / 9}%;padding-left:18px;'>${formatDate(row.date_created)}</td>
             <td class="text-center" style='width:${100 / 9}%;padding-left:18px;'>${row.ar_no}</td>
             <td style='width:${100 / 9}%;padding-left:18px;'>${row.name_of_payor}</td>
             <td style='width:${100 / 9}%;padding-left:18px;'>${row.reference_number}</td>
@@ -922,6 +936,16 @@
             <td class="text-right" style='width:${100 / 9}%;'>${formatter.format(DST)}</td>
             <td class="text-right">${formatter.format(collection)}</td>
         </tr>`;
+
+            function formatDate(dateString) {
+                const date = new Date(dateString);
+                const formattedDate = `${padZero(date.getMonth() + 1)}/${padZero(date.getDate())}/${date.getFullYear()} ${padZero(date.getHours())}:${padZero(date.getMinutes())}:${padZero(date.getSeconds())}`;
+                return formattedDate;
+            }
+
+            function padZero(num) {
+                return (num < 10 ? '0' : '') + num;
+            }
 
         });
 
@@ -949,7 +973,7 @@
         var modalDialog = $('#Daily_CollectionModal .modal-dialog');
 
         // Remove table content when modal is closed
-        $('#Daily_CollectionModal').on('hidden.bs.modal', function(e) {
+        $('#Daily_CollectionModal').on('hidden.bs.modal', function (e) {
             // Reset form fields
             $('#modal_start_date').val('');
             $('#modal_end_date').val('');
@@ -975,7 +999,7 @@
     });
 
     // Remove table content when modal is closed
-    $('#Daily_CollectionModal').on('hidden.bs.modal', function(e) {
+    $('#Daily_CollectionModal').on('hidden.bs.modal', function (e) {
         // Reset form fields
         $('#modal_start_date').val('');
         $('#modal_end_date').val('');
@@ -1007,7 +1031,7 @@
     });
 
     // Remove table content when modal is closed
-    $('#Daily_CollectionModal').on('hidden.bs.modal', function(e) {
+    $('#Daily_CollectionModal').on('hidden.bs.modal', function (e) {
         $('#modalDataTableContainer').empty();
 
     });
@@ -1177,7 +1201,7 @@
 
         const content = row => `
             <tr>
-                <td  style="  border: 1px solid black;">${row?.date ?? ""}</td>
+                <td  style="  border: 1px solid black;">${row?.date_created ?? ""}</td>
                 <td  style="  border: 1px solid black;">${row?.reference_number ?? ""}</td>
                 <td  style="  border: 1px solid black;">${row?.name_of_payor ?? ""}</td>
                 <td style="  border: 1px solid black;" >${row?.referenceNumber ?? ""}</td>
@@ -1313,7 +1337,7 @@
                         </div>
                         <div class="row d-flex">
                             <div class="col">Date and Time: </div>
-                            <div class="col">${rowData.date}</div>
+                            <div class="col">${rowData.date_created}</div>
                         </div>
                     </div>
                 </div>
@@ -1449,7 +1473,7 @@
     let dbTotalCollection = 0;
     let data;
 
-    $('#Submit_deposit').on("show.bs.modal", function() {
+    $('#Submit_deposit').on("show.bs.modal", function () {
         $('#Daily_CollectionModal .close[data-dismiss=modal').click()
     })
 

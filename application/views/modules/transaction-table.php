@@ -180,7 +180,9 @@
                     <div class="form-group">
                         <label for="startDate" class="date-label">Start Date:</label>
                         <div class="input-group date date-input-group" id="startDatePicker">
-                            <input type="text" class="form-control" name="startDate" id="startDate" style="z-index: 2; background:#fff;border:1px solid black; cursor:pointer;" readonly placeholder="mm /dd /yyyy">
+                            <input type="text" class="form-control" name="startDate" id="startDate"
+                                style="z-index: 2; background:#fff;border:1px solid black; cursor:pointer;" readonly
+                                placeholder="mm /dd /yyyy">
                             <span class="input-group-addon" id="startDateIcon">
                                 <i class="glyphicon glyphicon-calendar"></i>
                             </span>
@@ -188,14 +190,15 @@
 
                         <label for="endDate" class="date-label">End Date:</label>
                         <div class="input-group date date-input-group" id="endDatePicker">
-                            <input type="text" class="form-control" name="endDate" id="endDate" style="background:#fff;border:1px solid black;cursor:pointer;" readonly placeholder="mm /dd / yyyy">
+                            <input type="text" class="form-control" name="endDate" id="endDate"
+                                style="background:#fff;border:1px solid black;cursor:pointer;" readonly
+                                placeholder="mm /dd / yyyy">
                             <span class="input-group-addon" id="endDateIcon">
                                 <i class="glyphicon glyphicon-calendar"></i>
                             </span>
                         </div>
                     </div>
 
-                    <!-- Button 2 Trigger -->
                 </div>
             </div>
 
@@ -203,7 +206,7 @@
                 <thead>
                     <tr>
                         <th class="font-weight-bold">Txn. ID</th>
-                        <th class="font-weight-bold">Date<i class="m-0">(mm/dd/yyyy)</i></th>
+                        <th class="font-weight-bold">Date & Time</th>
                         <th class="font-weight-bold">Reference No.</th>
                         <th class="font-weight-bold">Name of Payor</th>
                         <th class="font-weight-bold">Particular</th>
@@ -220,14 +223,14 @@
 
                     $fmt = new NumberFormatter('en-US', NumberFormatter::CURRENCY);
                     $fmt->setPattern(str_replace('¤#', "", $fmt->getPattern()));
-                    if (empty($data)) {
+                    if (empty ($data)) {
                         // echo "<tr><td colspan='11'>No data available</td></tr>";
                     } else {
                         foreach ($data as $row) {
                             $date = date_create($row['date']);
                             echo "<tr>";
                             echo "<td>" . $row["trans_id"] . "</td>";
-                            echo "<td>" . date_format(date_create($row['date']), "m/d/Y") . "</td>";
+                            echo "<td>" . date_format(date_create($row['date_created']), "m/d/Y H:i:s") . "</td>";
                             echo "<td>" . $row["reference_number"] . "</td>";
                             echo "<td>" . $row["name_of_payor"] . "</td>";
                             echo "<td>" . $row["particulars"] . "</td>";
@@ -248,44 +251,57 @@
     </div>
 </div>
 
-
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         function getCurrentDate() {
             const today = new Date();
             const year = today.getFullYear();
             const month = (today.getMonth() + 1).toString().padStart(2, '0');
             const day = today.getDate().toString().padStart(2, '0');
-            return `${month}-${day}-${year}`;
+            return `${year}-${month}-${day}`; // Adjusted date format
         }
 
         $('#startDate').val(getCurrentDate());
         $('#endDate').val(getCurrentDate());
 
         $('#startDate, #endDate').datepicker({
-            format: 'mm-dd-yyyy',
+            format: 'yyyy-mm-dd', // Adjusted date format
             autoclose: true,
             todayHighlight: true,
             clearBtn: true,
             orientation: 'bottom',
         });
-
         var table = $('#myTable').DataTable({
-            dom: '<"pull-left"b><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
-            scrollX: '90%',
+            dom: 'Bfrtip',
+            scrollX: '100%',
             scrollCollapse: true,
-            ordering: false
+            ordering: false,
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    text: 'Export',
+                    filename: 'Transaction_Table', // Provide a valid filename here
+                    autoWidth: false, // Set to true or false based on your requirement
+                    header: true, // Set to true or false based on your requirement
+                    footer: true, // Set to true or false based on your requirement
+                    title: "Electronic Collection",
+                    className: 'export-btn',
+                }
+            ],
         });
 
-        $('#startDate, #endDate').on('change', function() {
+
+
+        $('#startDate, #endDate').on('change', function () {
             table.draw();
         });
 
-        $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+        $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
             var startDate = $('#startDate').val();
             var endDate = $('#endDate').val();
             var currentDate = new Date(data[1]);
@@ -306,7 +322,7 @@
             return false;
         });
 
-        $('.search-btn').on('click', function() {
+        $('.search-btn').on('click', function () {
             table.draw();
         });
     });

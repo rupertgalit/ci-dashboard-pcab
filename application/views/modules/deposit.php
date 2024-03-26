@@ -38,7 +38,7 @@
                             <th rowspan="2" style="width: 10rem!important;" class="text-center">Action</th>
                         </tr>
                         <tr>
-                            <th>Date <i class="m-0">(mm/dd/yyyy)</i></th>
+                            <th>Date & Time</th>
                             <th>Undeposited Amount</th>
                             <th>Date From <i class="m-0">(mm/dd/yyyy)</i></th>
                             <th>Date To <i class="m-0">(mm/dd/yyyy)</i></th>
@@ -64,7 +64,7 @@
                                     (float) $row["document_stamp_tax"] +
                                     (float) $row["fees_pcab"];
                                 echo "<tr>";
-                                echo "<td>" .  date_format(date_create($row["last_date"]), "m/d/Y") . "</td>";
+                                echo "<td>" .  date_format(date_create($row["date"]), "m/d/Y H:i:s") . "</td>";
                                 echo "<td class='text-right'>&#8369; " . ($row["last_txn_amont"] != "" ? $fmt->formatCurrency(floatval($row["last_txn_amont"]), false) : "0.00") . "</td>";
                                 echo "<td>" .  date_format(date_create($row["date_from"]), "m/d/Y") . "</td>";
                                 echo "<td>" .  date_format(date_create($row["date_to"]), "m/d/Y") . "</td>";
