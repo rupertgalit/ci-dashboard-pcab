@@ -142,7 +142,7 @@ class Middleware extends REST_Controller
         // ], Rest_Controller::HTTP_UNAUTHORIZED );
         // }
 
-        $report_no=date('Y').'-001';
+        $report_no=date('Y').'-012';
           $chk_report_no=       $this->model->select_report_no();
           if($chk_report_no == false ){
                $report_no_data= $report_no;
