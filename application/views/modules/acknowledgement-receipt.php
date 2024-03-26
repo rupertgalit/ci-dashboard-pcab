@@ -268,7 +268,9 @@
                                                         <th colspan="4" class="text-center">Amount</th>
                                                     </tr>
                                                     <tr>
-                                                        <th rowspan="2" class="text-center">Date & Time</th>
+                                                    <th rowspan="2" class="text-center">Date<i
+                                                                class="m-0">(mm/dd/yyyy)</i></th>
+                                                        <th rowspan="2" class="text-center">Time</th>
                                                         <th rowspan="2" class="text-center">AR Number</th>
                                                         <th rowspan="2" class="text-center">Total per AR</th>
                                                         <th colspan="3" class="text-center">Breakdown Collection</th>
@@ -287,7 +289,8 @@
                                         $total = ["totalAR" => 0, "totalFee" => 0, "totalDST" => 0, "totalLRF" => 0];
                                         foreach ($data as $row) {
                                             echo "<tr>";
-                                            echo "<td>" . date_format(date_create($row['date_created']), "m/d/Y H:i:s") . "</td>";
+                                            echo "<td>" . date_format(date_create($row['date']), "m/d/Y") . "</td>";
+                                            echo "<td>" . date("H:i:s", strtotime($row["date_created"])) . "</td>"; 
                                             echo "<td>" . $row["ar_no"] . "</td>";
                                             echo "<td>" . $row["name_of_payor"] . "</td>";
                                             echo "<td>" . $row["particulars"] . "</td>";
@@ -349,7 +352,8 @@
 
 
                             <th class="font-weight-bold">Txn. ID</th>
-                            <th class="font-weight-bold">Date & Time</th>
+                            <th class="text-center">Date<i class="m-0">(mm/dd/yyyy)</i></th>
+                            <th class="font-weight-bold">Time</th>
                             <th class="font-weight-bold">Reference No.</th>
                             <th class="font-weight-bold">Name of Payor</th>
                             <th class="font-weight-bold">Particular</th>
@@ -374,7 +378,8 @@
 
 
                                 echo "<td>" . $row["trans_id"] . "</td>";
-                                echo "<td>" . date_format(date_create($row['date_created']), "m/d/Y H:i:s") . "</td>";
+                                echo "<td>" . date_format(date_create($row['date']), "m/d/Y") . "</td>";
+                                echo "<td>" . date("H:i:s", strtotime($row["date_created"])) . "</td>";
                                 echo "<td>" . $row["reference_number"] . "</td>";
                                 echo "<td>" . $row["name_of_payor"] . "</td>";
                                 echo "<td>" . $row["particulars"] . "</td>";
@@ -590,7 +595,6 @@
                     autoWidth: false, // Set to true or false based on your requirement
                     header: true, // Set to true or false based on your requirement
                     footer: true, // Set to true or false based on your requirement
-                    title: "Electronic Collection",
                     className: 'export-btn',
                     exportOptions: {
                         columns: ':not(:last-child)' // Exclude the last column (Action)
