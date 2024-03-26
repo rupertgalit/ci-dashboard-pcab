@@ -208,17 +208,17 @@
                         <th class="font-weight-bold">ID</th>
                         <th class="text-center">Date<i class="m-0">(mm/dd/yyyy)</i></th>
                         <th class="font-weight-bold">Time</th>
-                        <th class="font-weight-bold">Reference No.</th>
-                        <th class="font-weight-bold">Transaction Ref</th>
-                        <th class="font-weight-bold">Txn. ID</th>
-                        <th class="font-weight-bold">Name of Payor</th>
-                        <th class="font-weight-bold">Particular</th>
                         <th class="font-weight-bold">Status</th>
+                        <th class="font-weight-bold">Reference No.</th>
                         <th class="font-weight-bold">PCAB Fee</th>
                         <th class="font-weight-bold">Legal Research Fund</th>
                         <th class="font-weight-bold">Documentary Stamp</th>
                         <th class="font-weight-bold">NGSI Convenience Fee</th>
                         <th class="font-weight-bold">Total Amount</th>
+                        <th class="font-weight-bold">Name of Payor</th>
+                        <th class="font-weight-bold">Particular</th>
+                        <th class="font-weight-bold">Transaction Ref</th>
+                        <th class="font-weight-bold">Txn. ID</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -235,18 +235,18 @@
                             echo "<td>" . $row["trans_id"] . "</td>";
                             echo "<td>" . date_format(date_create($row['date']), "m/d/Y") . "</td>";
                             echo "<td>" . date("H:i:s", strtotime($row["date_created"])) . "</td>";
-                            echo "<td>" . $row["reference_number"] . "</td>";
-                            echo "<td>" . $row["referenceNumber"] . "</td>";
-                            echo "<td>" . $row["TxId"] . "</td>";
-                            echo "<td>" . $row["name_of_payor"] . "</td>";
-                            echo "<td>" . $row["particulars"] . "</td>";
                             echo "<td>" . $row["status"] . "</td>";
+                            echo "<td>" . $row["reference_number"] . "</td>";
                             echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["fees_pcab"]), "") . "</td>";
                             echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["legal_research_fund"]), "") . "</td>";
                             echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["document_stamp_tax"]), "") . "</td>";
                             echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($row["ngsi_convenience_fee"]), "") . "</td>";
                             $total_AR = $row["fees_pcab"] + $row["document_stamp_tax"] + $row["legal_research_fund"] + $row["ngsi_convenience_fee"];
                             echo "<td class='text-right'>&#8369; " . $fmt->formatCurrency(floatval($total_AR), "") . "</td>";
+                            echo "<td>" . $row["name_of_payor"] . "</td>";
+                            echo "<td>" . $row["particulars"] . "</td>";
+                            echo "<td>" . $row["referenceNumber"] . "</td>";
+                            echo "<td>" . $row["TxId"] . "</td>";
                             echo "</tr>";
                         }
                     }
